@@ -10,4 +10,5 @@ then
 fi
 #rm -f autom4te.cache/*
 #rm -r autom4te.cache
-./configure
+./configure "$@"
+

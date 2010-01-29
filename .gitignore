@@ -8,3 +8,8 @@ bin/bashish
 bin/bashishtheme
 man/bashish.1
 man/bashishtheme.1
+Makefile
+bashish.spec
+config.log
+config.status
+data/lib/_bashish_launcher

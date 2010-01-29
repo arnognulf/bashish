@@ -132,11 +132,30 @@ case "${BASHISH_ARGV[0]}" in
 	done
 	for BASHISH_PID in $HOME/.bashish/tmp/*/pid
 	do
-		read PID<$BASHISH_PID
-		kill -9 `cat $BASHISH_PID`
+		if test -f "${BASHISH_PID}"
+		then
+			read PID<$BASHISH_PID
+			kill -9 `cat $BASHISH_PID`
+		fi
 	done
 	rm -rf $HOME/.bashish
-	BASHISH_UNINSTALL_STRING2="Bashish is now removed from your user account. However, it is still available system-wide, consult your package manager on how to completely remove Bashish."
+	BASHISH_UNINSTALL_STRING2="Bashish is now removed from your user account.
+
+However, it is still available system-wide.
+If you installed Bashish by using a package manager, you must remove the bashish package from your system.
+eg:
+For Ubuntu/Debian and similar systems:
+# apt-get remove bashish
+
+For Gentoo:
+# emerge unmerge bashish
+
+For Fedora/Mandriva/SuSE:
+# yum remove bashish
+
+If you installed by source, please _install_ bashish with the same version as you did before, and then run
+# make uninstall
+"
 	#if type -p dialog
 	#then
 	#	dialog --msgbox "$BASHISH_UNINSTALL_STRING2" 0 0
