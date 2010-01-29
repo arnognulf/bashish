@@ -34,7 +34,7 @@ PS4='+ '
 ## load the fallback prompt to memory
 case "$SHELLNAME" in
 bash)
-	PS1='\s-\v\$'
+	PS1='\s-\v\$ '
 	unset PROMPT_COMMAND
 ;;
 zsh)
