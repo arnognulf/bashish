@@ -51,6 +51,3 @@ zsh)
 	*) PS1='$ ';;
 	esac
 esac
-
-## restore terminal scrolling region (CSR) and clear
-printf "\033[r\033[H\033[2J"

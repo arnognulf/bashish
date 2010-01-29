@@ -7,9 +7,7 @@ Also, feature-wishes go here :)
 
 bashish-2.2.2
 -------------
-warn about abi breakage.
-prompt -> _bashish_promptcmd()
-check occurences of prompt() in theme
+clean up PROMPT_COMMAND in loadprompt?
 
 prompt()
 title()

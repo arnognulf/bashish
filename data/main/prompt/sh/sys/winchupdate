@@ -40,10 +40,10 @@ _bashish_promptupdate ()
 		bashish
 		hash -r
 	}
-	test -f "$HOME/.bashish/bt/prompt/prompt.$SHELLNAME" || {
-		_bashish_module sys/clearprompt
-		return 0
-	}
+	_bashish_module sys/clearprompt
+
+	test -f "$HOME/.bashish/bt/prompt/prompt.$SHELLNAME"||return 0
+	
 	## a small delay makes the term settle down before reloading the prompt
 	sleep 0.5
 

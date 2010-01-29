@@ -31,7 +31,10 @@ function _bashish_update
 		case "$SHPIDFILE" in
 		*/\*/shpid) return 0;;
 		esac
-		read SHPID <"$SHPIDFILE"
-		kill -s WINCH "$SHPID"
+		if test -f "${SHPIDFILE}"
+		then
+			read SHPID <"$SHPIDFILE"
+			kill -s WINCH "$SHPID" 2>/dev/null
+		fi
 	done
 }
