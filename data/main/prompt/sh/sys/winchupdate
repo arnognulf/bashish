@@ -32,7 +32,7 @@
 printf "$$" >$HOME/.bashish/tmp/${TTY##*/}/shpid
 
 ## load the fallback prompt to memory
-promptupdate ()
+_bashish_promptupdate ()
 {
 	## check if the theme is unsynced with the latest theme in 
 	## bashishtheme, if so, force a theme update
@@ -48,16 +48,16 @@ promptupdate ()
 	sleep 0.5
 
 	## load the fallback prompt to memory
-	. $HOME/.bashish/bt/defaults/prompt.$SHELLNAME
+	test -f "$HOME/.bashish/bt/defaults/prompt.$SHELLNAME" && . "$HOME/.bashish/bt/defaults/prompt.$SHELLNAME"
 	
 	## load config defaults
-	. "$HOME/.bashish/bt/prompt/conf.sh"
+	test -f "$HOME/.bashish/bt/prompt/conf.sh" && . "$HOME/.bashish/bt/prompt/conf.sh"
 
 	## continue loading if prompt is loaded cleanly
-	. "$HOME/.bashish/bt/prompt/prompt.$SHELLNAME"
+	test -f "$HOME/.bashish/bt/prompt/prompt.$SHELLNAME" && . "$HOME/.bashish/bt/prompt/prompt.$SHELLNAME"
 	
 	## prompt overrides
-	. $HOME/.bashish/bt/overrides/prompt.$SHELLNAME
+	test -f "$HOME/.bashish/bt/overrides/prompt.$SHELLNAME" && . "$HOME/.bashish/bt/overrides/prompt.$SHELLNAME"
 
 	if test "x$BASH" != x
 	then
@@ -70,8 +70,8 @@ promptupdate ()
 
 if test "x$BASH" != x
 then
-	trap "PROMPT_COMMAND=\"unset PROMPT_COMMAND;promptupdate\"" WINCH
+	trap "PROMPT_COMMAND=\"unset PROMPT_COMMAND;_bashish_promptupdate\"" WINCH
 elif test "x$ZSH_NAME" != x
 then
-	trap "precmd () { unset -f precmd; promptupdate;}" WINCH	
+	trap "precmd () { unset -f precmd; _bashish_promptupdate;}" WINCH	
 fi
