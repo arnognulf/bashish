@@ -1,0 +1,11 @@
+#!/bin/bash
+#########
+
+## removes startup files modifications
+
+## remove automatic startup
+for i in $HOME/.bashrc $HOME/.zshrc $HOME/.zlogin $HOME/.profile.ksh $HOME/.bash_profile $HOME/.profile ;do
+test -f $i && cat $i 2>/dev/null| grep -v '## automaticly added by bashish' 1>$i.new
+test -f $i && mv $i.new $i
+done
+

@@ -1,0 +1,40 @@
+#!/bin/bash
+
+##
+##
+##
+## Sets the variables FILES, DIRS and SIZE
+##
+## if called with the arguments "files", "size" or "dirs" it will answer them accordingly
+
+function _bashish_prompt_dirinfo
+{
+	typeset IFS=" 	" ARGS=""
+	FILES=0
+	DIRS=0
+	SIZE=0
+	for SIZE in `du --max-depth=0 -h`
+	do
+		break
+	done
+	unset IFS
+	for FILE in *
+	do
+		test "x$FILE" = "x*" && break
+		test -f "$FILE" && let FILES++
+		test -d "$FILE" && let DIRS++
+	done
+	for ARGS in "$@"
+	do
+		test "x$ARGS" = x && break
+		case $ARGS in
+		pipes) printf "$PIPES";;
+		dirs) printf "$DIRS";;
+		files) printf "$FILES";;
+		size) printf "$SIZE";;
+		*) printf "$ARGS";;
+		esac
+	done
+	
+}
+_bashish_prompt_dirsize "$@"

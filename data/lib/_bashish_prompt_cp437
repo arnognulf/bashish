@@ -1,0 +1,496 @@
+#!/bin/bash
+##################################################################################
+##
+## notice: you must open this file with UTF-8 encoding, elsewise it will be truncated
+##
+##################################################################################
+##################################################################################
+## Bashish, a console theme engine
+## Copyright (C) 2006 Thomas Eriksson
+##
+## This program is free software; you can redistribute it and/or
+## modify it under the terms of the GNU General Public License
+## as published by the Free Software Foundation; either version 2
+## of the License, or (at your option) any later version.
+##
+## This program is distributed in the hope that it will be useful,
+## but WITHOUT ANY WARRANTY; without even the implied warranty of
+## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+## GNU General Public License for more details.
+## 
+##
+## along with this program; if not, write to the Free Software
+## Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+##################################################################################
+##
+## _bashish_prompt_cp437 is a prompt helper
+##
+## it answers with either a UTF-8 or CP437 character depending on charset.
+##
+## USAGE:
+## _bashish_prompt_cp437 [CP437_NUM]
+##
+## CP437_NUM refers to the character number in the CP437 codepage.
+## By specifying a 2 character number, _bashish_prompt_cp437 interprets
+## the number as hex
+## 
+## several numbers may be given as options delimited by spaces hex.
+## A string containing the translated characters will be printed - without spaces.
+##
+## For a reference codepage, see http://en.wikipedia.org/wiki/Code_page_437 
+##
+##################################################################################
+
+## null function
+function _bashish_prompt_cp437 { :;}
+
+case "$BASHISH_CP" in
+utf8)
+	function _bashish_prompt_cp437 {
+		test "x$2" != x && {
+			for ARG in "$@"
+			do
+				_bashish_prompt_cp437 "$ARG"
+			done
+			return 0
+		}
+
+		## UTF-8 function
+		case "$1" in
+		00) printf "";;
+		01) printf "☺";;
+		02) printf "☻";;
+		03) printf "♥";;
+		04) printf "♦";;
+		05) printf "♣";;
+		06) printf "♠";;
+		07) printf "•";;
+		08) printf "◘";;
+		09) printf "○";;
+		0A) printf "◙";;
+		0B) printf "♂";;
+		0C) printf "♀";;
+		0D) printf "♪";;
+		0E) printf "♫";;
+		0F) printf "☼";;
+		10) printf "►";;
+		11) printf "◄";;
+		12) printf "↕";;
+		13) printf "‼";;
+		14) printf "¶";;
+		15) printf "§";;
+		16) printf "▬";;
+		17) printf "↨";;
+		18) printf "↑";;
+		19) printf "↓";;
+		1A) printf "→";;
+		1B) printf "←";;
+		1C) printf "∟";;
+		1D) printf "↔";;
+		1E) printf "▲";;
+		1F) printf "▼";;
+		7F) printf "⌂";;
+		90) printf "É";;
+		91) printf "æ";;
+		92) printf "Æ";;
+		93) printf "ô";;
+		94) printf "ö";;
+		95) printf "ò";;
+		96) printf "û";;
+		97) printf "ù";;
+		98) printf "ÿ";;
+		99) printf "Ö";;
+		9A) printf "Ü";;
+		9B) printf "¢";;
+		9C) printf "£";;
+		9D) printf "¥";;
+		9E) printf "₧";;
+		9F) printf "ƒ";;
+		A0) printf "á";;
+		A1) printf "í";;
+		A2) printf "ó";;
+		A3) printf "ú";;
+		A4) printf "ñ";;
+		A5) printf "Ñ";;
+		A6) printf "ª";;
+		A7) printf "º";;
+		A8) printf "¿";;
+		A9) printf "⌐";;
+		AA) printf "¬";;
+		AB) printf "½";;
+		AC) printf "¼";;
+		AD) printf "¡";;
+		AE) printf "«";;
+		AF) printf "»";;
+		B0) printf "░";;
+		B1) printf "▒";;
+		B2) printf "▓";;
+		B3) printf "│";;
+		B4) printf "┤";;
+		B5) printf "╡";;
+		B6) printf "╢";;
+		B7) printf "╖";;
+		B8) printf "╕";;
+		B9) printf "╣";;
+		BA) printf "║";;
+		BB) printf "╗";;
+		BC) printf "╝";;
+		BD) printf "╜";;
+		BE) printf "╕";;
+		BF) printf "┐";;
+		C0) printf "└";;
+		C1) printf "┴";;
+		C2) printf "┬";;
+		C3) printf "├";;
+		C4) printf "─";;
+		C5) printf "┼";;
+		C6) printf "╞";;
+		C7) printf "╟";;
+		C8) printf "╚";;
+		C9) printf "╔";;
+		CA) printf "╩";;
+		CB) printf "╦";;
+		CC) printf "╠";;
+		CD) printf "═";;
+		CE) printf "╬";;
+		CF) printf "╧";;
+		D0) printf "╨";;
+		D1) printf "╤";;
+		D2) printf "╥";;
+		D3) printf "╙";;
+		D4) printf "╘";;
+		D5) printf "╒";;
+		D6) printf "╓";;
+		D7) printf "╫";;
+		D8) printf "╪";;
+		D9) printf "┘";;
+		DA) printf "┌";;
+		DB) printf "█";;
+		DC) printf "▄";;
+		DD) printf "▌";;
+		DE) printf "▐";;
+		DF) printf "▀";;
+		E0) printf "α";;
+		E1) printf "ß";;
+		E2) printf "Γ";;
+		E3) printf "π";;
+		E4) printf "Σ";;
+		E5) printf "σ";;
+		E6) printf "µ";;
+		E7) printf "τ";;
+		E8) printf "Φ";;
+		E9) printf "Θ";;
+		EA) printf "Ω";;
+		EB) printf "δ";;
+		EC) printf "∞";;
+		ED) printf "φ";;
+		EE) printf "ε";;
+		EF) printf "∩";;
+		F0) printf "≡";;
+		F1) printf "±";;
+		F2) printf "≥";;
+		F3) printf "≤";;
+		F4) printf "⌠";;
+		F5) printf "⌡";;
+		F6) printf "÷";;
+		F7) printf "≈";;
+		F8) printf "°";;
+		F9) printf "∙";;
+		FA) printf "·";;
+		FB) printf "√";;
+		FC) printf "ⁿ";;
+		FD) printf "²";;
+		FE) printf "■";;
+		FF) printf "";;
+		*) printf "\x$1";;
+		esac
+	}
+;;
+437)
+	function _bashish_prompt_cp437 {
+		test "x$2" != x && {
+			for ARG in "$@"
+			do
+				_bashish_prompt_cp437 "$ARG"
+			done
+			return 0
+		}
+		## CP437 must use G0 charset
+		case "$1" in
+		0*|1*) printf "\033(0";;
+		esac
+		case "$1" in
+		00) printf "";;
+		01) printf "\`";;
+		02) printf "a";;
+		03) printf "b";;
+		04) printf "c";;
+		05) printf "d";;
+		06) printf "e";;
+		07) printf "f";;
+		08) printf "g";;
+		09) printf "h";;
+		0A) printf "i";;
+		0B) printf "j";;
+		0C) printf "k";;
+		0D) printf "l";;
+		0E) printf "m";;
+		0F) printf "n";;
+		10) printf "o";;
+		11) printf "p";;
+		12) printf "q";;
+		13) printf "r";;
+		14) printf "s";;
+		15) printf "t";;
+		16) printf "u";;
+		17) printf "v";;
+		18) printf "w";;
+		19) printf "x";;
+		1A) printf "y";;
+		1B) printf "z";;
+		1C) printf "{";;
+		1D) printf "|";;
+		1E) printf "}";;
+		1F) printf "~";;
+		*) printf "\x$1";;
+		esac
+		case "$1" in
+		0*|1*) printf "\033(B";;
+		esac
+	}
+	;;
+dec|ascii)
+	function _bashish_prompt_cp437 {
+		test "x$2" != x && {
+			for ARG in "$@"
+			do
+				_bashish_prompt_cp437 "$ARG"
+			done
+			return 0
+		}
+
+		if test "x$BASHISH_CP" = xdec
+		then
+			## Use the DEC line drawing characters
+			printf "\033(0"
+			case "$1" in
+			07) printf "~";;
+			08) printf "~";: reverse ;;
+			09) printf "\`";;
+			0A) printf "\`";: reverse ;;
+			1C) printf "m";;
+			9C) printf "}";;
+			A9) printf "l";;
+			AA) printf "k";;
+			B0) printf "a";;
+			B1) printf "a";;
+			B2) printf "a";;
+			B3) printf "x";;
+			B4) printf "u";;
+			B5) printf "u";;
+			B6) printf "u";;
+			B7) printf "k";;
+			B8) printf "k";;
+			B9) printf "u";;
+			BA) printf "x";;
+			BB) printf "k";;
+			BC) printf "j";;
+			BD) printf "j";;
+			BE) printf "k";;
+			BF) printf "k";;
+			C0) printf "m";;
+			C1) printf "v";;
+			C2) printf "w";;
+			C3) printf "t";;
+			C4) printf "q";;
+			C5) printf "n";;
+			C6) printf "t";;
+			C7) printf "t";;
+			C8) printf "m";;
+			C9) printf "l";;
+			CA) printf "v";;
+			CB) printf "w";;
+			CC) printf "t";;
+			CD) printf "q";;
+			CE) printf "n";;
+			CF) printf "v";;
+			D0) printf "v";;
+			D1) printf "w";;
+			D2) printf "w";;
+			D3) printf "m";;
+			D4) printf "m";;
+			D5) printf "l";;
+			D6) printf "l";;
+			D7) printf "n";;
+			D8) printf "j";;
+			D9) printf "j";;
+			DA) printf "l";;
+			DB) printf "a";;
+			DC) printf "a";;
+			DD) printf "a";;
+			DE) printf "a";;
+			DF) printf "a";;
+			E2) printf "l";;
+			E3) printf "{";;	
+			F8) printf "\`";;
+			F9) printf "~";;
+			FA) printf "~";;
+			FE) printf "a";;
+			*) BASHISH_CP=ascii _bashish_prompt_cp437 "$1";;
+			esac
+			printf "\033(B"
+
+		else
+			## ascii emulation
+			case "$1" in
+			00) printf "";;
+			01) printf "o";;
+			02) printf "o";;
+			03) printf "v";;
+			04) printf "¤";;
+			05) printf "b";;
+			06) printf "^";;
+			07) printf "*";;
+			08) printf "*";: reversed;;
+			09) printf "o";;
+			0A) printf "o";: reversed;;
+			0B) printf "d";;
+			0C) printf "q";;
+			0D) printf "F";;
+			0E) printf "H";;
+			0F) printf "*";;
+			10) printf ">";;
+			11) printf "<";;
+			12) printf "|";;
+			13) printf "!";;
+			14) printf "q";;
+			15) printf "$";;
+			16) printf "-";;
+			17) printf "|";;
+			18) printf "|";;
+			19) printf "|";;
+			1A) printf "-";;
+			1B) printf "-";;
+			1C) printf "L";;
+			1D) printf "-";;
+			1E) printf "^";;
+			1F) printf "v";;
+			7F) printf "¤";;
+			90) printf "E";;
+			91) printf "a";;
+			92) printf "A";;
+			93) printf "o";;
+			94) printf "o";;
+			95) printf "o";;
+			96) printf "u";;
+			97) printf "u";;
+			98) printf "y";;
+			99) printf "O";;
+			9A) printf "U";;
+			9B) printf "c";;
+			9C) printf "f";;
+			9D) printf "Y";;
+			9E) printf "P";;
+			9F) printf "f";;
+			A0) printf "a";;
+			A1) printf "i";;
+			A2) printf "o";;
+			A3) printf "u";;
+			A4) printf "n";;
+			A5) printf "N";;
+			A6) printf "a";;
+			A7) printf "o";;
+			A8) printf "?";;
+			A9) printf "F";;
+			AA) printf "\\";;
+			AB) printf "2";;
+			AC) printf "4";;
+			AD) printf "!";;
+			AE) printf "<";;
+			AF) printf ">";;
+			B0) printf " ";: reversed;;
+			B1) printf " ";: reversed;;
+			B2) printf " ";: reversed;;
+			B3) printf "|";;
+			B4) printf "+";;
+			B5) printf "+";;
+			B6) printf "+";;
+			B7) printf "+";;
+			B8) printf "+";;
+			B9) printf "+";;
+			BA) printf "+";;
+			BB) printf ".";;
+			BC) printf "'";;
+			BD) printf "J";;
+			BE) printf "+";;
+			BF) printf "L";;
+			C0) printf "L";;
+			C1) printf "k";;
+			C2) printf "+";;
+			C3) printf "+";;
+			C4) printf "-";;
+			C5) printf "+";;
+			C6) printf "+";;
+			C7) printf "+";;
+			C8) printf "L";;
+			C9) printf "F";;
+			CA) printf "+";;
+			CB) printf "+";;
+			CC) printf "+";;
+			CD) printf "-";;
+			CE) printf "+";;
+			CF) printf "+";;
+			D0) printf "+";;
+			D1) printf "+";;
+			D2) printf "+";;
+			D3) printf "L";;
+			D4) printf "L";;
+			D5) printf "F";;
+			D6) printf "F";;
+			D7) printf "+";;
+			D8) printf "+";;
+			D9) printf "j";;
+			DA) printf "F";;
+			DB) printf " ";: reversed;;
+			DC) printf " ";: reversed;;
+			DD) printf " ";: reversed;;
+			DE) printf " ";: reversed;;
+			DF) printf " ";: reversed;;
+			E0) printf "A";;
+			E1) printf "B";;
+			E2) printf "F";;
+			E3) printf "h";;
+			E4) printf "E";;
+			E5) printf "d";;
+			E6) printf "U";;
+			E7) printf "t";;
+			E8) printf "o";;
+			E9) printf "O";;
+			EA) printf "O";;
+			EB) printf "b";;
+			EC) printf "w";;
+			ED) printf "P";;
+			EE) printf "e";;
+			EF) printf "n";;
+			F0) printf "=";: underline;;
+			F1) printf "+";: underline;;
+			F2) printf ">";: underline;;
+			F3) printf "<";: underline;;
+			F4) printf "f";;
+			F5) printf "j";;
+			F6) printf "+";;
+			F7) printf "~";: underline;;
+			F8) printf "o";;
+			F9) printf "'";;
+			FA) printf "'";;
+			FB) printf "V";;
+			FC) printf "n";;
+			FD) printf "2";;
+			FE) printf " ";: reversed;;
+			FF) printf "";;
+			*) printf "\x$1";;
+			esac
+		fi
+	}
+esac
+_bashish_prompt_cp437 "$@"

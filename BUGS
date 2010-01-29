@@ -1,0 +1,75 @@
+KNOWN BUGS
+----------
+* bashish --configure does not work yet, remove your ~/.bashish and install
+  again if you would like to add another shell.
+
+* ARGV is not used correctly in 'bashish' and 'bashishtheme' commands
+
+* rxvt-beta in ubuntu x86-64 segfaults, discouraged in use with bashish
+
+* rxvt-cvs has problems updating the font if using a pixmap background.
+  This  bug needs further investigation and has thus not been
+  reported to the Rxvt developers.
+
+* Rxvt-cvs clears the screen each time a theme repaint occurs.
+  This bug is reported to the Rxvt developers.
+
+* Eterm versions below 0.9.3 have several color setting bugs. If possible
+  do use the latest version.
+
+* XTerm has resize problems under Sawfish(and others) Fullscreen mode.
+  This has been reported to XTerm maintainer, the bug is currently
+  present as of version 194.
+
+* Suspending with un-theming and re-themeing when returning to the
+  application is only supported on bash:
+  * zsh complains about wrong FD:
+    http://sourceforge.net/tracker/index.php?func=detail&aid=1413647&group_id=4068&atid=104068
+  * pdksh suspends when trying to launch the command
+  * ksh93 ignores if monitor mode is set or not
+  perhaps I'm misunderstanding the "monitor" feature :) please point me to
+  appropiate documentation if that's the case :)
+  there is a workaround in Bashish so monitor mode will not be actived on
+  non-bash shells.
+
+
+Resolved / Workaround
+---------------------
+* Resolved. This bug was because the early code for supporting
+  gnome-terminal would accidently add multiple profiles to the profile_list
+  key in gconf, this is no longer the case since the profiles are named
+  after the ttys.
+
+  bashish might crash gnome-terminal upon starting a new tab, 
+  discussion here: 
+  http://bugzilla.gnome.org/show_bug.cgi?id=167557
+
+"Yet, since the fix is so simple, and (god knows why) somebody's tripped on this
+problem before, I vote for the patch being applied." :)
+
+* The following bug is now mostly killed for Bashish, bashish now traps the WINCH 
+  before the application is started. The delay waiting for the SIGWINCH is roughly 
+  0.4s   on my AMD64 2800+
+
+  Keyboard dysfunction bug with various editors (seen on emacs, joe and vim
+  others will probably be affected too.)
+  When using Gnome-terminal in Metacity with full screen maximization and
+  switching the font so the aspect ratio of the terminal changes, the
+  terminal informs the application by signalling a WINCH signal. 
+  This unfortually happens at application startup, at the same time as the
+  editor tries to set the keyboard to a editor-friendly state with an 'ioctl'.
+  The 'ioctl' does furthermore not get set and keyboard movement keys and
+  control keys will be echoed in the terminal instead of trapped by the
+  editor.
+  By looking at the 'strace' of joe I found that I can reset the terminal to
+  the editor-friendly state by entering 'stty -opost -isig -icanon -echo </dev/pts/3' 
+  (with the affected tty as stdin)
+  
+  This bug has plauged Bashish a long while, it has probably been unseen as
+  no one has expected the programs to accept WINCH at startup.
+  As long as the terminal is able to send WINCH this might affect
+  applications, that means this bug could (and does) affect XTerm, aterm,
+  wterm, rxvt-unicode, rxvt, gnome-terminal.
+  Further discussion here (for 'joe'):
+  http://sourceforge.net/tracker/index.php?func=detail&aid=1413863&group_id=23475&atid=378598
+  I have not found this BUG on Solaris 10, might it be linux specific?

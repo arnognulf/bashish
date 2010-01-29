@@ -1,0 +1,46 @@
+#!/bin/sh
+##################################################################################
+## Bashish, a console theme engine
+## Copyright (C) 2005 Thomas Eriksson
+##
+## This program is free software; you can redistribute it and/or
+## modify it under the terms of the GNU General Public License
+## as published by the Free Software Foundation; either version 2
+## of the License, or (at your option) any later version.
+##
+## This program is distributed in the hope that it will be useful,
+## but WITHOUT ANY WARRANTY; without even the implied warranty of
+## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+## GNU General Public License for more details.
+## 
+## You should have received a copy of the GNU General Public License
+## along with this program; if not, write to the Free Software
+## Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+########################################################
+##
+## This is the helper loader for bashish
+##
+########################################################
+##
+## NOTE! Incomplete, buggy and non-POSIX shells may parse
+## this file, therefor checks are in place to make sure
+## ksh code does not cause errors on non-ksh shells
+##
+######################################################################
+
+_bashish_loadhelpers ()
+{
+	## most helpers are not ported to non-bash shells yet
+	test "x$BASH" = x && return 0
+	unset -f _bashish_loadhelpers
+	case $ZSH_VERSION in
+	4*) emulate -L ksh ;;
+	"") :;;
+	*) return 0;;
+	esac
+	test "x$RANDOM" != x && for LIB in $BASHISHDIR/lib/_bashish_prompt_*
+	do
+		eval "${LIB##*/} () { . \$BASHISHDIR/lib/${LIB##*/} \"\$@\";}"
+	done
+}
+_bashish_loadhelpers

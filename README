@@ -1,0 +1,258 @@
+WELCOME TO BASHISH2
+-------------------
+Index
+-----
+1  About Bashish
+2  What's new for number two?
+3  Getting started
+4  Changing theme
+6  Application themeing
+7  Shell Support
+8  Terminal Support
+9  ASCII-art Prompts
+10 Uninstalling Bashish
+11 Solaris specific notes
+
+
+About Bashish
+-------------
+Bashish is a theme enviroment for text terminals. It can change colors, font,
+transparency and background image on a per-application basis. Additionally
+Bashish supports prompt changing on common shells such as bash, zsh and tcsh.
+
+
+What's new for number two?
+--------------------------
+The second major release of Bashish consists of a major redesign and rewrite.
+It is not theme compatible with older releases.
+
+Highlights of this release include:
+* Cleaner enviroment, no longer use aliases or functions for application theming.
+* Easy-to-use Dialog-based configuration.
+* Multi-shell theme support.
+* Better performance.
+* Less bugs.
+
+For a complete list of the changes from the 1.9 series, check the CHANGES
+document.
+
+
+Getting started
+---------------
+First, run the 'bashish' command, it will ask you which shell you primary
+use and then try to configure automatic loading of bashish on that shell.
+
+Second, restart Bashish.
+
+Bashish should furthermore be configured on the shell you specified, if you
+use an additional shell, run 'bashish --configure'.
+
+After the shell has been restarted, your terminal will appear almost as
+normal. The colors will default to a black background with grey text and 
+ANSI colors with low saturation, your prompt will remain unchanged.
+
+You can now select a theme for each applications and if wanted, one for the
+prompt.
+
+
+Changing theme
+--------------
+Bashish has a slick and easy dialog-based interface for changing themes, 
+it is started by running the 'bashishtheme' command with no options.
+
+
+Application theming
+-------------------
+Application theming works by placing a launcher with the name of the themed 
+command in the search path. The launcher first themes the terminal, 
+then runs the command with the same options as given to itself. And finally,
+when the command has ended its execution (or suspended), the launcher will 
+restore the terminal to the prompt theme.
+
+To the user, this launcher should be totally transparent:
+* It does not use the standard input/output/error, thereby the user can
+  expect normal functionality when using pipes and redirecting input and
+  output.
+* It handles multiple files and filenames with spaces correctly.
+* It returns the same exit code as the launched command.
+* It works even if not connected to a tty (eg. when executed from a GUI)
+* It can be suspended and restarted.
+* It will never launch itself.
+
+To temporary disable theming for one application, set the BASHISH_DISABLED 
+variable, eg:
+
+$ BASHISH_DISABLED=1 joe
+
+to disable theming for all applications in the current tty:
+
+$ BASHISH_DISABLED=1;export BASHISH_DISABLED
+
+in csh run:
+
+% set BASHISH_DISABLED = 1; setenv BASHISH_DISABLED
+
+to re-enable theming run:
+
+$ unset BASHISH_DISABLED
+
+The launcher itself will also disable theming for any of the application
+child processes by setting the BASHISH_DISABLED variable.
+
+
+Modifying defaults and overriding theme parameters
+--------------------------------------------------
+The files $HOME/.bashish/bt/defaults/theme and
+$HOME/.bashish/bt/overrides/theme are well commented and
+are the main customization files for Bashish, the former for
+fallback values if the theme does not set them, the latter is for 
+overriding theme values.
+
+
+Only set title
+--------------
+If you prefer Bashish to stay off colors, fonts and additional settings, and
+only would like Bashish to change title on a per-application basis, start
+Bashish with the '-t' option (eg. in .bashrc: bashish -t)
+
+
+Shell support
+-------------
+Bashish runs independently of the interactive shell in use, thus obscure
+shells as 'lsh' and 'osh' can perfectly be used with application themeing.
+As creating prompts for all supported shells would be a daunting task,
+prompts in general are only avaliable for bash, zsh and tcsh.
+Following are the shells which can automaticly start Bashish upon startup:
+
+bourne shell compatible: ash bash dash ksh93 pdksh posh zsh
+c-shell compatible: csh tcsh
+Friendly Interactive SHell: fish
+dos compatible: lsh
+Old Enhanced Thompson shell: osh
+Plan/9 shell for UNIX: rc
+
+To start Bashish on an unlisted shell, start 'bashish' and insert
+$HOME/.bashish/launcher as the first element in your path.
+
+Shells known not to be able to automaticly start Bashish:
+
+the bourne shell: sh
+sash shell: sash
+
+notes about osh:
+osh does not support prompt changing.
+
+notes about rc:
+In order to load Bashish automaticly, rc needs to be started as a login
+shell (eg. by using the '-l' switch).
+
+notes about lsh:
+Lsh needs to be restarted in order to make it aware of prompt changes.
+In order to make theming in pipes work, one must explicity set the TTY
+variable to the output of 'tty'.
+
+
+Terminal support
+----------------
+Bashish can change theme properties such as colors font and title on the
+following terminals:
+
+Gnome-Terminal
+XTerm
+aterm
+rxvt
+rxvt-unicode
+Linux console
+mlterm
+SGI xwsh
+
+Other Terminals, which Bashish can only set title and color attribute for:
+
+PuTTY
+Cygwin
+Terminal (XFCE)
+terminal.app (GNUStep)
+BeOS Terminal
+PowerShell
+screen
+multi-gnome-terminal
+x3270
+
+Terminals that currently only sets title and color attribute but might get
+better support in the future:
+
+KDE Konsole
+CDE dtterm
+MacOSX Terminal.app (help from AppleScript wizards wanted!)
+
+Terminals which Bashish can not theme at all:
+
+Most hardware terminals such as DEC vt102
+QNX phterm
+
+
+ASCII-art prompts
+-----------------
+To make Bashish display ASCII-art prompts correctly if the locale is not 
+UTF-8, additional fonts with DOS codepage (aka "VGA fonts") must be installed:
+
+Eterm, aterm, XTerm:
+
+ - artwiz-aleczepka font pack (en) http://artwizaleczapka.sourceforge.net/
+   http://sourceforge.net/project/showfiles.php?group_id=95348
+
+Gnome-terminal, Konsole and other terminals capable of using .TTF fonts:
+
+ - ASCII.ttf (named "New") http://www.apollosoft.de/ASCII/indexen.htm
+
+Furthermore, some terminals needs configuring:
+
+PuTTY
+
+ - PuTTY can be set to DOS codepage mode, in the "PuTTY Configuration", go
+   to "Window" -> "Translation".
+   In "Recieved data assumed to be in which character set:"-drop-down menu,
+   select "CP437" and 
+   "Handling of how PuTTY handles line drawing characters"
+   to "Use font in OEM mode only"
+
+   Next, select "Window" -> "Apperance", and select either the bitmap font 
+   "Terminal" which should have the "OEM/DOS" encoding, or the scalable "ASCII"
+   font (below) which should have encoding "Symbol"
+
+Linux console
+
+ - Works out of the Box, however some characters, eg. TAB is not handled
+   correctly, eg. gets typed out as a ring. I am not aware of a solution 
+   to this, other than: switch to UTF-8, switch theme, or use ls -al and
+   live with the behaviour.
+
+If the terminal can not be configured to work in CP437 mode, and/or
+the user uses localized characters. Bashish supports two even more
+compatible - but not as visually pleasing - modes:
+
+Modify the shell-rc (typicly ~/.bashrc):
+and change the value BASHISH_CP=437 to:
+
+BASHISH_CP=dec
+
+which uses the DEC line drawing character set to emulate some of
+the CP437 characters.
+If "dec" charset puts garbage on the screen, one can make bashish output
+regular 7-bit ASCII, by changing the value to:
+
+BASHISH_CP=ascii
+
+Removing Bashish
+----------------
+Remove user configuration and autoloading of Bashish by running 
+'bashish --uninstall'.
+To entirely remove Bashish from your system, consult your package manager
+manual, or if you installed from source: the INSTALL document in the source package.
+
+
+Solaris 10 specific notes
+-------------------------
+You need to add /usr/openwin/bin and /usr/local/bin to your shell specific 
+rc-file (~/.bashrc for bash).
+

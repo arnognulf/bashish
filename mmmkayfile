@@ -1,0 +1,151 @@
+#!/bin/bash
+##################################################################################
+## Bashish, a console theme engine
+## Copyright (C) 2006 Thomas Eriksson
+##
+## This program is free software; you can redistribute it and/or
+## modify it under the terms of the GNU General Public License
+## as published by the Free Software Foundation; either version 2
+## of the License, or (at your option) any later version.
+##
+## This program is distributed in the hope that it will be useful,
+## but WITHOUT ANY WARRANTY; without even the implied warranty of
+## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+## GNU General Public License for more details.
+## 
+## You should have received a copy of the GNU General Public License
+## along with this program; if not, write to the Free Software
+## Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+##################################################################################
+##
+## kids, don't use automake. mmmkay
+##
+######################################
+## _bashish_launcher and bashish-version are not installed if ./configure has not been run
+
+## lisp anyone?
+poormansfind()
+{
+	local FILE
+	for FILE in "$1"/*
+	do
+		if test -d ${FILE}
+		then
+			dirfunc
+			poormansfind ${FILE}
+		elif test -f ${FILE}
+		then
+			case ${FILE} in
+			*/autoload|data/themes/*|data/main/terminal/templates/*|data/bashish-version|*.png|*.kiss|*.dos|*.cmd|*.bat|*/dos/*)MODE=644 filefunc;;
+			data/bashish-version.in|*~|DEADJOE):;;
+			*.in) FILE=${FILE%.in};MODE=755 filefunc;;
+			*) MODE=755 filefunc
+			esac
+		fi
+	done
+}
+
+## install section
+printf "\
+##
+## create bashish directory structure
+##
+install: bashish install-data install-man install-doc
+
+install-data:
+"
+dirfunc ()
+{
+	printf "\t\$(INSTALL) -m 755 -d \$(DESTDIR)\$(pkgdatadir)/${FILE#*/}\n"
+}
+filefunc ()
+{
+	:
+}
+poormansfind data
+dirfunc ()
+{
+	:
+}
+filefunc ()
+{
+	printf "\t\$(INSTALL) -m ${MODE} ${FILE} \$(DESTDIR)\$(pkgdatadir)/${FILE#*/}\n"
+}
+poormansfind data
+
+filefunc ()
+{
+	printf "\t\$(INSTALL) -m 755 ${FILE} \$(DESTDIR)\$(bindir)/${FILE#*/}\n"
+}
+printf "\t\$(INSTALL) -m 755 -d \$(DESTDIR)\$(bindir)\n" 
+poormansfind bin
+
+filefunc ()
+{
+	printf "\t\$(INSTALL) -m 644 ${FILE} \$(DESTDIR)\$(docdir)/${FILE#*/}\n"
+}
+ 
+printf "
+install-doc:
+\t\$(INSTALL) -m 755 -d \$(DESTDIR)\$(docdir)\n"
+#poormansfind doc
+for FILE in README ChangeLog TODO CREDITS BUGS HACKING THEME
+do
+	filefunc
+done
+
+filefunc ()
+{
+	printf "\t\$(INSTALL) -m 644 ${FILE} \$(DESTDIR)\$(mandir)/man1/${FILE#*/}
+"
+}
+
+printf "
+install-man: bashish
+\t\$(INSTALL) -m 755 -d \$(DESTDIR)\$(mandir)
+\t\$(INSTALL) -m 755 -d \$(DESTDIR)\$(mandir)/man1
+"
+
+poormansfind man
+
+## read directories to an array and then scan it backwards for uninstalling
+
+## uninstall section
+printf "##\n## uninstall files\n##\nuninstall:\n"
+
+filefunc ()
+{
+	printf "\trm -f \$(DESTDIR)\$(docdir)/${FILE#*/}\n"
+}
+poormansfind doc
+printf "\trm -r \$(DESTDIR)\$(docdir)\n"
+filefunc ()
+{
+	printf "\trm -f \$(DESTDIR)\$(mandir)/man1/${FILE#*/}\n"
+}
+poormansfind man
+filefunc ()
+{
+	printf "\trm -f \$(DESTDIR)\$(pkgdatadir)/${FILE#*/}\n"
+}
+poormansfind data
+filefunc ()
+{
+	:
+}
+n=0
+dirfunc ()
+{
+	DIRARRAY[$n]=${FILE#*/}
+	let n++
+}
+poormansfind data
+while test $n -gt 0
+do
+	let n--
+	printf "\trm -r \$(DESTDIR)\$(pkgdatadir)/${DIRARRAY[$n]}
+"
+done
+printf "\trm -r \$(DESTDIR)\$(pkgdatadir)
+"
+

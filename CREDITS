@@ -1,0 +1,109 @@
+V2 Credits
+----------
+Bashish2 was mainly developed by Thomas 'arnognulf' Eriksson <arne AT users.sourceforge.net>
+
+Adam Borowski for auditing and ideas about UTF-8
+J.A. Neitzel for testing, suggestions and patches about NetBSD and
+compatibility with his shell, "osh".
+Samuel for testing and suggestions.
+Jakub 'jimmac' Steiner for most included icons.
+Axel Liljencrantz for the autoconf installer of 'fish' which Bashish is
+based upon.
+
+Following are the V1 Credits
+----------------------------
+
+main developement, homepage, documentation, concept and themes
+---------------------------------------------------------------
+arne <arne AT users.sourceforge.com>
+
+developer, themes and additional coding
+---------------------------------------
+lfe <lfe AT post.com>
+
+coding and themes
+-----------------
+Bruno Rodrigues <bruno.rodrigues AT litux.org> -- debian package
+Tom Mahoney <coniptor AT interfold.com>
+ratdog <ratdog AT groupie.org>
+turmio <tj AT sgic.fi>
+darkwalker <darkwalker AT bigfoot.com>
+kabalak <kabalak AT gmx.net>
+
+Code Borrowed from
+------------------
+Gurkan Sengun http://linuks.mine.nu/amiga/
+Erik C. Thauvin www.skytouch.com
+Sergio Vale e Pace (The console title code)
+
+Special thanks to
+-----------------
+To Michael Jennings and the Eterm crew  @  http://www.eterm.org
+Thomas Dickey and the XTerm wizards @ http://dickeys.his.com/xterm
+Geoff Wing and the rxvt guys @ http://www.rxvt.org
+For implementing and fixing akward stuff in their superb terminal emulators!
+
+Also thanks to Janet Casey <jcasey AT gnu.org> for adding Bashish to the 
+GNU Free Software directory at 
+http://www.gnu.org/directory/All_Packages_in_Directory/bashish.html
+
+Bugreports
+----------
+Stephen Gran <steve AT lobefin.net>
+Vikki Roemer <vikki AT 2khiway.net>
+darkspecter AT gentoo.org
+David S. Jackson
+David Burley <dpburley AT ihug.com.au>
+Heiner Steven http://www.shelldorado.com
+
+graphics
+--------
+jimmac for these icons (these icons are part of the Gnome project):
+mm.png	dialog-warning3.png
+mixer-48.png	gnome-terminal.png
+gnu-head.png
+
+http://www.vim.org/:
+vim.png
+
+http://www.bitchx.org/:
+bitchx.png
+
+http://www.icq.com:
+icq.png
+
+http://irssi.sourceforge.net:
+irssi.png
+
+
+themes
+------
+Gurkan Sengun http://linuks.mine.nu/amiga/
+Bernd
+Moise Sunda
+giles <giles AT interlog.com>
+mandrake
+nate
+raster
+Spidey
+jf
+icetrey <trey AT imagin.net>
+James Manning <jmm AT raleigh.ibm.com>
+Jim Foltz <aa204 AT acorn.net>
+BadlandZ <rob AT current.nu>
+Torben Fjerdingstad
+Adam Spiers <adam AT spiers.net>
+tigert <tigert AT gimp.org>
+largo
+huehne
+cyngus <cyngus AT exadus.net>
+dan
+keebler <keebler AT ncal.verio.com>
+Ric Lister <ric AT giccs.georgetown.edu>
+adrian <necrocy AT technologist.com>
+gilbert <tom AT tomgilbert.freeserve.co.uk>
+
+
+-----------------------------------------------
+if you are unlisted or have other comments on your info here:
+contact the bashish crew

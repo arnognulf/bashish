@@ -1,0 +1,72 @@
+#!/bin/bash
+##################################################################################
+## Bashish, a console theme engine
+## Copyright (C) 2005 Thomas Eriksson
+##
+## This program is free software; you can redistribute it and/or
+## modify it under the terms of the GNU General Public License
+## as published by the Free Software Foundation; either version 2
+## of the License, or (at your option) any later version.
+##
+## This program is distributed in the hope that it will be useful,
+## but WITHOUT ANY WARRANTY; without even the implied warranty of
+## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+## GNU General Public License for more details.
+## 
+## You should have received a copy of the GNU General Public License
+## along with this program; if not, write to the Free Software
+## Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+##################################################################################
+
+function _bashish_unpack
+{
+	## set theme name
+	case "$1" in
+	none) THEME=none;;
+	*) _bashish_find "$1"||errorhandler 30
+	esac
+
+	## set themedir
+	THEMEDIR=${HOME}/.bashish/bt/cache/${THEME}
+	mkdir -p ${THEMEDIR}
+
+	DESTDIR=${HOME}/.bashish/bt/prompt
+	test "x${BTAPP}" != x && DESTDIR="$HOME/.bashish/bt/app/${BTAPP##*/}"
+	## theme_prompt ()
+	## create blank prompt and conf files
+	function theme_prompt
+	{
+		typeset SHELLNAME
+		for SHELLNAME in sh bash zsh rc csh fish tcsh
+		do
+			test -f "$THEMEDIR/prompt.$SHELLNAME"||: 1>$THEMEDIR/prompt.$SHELLNAME
+			test -f "$THEMEDIR/conf.$SHELLNAME"||: 1>$THEMEDIR/conf.$SHELLNAME
+		done
+		test -f "$THEMEDIR/conf"||: 1>$THEMEDIR/conf
+	}
+	test -L "${DESTDIR}" && rm "${DESTDIR}"
+	## check for presence of a theme dir and a theme string to load
+	## check for special theme strings
+	case ${THEME} in
+	none)
+		test x$BTAPP = x && {
+			## if $THEMENAME is set to the string "none"
+			## it's theme directory is removed
+			mkdir ${THEMEDIR}
+			printf "function _bashish_theme_none { :;};BASHISH_THEME=none" >${THEMEDIR}/theme
+			theme_prompt
+			ln -s "${THEMEDIR}" "${DESTDIR}"
+	
+		}
+	;;
+	*)
+		## the "-z" flag to tar is a GNU extension
+		## hence a more compatible tar command must be used
+		gzip -cd ${THEMEFILE} |( cd ${THEMEDIR}&&tar xf - )
+		test "x${BTAPP}" = x && theme_prompt
+		RETURN=0
+		ln -s "${THEMEDIR}" "${DESTDIR}"
+	esac
+	_bashish_themedb
+	test x${BTAPP} != x && _bashish_appdb
+}

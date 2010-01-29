@@ -1,0 +1,191 @@
+#!/bin/bash
+#############################################################
+##
+## If this file is changed then 'bashish' must be run
+## for changes to take effect
+##
+#############################################################
+##
+## If you'd like some variables to always be set
+## this is the place you'd like to put them.
+##
+## the same variables as in the bashish themes are supported.
+##
+## for a complete list of what variables are supported, go
+## read VARIABLE_REFERENCE
+##
+#############################################################
+##
+## '##' are treated as descriptional comments
+## the descriptions describe what happens if you uncomment the
+## disabled code
+##
+## '#' are treated as disabled program code
+## remove the '#' before the disabled program code to enable
+##
+#############################################################
+##
+## Suggestions and additions to this file are welcome!
+##
+#############################################################
+
+function _bashish_theme_overrides
+{
+
+## uncomment to disable everything but title text
+#unset CURSORCOLOR BOLDCOLOR FGCOLOR BGCOLOR XFONT FONTNAME FONTSIZE ANSICOLOR_BLACK ANSICOLOR_RED ANSICOLOR_GREEN ANSICOLOR_YELLOW ANSICOLOR_BLUE ANSICOLOR_MAGENTA ANSICOLOR_CYAN ANSICOLOR_WHITE ANSICOLOR_BRIGHTBLACK ANSICOLOR_BRIGHTRED ANSICOLOR_BRIGHTGREEN ANSICOLOR_BRIGHTYELLOW ANSICOLOR_BRIGHTBLUE ANSICOLOR_BRIGHTMAGENTA ANSICOLOR_BRIGHTCYAN ANSICOLOR_BRIGHTWHITE IMAGEFILE IMAGESCALE IMAGELOGO IMAGELOGOSCALE
+
+## default to the $TITLE if icon is still unset
+## everybody wants this behaviour, else the current theme icontext will be used!
+test "x$ICON" = x&& ICON=$TITLE
+
+test "$CURSORCOLOR"||CURSORCOLOR="$FGCOLOR"
+test "$BOLDCOLOR"||BOLDCOLOR="$FGCOLOR"
+test "$UNDERLINECOLOR"||UNDERLINECOLOR="$FGCOLOR"
+
+## ansi foreground and background
+## comment these lines and ugly colors will repaint your nice puTTY, Mac OS X
+## terminal or whatnext. this code disables bashish use of ansi foreground and background
+## colors since these terminals in general have much better color settings.
+#case $TERMNAME in
+#xterm-generic*)
+#	## always normal since screen doesn't fill the background by default
+#	ABGCOLOR=normal
+#	AFGCOLOR=normal
+#;;
+#screen)
+#	## always normal since screen doesn't fill the background by default
+#	ABGCOLOR=normal
+#	AFGCOLOR=normal
+#esac
+
+## terminal size
+##
+## to only let bashish set size up to a certain size
+#test "$SIZE_X" -gt 80 && SIZE_X=80
+#test "$SIZE_Y" -gt 24 && SIZE_X=24
+##
+## specify smallest window size
+#test "$SIZE_X" -lt 40 && SIZE_X=40
+#test "$SIZE_Y" -lt 24 && SIZE_X=24
+##
+## to totally disable resizing, uncomment this line:
+#unset SIZE_X SIZE_Y
+##
+
+## terminal position
+##
+## windows can be made to move around on the desktop, here's to disable
+#unset POSITION_X POSITION_Y
+
+## terminal font
+##
+## disable fonting alltogether
+#unset XFONT
+##
+## force a particular font
+#XFONT=atari-8x8.pcf.gz
+##
+## Choose a fixed 8x16 font for applications - and since I normally speak
+## swedish I'd like a western european charset font
+## for the prompts ascii art is a priority ;)
+## Fixes the font size since windowmanagers easily looses focus when bashish
+## resizes itself, if you want the old behavour back, comment the following
+## two tests
+## ATARI's soft system font which is a breeze to read
+#test "$BASHISH_BTAPP" = 1 &&XFONT=atari-8x16.pcf.gz
+## IBM OS/2's harder-edged font for kewl ASCII pr0mtZ
+#test "$BASHISH_BTAPP" = 0 &&XFONT=os2.pcf.gz
+#XFONT=vga11x19.pcf.gz
+#XFONT=rock18.pcf.gz
+
+## terminal colors
+##
+## disable foreground / background colors
+#unset FGCOLOR BGCOLOR AFGCOLOR ABGCOLOR
+##
+## disable the ansi color changing
+#unset ANSICOLOR_BLACK  \
+#ANSICOLOR_RED \
+#ANSICOLOR_GREEN \
+#ANSICOLOR_YELLOW \
+#ANSICOLOR_BLUE \
+#ANSICOLOR_MAGENTA \
+#ANSICOLOR_CYAN \
+#ANSICOLOR_WHITE \
+#ANSICOLOR_BRIGHTBLACK \
+#ANSICOLOR_BRIGHTRED \
+#ANSICOLOR_BRIGHTGREEN \
+#ANSICOLOR_BRIGHTYELLOW \
+#ANSICOLOR_BRIGHTBLUE \
+#ANSICOLOR_BRIGHTMAGENTA \
+#ANSICOLOR_BRIGHTCYAN \
+#ANSICOLOR_BRIGHTWHITE
+
+## background image
+##
+## never load background images
+#unset IMAGEFILE
+
+## title
+## 
+## disable title (and icon)
+#unset TITLE
+##
+## only disable title in the console
+#case "$TERMNAME" in linux|ansi|bsd) unset TITLE;esac
+
+##
+## For folks who'd like a static title with user, hostname and path.
+## uncomment the following
+##
+#
+# case "$BTAPP" in 
+# "")
+# TITLE='$USER@$HOSTNAME:$PWD'
+# ;;
+# *) TITLE="$USER@$HOSTNAME:$PWD"
+# ;;
+# esac
+
+
+## This is my own configuration section of bashish
+##
+## As Linus Torvalds put it: 
+## "Only wimps use tape backup: _real_ men just upload their important stuff 
+## on ftp, and let the rest of the world mirror it ;)"
+## 
+## It is useful if you want to override fonts for certain applications
+## and have a common font for all prompt themes, to make use of this section
+## change whatever-hostname-i'm-having-today to your own hostname
+
+## I like a huge font, elsewise I find myself sitting 20cm from the screen.
+case "$HOSTNAME" in
+leifbook|seagal)
+## My Fujitsu Siemens 'Oh! Look how cute it is' Lifebook
+## and my AMD64 main system (yes, I toasted the Duron)
+	test "$FONTSIZE" = 12 && FONTSIZE=15
+	case "${BASHISH_ARGV[0]##*/}" in
+	joe|vim|vi|emacs|ed|man|info|less|more)
+		## Highly readable Serif for my editor and manpages
+		FONTNAME="CentSchbook Mono BT"
+		FONTSIZE=15
+		XFONT="-*-fixed-*-*-*-*-16-*-*-*-*-*-*-1"
+	;;
+	pluto)
+		## kick-ass iso8859-1 and UTF-8 translator
+		## used mainly for irssi, the kick-ass irc client
+		## kick-ass font btw
+		FONTNAME="Consolas"
+		FONTSIZE=12
+	;;
+	mplayer|madplay|cplay)
+		## Highly unreadable retro for various media playing
+		FONTNAME="InterruptRequested"
+		FONTSIZE=12
+	esac
+	#XFONT="-artwiz-smoothansi.se-medium-r-normal--13-130-75-75-m-60-iso8859-1"
+
+esac
+
+}

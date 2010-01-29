@@ -1,0 +1,188 @@
+#!/bin/bash
+##################################################################################
+## Bashish, a console theme engine
+## Copyright (C) 2005 Thomas Eriksson
+##
+## This program is free software; you can redistribute it and/or
+## modify it under the terms of the GNU General Public License
+## as published by the Free Software Foundation; either version 2
+## of the License, or (at your option) any later version.
+##
+## This program is distributed in the hope that it will be useful,
+## but WITHOUT ANY WARRANTY; without even the implied warranty of
+## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+## GNU General Public License for more details.
+## 
+## You should have received a copy of the GNU General Public License
+## along with this program; if not, write to the Free Software
+## Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+##################################################################################
+##
+## this file is run the first time bashish is launched by a user
+##
+## it will create the $HOME/.bashish dir and modify an appropiate rc-file 
+## corresponding to the shell set in /etc/passwd
+##
+###############################################################################
+
+BACKTITLE="Bashish user installation"
+TITLE="$BACKTITLE"
+
+## remove user configuration if Bashish 1.x is found
+test -d ${HOME}/.bashish/modules/sh/conf && { 
+echo foo
+read
+rm -rf ${HOME}/.bashish
+}
+## test wether to update bashish or not
+if test -d ${HOME}/.bashish
+then
+	BASHISH_UPDATE_STRING="A new version of Bashish is available.\n\nWould you like to update the user configuration of Bashish?"
+	## test for Bashish1
+	test -f "$HOME/.bashish/bashish-version" && read LOCALVERSION < $HOME/.bashish/bashish-version
+	read GLOBALVERSION < $BASHISHDIR/bashish-version
+	test "x$GLOBALVERSION" = "x$LOCALVERSION" || if type -p dialog 1>/dev/null
+	then
+		dialog --backtitle "$BACKTITLE" --title "$TITLE" --yes-label Update --no-label "Keep old" --yesno "${BASHISH_UPDATE_STRING}" 0 0
+		UPDATE="$?"
+	else
+		printf "\n${0##*/}: $BASHISH_UPDATE_STRING [Y/n]"
+		read ANSWER
+		UPDATE=0
+		case "$ANSWER" in
+		n*|N*) UPDATE=1;;
+		esac
+		
+	fi
+	case "$UPDATE" in
+	42):;;
+	0) rm -rf ${HOME}/.bashish;;
+	*) cp "$BASHISHDIR/bashish-version" "$HOME/.bashish/bashish-version"; exec bashish;;
+	esac
+
+else
+
+	BASHISH_INSTALL_STRING1="Install the Bashish theme engine for your shell?"
+	if type -p dialog 1>/dev/null
+	then
+		dialog  --backtitle "$BACKTITLE" --title "$TITLE" --yes-label Install --no-label Cancel --yesno "$BASHISH_INSTALL_STRING1" 0 0||exit 1
+	else
+		printf "\n${0##*/}: $BASHISH_INSTALL_STRING1 [Y/n]"
+		read ANSWER
+		case "$ANSWER" in
+		n*|N*) printf "\n${0##*/}: Installation aborted\n\n";exit 1 ;;
+		esac
+	fi
+
+fi
+
+## visual hack for dialog
+type -p dialog 1>/dev/null && printf "\033[44m" 
+
+for DIR in / /bt /bt/app /bt/cache /bt/cache/none /bt/overrides /bt/defaults /themes /tmp /launcher
+do
+	mkdir -p $HOME/.bashish$DIR
+done
+ln -sf "$HOME/.bashish/bt/cache/none" "$HOME/.bashish/bt/prompt"
+printf "BASHISH_THEME=none;function _bashish_theme_none { :;}" >$HOME/.bashish/bt/cache/none/theme
+for DIR in defaults overrides
+do
+	for PROMPT_FILE in kiss bash zsh ksh sh csh tcsh fish rc dos
+	do
+		: > $HOME/.bashish/bt/${DIR}/prompt.$PROMPT_FILE
+	done
+done
+for PROMPT_FILE in kiss csh tcsh fish rc dos
+do
+	: > $HOME/.bashish/bt/prompt/prompt.$PROMPT_FILE
+done
+for FILE in $BASHISHDIR/bt/defaults/*
+do
+	cp $FILE $HOME/.bashish/bt/defaults/
+done
+for FILE in $BASHISHDIR/bt/overrides/*
+do
+	cp $FILE $HOME/.bashish/bt/overrides/
+done
+
+## whiz bang autodetection code
+DEFAULT=bash
+for TEST_SHELL in bkiss gkiss rkiss kiss osh mksh bash zsh dash posh dtksh tksh ash sh ksh pdksh ksh93 csh tcsh fish rc es akanga lsh
+do
+	test ${TEST_SHELL##*/} = ${SHELL##*/} && DEFAULT=${TEST_SHELL##*/}
+done
+case ${DEFAULT##*/} in
+bkiss|gkiss|rkiss) DEFAULT=kiss;;
+dash|posh|ksh|pdksh|dtksh|tksh|ksh93|mksh) DEFAULT=sh;;
+akanga) DEFAULT=rc;;
+*) DEFAULT=bash;;
+esac
+
+## this list is semi-sorted
+## it's sorted on popularity (own made-up-statistics) and to some extent relation
+BASHISH_INSTALL_STRING2="Select your primary shell from the list below. Brackets specify the startup-file Bashish will alter."
+if type -p dialog 1>/dev/null
+then
+	dialog  --backtitle "$BACKTITLE" --title "$TITLE" --default-item "$DEFAULT" --menu "$BASHISH_INSTALL_STRING2" 0 0 0 bash "GNU Bash [~/.bashrc]" zsh "Z Shell [~/.zshrc]" sh "Bourne shell compatible [${ENV-\~/.profile]}]" csh "Berkely C-Shell [~/.cshrc]" tcsh "Enhanced C-Shell [~/.tcshrc]" fish "Friendly Interactive SHell [~/.fish]" rc "Plan/9 shell [~/.rcrc]" es "Extensible Shell [~/.esrc]" lsh "DOS like shell [~/.autoexec]" osh "Old Thomson Shell [~/.oshrc]" kiss "keep it simple shell [~/.kissrc]" 2>$HOME/.bashish/tmp/dialogfe||{
+		## clean up
+		rm -rf $HOME/.bashish
+		exit 1
+	}
+	read INPUT <$HOME/.bashish/tmp/dialogfe
+	rm $HOME/.bashish/tmp/dialogfe
+else
+nag ()
+{
+	printf "${0##*/}: $BASHISH_INSTALL_STRING2
+bash:	GNU Bash [~/.bashrc]
+zsh:	Z Shell [~/.zshrc]
+sh:	Bourne shell compatible [${ENV-\~/.profile]}]
+csh:	Berkely C-Shell [~/.cshrc]
+tcsh:	Enhanced C-Shell [~/.tcshrc]
+fish:	Friendly Interactive SHell [~/.fish]
+rc:	Plan/9 shell [~/.rcrc]
+es:	Extensible Shell [~/.esrc]
+lsh:	DOS like shell [~/.autoexec]
+osh:	Old Thomson Shell [~/.oshrc]
+kiss:	keep it simple shell [~/.kissrc]
+	
+Press [ENTER] to select [$DEFAULT] or specify another shell:"
+	read INPUT
+	case "$INPUT" in
+	bash|zsh|sh|csh|tcsh|ksh|fish|rc|lsh|es|osh|kiss) :;;
+	"") INPUT="$DEFAULT";;
+	*) printf "bashish: Invalid input\n";nag;;
+	esac
+}
+nag
+unset -f nag	
+fi
+## visual hack for dialog
+type -p dialog 1>/dev/null && printf "\033[44m"
+
+
+
+_bashish_module sys/autohandler
+autohandler ${INPUT}
+if test -f "$BASHISHDIR/main/prompt/$AUTOSHELL/autoload";then
+	test -f "$AUTORC"||{ TMP_AUTORC="${AUTORC#.}";test -f "/etc/${TMP_AUTORC##*/}"&& cp "/etc/${TMP_AUTORC##*/}" "${AUTORC}";}
+	## bash specific test
+	test -f "$AUTORC"||{ test -f "/etc/bash${AUTORC##*/}"&& cp "/etc/bash${AUTORC##*/}" "${AUTORC}";}
+	test -f "$AUTORC"&&{ cat "$AUTORC"| grep -v '## line added by bashish' >"${AUTORC}.new";mv "$AUTORC.new" "${AUTORC}";}
+	cat "$BASHISHDIR/main/prompt/$AUTOSHELL/autoload" >>"$AUTORC"
+else
+	errorhandler 3
+fi
+
+## sync version
+cp "$BASHISHDIR/bashish-version" "$HOME/.bashish/bashish-version"
+
+BASHISH_INSTALL_STRING3="Bashish installed successfully.\n\nShould you want to remove Bashish at a later time, run\n'bashish --uninstall'\n\nTo configure themes for applications and prompt, run the 'bashishtheme' command at the prompt.\n\nNow, restart your shell(s) to start Bashish."
+if type -p dialog 1>/dev/null
+then
+dialog --backtitle "$BACKTITLE" --title "$TITLE" --msgbox "$BASHISH_INSTALL_STRING3" 0 0
+else
+printf "\n${0##*/}: $BASHISH_INSTALL_STRING3\n\n"
+fi
+trap "" INT
+errorhandler 0

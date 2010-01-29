@@ -1,0 +1,154 @@
+#!/bin/bash
+##################################################################################
+## Bashish, a console theme engine
+## Copyright (C) 2006 Thomas Eriksson
+##
+## This program is free software; you can redistribute it and/or
+## modify it under the terms of the GNU General Public License
+## as published by the Free Software Foundation; either version 2
+## of the License, or (at your option) any later version.
+##
+## This program is distributed in the hope that it will be useful,
+## but WITHOUT ANY WARRANTY; without even the implied warranty of
+## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+## GNU General Public License for more details.
+## 
+## You should have received a copy of the GNU General Public License
+## along with this program; if not, write to the Free Software
+## Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+##################################################################################
+## konsole support code
+function _bashish_konsole_properties
+{
+	typeset i=-1 TMP FIFO KONSOLE KONSOLE_SESSION KONSOLE_VERSION FGBOLD BGTRANSP RED GREEN BLUE KOLOR IFS=,\)\(
+	for KONSOLE_SESSION in $KONSOLE_DCOP_SESSION;do :;done
+	for KONSOLE in $KONSOLE_DCOP; do test "x$i" = x0 && break ;i=0; done
+	unset IFS
+
+	## init dcop
+	test "x${BASHISH_STATE[330]}" = x && {
+		for FIFO in "$HOME/.bashish/tmp/${TTY##*/}/setfont" "$HOME/.bashish/tmp/${TTY##*/}/setschema" "$HOME/.bashish/tmp/${TTY##*/}/renamesession"
+		do
+			test -p "$FIFO" || mkfifo "$FIFO"
+			fuser -s -k "$FIFO"
+		done
+		tail -f "$HOME/.bashish/tmp/${TTY##*/}/setschema" | dcop --pipe $KONSOLE $KONSOLE_SESSION setSchema %1 &
+		tail -f "$HOME/.bashish/tmp/${TTY##*/}/renamesession" | dcop --pipe $KONSOLE $KONSOLE_SESSION renameSession %1 &
+		## versions prior to 1.6.4 does not support font changing
+		for KONSOLE_VERSION in `konsole --version` ;do :;done
+		IFS=.
+		i=0
+		for TMP in ${KONSOLE_VERSION}
+		do
+			KONSOLE_VERSION[$i]=$TMP
+			let i++
+		done
+		unset TMP IFS
+		i=0
+		if test ${KONSOLE_VERSION[0]} -ge 1 \
+		     -a ${KONSOLE_VERSION[1]} -ge 6 \
+		     -a ${KONSOLE_VERSION[2]} -ge 4
+		then
+			tail -f "$HOME/.bashish/tmp/${TTY##*/}/setfont" | dcop --pipe $KONSOLE $KONSOLE_SESSION setFont %1 &
+		else
+			## empty tail placeholder since otherwise a global variable
+			## would be needed to be set. Additionally, folks with 
+			## <1.6.4 should upgrade anyway.
+			tail -f "$HOME/.bashish/tmp/${TTY##*/}/setfont" >/dev/null &
+		fi
+		BASHISH_STATE[330]=1
+	}
+	
+	## generate temporary .schema file
+	## load with dcop
+	## change font with dcop
+	## change title with dcop
+
+	## preceeding color string
+	## input is $1 which relates to the ansicolors+2
+	## where 
+	# 0 - Foreground Color
+	# 1 - Background Color
+	# 10 - Foreground Intensive Color
+	# 11 - Background Intensive Color
+	{
+		printf "title Bashish\n"
+		
+		## image
+		if test "x$IMAGEFILE" != x
+		then 
+			case "$IMAGESCALE" in
+			*0x0*|0x0*)
+				printf "image center"
+			;;
+			*tile*)
+				printf "image tile"
+			;;
+			*)
+				printf "image full"
+			esac
+		
+			## print image
+			printf " `_bashish_whichbtdir $IMAGEFILE`$IMAGEFILE\n"
+		fi
+
+		## transparency 0.13   0   0   0
+		test "x$BGTRANSPARENCY" = x1 && {
+			printf "transparency "
+			case "$BGSHADE" in
+			100)
+				printf "1.0"
+			;;
+			*)
+				if test $BGSHADE -lt 10 ; then
+					printf "0.0$BGSHADE"
+				else
+					printf "0.$BGSHADE"
+				fi
+			esac
+			printf " 0 0 0\n"
+		}
+		while test $i -lt 20 
+		do
+			let n=${i}-2
+			test $i -gt 11 && let n-=2
+			## transparency bit is enabled for background intensive and non-intensive
+			## bold bit is enabled for forground intensive color
+			BGTRANSP=0
+			FGBOLD=0
+			case "$i" in
+			0)  KOLOR="${FGCOLOR}";;
+			*1) KOLOR="${BGCOLOR}";BGTRANSP=1;;
+			10) KOLOR="${BOLDCOLOR}";FGBOLD=1;;
+			*) KOLOR="${COLOR[$n]}";BASHISH_STATE[$i]="${COLOR[$n]}";;
+			esac
+			
+			RED=${KOLOR:1:2}
+			GREEN=${KOLOR:3:2}
+			BLUE=${KOLOR:5:2}
+			typeset -i INTRED=0 INTBLUE=0 INTGREEN=0
+			INTRED="16#${RED#0x}"
+			INTBLUE="16#${BLUE#0x}"
+			INTGREEN="16#${GREEN#0x}"
+			
+			## 2-9   ansi colors
+			## 12-19 aixterm colors
+
+			## note that the default background color is flagged
+			## to become transparent when an image is present.
+
+			##         slot                   transparent bold
+			##            |  red grn blu                | |
+			##            V  V--color--V                V V
+			printf "color $i $INTRED $INTGREEN $INTBLUE $BGTRANSP $FGBOLD\n"
+			let i++
+		done
+
+	} >"$HOME/.bashish/tmp/${TTY##*/}/schema"
+
+	printf "$HOME/.bashish/tmp/${TTY##*/}/schema\n" >"$HOME/.bashish/tmp/${TTY##*/}/setschema"
+	printf "$TITLE\n" > "$HOME/.bashish/tmp/${TTY##*/}/renamesession"
+	test "x${FONTNAME}${FONTSIZE}" != "x${BASHISH_STATE[401]}${BASHISH_STATE[402]}" && printf "$FONTNAME,$FONTSIZE\n" >"$HOME/.bashish/tmp/${TTY##*/}/setfont"
+	BASHISH_STATE[401]="$FONTNAME$FONTSIZE"
+
+}

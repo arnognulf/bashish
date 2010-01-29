@@ -1,0 +1,262 @@
+Theme documentation
+-------------------
+Index
+-----
+1 Introduction
+1.1 Theme copyright
+2 theme format
+3 prompt
+3.1 shells
+3.2 codepages
+3.3 ascii-art prompts
+4 styles
+5 saving themes
+6 links
+
+Appendix A - KSH arrays
+Appendix B
+
+1 Introduction
+--------------
+This file describes how to write themes for Bashish.
+
+1.1 Theme copyright
+-------------------
+Bashish is licensed under the GPL2-or-later. For submitted themes, 
+theme authors must accept distributing their submitted themes under this
+license.
+Additionally, Bashish can not include any GPL-incompatible artworks,
+this includes artwork covered by the Creative Commons licenses and artwork
+which is free for non-commercial use.
+
+Also remember, unless explicity stated by the author of a file you're using,
+consider the theme as not avaliable for distribution with Bashish!
+
+So if you want to add an Creative Commons artwork? Well, most likely I'll be
+opening a "themes-nongpl" branch with gpl-incompatible artwork.
+
+2 Theme format
+--------------
+Bashish themes are .tar.gz archives with a .bt ending, they do not contain
+any directory structure.
+The 'theme' file defines style and layout of the terminal.
+prompt.* files are shell specific prompts for each shell.
+Additionally some prompts which contains special characters have either the
+.UTF-8 or .CP437 ending.
+
+When loaded, the uncompressed themes can be found in 
+'$HOME/.bashish/bt/prompt/' resp. '$HOME/.bashish/bt/app/%s/'
+where %s is the application.
+
+3 prompt
+--------
+3.1 shells
+----------
+3.1.1 bash
+----------
+Bash is todays most used UNIX shell, it supports most ksh88 features.
+
+Variables that control the prompt enviroment of bash are
+PROMPT_COMMAND - the command set in this variable is evaluted before each
+prompt is displayed.
+PS1 - the regular prompt
+PS2 - printed when unbalanced quotes are entered at interactive mode.
+
+3.1.2 zsh
+---------
+Zsh is a shell which is mostly compatible to ksh and bash when running in 
+emulation mode (emulate -L ksh).
+Zsh has a huge amount of features, it has a very powerful prompt system.
+
+Variables that control the prompt enviroment for zsh are:
+PROMPT PS1 - the regular prompt.
+RPROMPT - prompt at the right side of the terminal.
+PS2 - printed when unbalanced quotes are entered at interactive mode.
+
+Additionally zsh has the following functions to control enviroment
+preexec() - run before each command is executed.
+precmd() - a function evaluted before each prompt is shown.
+
+3.1.3 ksh
+3.1.4 sh (ash, dash, bourne)
+3.1.5 csh
+3.1.6 tcsh
+Tcsh, despite being described as harmful to use as as scriptable
+interpreter, has a quite useful prompt system.
+It has 
+
+prompt
+
+alias precmd
+
+3.1.7 fish
+fish only supports one line prompts which limits ascii-art prompts a bit.
+It does not have any special prompt characters, instead the prompt is
+printed by a function.
+
+3.1.8 rc
+
+the following variable control the prompt:
+prompt
+
+the following function is executed before each prompt is displayed:
+prompt()
+
+3.1.9 es
+
+Es is a version of the 'rc' shell with some additional functions.
+As it is based on an older version of 'rc' so it supports the same syntax as
+'rc' but not the 'prompt' function which is executed before each prompt is
+displayed.
+
+
+3.2 Codepages
+-------------
+Creating prompts with ASCII-art has been desired by many people, the problem
+however, is that "classic" ASCII-art uses the IBM/Microsoft Codepage 437
+which contains some line drawing characters, smileys and some greek
+characters.
+Nowadays however, no operating system (except maybe FreeDOS) ships with
+CP437 as a usable codepage.
+Instead a locale such as UTF-8, or ISO8859-* (for latin-decended language
+speakers) is used. ISO8859-* does unfortually not contain the highly desired 
+line drawing characters.
+
+The first solution to get line drawing characters in the prompt is to use a
+font which is mapped as CP437 on top of ISO8859-1.
+This offcourse have some disadvantages for non-english native speakers as
+they can not use their native tounge in the prompt.
+A problem with this approach is that it's impossible for Bashish to know 
+whether the terminal uses a CP437-like font or a regular ISO8859-* font.
+
+Fonts with CP437 character mapping include the following:
+ASCII.ttf        - This is a font created by Eistee, it is free for 
+                   noncommercial use.
+                   It's a bit fuzzy hinted, but works as a terminal font.
+                   Note that the fontname is "New".
+                   Download from http://www.apollosoft.de/ASCII/
+
+artwiz-aleczapka - very good looking free bitmap font collection.
+                   http://artwizaleczapka.sourceforge.net/
+
+In order to use such a font and make Bashish aware of this, you need to set 
+"BASHISH_LANG=CP437" in $HOME/.bashish/bt/defaults/prompt.[sh|ksh|bash|zsh]
+for tcsh enter
+"set BASHISH_LANG=CP437" in $HOME/.bashish/bt/defaults/prompt.[csh|tcsh]
+
+Another solution which is highly recommended but unfortually not supported
+on all platforms, is to switch codepage to UTF-8.
+UTF-8 contains all characters you ever can imagine: you can write in
+japanese or cyryllic at the prompt while having the oldschool line-drawing
+characters at the prompt.
+
+3.3 ASCII-art-prompts
+---------------------
+3.3.1 Using an ASCII-art editor
+-------------------------------
+There are several ASCII-art editors avaliable.
+ACiDDRAW seems to be the most powerful editor of them all, unfortually it
+only runs in DOS - however there is no problem to fire it up in DosBox.
+
+There are also some Free editors avaliable with source for UNIX:
+
+WMAnsiED - http://www.win.ua.ac.be/~wschrep/ansied/
+
+TundraDraw - 
+http://tundradraw.ansiscene.com/mediawiki/index.php/Main_Page
+
+To convert an .asc or .ans/.ansi file to UTF-8, do
+iconv -f CP437 -t UTF-8 file.asc > file.asc.UTF-8
+
+3.3.2 ASCII-art in UTF-8
+------------------------
+
+To create a UTF-8 prompt which is also CP437 safe, use the chart from
+wikipedia:
+
+http://en.wikipedia.org/wiki/CP437
+
+and paste to an editor which is running in UTF-8 mode, when you're done,
+convert the prompt with
+iconv -f UTF-8 -t CP437 
+
+4 Style
+-------
+Content and style is separated on Bashish.
+
+4.1 Application theme enviroment
+
+4.2 Theme variables
+TITLE
+ICON
+
+4.2.1 BGCOLOR hexrgb
+4.2.2 FGCOLOR hexrgb
+CURSORCOLOR hegrgb
+MOUSECOLORFG hexrgb
+MOUSECOLORBG hexrgb
+BOLDCOLOR hexrgb
+UNDERLINECOLOR hexrgb
+4.2.3 COLOR[] hexrgb[0-255]
+The COLOR[n] array sets the text color n, which can later be called with the
+'color' script or by using ANSI / XTerm control sequences.m 
+Most terminals support the first 0-15 colors, a few terminals only supports
+the 0-7 first.
+Some versions of XTerm and rxvt-unicode allows setting and using colors in
+the 0-87 range, other versions can support the full 0-255 range. This
+depends on the compile flags to XTerm/rxvt-unicode.
+
+Additionally, the Linux console does not differ the COLOR[7] and COLOR[0]
+colors from the background resp. foreground color, thus, Bashish ignores the
+COLOR[7] and COLOR[0] setting in the Linux Console and uses those for the
+FGCOLOR and BGCOLOR instead.
+
+Due to the uncertanty of color support in each terminal, it's only
+recommended to use the range COLOR[1-6,8-15] to make a theme work on a wide 
+selection of terminals, still 14 colors "ought to be enough for anyone"(tm).
+
+To learn about using arrays in ksh, please read Appendix A.
+
+TRANSPARENCY bool:0/1
+SHADE int:0-100
+BGIMAGE string:[file]
+IMAGESCALE string
+EICON string:[file]
+4.2.4 
+4.2.4 FONTNAME string
+FONTNAME is set to the Fontconfig name, the same as seen in the font
+selector.
+4.2.5 FONTSIZE int
+
+4.2.6 XFONT string
+
+SIZE_X int
+SIZE_Y int
+POSITION_X int
+POSITION_Y int
+
+4.2.7 
+
+5 Saving themes
+---------------
+When you have modified a theme, enter 'bashishtheme save' to save it.
+You need to be located in the theme directory to save it. The name of the 
+theme depends entirely on the name set in BASHISH_THEME variable in the
+theme-file.
+If you have created a new theme with a new name, bashishtheme will ask you
+in which subdirectory you would like to save it, eg to save an application
+theme in '$HOME/.bashish/themes/app' enter 'app' at the prompt.
+
+When loaded, the uncompressed themes can be found in 
+'$HOME/.bashish/bt/prompt/' resp. '$HOME/.bashish/bt/app/%s/'
+where %s is the application.
+
+6 Links
+-------
+
+UTF-8 characters to create prompts:
+http://www.cl.cam.ac.uk/~mgk25/ucs/examples/UTF-8-demo.txt
+
+The Bash Prompt Howto describes some very clever prompts:
+http://www.tldp.org/HOWTO/Bash-Prompt-HOWTO/
+

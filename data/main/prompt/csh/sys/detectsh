@@ -1,0 +1,13 @@
+#!/bin/csh
+##################################
+##
+## detectshterm
+##
+##################################
+
+## set the $shellname variable
+if ( $?tcsh ) then
+	set SHELLNAME=tcsh
+else
+	set SHELLNAME=csh
+endif

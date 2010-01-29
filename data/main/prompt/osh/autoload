@@ -1,0 +1,5 @@
+echo $p | grep '/\.bashish/launcher:' >/dev/null;: ## line added by bashish
+if $s = 0 goto NoPathAdd                        ;: ## line added by bashish
+       setenv  PATH $h/.bashish/launcher:$p     ;: ## line added by bashish
+: NoPathAdd                                     ;: ## line added by bashish
+bashish <-                                      ;: ## line added by bashish

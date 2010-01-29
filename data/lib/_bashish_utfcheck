@@ -1,0 +1,61 @@
+#!/bin/bash
+##################################################################################
+## Bashish, a console theme engine
+## Copyright (C) 2006 Thomas Eriksson
+##
+## This program is free software; you can redistribute it and/or
+## modify it under the terms of the GNU General Public License
+## as published by the Free Software Foundation; either version 2
+## of the License, or (at your option) any later version.
+##
+## This program is distributed in the hope that it will be useful,
+## but WITHOUT ANY WARRANTY; without even the implied warranty of
+## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+## GNU General Public License for more details.
+## 
+##
+## along with this program; if not, write to the Free Software
+## Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+##################################################################################
+##
+## _bashish_utfcheck checks if the terminal is in UTF-8 or single-char mode
+##
+## This program is based on is_utf8.c by Gerd Krorr with minor changes by Adam Borowski.
+##
+##################################################################################
+
+## this file may only be loaded in ksh88 compatible mode
+test "x$RANDOM" = x && _bashish_utfcheck
+
+function _bashish_utfcheck {
+	unset -f _bashish_utfcheck
+	## check if the terminal is of type VT100 compatible
+	case "$TERM" in
+	vt220|Eterm|vt320|linux|rxvt|rxvt-unicode|iris-ansi|ansi*|xterm*|hpterm|screen|konsole|gnome-terminal|interix|pcvt*|con80x*|con100x*|con132x*|console|386at|AT386|qnx*)
+	## Hide cursor, CR, print danish O-dash in UTF-8, get cursor position
+	## Cursor back 3 chars, insert 3 spaces, CR, Unhide Cursor
+	printf "[30m"
+	printf "[?25l\r\xC3\xB8\033[6n[3D   \r[?25h"
+	i=0
+	until test "$i" = 7
+	do
+		CHAR=""
+		read -n1 CHAR
+		case "$CHAR" in
+		|[|[0-9]|\;) CURPOS="$CURPOS$CHAR";let i++;;
+		R)CURPOS="$CURPOS$CHAR";break;;
+		esac
+	done
+	printf "[9D        [9D[0m"
+	case "$CURPOS" in
+	*3R) return 1;;
+	esac
+	return 0
+	;;
+	*)
+	## safely assume that older terminals not being compatible VT100 compatible
+	## are not UTF-8 compatible either
+	return 1
+	esac
+}
+_bashish_utfcheck

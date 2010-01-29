@@ -1,0 +1,144 @@
+#!/bin/bash
+############################################################
+##
+## autoon modifies startup files so bashish automaticly 
+## loads upon login/shell initialization
+##
+############################################################
+
+## create backup directory
+## note that the automated removal off bashish is not dependant
+## on this, so it's safe to remove this directory and it's contents!
+mkdir -p $HOME/.bashish/tmp/backup/
+
+## bashish autoloading functions
+
+## only load bashish if in interactive mode (eg. $PS1 is present)
+## the '## automaticly added by bashish' is later used by "autooff" to rgrep and remove
+## these lines if wanted.
+## function to add automatic startup to bourne style shells
+function bashishaddshrc
+{
+## backup the file before proceeding
+cp "$1" $HOME/.bashish/tmp/backup/
+
+printf "
+test -n \"\$PS1\" && if test -f "$BASHISHDIR/modules/sh/init"; then ## automaticly added by bashish
+. "$BASHISHDIR/modules/sh/init" ## automaticly added by bashish
+fi ## automaticly added by bashish
+" >> $1
+}
+
+## prompt the user with a default choice of YES or NO depending on
+## the avaliability of the specified shell.
+function bashishautoloadparse 
+{
+case "`which $1 2>/dev/null`" in
+/*)
+	printf "bashish: [YES]"
+	read AUTOLOAD	
+	## default to yes
+	test "$AUTOLOAD" ||AUTOLOAD=jawohl
+	;;
+*)
+	printf "bashish: [NO]"
+	read AUTOLOAD
+	## default to no
+	test "$AUTOLOAD" || AUTOLOAD=nein
+esac
+
+}
+
+## bash
+printf "bashish: autoload bashish on bash? (will modify $HOME/.bashrc $HOME/.bash_profile )
+"
+## yes or no?
+bashishautoloadparse bash
+
+## let the user say yes in several languages and different captitalization
+case "$AUTOLOAD" in
+y*|Y*|j*|J*)
+
+	## test for presence of .bashrc, create if needed
+	test -f "$HOME/.bashrc" || /bin/cp /etc/bashrc $HOME/.bashrc 2>/dev/null
+	
+	## test for presence of .bash_login , create if needed
+	if test -f "$HOME/.bash_profile" ;then
+		test -f "$HOME/.profile" || \
+			if test -f /etc/bash_profile ;then
+				/bin/cp /etc/bash_profile $HOME/.bash_profile
+			else
+				/bin/cp /etc/profile $HOME/.bash_profile
+			fi
+	fi
+	
+	bashishaddshrc $HOME/.bashrc 
+	bashishaddshrc $HOME/.bash_profile
+esac
+
+## clean variable before re-usage.
+unset AUTOLOAD
+
+## zsh
+printf "bashish: autoload bashish on zsh? (will modify $HOME/.zshrc $HOME/.zprofile )
+"
+
+bashishautoloadparse zsh
+
+## let the user say yes in several languages and different captitalization
+case "$AUTOLOAD" in
+y*|Y*|j*|J*)
+
+
+
+	test -f "$HOME/.zshrc" || cp /etc/zshrc $HOME/.zshrc 2>/dev/null
+
+	## test for presence of .bash_login , create if needed
+	if test -f "$HOME/.zprofile" ;then
+		test -f "$HOME/.zprofile" || \
+			if test -f /etc/zprofile ;then
+				/bin/cp /etc/zprofile $HOME/.zprofile
+			else
+				/bin/cp /etc/profile $HOME/.zprofile
+			fi
+	fi
+
+	bashishaddshrc $HOME/.zprofile
+	bashishaddshrc $HOME/.zshrc
+
+esac
+
+## clean variable before re-usage.
+unset AUTOLOAD
+
+## end zsh
+
+
+#esac
+
+## clean variable before re-usage.
+unset AUTOLOAD
+
+
+## ksh
+printf "bashish: autoload bashish on korn shell? (will modify $HOME/.profile )
+"
+
+bashishautoloadparse ksh
+
+## let the user say yes in several languages and different captitalization
+case "$AUTOLOAD" in
+y*|Y*|j*|J*)
+
+test -f "$HOME/.profile" || /bin/cp /etc/profile $HOME/.profile 2>/dev/null
+
+bashishaddshrc $HOME/.profile
+
+esac
+## clean variable before re-usage.
+unset AUTOLOAD
+
+## end ksh
+
+printf "bashish: The modified files were saved prior to modification in $HOME/.bashish/tmp/backup/
+"

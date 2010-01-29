@@ -1,0 +1,89 @@
+#!/bin/bash
+##################################################################################
+## Bashish, a console theme engine
+## Copyright (C) 2005 Thomas Eriksson
+##
+## This program is free software; you can redistribute it and/or
+## modify it under the terms of the GNU General Public License
+## as published by the Free Software Foundation; either version 2
+## of the License, or (at your option) any later version.
+##
+## This program is distributed in the hope that it will be useful,
+## but WITHOUT ANY WARRANTY; without even the implied warranty of
+## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+## GNU General Public License for more details.
+## 
+## You should have received a copy of the GNU General Public License
+## along with this program; if not, write to the Free Software
+## Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+##################################################################################
+function _bashish_generic_cleanvar
+{
+	## make sure the following variables are arrays before clearing them
+	XFONT[1023]=""
+	FONTNAME[1023]=""
+	## clean up some variables
+	unset \
+	FONTNAME[*]\
+	XFONT[*]\
+	FGPOINTERCOLOR\
+	BGPOINTERCOLOR\
+	UNDERLINECOLOR\
+	BOLDCOLOR\
+	IMAGEFILE\
+	IMAGESCALE\
+	IMAGELOGOSCALE\
+	IMAGELOGO\
+	IMAGELOGOWAIT\
+	CURSORCOLOR\
+	FGCOLOR\
+	BGCOLOR\
+	WELCOMEMESSAGE\
+	CFONT\
+	SIZE_X\
+	SIZE_Y\
+	POSITION_X\
+	POSITION_Y\
+	ICONIMAGEFILE\
+	BASHISH_STARTUP\
+	THEME_URL\
+	THEME_AUTHOR\
+	THEME_VERSION\
+	THEME_COMMENT\
+	THEME_MADEWITH\
+	DELAY\
+	ASCII_LOGO\
+	ANSICOLOR_RED\
+	ANSICOLOR_GREEN\
+	ANSICOLOR_YELLOW\
+	ANSICOLOR_BLUE\
+	ANSICOLOR_MAGENTA\
+	ANSICOLOR_CYAN\
+	ANSICOLOR_BRIGHTBLACK\
+	ANSICOLOR_BRIGHTRED\
+	ANSICOLOR_BRIGHTGREEN\
+	ANSICOLOR_BRIGHTYELLOW\
+	ANSICOLOR_BRIGHTBLUE\
+	ANSICOLOR_BRIGHTMAGENTA\
+	ANSICOLOR_BRIGHTCYAN\
+	ANSICOLOR_BRIGHTWHITE\
+	DTICON\
+	EICON\
+	FONTSIZE\
+	BGVIEWPORT\
+	BGTRANSPARENCY\
+	BGBRIGHTNESSBLUE\
+	BGBRIGHTNESSGREEN\
+	BGBRIGHTNESSRED\
+	BGCONTRASTBLUE\
+	BGCONTRASTGREEN\
+	BGCONTRASTRED\
+	BGGAMMABLUE\
+	BGGAMMAGREEN\
+	BGGAMMARED\
+	BGSHADE\
+	AFGCOLOR\
+	ABGCOLOR \
+	RXVTFONT
+}
+

@@ -1,0 +1,3 @@
+#!@BASHISH_SHELL@
+## fork a process in the background
+${1+$@}&

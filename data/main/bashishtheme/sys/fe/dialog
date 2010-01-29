@@ -1,0 +1,182 @@
+#!/bin/bash
+##################################################################################
+## Bashish, a console theme engine
+## Copyright (C) 2005 Thomas Eriksson
+##
+## This program is free software; you can redistribute it and/or
+## modify it under the terms of the GNU General Public License
+## as published by the Free Software Foundation; either version 2
+## of the License, or (at your option) any later version.
+##
+## This program is distributed in the hope that it will be useful,
+## but WITHOUT ANY WARRANTY; without even the implied warranty of
+## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+## GNU General Public License for more details.
+## 
+## You should have received a copy of the GNU General Public License
+## along with this program; if not, write to the Free Software
+## Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+##################################################################################
+##
+## fe/dialog is a visual frontend to bashish theme changing.
+## it uses the widely avaliable curses based 'dialog' utility
+##
+## the following code is of low quality standard, any improvements are welcome
+##
+###############################################################################
+
+which dialog 2>/dev/null 1>/dev/null || errorhandler 80
+
+BACKTITLE="Bashish theme changer"
+
+_bashish_fe ()
+{
+	ITEM=prompt
+	while true
+	do
+		dialog --ok-label Select --cancel-label Close --default-item $ITEM --backtitle "$BACKTITLE" --title "Bashish theme changer" --menu "Navigate with the arrow keys. Press <Select> to select item to theme. Press <Close> when you are done." 0 0 0 prompt "theme at the command prompt" application "theme selected application" 2>$HOME/.bashish/tmp/dialogfe
+		RETURN="$?"
+		case "$RETURN" in
+		1|-1|255)
+			#errorhandler 0
+			return 0
+		esac
+		printf "\033[44m"
+		read ITEM <$HOME/.bashish/tmp/dialogfe
+		case $ITEM in
+		prompt) theme_selector;;
+		application) app_selector;;
+		esac
+	done
+}
+
+theme_selector ()
+{
+	typeset ITEM="" 
+	typeset TOT=${#THEME_LIST[*]}
+	typeset n=0
+	test "x$BTAPP" != x && typeset BTAPP_STRING="the prompt"
+	genmenu ()
+	{
+		while test "$n" -lt "$TOT";do
+			if test "x$BTAPP" != x
+			then
+				TMP=${THEME_LIST[$n]#$BASHISHDIR/themes/}
+				TMP=${TMP#$HOME/.bashish/themes/}
+				case "$TMP" in
+				app*)
+				printf " "\""${TMP}"\"
+				printf " "\"\"
+				esac
+			else
+				TMP=${THEME_LIST[$n]#$BASHISHDIR/themes/}
+				TMP=${TMP#$HOME/.bashish/themes/}
+				case "$TMP" in
+				app*):;;
+				*)
+				printf " "\""${TMP}"\"
+				printf " "\"\"
+				esac
+			fi
+			let n++
+		done
+	}
+	eval dialog --ok-label Select --cancel-label Close --backtitle \"$BACKTITLE\" --title \"Select theme for $BTAPP_STRING\" --menu \"'Navigate with the arrow keys. Press <Select> to select theme. Press <Close> to return to previous menu'\" 0 0 0 \""<none>"\" \"\" $(genmenu) 2>$HOME/.bashish/tmp/dialogfe
+	RETURN="$?"
+	case "$RETURN" in
+	255|-1)
+		bashish
+		errorlevel 0
+	;;
+	1)
+		return 1
+	esac
+	printf "\033[44m"
+	read ITEM <$HOME/.bashish/tmp/dialogfe
+	typeset THEME=${ITEM#*/}
+	test "x$THEME" = "x<none>"&&THEME=none
+	_bashish_unpack ${THEME}
+	(
+		_bashish_module sys/setopts
+		_bashish_setopts
+	)
+	return 0
+}
+
+app_selector ()
+{
+	typeset ITEM="<new>"
+	typeset LOOP=continue
+	while test $LOOP = continue
+	do
+		eval dialog --ok-label Select --cancel-label Close --default-item \"\$ITEM\" --backtitle \"$BACKTITLE\" --title \"Select application to theme\" --extra-label "Remove" --extra-button --menu \"'Navigate with the arrow keys. Press <OK> to select theme. Press <Remove> to disable themeing for the selected application. Press <Close> to return to main menu'\" 0 0 0  \""<new>"\" \"\" $(for FILE in $HOME/.bashish/bt/app/*; do test "x${FILE##*/}" != "x*" && printf \"${FILE#$HOME/.bashish/bt/app/}\"" "\"\"" ";done) 2>$HOME/.bashish/tmp/dialogfe
+		typeset RETURN="$?"
+		printf "\033[44m"
+		read ITEM <$HOME/.bashish/tmp/dialogfe
+		case "$RETURN" in
+		0)
+			case "$ITEM" in
+			"<new>") app_add&&ITEM=$BTAPP
+			;;
+			*)
+				BTAPP=$ITEM
+				theme_selector&&{ test "$THEME" = "none"&&ITEM="<new>"; }
+			esac
+			;;
+		1|-1|255)	LOOP=break
+			;;
+		3)
+			test "x$ITEM" != "x<new>"&&{
+			BTAPP="$ITEM"
+			THEME=none
+			ITEM="<new>"
+			_bashish_unpack ${THEME}
+			}
+		esac
+	done
+	unset APPLICATION THEME
+}
+
+app_add ()
+{
+	typeset DEFAULTDIR=/usr/bin
+	typeset LOOP=continue
+	while test "$LOOP" = continue
+	do
+		: >$HOME/.bashish/tmp/dialogfe
+		## browse is broken and I'm too lazy to fix it, dialog browse is quite bad anyway
+		#dialog --backtitle "$BACKTITLE" --extra-label "Browse" --extra-button --title "Enter application name" --inputbox "Enter the file name of an application to theme, press <OK> to confirm, press <Browse> to get the file selector, press <Cancel> to return to previous menu." 0 0 2>$HOME/.bashish/tmp/dialogfe
+		dialog --ok-label Add --cancel-label Cancel --backtitle "$BACKTITLE" --title "Enter application name" --inputbox "Enter the file name of an application to theme, press <Add> to confirm, press <Cancel> to return to previous menu." 0 0 2>$HOME/.bashish/tmp/dialogfe
+		typeset RETURN="$?"
+		printf "\033[44m"
+		read INPUT <$HOME/.bashish/tmp/dialogfe
+		test "$INPUT" -a "$RETURN" = 0&&{
+			if which $INPUT 2>/dev/null
+			then
+				BTAPP=$(which $INPUT)
+				BTAPP=${BTAPP#*/}
+				LOOP=break
+				theme_selector
+			else
+				dialog --backtitle "$BACKTITLE" --title "Not found" --defaultno --yesno "The specified application does not exist in path.\n\nConfigure a theme for it anyway?" 0 0&&{
+					LOOP=break
+					BTAPP=${INPUT#*/}
+					theme_selector
+				}
+			fi
+		}
+		test "$RETURN" = 3&&{
+			typeset FSLOOP=true
+			while test "$FSLOOP"
+			do
+				dialog --backtitle "$BACKTITLE" --title "Browse application" --extra-label Browse --extra-button --fselect "$DEFAULTDIR/" 0 0 2>$HOME/.bashish/tmp/dialogfe
+				read APPLICATION <$HOME/.bashish/tmp/dialogfe
+				test -f "$BTAPP"&&unset FSLOOP
+			done
+			
+		}
+		test "$RETURN" = 1 && LOOP=break
+	done
+	test "$BTAPP"&&return 0
+	return 1
+}

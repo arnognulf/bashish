@@ -1,0 +1,64 @@
+#!@BASHISH_SHELL@
+######################################################################################
+## Bashish, a console theme engine
+## Copyright (C) 2006 Thomas Eriksson
+##
+## This program is free software; you can redistribute it and/or
+## modify it under the terms of the GNU General Public License
+## as published by the Free Software Foundation; either version 2
+## of the License, or (at your option) any later version.
+##
+## This program is distributed in the hope that it will be useful,
+## but WITHOUT ANY WARRANTY; without even the implied warranty of
+## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+## GNU General Public License for more details.
+## 
+##
+## along with this program; if not, write to the Free Software
+## Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+##
+######################################################################################
+##
+## This module provides the fillx function
+##
+## The fillout function will print a diagonal array of characters with 
+## the width of the terminal
+##
+#######################################################################################
+
+function _bashish_prompt_fillx {
+	## works cleanly on pdksh and bash and zsh
+	test "$ZSH_NAME"&&emulate -L ksh
+	
+	typeset BASHISH_ARGV="" BASHISH_ARGC="" n=0 STRCROP="0" STR=" " STRREPEAT="" STRREST="" COUNT=0
+
+	test x"$1" != x && STR="${1}"
+	test x"$2" != x && STRCROP="${2}"
+	case "$STRCROP" in
+	[0-9]*) :
+	;; 
+	*) STRCROP=${#STRCROP};;
+	esac
+	test "$COLUMNS"||for COLUMNS in $(stty size)
+	do :
+	done
+	test ${STRCROP} -ge ${COLUMNS}&&exit 0
+	PRINTSTR=""
+	let STRREPEAT=$COLUMNS-${STRCROP}
+	let STRRESTCROP=${STRREPEAT}%${#STR}
+	let STRREPEAT=${STRREPEAT}/${#STR}
+	case "$BASH" in
+	"")
+	STRREST=$(printf "$STR"|cut -c1-$STRRESTCROP)
+	;;
+	*)
+	STRREST=${STR:0:$STRRESTCROP}
+	esac
+	while test ${STRREPEAT} -gt $COUNT
+	do
+		let COUNT++
+		PRINTSTR="${STR}${PRINTSTR}"
+	done
+	printf -- "${PRINTSTR}${STRREST}"
+}
+_bashish_prompt_fillx "$@"

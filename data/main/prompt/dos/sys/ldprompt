@@ -1,0 +1,27 @@
+REM ##################################################################################
+REM ## Bashish, a console theme engine
+REM ## Copyright (C) 2005 Thomas Eriksson
+REM ##
+REM ## This program is free software; you can redistribute it and/or
+REM ## modify it under the terms of the GNU General Public License
+REM ## as published by the Free Software Foundation; either version 2
+REM ## of the License, or (at your option) any later version.
+REM ##
+REM ## This program is distributed in the hope that it will be useful,
+REM ## but WITHOUT ANY WARRANTY; without even the implied warranty of
+REM ## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+REM ## GNU General Public License for more details.
+REM ## 
+REM ## You should have received a copy of the GNU General Public License
+REM ## along with this program; if not, write to the Free Software
+REM ## Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+REM ##################################################################################
+REM ##
+REM ## THIS IS BASHISH2. YOU WILL BE ASSIMILATED
+REM ##
+REM ######################################################
+
+REM ## load the theme engine
+call %HOME\.bashish\bt\fallback\prompt.dos
+call %HOME\.bashish\bt\prompt\prompt.dos
+call %HOME\.bashish\bt\override\prompt.dos

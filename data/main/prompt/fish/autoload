@@ -1,0 +1,7 @@
+bashish                                             ## line added by bashish
+if test "x$BASHISH_OLDPATH" = x                     ## line added by bashish
+  set BASHISH_OLDPATH = $PATH                       ## line added by bashish
+end                                                 ## line added by bashish
+set PATH = $HOME/.bashish/launcher:$BASHISH_OLDPATH ## line added by bashish
+set BASHISHDIR = (bashish --bashishdir)             ## line added by bashish
+. $HOME/.bashish/main/prompt/fish/init              ## line added by bashish

@@ -1,0 +1,115 @@
+#!/bin/bash
+##################################################################################
+## Bashish, a console theme engine
+## Copyright (C) 2005 Thomas Eriksson
+##
+## This program is free software; you can redistribute it and/or
+## modify it under the terms of the GNU General Public License
+## as published by the Free Software Foundation; either version 2
+## of the License, or (at your option) any later version.
+##
+## This program is distributed in the hope that it will be useful,
+## but WITHOUT ANY WARRANTY; without even the implied warranty of
+## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+## GNU General Public License for more details.
+## 
+## You should have received a copy of the GNU General Public License
+## along with this program; if not, write to the Free Software
+## Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+##################################################################################
+##
+## this is the interface to the user when the 'bashish' command is
+## issued, if no arguments are given, a bashish session will start
+##
+## the bashish command has quite some options which are parsed here
+##
+###############################################################################
+
+## termhandler checks if a bashish process is running, if it doesn't,
+## the user is asked for needed input and then a process is started
+function termhandler
+{
+	## the bashish terminal part makes no sense in Cygwin 9x/ME
+	test "x$TERM" = xcygwin && case "$(uname)"
+	in
+	CYGWIN_98*) exit 0
+	esac
+	
+	## clean up bashish zombie processes that are connected to disconnected ttys
+	typeset TTYS
+	for TTYS in $HOME/.bashish/tmp/*
+	do
+		test -O "/dev/${TTYS##*/}" -o -O "/dev/pts/${TTYS##*/}"||{
+			read TTYPID <"${TTYS}/pid" 2>/dev/null
+			kill -9 "$TTYPID"
+			rm -rf ${TTYS}
+		## the zombie killings ain't pretty, hide from kids
+		} 2>/dev/null
+	done
+
+	## when not owner of tty (su / sudo ) or no tty is connected (incorrectly configured chroot)
+	## bashish will silently refuse to load
+	case "${TTY}" in
+	/*) test -O "${TTY}" || errorhandler 42 ;;
+	*) errorhandler 42
+	esac
+	
+	## detect UTF-8
+	test "x$BASHISH_CP" = x && {
+		BASHISH_CP=437
+		. $BASHISHDIR/lib/_bashish_utfcheck && BASHISH_CP=utf8
+	}
+
+	## Cygwin compatibility code
+	typeset PROCEXIST=0
+ 	test -f "$HOME/.bashish/tmp/${TTY##*/}/pid" && {
+ 		read BASHISH_SUBPROC <$HOME/.bashish/tmp/${TTY##*/}/pid
+
+		case "$(uname)" in
+		CYGWIN*) ps -f -u "$USER" | grep "$BASHISH_SUBPROC" && PROCEXIST=1;;
+		*) ps "$BASHISH_SUBPROC" && PROCEXIST=1;;
+		esac >/dev/null 2>/dev/null
+	}
+	
+	## ps usage which at least works with linux and cygwin
+	if test "$PROCEXIST" = 1
+	then
+		## kill old process
+		kill $BASHISH_SUBPROC 2>/dev/null
+	else
+		IPCDIR="$HOME/.bashish/tmp/${TTY##*/}"
+		mkdir -p "$HOME/.bashish/tmp/${TTY##*/}/"
+		test -p "$IPCDIR/subproc" || mkfifo "$IPCDIR/subproc"
+
+		case $TERM in
+		xterm)
+		case "$COLORTERM" in
+		gnome-terminal)
+			IFS=[]
+			for LIST in `gconftool-2 --get /apps/gnome-terminal/global/profile_list`;do :;done
+			BASENAMETTY=${TTY##*/}
+			case "$LIST" in
+			*Bashish-$BASENAMETTY*)
+				:
+			;;
+			*)
+				gconftool-2 --type list --list-type=string --set /apps/gnome-terminal/global/profile_list "[$LIST,Bashish-${TTY##*/}]"
+				## translate template to schema
+				sed s/SCHEMANAME/Bashish-${TTY##*/}/g $BASHISHDIR/main/terminal/templates/gnome-terminal/schema >$HOME/.bashish/tmp/Bashish-${TTY##*/}
+				## load schema
+				gconftool-2 --load $HOME/.bashish/tmp/Bashish-${TTY##*/}
+				## cleanup
+				rm $HOME/.bashish/tmp/Bashish-${TTY##*/}
+			esac
+			gconftool-2 --set /apps/gnome-terminal/profiles/Bashish-${TTY##*/}/visible_name --type string "[New Bashish Tab]"
+			printf "bashish: please select the profile [New Bashish Tab]\nbashish: and press [RETURN]"
+			read -n1
+			printf "\033[H\033[2J"
+			gconftool-2 --set /apps/gnome-terminal/profiles/Bashish-${TTY##*/}/visible_name --type string "Bashish-${TTY##*/}"
+		;;
+		esac
+		esac
+	fi
+	export TTY BASHISHDIR BASHISH_UTF
+	$BASHISH_SHELL $BASHISHDIR/lib/_bashish_fork $BASHISH_SHELL $BASHISHDIR/lib/_bashish_subproc
+}

@@ -1,0 +1,84 @@
+#!/bin/bash
+##################################################################################
+## Bashish, a console theme engine
+## Copyright (C) 2005 Thomas Eriksson
+##
+## This program is free software; you can redistribute it and/or
+## modify it under the terms of the GNU General Public License
+## as published by the Free Software Foundation; either version 2
+## of the License, or (at your option) any later version.
+##
+## This program is distributed in the hope that it will be useful,
+## but WITHOUT ANY WARRANTY; without even the implied warranty of
+## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+## GNU General Public License for more details.
+## 
+## You should have received a copy of the GNU General Public License
+## along with this program; if not, write to the Free Software
+## Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+##################################################################################
+
+
+function _bashish_eterm_color
+{
+## set foreground and background color
+if test "$OLD_COLOR" != "$BOLDCOLOR$UNDERLINECOLOR$FGCOLOR$BGCOLOR$BGVIEWPORT$BGSHADE$BGTRANSPARENCY";then
+
+	## save old values
+	OLD_COLOR="$BOLDCOLOR$UNDERLINECOLOR$FGCOLOR$BGCOLOR$BGVIEWPORT$BGSHADE$BGTRANSPARENCY"
+
+	function changetermcolors
+	{
+	test "$OLD_PALETTECOLORS" != "$BOLDCOLOR$UNDERLINECOLOR$FGCOLOR$BGCOLOR" && BASHISH_BULKVAR="$BASHISH_BULKVAR\033]39;#$FGCOLOR\007\033]49;#$BGCOLOR\007\033]10;;;#$CURSORCOLOR;#$FGPOINTERCOLOR;#$BGPOINTERCOLOR;;;;#$BOLDCOLOR;#$UNDERLINECOLOR\007"
+
+	OLD_PALETTECOLORS="$BOLDCOLOR$UNDERLINECOLOR$FGCOLOR$BGCOLOR"
+
+	}
+	
+	if test "$BGVIEWPORT$BGTRANSPARENCY" -gt 0;then
+		## change terminal colors (not the ansi colors)
+		changetermcolors
+		test "$OLD_BGSHADE" != "$BGSHADE"&&{
+			BASHISH_BULKVAR=$BASHISH_BULKVAR"\033]6;2;shade;bg;$BGSHADE\007"
+			OLD_BGSHADE=$BGSHADE
+		}
+		test "$OLD_TINT" != "$BGCOLOR"&&{
+			BASHISH_BULKVAR=$BASHISH_BULKVAR"\033]6;2;tint;bg;$BGCOLOR\007"
+			OLD_TINT=$BGCOLOR
+		}
+
+	## do not enable transparency if the user wants background
+	test -z "$IMAGEFILE" && case "$BGVIEWPORT" in
+		1)
+			## enable viewport mode
+			BASHISH_BULKVAR="$BASHISH_BULKVAR\033]6;24;1\007"
+			OLD_BGVIEWPORT=1
+			;;
+		*)
+			## enable transparency
+			case "$BGTRANSPARENCY" in
+			1)
+				BASHISH_BULKVAR="$BASHISH_BULKVAR\033]6;0;1\007"
+			esac
+		
+		esac
+
+	else
+		case "$OLD_BGVIEWPORT" in
+		1)
+			## disable viewport mode 
+			BASHISH_BULKVAR="$BASHISH_BULKVAR\033]6;24;0\007"
+			unset OLD_BGVIEWPORT
+		;;
+		*)
+			## disable transparency
+			BASHISH_BULKVAR="$BASHISH_BULKVAR\033]6;0;0\007"
+		esac
+		## change terminal colors (not the ansi colors)
+		changetermcolors
+
+	fi
+	unset -f changetermcolors
+fi
+
+}

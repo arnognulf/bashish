@@ -1,0 +1,126 @@
+#!/bin/bash
+##################################################################################
+## Bashish, a console theme engine
+## Copyright (C) 2005 Thomas Eriksson
+##
+## This program is free software; you can redistribute it and/or
+## modify it under the terms of the GNU General Public License
+## as published by the Free Software Foundation; either version 2
+## of the License, or (at your option) any later version.
+##
+## This program is distributed in the hope that it will be useful,
+## but WITHOUT ANY WARRANTY; without even the implied warranty of
+## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+## GNU General Public License for more details.
+## 
+## You should have received a copy of the GNU General Public License
+## along with this program; if not, write to the Free Software
+## Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+##################################################################################
+function _bashish_gnome-terminal_properties
+{
+	typeset BASHISH_GCONFARGS
+	
+	## icon
+	test "$EICON" -a "${BASHISH_STATE[301]}" != "$EICON" && {
+		BASHISH_GCONFARGS=$BASHISH_GCONFARGS" --set  /apps/gnome-terminal/profiles/Bashish-${TTY##*/}/icon --type string $(_bashish_whichbtdir $EICON)/$EICON"
+		BASHISH_STATE[301]="$EICON"
+	}
+	
+	test "$IMAGEFILE" || BASHISH_GCONFARGS=$BASHISH_GCONFARGS" --set /apps/gnome-terminal/profiles/Bashish-${TTY##*/}/background_type --type string solid"
+	
+	## terminal transparency
+	test "${BASHISH_STATE[301]}" != "$BGTRANSPARENCY" && {
+		case "$BGTRANSPARENCY" in
+		1|y*|Y*)
+			test "$IMAGEFILE" || BASHISH_GCONFARGS=$BASHISH_GCONFARGS" --set /apps/gnome-terminal/profiles/Bashish-${TTY##*/}/background_type --type string transparent"
+		;;
+		*)
+			BASHISH_GCONFARGS=$BASHISH_GCONFARGS" --set /apps/gnome-terminal/profiles/Bashish-${TTY##*/}/background_type --type string solid"
+		esac
+		BASHISH_STATE[301]=$BGTRANSPARENCY
+	}
+	
+	test "$IMAGEFILE" && BASHISH_GCONFARGS=$BASHISH_GCONFARGS" --set /apps/gnome-terminal/profiles/Bashish-${TTY##*/}/background_type --type string image"
+
+	## change background graphics
+	test "${BASHISH_STATE[300]}" != "$IMAGEFILE" -o "$IMAGELOGO" && {
+
+		## a logo shown for 1 second upon launching the terminal
+		test "$IMAGELOGO" -a -z "${BASHISH_STATE[303]}" && {
+			## hide the cursor and clear screen temporarily
+			printf "\033[?25h\033[2J"
+				gconftool-2 --set "/apps/gnome-terminal/profiles/Bashish-${TTY##*/}/background_type" --type string "image" \
+			        --set /apps/gnome-terminal/profiles/Bashish-${TTY##*/}/background_image --type string "`_bashish_whichbtdir $IMAGELOGO`$IMAGELOGO"
+			test "$IMAGELOGOWAIT"||IMAGELOGOWAIT=1
+			sleep $IMAGELOGOWAIT
+		}
+	
+		## permanent image background
+		if test -n "$IMAGEFILE" ;then
+				BASHISH_GCONFARGS=$BASHISH_GCONFARGS" --set /apps/gnome-terminal/profiles/Bashish-${TTY##*/}/background_type --type string image \
+				--set /apps/gnome-terminal/profiles/Bashish-${TTY##*/}/background_image --type string `_bashish_whichbtdir $IMAGEFILE`$IMAGEFILE"
+		else
+			BASHISH_GCONFARGS=$BASHISH_GCONFARGS" --set /apps/gnome-terminal/profiles/Bashish-${TTY##*/}/background_type --type string solid"
+		fi
+	}
+
+	## background shade
+	## shade cannot be set together with the other gconf options for some strange reason
+	test "x${BASHISH_STATE[305]}" != "x$BGSHADE" && {
+		BASHISH_STATE[305]="$BGSHADE"
+		typeset BGSHADE_FLOAT
+		if test "$BGSHADE" -ge 100 ;then
+			BGSHADE_FLOAT=1.0
+		else
+			if test $BGSHADE -lt 10 ;then
+				BGSHADE_FLOAT=0.0$BGSHADE
+			else
+				BGSHADE_FLOAT=0.$BGSHADE
+			fi
+		fi
+		gconftool-2 --set /apps/gnome-terminal/profiles/Bashish-${TTY##*/}/background_darkness --type float $BGSHADE_FLOAT
+	}
+	
+	## scroll the background when text output occurs
+	test "${BASHISH_STATE[310]}" != "$IMAGESCROLL" -a -n "$IMAGEFILE"&&{
+	
+		case "$BGIMAGESCROLL" in
+		1|y*|Y*)
+			BASHISH_GCONFARGS=$BASHISH_GCONFARGS" --set /apps/gnome-terminal/profiles/Bashish-${TTY##*/}/scroll_background --type bool true"
+		;;
+		*)
+			BASHISH_GCONFARGS=$BASHISH_GCONFARGS" --set /apps/gnome-terminal/profiles/Bashish-${TTY##*/}/scroll_background --type bool false"
+		esac
+	
+		BASHISH_STATE[310]=$IMAGESCROLL
+	}
+
+	## change fore- and background color
+	test "${BASHISH_STATE[260]}${BASHISH_STATE[261]}" != "$BGCOLOR$FGCOLOR" && {
+		BASHISH_GCONFARGS=$BASHISH_GCONFARGS" --set /apps/gnome-terminal/profiles/Bashish-${TTY##*/}/background_color --type string $BGCOLOR --set /apps/gnome-terminal/profiles/Bashish-${TTY##*/}/foreground_color --type string $FGCOLOR"
+		BASHISH_STATE[260]="$BGCOLOR"
+		BASHISH_STATE[261]="$FGCOLOR"
+	}
+
+	## change the 16 ansi colors
+	test "x${BASHISH_STATE[299]}" != "x${COLOR[0]}${COLOR[1]}${COLOR[2]}${COLOR[3]}${COLOR[4]}${COLOR[5]}${COLOR[6]}${COLOR[7]}${COLOR[8]}${COLOR[9]}${COLOR[10]}${COLOR[11]}${COLOR[12]}${COLOR[13]}${COLOR[14]}${COLOR[15]}" && {
+		BASHISH_GCONFARGS=$BASHISH_GCONFARGS" --set /apps/gnome-terminal/profiles/Bashish-${TTY##*/}/palette --type string ${COLOR[0]}"
+		BASHISH_STATE[299]="${COLOR[0]}"
+		n=1
+		while test $n -le 15
+		do
+			BASHISH_GCONFARGS=$BASHISH_GCONFARGS":${COLOR[$n]}"
+			BASHISH_STATE[299]="${BASHISH_STATE[299]}${COLOR[$n]}"
+			let n++
+		done
+	}
+
+	## Apply gnome-terminal schema if modified or if font has been changed
+	## note: the font string cannot be changed separately due to spaces in string
+	test "$BASHISH_GCONFARGS" -o "x${BASHISH_STATE[401]}${BASHISH_STATE[402]}" != "x$FONTNAME$FONTSIZE"&& {
+		gconftool-2 --set /apps/gnome-terminal/profiles/Bashish-${TTY##*/}/font --type string "$FONTNAME $FONTSIZE" $BASHISH_GCONFARGS
+		BASHISH_STATE[401]="$FONTNAME"
+		BASHISH_STATE[402]="$FONTSIZE"
+	}
+}

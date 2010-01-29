@@ -1,0 +1,468 @@
+2.0.7 - Bulky bulk
+------------------
+This release comes with some minor updates and fixes.
+If you experienced problems with earlier releases you are encouraged to
+update.
+
+* Bashish now detects presence of older versions and asks the user to update.
+
+* Fixed the argument handling in the command-line theme changing code which 
+  was broken in the previous release.
+
+* Various updates to make zsh work
+
+* Updated the fade and (yet again) the bluesteel theme to make it work with
+ bashish.
+
+2.0.6 - Legacy love
+-------------------
+This release comes with legacy love for people who do
+not fancy the latest and greatest, while still are in 
+need of a kick-ass prompt :)
+
+
+Prompts for 8-bit people
+------------------------
+Bashish now has a library named _bashish_prompt_cp437
+By calling this library in the prompt, characters from the ancient
+DOS codepage will be printed and can be used in themes.
+
+If in UTF-8 mode, UTF-8 equivalents of the characters are printed.
+If UTF-8 mode is not detected, the terminal is assumed to have a
+CP437 font installed (aka. "VGA font", aka. "OEM font", even incorrectly 
+labeled as "ASCII font").
+
+Bashish switches to CP437 pseudo mode when an 8-bit locale is detected
+and the theme contains a CP437 prompt.
+In themed applications, there should be no need to use this ancient encoding
+and thus the font is switched back to the normal 8-bit locale.
+(change default fonts in $HOME/.bashish/bt/defaults/theme)
+
+Relevant code can be found in $BASHISHDIR/lib/_bashish_prompt_cp437 and 
+$BASHISHDIR/lib/_bashish_utfcheck
+
+Do note, that this feature must be implemented on a per theme basis by 
+using the _bashish_prompt_cp437 library to generate "CP437" characters.
+Additionally calling _bashish_theme_defaults_cp437font from the theme file 
+to enable the default CP437 compatibility font.
+
+See the (updated) README for more information on how to configure, and
+install a CP437 font.
+
+
+Performance and memory work
+---------------------------
+Performance improvements for most themes
+
+Faster startup
+
+Each time a new Bashish process is started it checks whether the tty's
+allocated are owned by the current user, if not Bashish kills off old
+processes.
+
+
+Theme changing updates
+----------------------
+Instant update of all terminals when a theme is changed.
+
+bashishtheme can now be used to set the theme via the command line,
+doc's lack as usual, consider the following examples:
+"bashishtheme box"
+"bashishtheme bluesteel --maincolor=4"
+"bashishtheme vim editor"
+
+Updates in the theme listing of bashishtheme: bashishtheme now only
+displays application themes when application theme selection is asked for
+and only displays prompt themes when prompting is selected.
+
+
+Linux console fixes
+-------------------
+Linux font support for the console.
+Put your .psf / .fnt fonts in ~/.fonts
+Bashish will check both ~/.fonts and /usr/share/consolefonts
+
+Fixed color setting in the console.
+
+
+Eterm fixes
+-----------
+The previously defunct support for Eterm has now been brushed up.
+It's however still recommended to use rxvt-unicode or Konsole though.
+
+
+Cygwin support
+--------------
+Bashish can now be installed and used with the Cygwin POSIX-like environment for
+Windows.
+
+At the prompt in the cygwin console (normal command window), Bashish sets the codepage 
+to CP437/OEM, child processes will use normal ISO8859-1 encoding.
+
+
+KDE Konsole support
+-------------------
+Konsole support that everyone has been waiting for is here.
+Thanks to the Konsole-devs who added the setFont call to dcop, 
+thus Konsole is now capable of full Bashish theming! Yay!
+
+
+Bashish and (t)csh
+------------------
+following themes are now available for (t)csh:
+* fade
+* bluesteel
+
+
+Bashish and sh, ksh, zsh
+------------------------
+following themes are now available for sh and ksh:
+* bluesteel
+
+
+Tango! colors
+-------------
+Bashish now defaults to Tango! colors to better blend with the Desktop.
+
+
+Other minor fixes
+-----------------
+dialog is no longer a required dependency
+
+spelling fix in the uninstall code.
+
+bashish does not load when using "su", "sudo -s" or "chroot"
+
+removed config.guess and config.sub from the distribution, cutting some
+bytes
+
+
+
+2.0.5.1 - crawling with bashisms
+--------------------------------
+This release is based on the input from the Debian RFS.
+It contains only minor fixes, you are encouraged to upgrade if you have
+encountered problems with 2.0.5
+
+Fixed Linux console color.
+
+Uninstall fixes
+bashish -u defaults to Uninstall
+bashish kills of all bashish processes so .bashish can be removed safely on
+nfs filesystems.
+
+replaced header "#!/bin/sh" to "#!/bin/bash" of ksh-compatible scripts 
+due to debian policies.
+This does not however mean that Bashish will loose compatibility with
+non-bash shells. These files are only sourced.
+
+lcars uses _bashish_prompt_fillx instead of fillx
+
+2.0.5
+-----
+This release is for those of you who has complained about the lack of color
+choices ;)
+
+bashish and bashishtheme commands got themselves a --help overhaul
+additionally the man-pages are up-to-date.
+Now non-shellscript wizards can learn how to use these bad boys :D
+
+Workaround for less since it does not display correctly when 
+CSR is set (eg. conda, box, urbandawn).
+Note that one must theme "less" and "man" for this workaround 
+to come in effect.
+
+Improved version of /main/prompt/sh/sys/winchupdate - which reloads the
+prompt when the terminal size has been changed.
+
+Fixed bashishtheme clearing the window after run
+
+Ksh88 fallback if printf is not avaliable
+
+Ksh88 / ksh93 function syntactically correct:
+function foo { bar;}
+instead of
+foo () { bar;}
+and use of typeset instead of local to define local variabels
+
+Better performance / code cleanup in _bashish_launcher
+_bashish_launcher now traps SIGWINCH so the prompt after a themed
+application has ended does not get messed up.
+
+Optimized rxvt-unicode font changing, faster and do not trigger the infamous
+keyboard mess-up bug as often if not complex fonts are being used.
+
+prompt helpers
+--------------
+New shared-code framework for prompts:
+each "helper" has the namespace _bashish_prompt_*
+if the prompt-shell is able to parse ksh code, the helper is loaded as a
+function to increase performance.
+If the prompt-shell is a non-ksh compatible shell, it calls the
+_bashish_prompt_* file as an executable script.
+shared-libs in this release includes
+_bashish_prompt_cwd
+_bashish_prompt_fillx
+
+Thus if you want to use the library outside of Bashish, copy the library to
+your path.
+
+Theme updates
+-------------
+New "box" theme, a colored box is painted around the prompt to the bottom of
+the terminal, where info as user, host, cwd and time is displayed.
+
+Brushed up the old "blue" theme from the BashPrompt package, renamed to fade, 
+and made it use the _bashish_prompt_cwd.
+
+ean updated.
+
+d0t temporary removed until updated.
+
+Updated Fire to use _bashish_prompt_cwd
+
+tinycolor, intended as a theme for use with midpssh where one want to save screen
+space and transferred data, but surely a winner among minimalists.
+
+Following themes have been made color-configurable:
+fade
+bluesteel
+box
+tinycolor
+
+removed the broken "snake" theme
+
+removed "heavymetal" due to uglyness.
+
+Directory fixes for the conda and bluesteel theme.
+
+Bashish theme settings
+----------------------
+As has been the case recently with Bashish, small variations on the same
+theme has been created. This is bad both for maintainability and user
+appearance, thus I've created a way to implement interactive settings upon
+choosing a theme.
+
+Currently only the "basecolor" settings have been created.
+
+A theme API extension named SETTINGS[] has been created, for each element in
+SETTINGS, the $BASHISHDIR/main/bashishtheme/settings/[FILE] will be called
+and executed.
+
+settings files create configuration files in $HOME/.bashish/bt/cache/[THEME]
+
+the files may include THEME values that override the regular values or
+variabels to enhance the prompt, no limitation on the values that are 
+executed are imposed, only that these files must be created, even blank ones!
+
+conf.fish	[fish]
+conf.rc		[rc]
+conf.sh		[sh
+conf.csh	[csh]
+conf		[theme]
+
+2.0.4
+-----
+
+Fixes errors when command exited too abruptly.
+
+Does not load when using 'sudo -s'.
+
+Detects terminal "tilda" as xterm-generic
+
+Fixes bell ringing in rxvt-terminals
+
+Proper font changing in XTerm/rxvt
+
+Enables the use of rxvt-unicode's advanced font changing features:
+defaults to scalable fonts if xft is compiled in.
+
+To speed up scalable fonts rendering, set URXVTANTIALIAS=0
+in ~/.bashish/bt/defaults/theme
+
+Support for cmdtool/shelltool title.
+
+Minor fixes for the prompt updating code at window resizing.
+
+rpm packages automaticly built at release
+
+Gentoo ebuild updated, ebuild pushed onto Gentoo bugzilla.
+
+deb packages automaticly built at release.
+This passes lintian with one violation: Bashish breaks the 
+'csh-considered-harmful' policy since it provides prompt scripts for (t)csh.
+For dpkg and lintian to like Bashish, several changes has been done to 
+the build system, eg the documents have been moved to the package root.
+
+2.0.3
+-----
+For you who have waited: here's a theme update, and not a bad one either :)
+
+Bluesteel
+Beautiful, yet simple 2-line prompt with a 3D steel finish.
+Shows user, host, time and current working directory.
+Comes with 3 different oxidations.
+
+Urban Dawn
+Based on an artwork by grevenlx http://grevenlx.deviantart.com/
+A warm red theme with a city in dawn at the bottom of the terminal, keeping
+the image at the bottom (with some VT102 magic) makes it non-intrusive in
+the scrollback buffer and in interactive programs (vim, joe, etc).
+
+Moo
+A crazy cow theme.
+
+Heavy Metal
+Don't like having your terminal looking like some hippie stuff? Then this is
+the theme for you.
+Provides information as user, host, directory, and time which is not added 
+to the scrollback buffer, a minimal prompt with maximum information.
+
+Conda
+A snake crawling from the bottom with it's head at the cursor.
+Shows current working directory, host user and time.
+Uses the same bottom status as HeavyMetal, and thus provides a lot of
+information without eating your scrollback buffer (it eats mices and bugs
+though).
+
+C64
+I've tried to make the looks of the C64 theme more accurate by adding 
+borders at the top and bottom of the screen, unfortually this kills 
+scrollback history, but, you didn't need it then, why would you need it now? ;)
+Additionally some classic error messages have been added:
+
+?SYNTAX ERROR - unbalanced quotes.
+FORMULA TOO COMPLEX - return status 1
+FILE NOT FOUND - return status 127
+RETURN WITHOUT GOSUBA RETURN - other non-zero return status.
+
+MVS
+This theme tries to get the look and feel of sitting in front of a 3279
+(color) terminal connected to a IBM MVS mainfraime.
+A monochrome 3278 version is also availiable as "mvsmono".
+Line counter works, but unfortually not column count :(
+Note, this theme is not endorsed nor have anything to do with IBM.
+MVS and VM/ESA are trademarks of IBM Corporation.
+
+On the backend side, I bring you the following fixes:
+
+Fixes for obscure shells as es,rc and lsh
+
+Updated build system so the autogen.sh script only needs to be run once.
+DESTDIR added to aid packagers.
+
+WINCH-fix only on Linux systems since it is known not to affect Solaris.
+I do not know about BSD systems.
+Additionally, one can explicity disable the workaround:
+by setting BASHISH_NOWINCHFIX=1
+If you do not run Bashish in a maximized terminal window under metacity, you
+most likely want this. At least until the funky aspect-ratio code gets 
+(re)implemented in rxvt-unicode.
+
+The gnome-terminal schema list could sometimes be quite long, this version
+cleans up schemas not in use.
+
+Fixes for prompt loading, should reload prompt on window resize.
+Cleans up after an old prompt has been loaded. (sh)
+
+All utilities except fillx are now removed, most of them introduced too much
+complexity. Fillx is placed in the path as 'bashish'.
+
+Detects the x3270 terminal as xterm-generic
+
+2.0.2
+-----
+*This is an even minor bug fix release*
+
+The previous release had not generated autoconf & co correctly.
+
+2.0.1
+-----
+*This is a minor bug fix release*
+
+Thanks to J.A Nietzel for his very valuable comments and patches about 'osh'
+and *BSD compatibility.
+
+Replaced file descriptor closing with redirection to /dev/null since the
+previous syntax would break several NetBSD utilities.
+Updated the coding style in the HACKING document with this change.
+
+Fixes in the build process, now 'make clean' and 'make install' without running 
+'make' first, works.
+
+Fixes for the 'osh' shell.
+
+Error messages if startup file did not exist was removed.
+
+Legal section added in the THEME document.
+
+Various other minor corrections and fixes to documentation.
+
+Changes from the 1.9 series
+---------------------------
+* nagging "guide through the installation"-dialog when running bashish
+  for the first time
+
+* new shiny (c)dialog frontend for changing themes
+
+* handles suspending gracefully, with untheming and re-theming when
+  re-entering the themed application
+
+* 'changetheme' is now avaliable as 'bashishtheme'
+
+* Themed applications can now be used in pipes.
+
+* Globbing handling improvements, now correctly handles multiple options
+  and applications with filenames including spaces!
+
+* Now uses autoconf (and some whiz-bang shell script Makefile-generator).
+
+* Major performance increase.
+
+* No need to specify favourite shell or terminal.
+
+* The bashish command furthermore does not work like a pseudo-xterm: it 
+  will not start a terminal on it's own, if you use a GUI to open your
+  favourite bashish-themed application you now need to check the "Run in 
+  terminal" option.
+
+* bashish no longer includes a bunch of randomly licensed fonts, you need to
+  get these separate and install in your font-path.
+
+* official gnome-terminal support.
+
+* detects 'powershell' terminal emulator
+
+* Theme API Changes
+  * No longer uses the PROMPT variable in bash
+  * No longer supports plain text prompts
+  * the prompt is available as 'prompt.%s' where %s can be 'bash'
+    'ksh' 'zsh' 'fish' 'sh' 'csh' 'tcsh' 'kiss'
+  * the theme on the other hand is still avaliable in the 'theme' file,
+    it is also encapsulated in a function.
+  * No more Gamma settings in Eterm
+  * Fonts can no longer be distributed with themes.
+  * A BASHISH_ARGV array and BASHISH_ARGC set for each application launched 
+    avaliable for theme scripting.
+  * BASHISH_PWD points to the executed $PWD
+  * ANSICOLOR_[<BRIGHT>[RED|BLUE|GREEN|WHITE|CYAN|MAGENTA|WHITE|BLACK] is
+    now availiable as COLOR[n] where n=0-15 (at a later time we might
+    support XTerm 256 colors)
+
+* Coding differences:
+  * Aims for ksh shell script compliance, instead of bourne shell
+    compatibilty.
+  * declares most variables as local
+  * utilizes arrays for maintaining terminal state
+  * theme engine built entirely on functions which can be loaded 
+    independently of each other.
+  * more conservative about memory
+  * global functions have the prefix _bashish_
+  * Files in $HOME/.bashish will no longer override BASHISHDIR, if a bashish 
+    developer needs to update parts of bashish, he needs to install his own 
+    local version of bashish.
+  * Bashish is broken up in four different parts, the prompt themer, the
+    terminal themer, the bashish initializer and the theme changer.
+    They work independently of each other so it would be possible to make
+    custom versions of bashish.
+  * BASHISH_USERDIR is no more

@@ -1,0 +1,414 @@
+ote: TODO is my own scratchpad for future ideas about Bashish and it's
+surroundings.
+It varies from unstructured to very unstructured :)
+If you can decipher a blurb which might be interesting to help out with
+or to comment, write me a line or two :)
+Also, feature-wishes go here :)
+
+bashish-2.0.7
+-------------
+woops:
+
+bashishtheme joe editor
+does not work!
+hopefully no one will notice ;)
+
+settings:
+--fontname="Bitstream Vera Sans" --fontsize=16 
+fc-list |cut -d: -f1 | sort | uniq
+--color0 --color1 --color15
+--fgcolor
+--bgcolor
+
+shared subproc
+
+CMD/DOS/lsh/wcmd
+----------------
+
+OS == Windows_NT
+wcmd.exe -- wine testing
+
+UTF-8
+IF NOT "%OS%"=="Windows_NT" ECHO This is 95/98/me
+
+IF "%OS%"=="Windows_NT" ECHO This is NT4/2000/XP/2003
+
+IF "%OS%"=="Windows_NT IF "%ProgramFiles%"=="" ECHO This is NT4
+
+IF "%OS%"=="Windows_NT IF NOT "%ProgramFiles%"=="" ECHO This is 2000 or higher
+
+
+Duplicated code:
+
+sh
+
+bashishtheme:
+
+setopts code
+merge unpack for interactive and non-interactive mode?
+
+bashish 2.0.7
+-------------
+
+Low pri:
+
+fix dialog only app only no app, sort
+
+
+scan home dir, if available in global dir, ignore, if not available globally
+add, then add all global themes
+
+install without make
+
+brand theme
+
+
+
+bashish-screen
+--------------
+screen
+PROMPT_COMMAND
+precmd
+cd()
+## update bashish with new tty
+bashish
+
+## bashish-screen
+screen "$@"
+
+.screenrc
+screen 0 bash
+
+etc, can be changed during runtime
+
+
+check for tty file
+
+init STY
+
+tmp -> ipc
+
+........
+
+rc / es
+fn sigwinch { echo foo ;}
+fn cd { builtin cd $@;prompt;}
+
+
+port lsh themes to DOS / cmd.exe - does cmd use UTF-8?
+http://www.lugaru.com/man/DOS.OEM.Character.Set.Support.html
+
+NetBSD wscons
+-------------
+wsfontload -e ibm -N orator -e ibm /usr/share/wscons/fonts/orator.816
+wsfontload -e iso
+
+wsctl
+
+
+ATT U/WIN
+---------
+uses CP437 mode by default on win98
+no \033[6n either
+uname answers UWIN-98, TERM=vt100
+VERSION_ENVIRONMENT=PACKAGE_cc
+
+
+Unxutils.sf.net (zsh)
+---------------------
+does not use cp437 mode by default
+
+
+
+portable bluesteel
+.--------------------------------------- \n
+------[ C:\WINDOWS\SYSTEM32\
+|
+'-->
+
+portable conda:
+
+.-:-<
+|
+'----------------------------------------\[go back\]
+
+bashishtheme:
+only app/* in appselector and non-app/ in themeselector
+
+work without dialog!
+
+
+fix /dev/vcsa apps in linux console (eg. fte) and always reset colors and
+fonts?
+
+SET PROMPT, dcl in OpenVMS:
+http://h71000.www7.hp.com/DOC/732FINAL/9996/9996pro_062.html
+
+Detect Solaris by uname, SunOS 5.n
+n >10, fail
+
+
+
+wscons in *BSD?
+---------------
+http://www.ussg.iu.edu/hypermail/linux/kernel/9911.1/0916.html
+
+http://netbsd.gw.com/cgi-bin/man-cgi?wsconsctl+8+NetBSD-current
+
+
+bashish-screen 
+--------------
+provide virtual bashish enviroment by redirecting output to specified tty.
+screen would be a protected theme command and always wrapped?
+##if unthemed, bashish provides screen transparency.
+detect tty changed or disconnected.
+
+test -O /dev/pts/[n]
+
+re-detect terminal, instruct bashish process (running in screen)
+reload terminal theme engine, themecap
+
+legacy compatibility
+--------------------
+ultrix:
+no printf
+FOO[511]=bar
+
+bashish-ssh, bashissh
+---------------------
+provide virtual bashish enviroment by redirecting output to specified tty.
+ssh would be a protected theme command and always wrapped?
+if unthemed, bashish provides ssh transparency
+
+ssh -o NumberOfPasswordPrompts=0 user@host -c true
+
+need to set user and tty in enviroment file
+
+ssh host -c bashish theme $SSH_TTY
+
+konsole
+-------
+yakuake
+KONSOLE_DCOP='DCOPRef(yakuake-8598,konsole)'
+KONSOLE_DCOP_SESSION='DCOPRef(yakuake-8598,session-1)'
+konsole
+
+GreenT. not gnome-terminal compatible
+http://forgeftp.novell.com//greent/homepage/screenshots.html
+
+oascript? tell this window of application Terminal
+iTerm support?
+
+fix subproc messup, shared subproc?
+
+libexec for _bashish_subproc ?
+
+use 'cut' in bluesteel when one cannot use bash string manipulation
+
+run bashish in the overloaded function/alias and make "dumber" shells
+restart if needed.
+
+esh shell support
+-----------------
+Esh is a very impressive shell, it is very small both in size and memory
+consumption, it is only superseeded in size by the Old Thompson ports from
+UNIX V6, despite having almost all features you would expect from bash:
+programmable
+prompt
+job control
+
+it's a bit LISPish but I will break it for sure :)
+
+( script foo )
+
+( prompt foobar )
+
+bashish2.1
+----------
+documentation
+
+tomy retro computer: http://www.floodgap.com/retrobits/tomy/tutti.html
+
+Port the BashPrompt themes to zsh, bash and tcsh!
+
+gnome support
+-------------
+Tango naming spec
+
+gconfeditor
+
+import default gnome icon theme at bashish startup and then self destruct
+/desktop/gnome/interface/icon_theme
+
+GICONSIZE=16x16|32x32|scalable
+GICON=apps/gnome-terminal
+
+zenity dialog frontend
+
+kdialog frontend
+
+
+CMD/DOS support
+---------------
+note, when running on cygwin in a 'console' (ie non-xterm) tty is set to
+/dev/conin i'm not sure if this is usable in the bashish point of view,
+perhaps one could open a fifo and tail from that? - ie: broken system
+workaround
+
+cmd colors!: 
+http://www.ss64.com/nt/color.html
+
+      COLOR [background][foreground]
+
+Colour attributes are specified by 2 of the following hex digits. Each digit
+can be any of the following values: 
+
+0 = Black
+8 = Gray
+
+1 = Blue
+9 = Light Blue
+
+2 = Green
+A = Light Green
+
+3 = Aqua
+B = Light Aqua
+
+4 = Red
+C = Light Red
+
+5 = Purple
+D = Light Purple
+
+6 = Yellow
+E = Light Yellow
+
+7 = White
+F = Bright White 
+
+
+
+Plan9 support
+-------------
+http://cm.bell-labs.com/sources/plan9/sys/src/ape/cmd/README
+make an rc wrapper
+
+
+SGI support (before they go bankrupt?)
+--------------------------------------
+implement xwsh support
+
+MacOSX support
+--------------
+cocoadialog frontend
+
+?CDE integration
+---------------
+detect bit depth
+if 1 bit use bm
+>1 use pm
+
+use icons
+
+from http://docs.hp.com/en/B1171-90148/ch13s03.html
+
+"CDE is a visually rich environment"
+
+uhm, yeah, right! :)
+
+"CDE accommodates three display resolutions: low resolution (640x480 pixels),
+medium resolution (800x600 pixels), and high resolution (mega-pixel). The
+size of the Front Panel and some of the icons change automatically,
+depending on the display resolution. For this reason, your application must
+provide different icon sizes."
+
+## s(mall) seems to be volontary
+DTICONTYPE=.pm
+DTICONTYPE=.bm
+DTICONSIZE=t|m|l
+DTICON=foobar
+search in /usr/dt/appconfig/C/icons/
+XMICONSEARCHPATH
+
+VT320 support
+-------------
+soft fonts :) requires some locking so programs and terminal configuration
+do not run in paralell
+
+memory efficiency
+-----------------
+Bashish is a bit hungry on memory, this requires some
+complex changes to fix.
+
+_bashish_subproc_${tty}
+
+still separate fifos
+
+shared subprocess
+cat to each tty? yes
+
+NATIVE_STATE
+BTAPP[0]
+
+_bashish_tty_[tty]
+{
+	local STATE_LIST
+}
+reload all functions?
+how to handle reload? theme changes?
+>&-
+does not inherit changed functions! kill and restart all running functions 
+at the same time, check if tty exists and is writeable! test -w /dev/pts/3
+
+vt100 term
+----------
+???ansi colors
+???invert: printf "\033[?5l|h"
+title
+
+bashish bash/zsh optimization (?)
+---------------------------------
+the wrapper can be replaced by a function in the bash shell, thereby
+removing the need to start a shell
+
+this might also be needed on some systems which does not like the funky
+multiple fd-code
+
+## bash speed optimization
+eval alias $BTAPP=\"BTAPP=$BTAPP _bashish_theme\"
+## zsh preexec speedup
+
+preexec ()
+{
+
+BTAPP=$1
+$2 $3 ... $n
+}
+
+Terminal.app
+------------
+AppleScript for Terminal.app in Mac OS X
+
+remove imagelogo code once executed
+
+sleep ?
+prompt handles startup logo
+
+future...
+
+µBashish
+--------
+µBashish - Embedded bashish with only prompt changing 
+#and decompressed
+#themes which then get linked
+./configure --enable-embedded=csh
+
+./configure --disable-terminal --enable-prompt=csh
+
+same structure, disable terminal
+simplified 'bashish' launcher
+simplified wrapper, prints "$@"
+non-arguments
+old-style STDERR title printing
+

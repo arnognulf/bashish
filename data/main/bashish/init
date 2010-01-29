@@ -1,0 +1,217 @@
+#!/bin/bash
+##################################################################################
+## Bashish, a console theme engine
+## Copyright (C) 2005 Thomas Eriksson
+##
+## This program is free software; you can redistribute it and/or
+## modify it under the terms of the GNU General Public License
+## as published by the Free Software Foundation; either version 2
+## of the License, or (at your option) any later version.
+##
+## This program is distributed in the hope that it will be useful,
+## but WITHOUT ANY WARRANTY; without even the implied warranty of
+## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+## GNU General Public License for more details.
+## 
+## You should have received a copy of the GNU General Public License
+## along with this program; if not, write to the Free Software
+## Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+##################################################################################
+##
+## this is the interface to the user when the 'bashish' command is
+## issued, if no arguments are given, a bashish session will start
+##
+## the bashish command has quite some options which are parsed here
+##
+###############################################################################
+
+SELF=${0##*/}
+
+function helphandler
+{
+	printf "$0: no help avaliable yet\n"
+}
+
+function helphandler
+{
+	printf "
+USAGE:
+
+${0##*/} [[OPTIONS] | [[APPLICATION] [APPLICATION OPTIONS]] ]
+
+${0##*/} launches the terminal part of the \"bashish\" theme enviroment.
+
+OPTIONS
+-h|--help        This help
+-u|--uninstall   Uninstall bashish configuration files
+-b|--bashishdir  Show bashish system directory
+-v|--version     Show version
+--autoon=[SHELL] Enable automatic loading for SHELL
+--autooff=[SHELL Disable automatic loading for SHELL.
+
+To run a themed application from a GUI terminal, one can supply the APPLICATION with 
+APPLICATION OPTIONS to the commandline.
+
+SHELL is one of: ash bash dash es esh fish ksh lsh mksh osh pdksh rc sh tcsh zsh
+
+Without options, Bashish (re)starts the terminal theme enviroment, this is used internally
+by bashishtheme(1), but can also be used by the user to force a terminal update.
+
+Normally, \"bashish\" is launched from the shell startup file.
+On unsupported shells it may be used to launch the bashish enviroment.
+"
+
+	exit 1
+}
+
+
+
+function errorhandler
+{
+	case $1 in
+	1) :;;
+	2)printf "$SELF: the supported values are 'bash' 'csh' 'fish' 'ksh' 'lsh' 'rc' 'sh' 'tcsh' 'zsh'";;
+	3)printf "$SELF: the prompt themer is not installed";;
+	4)printf "$SELF: user requested exit";;
+	5)printf "$SELF: sorry, Bashish needs the dialog utility in order to install.";;
+	6)printf "$SELF: you need to perform a full install of Bashish to enable command theming";;
+	7)printf "$SELF: bashish does not work when not connected to a tty";;
+	42)	## silently exit when not owner of tty
+		exit 42;;
+	99)printf "$SELF: not implemented";;
+	esac
+	test $1 != 0&&printf "\n$SELF: aborting with return code $1\n"
+	exit $1
+}
+
+function _bashish_module
+{
+	test -f $BASHISHDIR/main/bashish/$1||return 1
+	. $BASHISHDIR/main/bashish/$1
+	return 0
+}
+
+## test if the user configuration directory needs to be updated
+LOCALVERSION=""
+test -d "$HOME/.bashish" || _bashish_module sys/firstrunhandler
+test -f "$HOME/.bashish/bashish-version" || _bashish_module sys/firstrunhandler
+read LOCALVERSION < ${HOME}/.bashish/bashish-version
+read GLOBALVERSION < ${BASHISHDIR}/bashish-version
+test "x$GLOBALVERSION" = "x$LOCALVERSION" || _bashish_module sys/firstrunhandler
+
+
+## it is nescessary for bashish to know its tty
+test "x${TTY}" = x && TTY=$(tty)
+case "${BASHISH_ARGV[0]}" in
+--bashishdir) printf "$BASHISHDIR\n"; errorhandler 0;;
+--userdir) printf "$HOME/.bashish\n"; errorhandler 0;;
+-c*|--c*|--configure) errorhandler 99;;
+-u*|--u*)
+	
+	BASHISH_UNINSTALL_STRING1="Uninstall Bashish from your user account?"
+	#if type -p dialog 1>/dev/null
+	#then
+	#	dialog --yes-label "Uninstall" --no-label "Cancel" --backtitle "Bashish User Uninstallation" --yesno "$BASHISH_UNINSTALL_STRING1" 0 0 || exit 1
+	#else
+		printf "bashish: $BASHISH_UNINSTALL_STRING1 [yes]\n"
+		read INPUT
+		case "$INPUT" in
+		n*|N*) errorhandler 4;;
+		*) :
+		esac
+	#fi
+
+	for i in sh bash zsh tcsh csh rc
+	do
+		_bashish_module sys/autohandler
+		autohandler $i
+		test -f $AUTORC&&{
+			cat $AUTORC| grep -v '## line added by bashish' 1>${AUTORC}.new
+			mv $AUTORC.new ${AUTORC}
+		}
+	done
+	for BASHISH_PID in $HOME/.bashish/tmp/*/pid
+	do
+		read PID<$BASHISH_PID
+		kill -9 `cat $BASHISH_PID`
+	done
+	rm -rf $HOME/.bashish
+	BASHISH_UNINSTALL_STRING2="Bashish is now removed from your user account. However, it is still available system-wide, consult your package manager on how to completely remove Bashish."
+	#if type -p dialog
+	#then
+	#	dialog --msgbox "$BASHISH_UNINSTALL_STRING2" 0 0
+	#else
+		printf "bashish: $BASHISH_UNINSTALL_STRING2\n"
+	#fi
+	errorhandler 0
+;;
+--h*|-h*)	helphandler;;
+--v*|-v*)	printf "`cat $BASHISHDIR/bashish-version`\n";;
+--bashishdir|-b) printf "$BASHISHDIR\n";;
+--autoon=*)
+	
+	_bashish_module sys/autohandler
+	autohandler ${BASHISH_ARGV[0]}
+	if test -f "$BASHISHDIR/main/prompt/$AUTOSHELL/autoload";then
+		cat "$BASHISHDIR/main/prompt/$AUTOSHELL/autoload" >>$AUTORC
+	else
+		errorhandler 3
+	fi
+	;;
+--autooff=*)
+
+	_bashish_module sys/autohandler
+	autohandler ${BASHISH_ARGV[0]}
+	cat ${AUTORC} 2>/dev/null| grep -v '## line added by bashish' 1>${AUTORC}.new
+	mv ${AUTORC}.new ${AUTORC}
+	;;
+"")
+	## when bashish is issued without arguments, it will theme the terminal
+	## and start a themed subprocess
+	# if first time execution?
+	# create homedir and give the user a brief introduction
+	## detect terminals and if needed ask for user input before bashish is
+	## forked into oblivion
+	
+	_bashish_module sys/termhandler && {
+		termhandler
+		## engage!
+		printf "LAUNCHER_PID=$$" >"$HOME/.bashish/tmp/${TTY##*/}/subproc"
+		trap "WINCH=1" WINCH
+		TRAPTIMEOUT=$SECONDS
+		let TRAPTIMEOUT+=2
+		until test x$WINCH != x -o $SECONDS -gt $TRAPTIMEOUT
+		do
+			sleep 0.1
+		done
+	
+		true
+	}
+;;
+-*)
+	helphandler
+;;
+*)
+	$BASHISHDIR/lib/_bashish_appdb
+
+	## single application mode
+	## eg. when launching a bashish themed application from a GUI
+	## first launch bashish
+	if _bashish_module sys/termhandler
+	then
+	
+		termhandler
+		## magic globbing code
+		TEMP=$(declare -p BASHISH_ARGV)
+		PATH=$BASHISH_OLDPATH
+		printf "BASHISH_BASHISH_ARGV=${TEMP#*=};BTAPP='${0##*/}'" 1>$HOME/.bashish/tmp/${TTY##*/}/subproc
+		#read input <$HOME/.bashish/tmp/${TTY##*/}/singitback
+		n=1
+		eval $(printf \"${0##*/}\"; while test "$n" -lt ${BASHISH_ARGC};do
+			printf " "\""${BASHISH_ARGV[$n]}"\";
+			let n++;
+		done)
+	else
+		errorhandler 6
+	fi
+esac

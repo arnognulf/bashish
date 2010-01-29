@@ -1,0 +1,30 @@
+Prerequisites
+=============
+
+Bashish requires the following packages to run:
+
+ - a korn shell interpreter:
+   * bash >=2.04
+
+Additional packages are recommended but not required:
+
+ - dialog (for a spiffy curses based theme chooser)
+ - xwininfo (for X support)
+ - xprop (for X support)
+
+
+Simple install procedure
+========================
+
+ % ./configure
+ % make                                   # Create bashish headers
+ % make install                           # Install bashish
+
+Local install procedure
+=======================
+To install bashish in your own home directory (typically as non-root),
+type:
+
+ % ./configure --prefix=$HOME
+ % make					# Create bashish headers
+ % make install				# Install bashish

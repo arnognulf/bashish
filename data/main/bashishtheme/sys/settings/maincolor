@@ -1,0 +1,56 @@
+#!/bin/bash
+##################################################################################
+## Bashish, a console theme engine
+## Copyright (C) 2005 Thomas Eriksson
+##
+## This program is free software; you can redistribute it and/or
+## modify it under the terms of the GNU General Public License
+## as published by the Free Software Foundation; either version 2
+## of the License, or (at your option) any later version.
+##
+## This program is distributed in the hope that it will be useful,
+## but WITHOUT ANY WARRANTY; without even the implied warranty of
+## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+## GNU General Public License for more details.
+## 
+## You should have received a copy of the GNU General Public License
+## along with this program; if not, write to the Free Software
+## Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+##################################################################################
+function _bashish_settings_maincolor
+{
+	## default to red
+	typeset CONF=4 OPTS
+	case "$BASHISHTHEME" in
+	help)
+		printf "\t--maincolor=[COLORNUM]\tSpecify a number ranging from 0-7\n"
+		return 1
+	;;
+	interactive)
+		dialog --title "${THEME} settings" --backtitle "$BACKTITLE" --menu "Select main theme color:" 0 0 0 1 Red 2 Green 3 Yellow 4 Blue 5 Magenta 6 Cyan 7 White 0 Black 2>$HOME/.bashish/tmp/conf||return 2
+		read CONF <$HOME/.bashish/tmp/conf
+	;;
+	batch)
+		for OPTS in ${BASHISH_ARGV[@]}
+		do
+			case "${OPTS}" in
+			--maincolor=*) CONF=${OPTS##*=}
+			esac
+		done
+	esac
+	printf "
+MAINCOLOR=$CONF
+" >>$HOME/.bashish/bt/cache/${THEME}/conf.sh
+	printf "
+MAINCOLOR=$CONF
+" >>$HOME/.bashish/bt/cache/${THEME}/conf.rc
+	printf "
+set MAINCOLOR=$CONF
+" >>$HOME/.bashish/bt/cache/${THEME}/conf.csh
+	printf "
+set MAINCOLOR $CONF
+" >>$HOME/.bashish/bt/cache/${THEME}/conf.fish
+
+}
+_bashish_settings_maincolor
+unset -f _bashish_settings_maincolor

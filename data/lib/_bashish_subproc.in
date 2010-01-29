@@ -1,0 +1,59 @@
+#!@BASHISH_SHELL@
+##################################################################################
+## Bashish, a console theme engine
+## Copyright (C) 2005 Thomas Eriksson
+##
+## This program is free software; you can redistribute it and/or
+## modify it under the terms of the GNU General Public License
+## as published by the Free Software Foundation; either version 2
+## of the License, or (at your option) any later version.
+##
+## This program is distributed in the hope that it will be useful,
+## but WITHOUT ANY WARRANTY; without even the implied warranty of
+## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+## GNU General Public License for more details.
+## 
+##
+## along with this program; if not, write to the Free Software
+## Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+##################################################################################
+
+## this script is not intended for interactive use
+## write the pid of this process
+#set -x
+
+printf "$$" 1> $HOME/.bashish/tmp/${TTY##*/}/pid
+## init bashish
+. $BASHISHDIR/main/terminal/init
+
+## main loop
+## wait for input from FIFO, execute input, loop
+while true
+do
+
+	until test x$BTAPP != x
+	do
+	unset BTAPP BASHISH_ARGV ARGV EVAL
+
+	## test if fifo is avaliable
+	test -p $HOME/.bashish/tmp/${TTY##*/}/subproc||exit 1
+	read EVAL <"$HOME/.bashish/tmp/${TTY##*/}/subproc"
+	eval $EVAL
+	_bashish_brefresh
+	sleep 1
+	done
+
+## until
+	until test "x${BASHISH_ARGV[0]}" = x
+	do
+	unset BTAPP BASHISH_ARGV[*] EVAL
+	## test if fifo is avaliable
+	test -p $HOME/.bashish/tmp/${TTY##*/}/subproc||exit 1
+	read EVAL <"$HOME/.bashish/tmp/${TTY##*/}/subproc"
+	eval $EVAL
+	done
+
+	_bashish_brefresh
+	unset BTAPP BASHISH_ARGV[*] BASHISH_ARGC EVAL
+	sleep 1
+done

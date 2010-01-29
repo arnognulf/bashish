@@ -1,0 +1,137 @@
+#!/bin/bash
+##################################################################################
+## Bashish, a console theme engine
+## Copyright (C) 2006 Thomas Eriksson
+##
+## This program is free software; you can redistribute it and/or
+## modify it under the terms of the GNU General Public License
+## as published by the Free Software Foundation; either version 2
+## of the License, or (at your option) any later version.
+##
+## This program is distributed in the hope that it will be useful,
+## but WITHOUT ANY WARRANTY; without even the implied warranty of
+## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+## GNU General Public License for more details.
+## 
+## You should have received a copy of the GNU General Public License
+## along with this program; if not, write to the Free Software
+## Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+##################################################################################
+## this code section contains resize, font and reposition code, this is needed since
+## the windowmanager might reposition the window or move the window out of focus
+##
+###############################
+###                         ###
+### font changer version 4  ###
+###                         ###
+###############################
+## versions
+##
+## 2.0.0  - version 4.0 - removed some features, ie. no font file changing
+## 1.9.25 - version 3.5 - simplification, faster on XTerm, rxvt-unicode and Eterm
+## 1.9.24 - version 3 - complete rewrite, increased number of font slots
+## 1.9.23 - version 2.5 - align to grid, and position fixation
+## 1.9.12 - version 2 - dual font slots, one for applications and one for btapp's
+## ?????  - version 1.5 - XTerm optimization
+## ?????  - version 1 - utilizing only one slot, both for applications and btapp
+##
+##################################################################################
+function _bashish_xterm_font
+{
+	## Disable scrollbar since it's impossible to detect, and thus causes the 
+	## window to increment in size after a font change.
+	## Need to do this every time since rxvt-unicode has a buggy scrollbar feature
+	printf "\033[?30l"
+	typeset IFS
+	## if the font and size is the same as before, there is no need to traverse
+	## this chunk of code
+	if test "x${BASHISH_STATE[400]}" != "x$XFONT"
+	then 
+		typeset i=0 POSITION_X_INCREMENT="" POSITION_Y_INCREMENT="" PIXELS LINES PRE_SIZE_X PRE_SIZE_Y IFS="
+"
+		for LINES in $(xwininfo -id $WINDOWID)
+		do
+			IFS=" "
+			for PIXELS in $LINES
+			do :;done
+			IFS="
+"
+			case $i in
+			0):;;
+			1) test x$POSITION_X = x&& {
+					POSITION_X=$PIXELS
+					POSITION_X_INCREMENT=1
+				}
+			
+			;;
+			2) test x$POSITION_Y = x&& {
+					POSITION_Y=$PIXELS
+					POSITION_Y_INCREMENT=1
+				}
+			;;
+			3)
+			test x$POSITION_X_INCREMENT = x1 && let POSITION_X=$POSITION_X-$PIXELS-1
+			;;
+			4) 
+			test x$POSITION_Y_INCREMENT = x1 && let POSITION_Y=$POSITION_Y-$PIXELS-1
+			;;
+			5) PRE_WINSIZE_X=$PIXELS;;
+			6) PRE_WINSIZE_Y=$PIXELS;;
+			*)break;;
+			esac
+			let i++
+		done
+		printf "\033]50;$XFONT\007"
+
+		BASHISH_STATE[400]="$XFONT"
+	else
+		kill -s WINCH "$LAUNCHER_PID" 2>/dev/null
+	fi
+	IFS="
+"
+	i=0
+	for LINES in $(xwininfo -id $WINDOWID)
+	do
+		IFS=" "
+		for PIXELS in $LINES
+		do :;done
+		IFS="
+"
+		case $i in
+		0|1|2|3|4):;;
+		5) POST_WINSIZE_X=$PIXELS;;
+		6) POST_WINSIZE_Y=$PIXELS;;
+		*)break;;
+		esac
+		let i++
+	done
+
+	i=0
+	IFS=" "
+	## need to replace this with some spiffy while loop
+	for PIXELS in $(xprop -id $WINDOWID |grep resize\ increment)
+	do
+		test "x$i" = x4 && FONTSIZE_X=$PIXELS
+		test "x$i" = x6 && FONTSIZE_Y=$PIXELS
+		let i++
+	done
+
+	## Get new size calculated from old size and new font size
+	let SIZE_X="$PRE_WINSIZE_X/$FONTSIZE_X"
+	let SIZE_Y="$PRE_WINSIZE_Y/$FONTSIZE_Y"
+
+	## compensate integer rounding errors
+	true||\
+	if test "x${BASHISH_ARGV[0]}" != x
+	then
+		#:
+		test x$(( $PRE_WINSIZE_X % $FONTSIZE_X )) != x0 && let SIZE_X++
+		test x$(( $PRE_WINSIZE_Y % $FONTSIZE_Y )) != x0 && let SIZE_Y++
+	else
+		test x$(( $PRE_WINSIZE_X % $FONTSIZE_X )) != x0 && let SIZE_X--
+		test x$(( $PRE_WINSIZE_Y % $FONTSIZE_Y )) != x0 && let SIZE_Y--
+	fi
+
+	test "x$PRE_SIZE_X" != x$SIZE_X -a "x$PRE_SIZE_Y" != x$SIZE_Y && kill -s WINCH $LAUNCHER_PID 2>/dev/null
+	BASHISH_BULKVAR="$BASHISH_BULKVAR\033[?30l"
+}

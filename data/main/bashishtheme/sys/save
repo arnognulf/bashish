@@ -1,0 +1,68 @@
+#!/bin/bash
+##################################################################################
+## Bashish, a console theme engine
+## Copyright (C) 2005 Thomas Eriksson
+##
+## This program is free software; you can redistribute it and/or
+## modify it under the terms of the GNU General Public License
+## as published by the Free Software Foundation; either version 2
+## of the License, or (at your option) any later version.
+##
+## This program is distributed in the hope that it will be useful,
+## but WITHOUT ANY WARRANTY; without even the implied warranty of
+## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+## GNU General Public License for more details.
+## 
+## You should have received a copy of the GNU General Public License
+## along with this program; if not, write to the Free Software
+## Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+##################################################################################
+
+function _bashish_save
+{
+	## run in a subshell so the themeloading won't pollute the enviroment
+	typeset THEMEFILE FILE SHELLNAME THEMEDIR
+	## do basic checks
+	( test -f $PWD/theme || exit 23 ) || errorhandler 23
+	( . ./theme||exit 22 ) || errorhandler 22
+	 . ./theme ; test "x$BASHISH_THEME" != x|| errorhandler 25
+	unset -f "_bashish_theme_$BASHISH_THEME"
+	## the "-z" flag to tar is a GNU extension
+	## hence a more compatible tar command must be issued
+	_bashish_find "$BASHISH_THEME"
+	THEMEFILE=${THEMEFILE#$BASHISHDIR}
+	THEMEFILE=${THEMEFILE#$HOME/.bashish}
+	if test "x$THEMEFILE" != x
+	then
+		printf "${0##*/}: update ${THEMEFILE#/themes/}? [yes]"
+		read input
+		case $input in
+		""|y*|Y*):;;
+		*)errorhandler 24;;
+		esac
+		mkdir -p "$HOME/.bashish/${THEMEFILE%/*}"
+	else
+		while test "x$THEMEDIR" = x
+		do
+			printf "${0##*/}: specify themedirectory:\n$HOME/.bashish/themes/"
+			read THEMEDIR
+		done
+		mkdir -p "$HOME/.bashish/themes/${THEMEDIR}"
+		THEMEFILE="themes/$THEMEDIR/${BASHISH_THEME}.bt"
+	fi
+	THEMEFILE=$HOME/.bashish/${THEMEFILE}
+	## clean up backup files and empty files before saving
+	for FILE in *; do test -s "${FILE}"||rm "${FILE}";case ${FILE} in *~)rm ${FILE};;esac;done
+	tar cf - . | gzip -c >${THEMEFILE}||errorhandler 27
+	(
+		. ./theme
+		## test if this is the prompt theme
+		OLD_BASHISH_THEME="$BASHISH_THEME"
+		. $HOME/.bashish/bt/prompt/theme
+		test "x$BASHISH_THEME" = "x$OLD_BASHISH_THEME" && for SHELLNAME in bash zsh sh rc csh fish tcsh ksh
+		do
+			test -f "prompt.$SHELLNAME"||: >prompt.$SHELLNAME
+		done
+	)
+	errorhandler 26
+}

@@ -1,0 +1,32 @@
+#!/bin/bash
+######################################
+##
+## provides:
+## THEME_LIST[]
+##
+######################################
+
+function _bashish_list
+{
+	typeset n=0
+	function _bashish_list
+	{
+		typeset FILE
+		for FILE in "$1"/*
+		do
+		
+			test "x${FILE}" != "x*" && if test -d "${FILE}"
+			then
+				_bashish_list "${FILE}"
+			elif test -f "${FILE}"
+			then
+				THEME_LIST[$n]="${FILE}"
+				let n++
+			fi
+		done
+	}
+	_bashish_list "$HOME/.bashish/themes"
+	_bashish_list "$BASHISHDIR/themes"
+	unset -f _bashish_list
+}
+_bashish_list

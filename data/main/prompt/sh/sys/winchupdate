@@ -1,0 +1,77 @@
+#!/bin/sh
+##################################################################################
+## Bashish, a console theme engine
+## Copyright (C) 2005 Thomas Eriksson
+##
+## This program is free software; you can redistribute it and/or
+## modify it under the terms of the GNU General Public License
+## as published by the Free Software Foundation; either version 2
+## of the License, or (at your option) any later version.
+##
+## This program is distributed in the hope that it will be useful,
+## but WITHOUT ANY WARRANTY; without even the implied warranty of
+## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+## GNU General Public License for more details.
+## 
+## You should have received a copy of the GNU General Public License
+## along with this program; if not, write to the Free Software
+## Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+########################################################
+##
+## This is the prompt loader for bashish
+##
+########################################################
+##
+## NOTE! Incomplete, buggy and non-POSIX shells may parse
+## this file, so no ksh-specific code will be accepted in here
+##
+######################################################################
+
+## write the shell PID so "bashishtheme" can force a theme update by
+## sending a WINCH, which subsequently makes promptupdate to run
+printf "$$" >$HOME/.bashish/tmp/${TTY##*/}/shpid
+
+## load the fallback prompt to memory
+promptupdate ()
+{
+	## check if the theme is unsynced with the latest theme in 
+	## bashishtheme, if so, force a theme update
+	test -f "$HOME/.bashish/tmp/${TTY##*/}/sync" || {
+		bashish
+		hash -r
+	}
+	test -f "$HOME/.bashish/bt/prompt/prompt.$SHELLNAME" || {
+		_bashish_module sys/clearprompt
+		return 0
+	}
+	## a small delay makes the term settle down before reloading the prompt
+	sleep 0.5
+
+	## load the fallback prompt to memory
+	. $HOME/.bashish/bt/defaults/prompt.$SHELLNAME
+	
+	## load config defaults
+	. "$HOME/.bashish/bt/prompt/conf.sh"
+
+	## continue loading if prompt is loaded cleanly
+	. "$HOME/.bashish/bt/prompt/prompt.$SHELLNAME"
+	
+	## prompt overrides
+	. $HOME/.bashish/bt/overrides/prompt.$SHELLNAME
+
+	if test "x$BASH" != x
+	then
+		:
+		$PROMPT_COMMAND
+	else
+		type precmd >/dev/null && precmd
+	fi
+}
+
+if test "x$BASH" != x
+then
+	trap "PROMPT_COMMAND=\"unset PROMPT_COMMAND;promptupdate\"" WINCH
+elif test "x$ZSH_NAME" != x
+then
+	trap "precmd () { unset -f precmd; promptupdate;}" WINCH	
+fi
