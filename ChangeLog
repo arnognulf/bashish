@@ -1,3 +1,13 @@
+2.0.8 - I'm not dead yet!
+-------------------------
+Bashish has been bitrotting for quite a while, there were some obsticles I
+did not see an easy way to fix (gnome-terminal being pita to use with
+bashish) and the pretty "conda" and "box" themes, which sometimes ate
+characters entered to the terminal and sometimes printing escape sequencies
+in the prompt, making them a nuicance to use.
+
+
+
 2.0.7 - Bulky bulk
 ------------------
 This release comes with some minor updates and fixes.

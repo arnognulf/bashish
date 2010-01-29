@@ -28,23 +28,25 @@ TTY=$(tty)
 ## print out fault message, help and return with a return status
 function errorhandler
 {
-	typeset SELF=${0##*/}
+	typeset BASHISHTHEME=${0##*/}
 	typeset ERROR=$1
 	case "$1" in
 	99) printf "not implemented";;
 	10) exit 10;;
-	12) printf "$SELF: interactive mode unavaliable since dialog could not be found";;
-	20) printf "$SELF: file was saved to $BTFILE";;
-	21) printf "$SELF: aborting on users request";;
-	22) printf "$SELF: could not parse theme";;
-	23) printf "$SELF: this program must be executed from a valid themedirectory";;
-	24) printf "$SELF: theme was not saved";;
-	25) printf "$SELF: \$BASHISH_THEME not set";;
-	24) printf "$SELF: an error occured";;
-	26) printf "$SELF: theme was sucessfully saved";ERROR=10;;
-	27) printf "$SELF: an error occured while saving the theme";;
-	30) printf "$SELF: theme not found";;
-	80) printf "$SELF: you need to install the \"dialog\" utility in order to use the interactive mode";;
+	12) printf "$BASHISHTHEME: interactive mode unavaliable since dialog could not be found";;
+	20) printf "$BASHISHTHEME: file was saved to $BTFILE";;
+	21) printf "$BASHISHTHEME: aborting on users request";;
+	22) printf "$BASHISHTHEME: could not parse theme";;
+	23) printf "$BASHISHTHEME: this program must be executed from a valid themedirectory";;
+	24) printf "$BASHISHTHEME: theme was not saved";;
+	25) printf "$BASHISHTHEME: \$BASHISH_THEME not set";;
+	24) printf "$BASHISHTHEME: an error occured";;
+	26) printf "$BASHISHTHEME: theme was sucessfully saved";ERROR=10;;
+	27) printf "$BASHISHTHEME: an error occured while saving the theme";;
+	30) printf "$BASHISHTHEME: theme not found";;
+	80) 	helphandler
+		printf "
+$BASHISHTHEME: you need to install the \"dialog\" utility in order to use the interactive mode\n\n";;
 	0) exit 0;;
 	1) exit 1;;
 	esac
@@ -56,20 +58,23 @@ function errorhandler
 ## help
 function helphandler
 {
-	BASHISHTHEME=help
 	printf "
-USAGE:
+$BASHISHTHEME part of Bashish by Thomas Eriksson
 
-${0##*/} [save]
+Usage:
 
-${0##*/} is the theme changer for Bashish.
-If ${0##*/} is started without options an interactive dialog will be presented to the user.
+To change to a theme by name, enter:
+$BASHISHTHEME [themename]
+
+To save a theme, enter:
+$BASHISHTHEME [save]
+
+$BASHISHTHEME is the theme changer for Bashish.
+If $BASHISHTHEME is started without options an interactive dialog will be presented to the user.
 With the interactive dialog, the user can choose a theme for the prompt or for individual applications.
 
-If ${0##*/} is supplied with the \"save\" option, the theme in the current working directory will be saved.
+If $BASHISHTHEME is supplied with the \"save\" option, the theme in the current working directory will be saved.
 "
-
-	exit 1
 }
 
 
