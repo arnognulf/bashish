@@ -73,5 +73,5 @@ then
 	trap "PROMPT_COMMAND=\"unset PROMPT_COMMAND;_bashish_promptupdate\"" WINCH
 elif test "x$ZSH_NAME" != x
 then
-	trap "precmd () { unset -f precmd; _bashish_promptupdate;}" WINCH	
+	trap "echo \"precmd () { unset -f precmd; _bashish_promptupdate;}" WINCH	
 fi

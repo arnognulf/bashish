@@ -7,8 +7,6 @@ Also, feature-wishes go here :)
 
 bashish-2.2.2
 -------------
-clean up PROMPT_COMMAND in loadprompt?
-
 prompt()
 title()
 name()

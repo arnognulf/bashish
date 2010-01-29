@@ -211,7 +211,8 @@ If you installed by source, please _install_ bashish with the same version as yo
 	helphandler
 ;;
 *)
-	$BASHISHDIR/lib/_bashish_appdb
+	## b0rk, this is not available anymore 
+	#$BASHISHDIR/lib/_bashish_appdb
 
 	## single application mode
 	## eg. when launching a bashish themed application from a GUI

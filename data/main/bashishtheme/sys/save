@@ -64,5 +64,4 @@ function _bashish_save
 			test -f "prompt.$SHELLNAME"||: >prompt.$SHELLNAME
 		done
 	)
-	errorhandler 26
 }

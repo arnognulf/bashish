@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 ##################################################################################
 ## Bashish, a console theme engine
 ## Copyright (C) 2005 Thomas Eriksson
@@ -25,10 +25,12 @@
 
 TTY=$(tty)
 
+## command name, bashishtheme?
+BASHISHTHEME="${0##*/}"
+
 ## print out fault message, help and return with a return status
 function errorhandler
 {
-	typeset BASHISHTHEME=${0##*/}
 	typeset ERROR=$1
 	case "$1" in
 	99) printf "not implemented";;
@@ -42,7 +44,6 @@ $BASHISHTHEME: the prompt theme directory is located in \${HOME}/.bashish/bt/pro
 	24) printf "$BASHISHTHEME: theme was not saved";;
 	25) printf "$BASHISHTHEME: \$BASHISH_THEME not set";;
 	24) printf "$BASHISHTHEME: an error occured";;
-	26) printf "$BASHISHTHEME: theme was sucessfully saved";ERROR=0;;
 	27) printf "$BASHISHTHEME: an error occured while saving the theme";;
 	30) printf "$BASHISHTHEME: theme not found";;
 	80) 	helphandler
@@ -59,6 +60,7 @@ $BASHISHTHEME: you need to install the \"dialog\" utility in order to use the in
 ## help
 function helphandler
 {
+	BASHISHTHEME_MODE=help
 	printf "
 $BASHISHTHEME part of Bashish by Thomas Eriksson
 
@@ -95,7 +97,7 @@ test -d $HOME/.bashish || { bashish;errorhandler 10;}
 RETURN=1
 
 ## by default bashishtheme is used in batch mode
-BASHISHTHEME=batch
+BASHISHTHEME_MODE=batch
 
 ## create a list over avaliable themes
 _bashish_module sys/list
@@ -103,11 +105,10 @@ _bashish_module sys/list
 ## provide the find function
 _bashish_module sys/find
 
-
 case "$BASHISH_ARGC" in
 0)
 	## denote that bashishtheme is in interactive mode
-	BASHISHTHEME=interactive
+	BASHISHTHEME_MODE=interactive
 
 	case ${BASHISH_ARGV[0]} in
 	-*) helphandler;;
@@ -133,6 +134,19 @@ case "$BASHISH_ARGC" in
 	save)
 		_bashish_module sys/save
 		_bashish_save
+		printf "\
+$BASHISHTHEME: theme was sucessfully saved
+$BASHISHTHEME: press \033[1mreturn\033[0m to load the saved theme
+"
+read -n1 INPUT
+
+		_bashish_module sys/update
+		_bashish_update
+		_bashish_module sys/setopts
+		_bashish_setopts
+		_bashish_module sys/termcleanup
+		_bashish_termcleanup
+exit 0
 		;;
 	import)
 		## arg2 so konsole one day can be supported too
