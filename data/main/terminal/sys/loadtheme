@@ -25,7 +25,7 @@ typeset BASHISH_THEME
 test "x$BASHISH_THEME" != x &&{
 	## this creates the function _bashish_theme_prompt() which calls
 	## the selected bashish theme function (very fast)
-	eval $(printf "function _bashish_theme_prompt { _bashish_theme_$BASHISH_THEME;}" )
+	eval "function _bashish_theme_prompt { _bashish_theme_$BASHISH_THEME;}"
 }
 ## load the theme overrides to memory
 . $HOME/.bashish/bt/overrides/theme

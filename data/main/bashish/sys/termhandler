@@ -80,7 +80,8 @@ function termhandler
 		IPCDIR="$HOME/.bashish/tmp/${TTY##*/}"
 		mkdir -p "$HOME/.bashish/tmp/${TTY##*/}/"
 		test -p "$IPCDIR/subproc" || mkfifo "$IPCDIR/subproc"
-
+		## disabled gnome-terminal code
+		true||\
 		case $TERM in
 		xterm)
 		case "$COLORTERM" in

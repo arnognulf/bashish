@@ -33,8 +33,14 @@ function _bashish_settings_maincolor
 	batch)
 		for OPTS in ${BASHISH_ARGV[@]}
 		do
-			case "${OPTS}" in
-			--maincolor=*) CONF=${OPTS##*=}
+			case $OPTS in
+			[0-9])
+				case "${OPTS}" in
+				--maincolor=*) CONF=${OPTS##*=}
+				esac
+				;;
+			*)
+				echo -ne "$0: need integer argument"
 			esac
 		done
 	esac

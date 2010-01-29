@@ -100,6 +100,11 @@ THEMECAP="\
 	_bashish_generic_logo\
 	_bashish_generic_cleanvar"
 }
+## comment the following lines to enable gnome-terminal themeing
+function themecap_gnometerminal
+{
+	themecap_xterm-generic
+}
 
 ## gnome-terminal doesn't make use of control sequence characters to control
 ## it's behaviour, instead it uses an external process to communicate with it
@@ -433,6 +438,9 @@ function themecap_xterm-old
 	## GSH as found at http://personal.atl.bellsouth.net/v/c/vcato/gsh/
 	## an XML-aware Tcl/Tk based terminal emulator
 	test "$COLORTERM" = gsh && themecap_xterm-generic
+	
+	## recent versions of Gnome-terminal sets the COLORTERM
+	test "x$COLORTERM" = xgnometerminal && themecap_xterm-generic
 	
 	## Mozilla XML term, currently unsupported
 	test "$LTERM_COOKIE" && themecap_xterm-generic
