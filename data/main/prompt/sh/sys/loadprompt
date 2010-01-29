@@ -28,7 +28,7 @@
 ######################################################################
 
 ## prompt setting function, null as default
-prompt () { :;}
+_bashish_prompt () { :;}
 
 ## yay for ksh!
 case "$SHELLNAME" in
@@ -37,12 +37,12 @@ cd ()
 {
 	unset -f cd
 	cd "$@"
-	prompt
+	_bashish_prompt
 	cd ()
 	{
 		unset -f cd
 		cd "$@"
-		prompt
+		_bashish_prompt
 	}
 }
 ;;
@@ -50,7 +50,7 @@ bash|zsh)
 cd ()
 {
 	builtin cd "$@"
-	prompt
+	_bashish_prompt
 }
 ;;
 sh)
@@ -58,14 +58,14 @@ sh)
 cd ()
 {
 	chdir ${1+"$@"}
-	prompt
+	_bashish_prompt
 }
 
 ## posh does not support 'chdir'
 type type 1>/dev/null 2>/dev/null || cd ()
 {
 	builtin cd "$@"
-	prompt
+	_bashish_prompt
 }
 
 esac

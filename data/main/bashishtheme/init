@@ -159,6 +159,8 @@ case "$BASHISH_ARGC" in
 		_bashish_update
 		_bashish_module sys/setopts
 		_bashish_setopts
+		_bashish_module sys/termcleanup
+		_bashish_termcleanup
 		errorhandler 0
 	esac
 ;;
