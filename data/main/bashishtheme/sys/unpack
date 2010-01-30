@@ -39,7 +39,7 @@ function _bashish_unpack
 		typeset SHELLNAME
 		for SHELLNAME in sh bash zsh rc csh fish tcsh
 		do
-			test -f "$THEMEDIR/prompt.$SHELLNAME"||: 1>$THEMEDIR/prompt.$SHELLNAME
+		#	test -f "$THEMEDIR/prompt.$SHELLNAME"||: 1>$THEMEDIR/prompt.$SHELLNAME
 			test -f "$THEMEDIR/conf.$SHELLNAME"||: 1>$THEMEDIR/conf.$SHELLNAME
 		done
 		test -f "$THEMEDIR/conf"||: 1>$THEMEDIR/conf

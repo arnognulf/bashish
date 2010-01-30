@@ -12,9 +12,15 @@ title()
 name()
 functions from überprompt
 
+gnome-terminal theming
+
 add uberprompt theme
 
-nice to have $HOME/.bashish/prompt
+color() function
+
+nice to have $HOME/.bashish/prompt link
+
+fix fire theme
 
 bashish-2.0.7
 -------------

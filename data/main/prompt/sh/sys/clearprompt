@@ -51,3 +51,5 @@ zsh)
 	*) PS1='$ ';;
 	esac
 esac
+
+unset PROMPTSTR TITLE

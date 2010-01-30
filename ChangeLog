@@ -1,4 +1,4 @@
-2.0.8 - I'm not dead yet!
+2.2.2 - I'm not dead yet!
 -------------------------
 Bashish has been bitrotting for quite a while, there were some obsticles I
 did not see an easy way to fix (gnome-terminal being pita to use with
@@ -6,7 +6,28 @@ bashish) and the pretty "conda" and "box" themes, which sometimes ate
 characters entered to the terminal and sometimes printing escape sequencies
 in the prompt, making them a nuicance to use.
 
+A lot of polish have been done to this release in fixing smaller and larger
+bugs and problems.
 
+The release number bump comes from changing the theme API slightly,
+now the prompt() function to let bashish hook into is called
+_bashish_promptcmd() in order to not collide with prompt() as introduced in
+this release.
+
+The new feature is called "userstrings" and only have support on a few
+themes, more to come :)
+
+userstrings is available to the user in the form of the following functions
+prompt()
+title()
+name()
+
+They modify a part of the prompt or the title so a user quickly can name a
+terminal "hacking", "LaTeXing", "wget job" and so on, nobody really
+remembers tty numbers anyway :)
+Each theme may interpret the $PROMPTSTR and $TITLE strings as they want and
+combine them with the current theme however possible, or not at all.
+If a theme haven't userstring support, nothing will happen.
 
 2.0.7 - Bulky bulk
 ------------------

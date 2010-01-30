@@ -64,7 +64,6 @@ Without argument, a default title will be set.
 	test "x$DISPLAY" != x && printf "\033]0;$TITLE\007"
 	test "x$TERM" = xxterm && printf "\033]0;$TITLE\007"
 }
-title
 
 ## set default prompt string
 prompt ()
@@ -86,9 +85,8 @@ Without argument, a default prompt will be set.
 	else
 		PROMPTSTR="$*"
 	fi	
-	_bashish_updateprompt
+	_bashish_promptupdate
 }
-prompt
 
 ## name, set prompt and title of current terminal [NAME]
 name()

@@ -32,9 +32,6 @@ _bashish_module ()
 ## cygwin specific fixes
 _bashish_module sys/cygwin
 
-## update the prompt if the window size is changed
-_bashish_module sys/winchupdate
-
 ## detect shell and terminal
 _bashish_module sys/detectsh
 

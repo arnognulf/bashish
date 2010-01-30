@@ -70,5 +70,73 @@ type type 1>/dev/null 2>/dev/null || cd ()
 
 esac
 
+## write the shell PID so "bashishtheme" can force a theme update by
+## sending a WINCH, which subsequently makes promptupdate to run
+printf "$$" >$HOME/.bashish/tmp/${TTY##*/}/shpid
+
+## load the fallback prompt to memory
+_bashish_promptupdate ()
+{
+	## check if the theme is unsynced with the latest theme in 
+	## bashishtheme, if so, force a theme update
+	test -f "$HOME/.bashish/tmp/${TTY##*/}/sync" || {
+		bashish
+		hash -r
+	}
+	_bashish_module sys/clearprompt
+
+	## don't bug the user if no _bashish_prompt() function is installed
+	_bashish_prompt ()
+	{
+		:
+	}
+
+	## a small delay makes the term settle down before reloading the prompt
+	sleep 0.5
+
+	## load the fallback prompt to memory
+	test -f "$HOME/.bashish/bt/defaults/prompt.$SHELLNAME" && . "$HOME/.bashish/bt/defaults/prompt.$SHELLNAME"
+	
+	## load config defaults
+	test -f "$HOME/.bashish/bt/prompt/conf.sh" && . "$HOME/.bashish/bt/prompt/conf.sh"
+
+
+	## continue loading if prompt is loaded cleanly
+	## if not available, try to use 
+	if test -f "$HOME/.bashish/bt/prompt/prompt.$SHELLNAME"
+	then
+		. "$HOME/.bashish/bt/prompt/prompt.$SHELLNAME"
+	else
+		if test -f "$HOME/.bashish/bt/prompt/prompt.ksh"
+		then
+			. "$HOME/.bashish/bt/prompt/prompt.ksh"
+		else
+			. "$HOME/.bashish/bt/prompt/prompt.sh"
+		fi
+	fi
+
+	## continue loading if prompt is loaded cleanly
+	test -f "$HOME/.bashish/bt/prompt/prompt.$SHELLNAME" && . "$HOME/.bashish/bt/prompt/prompt.$SHELLNAME"
+
+	## prompt overrides
+	test -f "$HOME/.bashish/bt/overrides/prompt.$SHELLNAME" && . "$HOME/.bashish/bt/overrides/prompt.$SHELLNAME"
+
+	if test "x$BASH" != x
+	then
+		:
+		$PROMPT_COMMAND
+	else
+		type precmd >/dev/null && precmd
+	fi
+}
+
+if test "x$BASH" != x
+then
+	trap "PROMPT_COMMAND=\"unset PROMPT_COMMAND;_bashish_promptupdate\"" WINCH
+elif test "x$ZSH_NAME" != x
+then
+	trap "echo \"precmd () { unset -f precmd; _bashish_promptupdate;}" WINCH	
+fi
+
 ## Normal theme initialization by sending a WINCH signal
 kill -s WINCH $$
