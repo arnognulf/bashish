@@ -44,3 +44,5 @@ _bashish_module sys/loadhelpers
 ## load the theme engine
 _bashish_module sys/loadprompt
 
+## lets the user configure title and prompt strings in themes
+_bashish_module sys/userstrings

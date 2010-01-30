@@ -1,0 +1,109 @@
+#!/bin/sh
+##################################################################################
+## Bashish, a console theme engine
+## Copyright (C) 2010 Thomas Eriksson
+##
+## This program is free software; you can redistribute it and/or
+## modify it under the terms of the GNU General Public License
+## as published by the Free Software Foundation; either version 2
+## of the License, or (at your option) any later version.
+##
+## This program is distributed in the hope that it will be useful,
+## but WITHOUT ANY WARRANTY; without even the implied warranty of
+## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+## GNU General Public License for more details.
+## 
+## You should have received a copy of the GNU General Public License
+## along with this program; if not, write to the Free Software
+## Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+########################################################
+##
+## This module contain the following userstring functions
+##
+## prompt() -- changes a user configurable string in the prompt
+## title() -- changes a user configurable string in the title
+## name() -- changes a user configurable string in both the prompt and the title
+##
+########################################################
+##
+## The userstring functions are supposed to be set for each terminal
+## they are supposed to export their strings to subshells,
+## but not affect other non-child terminals
+##
+########################################################
+##
+## NOTE! Incomplete, buggy and non-POSIX shells may parse
+## this file, so no ksh-specific code will be accepted in here
+##
+######################################################################
+
+## set default title
+title ()
+{
+	## set non-permanent title
+	case "$@" in
+	-h*) printf "\
+title() is part of Bashish by Thomas Eriksson.
+title sets the terminal window title.
+Usage: title [-n] [TITLE]
+-n sets a non-permanent title, otherwise the title will be re-set each time the prompt is displayed
+Without argument, a default title will be set.
+"
+	return 1
+	;;
+	-n*) shift; $_local TITLE;;
+	esac
+	if test "x$*" = x
+	then
+		TITLE=""
+	else
+		TITLE="$*"
+	fi
+	
+	export TITLE
+	test "x$DISPLAY" != x && printf "\033]0;$TITLE\007"
+	test "x$TERM" = xxterm && printf "\033]0;$TITLE\007"
+}
+title
+
+## set default prompt string
+prompt ()
+{
+	case "$@" in
+	-h*) printf "\
+prompt() is part of Bashish by Thomas Eriksson.
+prompt sets the terminal prompt string in uberprompt.
+
+Usage: prompt [PROMPT]
+Without argument, a default prompt will be set.
+"
+	return 1
+	esac
+	
+	if test "x$*" = x
+	then
+		PROMPTSTR=""
+	else
+		PROMPTSTR="$*"
+	fi	
+	_bashish_updateprompt
+}
+prompt
+
+## name, set prompt and title of current terminal [NAME]
+name()
+{
+	case "$@" in
+	-h*) printf "\
+name() is part of Bashish by Thomas Eriksson.
+name sets the terminal prompt and title string in bashish.
+
+Usage: name [PROMPT]
+Without argument, a default prompt and title will be set.
+"
+	return 1
+	esac
+
+	title "$@"
+	prompt "$@"
+}
