@@ -192,7 +192,7 @@
       <key>visible_name</key>
       <schema_key>/schemas/apps/gnome-terminal/profiles/SCHEMANAME/visible_name</schema_key>
       <value>
-        <string>[New Bashish Tab]</string>
+        <string>SCHEMANAME</string>
       </value>
     </entry>
     <entry>

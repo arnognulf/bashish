@@ -138,6 +138,12 @@ case "${BASHISH_ARGV[0]}" in
 			kill -9 `cat $BASHISH_PID`
 		fi
 	done
+	gconftool-2 --recursive-unset /apps/gnome-terminal/profiles/Bashish
+	gconftool-2 --unset /apps/gnome-terminal/profiles/Bashish
+	gconftool-2 --type string --set /apps/gnome-terminal/global/default_profile "Default"
+	NEW_LIST="$(gconftool-2 --get /apps/gnome-terminal/global/profile_list|sed -e 's/Bashish//g' -e 's/,,/,/g' -e 's/\[,/\[/g' -e 's/,\]/\]/g')"
+	gconftool-2 --type list --list-type=string --set /apps/gnome-terminal/global/profile_list "${NEW_LIST}"
+
 	rm -rf $HOME/.bashish
 	BASHISH_UNINSTALL_STRING2="Bashish is now removed from your user account.
 

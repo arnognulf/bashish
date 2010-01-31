@@ -100,11 +100,6 @@ THEMECAP="\
 	_bashish_generic_logo\
 	_bashish_generic_cleanvar"
 }
-## comment the following lines to enable gnome-terminal themeing
-function themecap_gnometerminal
-{
-	themecap_xterm-generic
-}
 
 ## gnome-terminal doesn't make use of control sequence characters to control
 ## it's behaviour, instead it uses an external process to communicate with it
@@ -406,6 +401,9 @@ function themecap_xterm-old
 		
 		## rxvt runs on win32 without font support
 		test "$COLORTERM" = rxvt && themecap_xterm-rxvt-nofont
+		
+		## gnome-terminal
+		test "x${COLORTERM}" = xgnome-terminal && themecap_gnometerminal
 
 		## detect terminal by it's window class name as seen by xprop.
 		test "$WINDOWID"&&case "`xprop -id $WINDOWID 2>/dev/null|grep \"WM_CLASS(STRING)\" 2>/dev/null`" in

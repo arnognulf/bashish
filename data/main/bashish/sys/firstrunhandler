@@ -30,8 +30,9 @@ TITLE="$BACKTITLE"
 
 ## remove user configuration if Bashish 1.x is found
 test -d ${HOME}/.bashish/modules/sh/conf && { 
-echo foo
-read
+echo "bashish: 1.x series configuration of bashish found, your configuration will be removed and updated to 2.x
+bashish: press any key to continue, CTRL+C to exit"
+read -n1
 rm -rf ${HOME}/.bashish
 }
 ## test wether to update bashish or not
@@ -155,7 +156,7 @@ Press [ENTER] to select [$DEFAULT] or specify another shell:"
 	esac
 }
 nag
-unset -f nag	
+unset -f nag
 fi
 ## visual hack for dialog
 type -p dialog 1>/dev/null && printf "\033[44m"
@@ -174,10 +175,13 @@ else
 	errorhandler 3
 fi
 
+module sys/gnometerminalhandler
+
+
 ## sync version
 cp "$BASHISHDIR/bashish-version" "$HOME/.bashish/bashish-version"
 
-BASHISH_INSTALL_STRING3="Bashish installed successfully.\n\nShould you want to remove Bashish at a later time, run\n'bashish --uninstall'\n\nTo configure themes for applications and prompt, run the 'bashishtheme' command at the prompt.\n\nNow, restart your shell(s) to start Bashish."
+BASHISH_INSTALL_STRING3="Bashish installed successfully.\n\nShould you want to remove Bashish at a later time, run\n'bashish --uninstall'\n\nTo configure themes for applications and prompt, run the 'bashishtheme' command at the prompt.\n\nNow, restart your shell(s) and terminals to start Bashish."
 if type -p dialog 1>/dev/null
 then
 dialog --backtitle "$BACKTITLE" --title "$TITLE" --msgbox "$BASHISH_INSTALL_STRING3" 0 0

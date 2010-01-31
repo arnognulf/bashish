@@ -80,33 +80,12 @@ function termhandler
 		IPCDIR="$HOME/.bashish/tmp/${TTY##*/}"
 		mkdir -p "$HOME/.bashish/tmp/${TTY##*/}/"
 		test -p "$IPCDIR/subproc" || mkfifo "$IPCDIR/subproc"
-		## disabled gnome-terminal code
-		true||\
+
 		case $TERM in
 		xterm)
 		case "$COLORTERM" in
 		gnome-terminal)
-			IFS=[]
-			for LIST in `gconftool-2 --get /apps/gnome-terminal/global/profile_list`;do :;done
-			BASENAMETTY=${TTY##*/}
-			case "$LIST" in
-			*Bashish-$BASENAMETTY*)
-				:
-			;;
-			*)
-				gconftool-2 --type list --list-type=string --set /apps/gnome-terminal/global/profile_list "[$LIST,Bashish-${TTY##*/}]"
-				## translate template to schema
-				sed s/SCHEMANAME/Bashish-${TTY##*/}/g $BASHISHDIR/main/terminal/templates/gnome-terminal/schema >$HOME/.bashish/tmp/Bashish-${TTY##*/}
-				## load schema
-				gconftool-2 --load $HOME/.bashish/tmp/Bashish-${TTY##*/}
-				## cleanup
-				rm $HOME/.bashish/tmp/Bashish-${TTY##*/}
-			esac
-			gconftool-2 --set /apps/gnome-terminal/profiles/Bashish-${TTY##*/}/visible_name --type string "[New Bashish Tab]"
-			printf "bashish: please select the profile [New Bashish Tab]\nbashish: and press [RETURN]"
-			read -n1
-			printf "\033[H\033[2J"
-			gconftool-2 --set /apps/gnome-terminal/profiles/Bashish-${TTY##*/}/visible_name --type string "Bashish-${TTY##*/}"
+			_bashish_module sys/gnometerminalhandler
 		;;
 		esac
 		esac

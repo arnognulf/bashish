@@ -111,7 +111,7 @@ _bashish_promptupdate ()
 		then
 			. "$HOME/.bashish/bt/prompt/prompt.ksh"
 		else
-			. "$HOME/.bashish/bt/prompt/prompt.sh"
+			test -f "$HOME/.bashish/bt/prompt/prompt.sh" && . "$HOME/.bashish/bt/prompt/prompt.sh"
 		fi
 	fi
 

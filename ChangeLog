@@ -27,7 +27,7 @@ terminal "hacking", "LaTeXing", "wget job" and so on, nobody really
 remembers tty numbers anyway :)
 Each theme may interpret the $PROMPTSTR and $TITLE strings as they want and
 combine them with the current theme however possible, or not at all.
-If a theme haven't userstring support, nothing will happen.
+If a theme haven't got userstring support, nothing will happen.
 
 2.0.7 - Bulky bulk
 ------------------

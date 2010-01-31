@@ -18,10 +18,6 @@
 ## Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 ##################################################################################
 
-## NOTE! the following code is obsoleted by the 2.0.8 release of Bashish
-## due to it being quite annoying and obtrusive :(
-## However it will still remain in the sources.
-
 ## at some unlucky events the TCSETSW ioctl call would be interrupted by a
 ## SIGWINCH signal and the keyboard would be messed up
 ##
