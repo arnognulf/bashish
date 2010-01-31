@@ -1,0 +1,2 @@
+
+set MAINCOLOR 4

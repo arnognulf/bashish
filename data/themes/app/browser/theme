@@ -1,0 +1,16 @@
+BASHISH_THEME=browser
+_bashish_theme_browser ()
+{
+TITLE="${BASHISH_ARGV[0]*/}"
+IMAGEFILE=""
+BGCOLOR="#f2eee0"
+FGCOLOR="#000000"
+AFGCOLOR=black
+ABGCOLOR=white
+CURSORCOLOR="#555555"
+CFONT=roman-1.fnt.gz
+ICON=$TITLE
+EICON=editor.png
+IMAGEFILE=""
+BGTRANSPARENCY=0
+}

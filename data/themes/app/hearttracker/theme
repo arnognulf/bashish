@@ -1,0 +1,14 @@
+BASHISH_THEME=hearttracker
+
+_bashish_theme_hearttracker ()
+{
+XFONT=nex6x10.pcf.gz
+TITLE=${BASHISH_ARGV[0]##*/}
+## hearttracker green:
+FGCOLOR="#9CAA9C"
+BGCOLOR="#030F03"
+FONTNAME="artwiz anorexia.se"
+FONTSIZE=9
+IMAGEFILE=""
+EICON=emblem-sound.png
+}

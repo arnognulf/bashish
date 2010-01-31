@@ -1,0 +1,25 @@
+## @(#) created by ratdog
+#######################
+##
+## anyone remember interspace/BX? ehh ohh well
+## this is a port of my theme (yeeeeaaaahhh!)
+##                                              -- ratdog
+
+## repacked to bt, added the drift font removed some stuff, generally messed
+## it up -- arne
+
+BASHISH_THEME=m0an
+_bashish_theme_m0an ()
+{
+
+
+## Title and Author
+TITLE="m0an [${TTY##*/}]"
+THEME_AUTHOR="ratdog"
+THEME_COMMENT="anyone remember interspace/BX? ehh ohh well
+| this is a port of my theme (yeeeeaaaahhh!)"
+
+## "ugly ascii for ugly people" ratdog.
+ASCII_LOGO=uglyascii.UTF-8
+
+}

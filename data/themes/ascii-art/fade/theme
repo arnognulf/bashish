@@ -1,0 +1,13 @@
+#!/bin/sh
+##
+## This theme originated from the BashPrompt project (now defunct)
+## Originally created by BadLandZ
+BASHISH_THEME=fade
+
+_bashish_theme_fade ()
+{
+THEME_AUTHOR="BadlandZ"
+BASHISH_SETTINGS[0]=maincolor
+TITLE="$USER @ $HOSTNAME"
+_bashish_theme_defaults_cp437font
+}

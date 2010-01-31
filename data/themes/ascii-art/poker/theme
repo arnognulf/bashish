@@ -1,0 +1,28 @@
+#!/bin/sh
+#!theme
+
+BASHISH_THEME=poker
+_bashish_theme_poker ()
+{
+
+SIZE_X=110
+SIZE_Y=30
+BGCOLOR="#3a7c12"
+FGCOLOR="#eeeeee"
+CURSORCOLOR="#ffffff"
+_bashish_theme_defaults_cp437font
+
+IMAGEFILE=ambience.xpm
+IMAGESCALE=":tile"
+BGSHADE=0
+
+## magenta and cyan does not blend well with the background color
+COLOR[5]="#CF469F"
+COLOR[6]="#51C7B7"
+COLOR[7]="#ffffff"
+## use brightblack and brightwhite since the others are not linux console compatible
+COLOR[8]="#000000"
+COLOR[15]="#ffffff"
+
+TITLE="PokerTerm - ${TTY##*/}"
+}

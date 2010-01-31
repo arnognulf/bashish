@@ -1,0 +1,16 @@
+BASHISH_THEME=mvsmono
+_bashish_theme_mvsmono ()
+{
+THEME_AUTHOR="arne <arne@users.sourceforge.net>"
+
+## submit your own favourite login screens from MVS please!
+## I carboncopied this from a screenshot, *pew*
+
+ASCII_LOGO=boot
+TITLE="$HOSTNAME"
+PROMPT="COMMAND  ===> "
+
+CURSORCOLOR="#ffffff"
+BGCOLOR="#000000"
+FGCOLOR="#00cc00"
+}

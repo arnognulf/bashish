@@ -1,0 +1,36 @@
+## @(#) created by arne
+#######################
+## colors and idea from this deviation by grevenlx, 
+## http://www.deviantart.com/deviation/15483654/
+##
+## I just added some crack pot VT100 commands ;) /Thomas
+##
+BASHISH_THEME=urbandawn
+
+_bashish_theme_urbandawn ()
+{
+THEME_AUTHOR="arne <arne@users.sourceforge.net>"
+
+TITLE="Urban Dawn"
+
+BGCOLOR="#db1c00"
+FGCOLOR="#ffffff"
+COLOR[1]="#f15700"
+COLOR[2]="#f86d06"
+COLOR[3]="#fb942f"
+COLOR[4]="#A32000"
+COLOR[5]="#8D2F31"
+COLOR[6]="#D4AC3C"
+COLOR[7]="#FFFFFF"
+COLOR[8]="#666666"
+COLOR[9]="#FFAA79"
+COLOR[10]="#FFBF90"
+COLOR[11]="#FFC489"
+COLOR[12]="#803928"
+COLOR[13]="#C26D6E"
+COLOR[14]="#EFC344"
+COLOR[15]="#FFFFFF"
+_bashish_theme_defaults_cp437font
+
+
+}

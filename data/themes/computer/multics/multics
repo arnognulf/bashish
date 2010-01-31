@@ -1,0 +1,109 @@
+## @(#) created by arne
+#######################
+## the multics theme
+##
+
+## It is hard to excactly emulate the multics return prompt.
+## multics did not have a line prompt as the input were given on a 
+## FNP (front end network processor), line by line (not character by
+## character as most today terminals do)
+##
+## Multics did have a return prompt though, the output of 'who' below (from
+## Bernd):
+
+# who
+
+# Multics MR8.0, load 32.0/40.0; 32 users, 28 interactive, 2 daemons.
+# Absentee users 2/3
+# IO.SysDaemon
+# Dumper.Daemon
+# Roach.SysMaint
+# <lots of output following>
+# r 13:14 0.099 59
+#
+# As you can see, Multics prompted the end of a program with a line beginning
+#  with "r" (for ready) followed by the actual time, the CPU time, the
+# command
+# took to execute and (if I remember correctly) the amount of main memory
+# used
+
+## in this theme, the prompt shows the current load and current total memory
+## usage instead of command cpu time and amoint of main memory used.
+## 
+
+## stty speed 150/300 might be fun =)
+
+## for the welcome message
+needmod number-base
+
+IMAGELOGO=multics.png
+
+SIZE_Y=40
+SIZE_X=66
+BGTRANSPARENCY=0
+WELCOMEMESSAGE="
+$USER INDIR logged in: `date -R` from TTY$ARABICNUMBER
+(four lines follow.)
+     ***** WELCOME TO THE HONEYWELL-BULL MULTICS SYSTEM *****
+During the first few days of operation service may be risky. If yo
+\\cave
+problems, please call Operations (Ext. 2589).
+Hours of operation are from 0800 to 1800.
+No mail now.
+"
+FGCOLOR=66cc66
+BGCOLOR=666666
+XFONT=c64_8x8.pcf.gz
+LFONT=c64_8x8.fnt.gz
+
+case "$1" in
+--h*|-h*)
+WELCOMEMESSAGE="
+The multics theme. OPTIONS:
+   --help, this help
+   --printer, line printer style scheme
+   --terminal, green terminal style scheme [default]
+"
+;;
+--printer*)
+XFONT=type13.pcf.gz
+LFONT=roman-1.fnt.gz
+FGCOLOR=000000
+BGCOLOR=dddddd
+
+## no cursor, sorry folks but printer lacks such things ;)
+CURSORCOLOR=e0e0e0
+esac
+
+THEME_AUTHOR="arne <arne@users.sf.net>"
+THEME_URL="http://www.multicians.org/
+http://www.vaxman.de/"
+THEME_COMMENT="\
+Bernd Ulmann sent a very helpful description upon how the multics
+prompt worked, thanks!
+
+The Multics operating system is the predecessor of UNIX, and thus shares
+many commands with UNIX.
+
+Multics ran on large Honeywell / Bull mainframes, the user input was given
+on a Honeywell FNP (Front end Network Processor).
+
+The FNP collected all keyboard input (it did not send character by character as most terminal emulators today
+does) and sent it to the Multics mainframe when the user pressed ENTER.
+The return prompt of Multics is the one displayed in this theme.
+
+It was a very technically advanced operating system and had a featureset far
+larger that of UNIX, the multics specification was 3000 pages, over time some
+features were found redunant, however some features, especially some
+security features are rarely found on other OS'es, and thus neither on UNIX.
+
+Multics (which predates the programming language C) was written in the language PL/I.
+
+In 1999(?), Canada, the last Multics mainframe was shut down.
+"
+
+TITLE="Multics"
+MEMTOTAL="$(cat /proc/meminfo |grep Mem:|sed -e "s/   / /g" -e "s/  / /g"|cut -d" " -f2)"
+
+PS1='r $(date +%k:%M) $(uptime |cut -d" " -f12|sed "s/,//g") '$(($(cat /proc/meminfo |grep Mem:|sed -e "s/   / /g" -e "s/  / /g"|cut -d" " -f3)/1024))'
+'

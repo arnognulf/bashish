@@ -1,0 +1,20 @@
+## @(#) created by arne
+###########################
+##
+## theme for the command su
+##
+###########################
+
+BASHISH_THEME=evilroot
+_bashish_theme_evilroot ()
+{
+EICON=dialog-warning3.png
+BGCOLOR="#000000"
+FGCOLOR="#cc3310"
+CURSORCOLOR="#ff3312"
+AFGCOLOR=red
+ABGCOLOR=black
+TITLE="root# rm -rf /"
+IMAGEFILE=""
+BGTRANSPARENCY=0
+}

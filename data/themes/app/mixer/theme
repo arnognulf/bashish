@@ -1,0 +1,19 @@
+BASHISH_THEME=mixer
+
+_bashish_theme_mixer ()
+{
+TITLE="$BTAPP"
+
+IMAGEFILE=""
+
+##test "$SIZE_X" -lt 80 && SIZE_X=80
+##
+BGTRANSPARENCY=0
+case "$TERMNAME" in
+gnome-terminal)
+EICON=volume.png
+;;
+*)
+EICON=mixer-48.png
+esac
+}

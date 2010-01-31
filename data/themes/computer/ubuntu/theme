@@ -1,0 +1,47 @@
+#!/bin/sh
+##
+## Ubuntu - "When you just can't get enough of brown ;)"
+## an ubuntu mockup with colors blending the Ubuntu Desktop
+## I'm kinda into simplicity, so I didn't add $PWD and stuff
+##
+
+BASHISH_THEME=ubuntu
+_bashish_theme_ubuntu ()
+{
+BGCOLOR="#816647"
+FGCOLOR="#D9D2C3"
+## black
+COLOR[0]="#000000"
+##red
+COLOR[1]="#d40000"
+COLOR[2]=""
+COLOR[4]="#594731"
+COLOR[5]="#FB8B00"
+COLOR[6]="#963C59"
+COLOR[7]="#FFBD00"
+## orange (brightred)
+COLOR[9]="#f44800"
+## yellow
+COLOR[3]="#fb8b00"
+COLOR[11]="#FFD29A"
+
+
+COLOR[0]="#000000"
+COLOR[1]="#D40000"
+COLOR[2]="#A89A00"
+COLOR[3]="#FB8B00"
+COLOR[4]="#594731"
+COLOR[5]="#963C59"
+COLOR[6]="#A00009"
+COLOR[7]="#FFFFFF"
+COLOR[8]="#666666"
+COLOR[9]="#F44800"
+COLOR[10]="#C5B400"
+COLOR[11]="#FFD29A"
+COLOR[12]="#E3B37D"
+COLOR[13]="#DB5882"
+COLOR[14]="#FF404B"
+COLOR[15]="#FFF7E0"
+
+TITLE="Terminal - ${TTY##*/}"
+}

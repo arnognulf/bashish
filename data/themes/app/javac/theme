@@ -1,0 +1,7 @@
+BASHISH_THEME=javac
+_bashish_theme_javac ()
+{
+TITLE="Compiling ${ARGV[0]/.java/}"
+
+IMAGEFILE=""
+}

@@ -1,0 +1,20 @@
+## @(#) created by ratdog
+#######################
+##
+## anyone remember interspace/BX? ehh ohh well
+## this is a port of my theme (yeeeeaaaahhh!)
+##                                              -- ratdog
+
+## repacked to bt, added the drift font removed some stuff, generally messed
+## it up -- arne
+## Maybe we should ADD MORE COLORS!#@#(*&#!
+LCYAN="\[[1;36m\]" 
+CYAN="\[[0;36m\]" 
+GREY="\[[1;30m\]" 
+LGREY="\[[0;37;40m\]" 
+NCOLOR="\[[0m\]"
+
+## And now, for the prompt!
+PS1="\
+$GREY┐ ($LCYAN\u$GREY@$CYAN\h$GREY) [$LCYAN\t[0;36m[6D:[2C:[2C$GREY|$CYAN\d$GREY] [$CYAN"'`_bashish_prompt_cwd "\[[1;30m\]" "\[[0;36m\]" 58`'"$GREY]
+$GREY└$CYAN──$LCYAN─$LCYAN>$NCOLOR "

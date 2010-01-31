@@ -1,0 +1,12 @@
+#!/usr/bin/rc
+#fn prompt ()
+#{
+#	. $BASHISH_USERDIR/bt/prompt/prompt.rc
+#}
+#fn f ()
+#{
+#	printf C:
+#	printf $PWD'>'|tr 'a-z' 'A-Z'|sed 's/\//\\/g'
+#	prompt=`. $BASHISH_USERDIR/bt/prompt/prompt.rc
+#}
+prompt='C:\>'

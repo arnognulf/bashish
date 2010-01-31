@@ -1,0 +1,27 @@
+#!/bin/sh
+BASHISH_THEME=manual
+_bashish_theme_manual ()
+{
+XFONT=type13.pcf.gz
+LFONT=roman-1.fnt.gz
+test "x${BASHISH_ARGV[0]}" != x && TITLE="The book of ${BASHISH_ARGV[0]%%.*}."
+test "x${BASHISH_ARGV[1]}" != x && TITLE="The book of ${BASHISH_ARGV[1]%%.*}."
+SIZE_X=90
+SIZE_Y=40
+BGCOLOR="#f2eee0"
+FGCOLOR="#333333"
+CURSORCOLOR=000000
+
+case "$TERMNAME" in
+gnome-terminal)
+	EICON=book.png
+;;
+*)
+	EICON=man.png
+esac
+
+BGTRANSPARENCY=0
+
+IMAGEFILE=""
+
+}

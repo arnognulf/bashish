@@ -1,0 +1,19 @@
+#!/bin/sh
+## @(#) created by arne
+#######################
+
+BASHISH_THEME=moo
+
+_bashish_theme_moo ()
+{
+THEME_AUTHOR="arne <arne@users.sourceforge.net>"
+
+TITLE="MooTerm"
+
+BGCOLOR="#749A53"
+FGCOLOR="#ffffff"
+COLOR[9]="#E7B2B9"
+COLOR[3]="#8CBE60"
+#COLOR[2]="#f86d06"
+#COLOR[3]="#fb942f"
+}

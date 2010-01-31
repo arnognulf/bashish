@@ -1,0 +1,59 @@
+#!/bin/sh
+#!theme
+## freebsd, netbsd, and openbsd
+
+BASHISH_THEME=flowerpower
+_bashish_theme_flowerpower ()
+{
+THEME_AUTHOR="arne <arne AT users.sourceforge.net>"
+THEME_NAME="flower power"
+THEME_COMMENT="Peace man!"
+
+_bashish_theme_defaults_cp437font
+
+## these are the ansi colors
+## most ones taken from Mandrakes Eterm colors
+## black
+COLOR[0]="#000000"
+## red
+COLOR[1]="#FF0000"
+## green
+COLOR[2]="#49C945"
+## yellow
+COLOR[3]="#ECEC0F"
+## blue
+COLOR[4]="#0099DD"
+## magenta
+COLOR[5]="#A7439A"
+## cyan
+COLOR[6]="#45C7C7"
+## white
+COLOR[7]="#ffffff"
+## bright black
+COLOR[8]="#222233"
+## bright red
+COLOR[9]="#FF8F8F"
+## bright green
+COLOR[10]="#99ED96"
+## bright yellow
+COLOR[11]="#FFFF4E"
+## bright blue
+COLOR[12]="#67D0FF"
+## bright magenta
+COLOR[13]="#D986CE"
+## bright cyan
+COLOR[14]="#9CFFFF"
+## bright white
+COLOR[15]="#ffffff"
+
+
+SIZE_X=110
+SIZE_Y=30
+FGCOLOR="#eeeeee"
+BGCOLOR="#d93286"
+CURSORCOLOR="#000000"
+XFONT=lime.pcf.gz
+BGTRANSPARENCY=0
+BGVIEWPORT=0
+TITLE=FlowerTerm
+}

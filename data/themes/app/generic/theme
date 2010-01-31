@@ -1,0 +1,6 @@
+BASHISH_THEME=generic
+_bashish_theme_generic ()
+{
+	TITLE=${BASHISH_ARGV[0]*/}
+	ICON=$TITLE
+}

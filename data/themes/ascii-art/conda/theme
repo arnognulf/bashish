@@ -1,0 +1,12 @@
+## @(#) created by arne
+#######################
+
+BASHISH_THEME=conda
+
+_bashish_theme_conda ()
+{
+THEME_AUTHOR="arne <arne@users.sourceforge.net>"
+_bashish_theme_defaults_cp437font
+TITLE="( $USER @ $HOSTNAME )"
+
+}

@@ -1,0 +1,18 @@
+## @(#) created by arne
+#######################
+BASHISH_THEME=bluesteel
+
+_bashish_theme_bluesteel ()
+{
+THEME_AUTHOR="arne <arne@users.sourceforge.net>"
+THEME_COMMENT="A genuine look-a-like of the dos prompt. with a VGA font offcourse :)"
+_bashish_theme_defaults_cp437font
+BASHISH_SETTINGS[0]=maincolor
+
+TITLE="$USER @ $HOSTNAME"
+
+BGCOLOR="#000000"
+FGCOLOR="#cccccc"
+BGBRIGHTNESS="#000000"
+
+}

@@ -1,0 +1,16 @@
+#!/bin/sh
+##
+## This theme originated from the BashPrompt project (now defunct)
+## Originally created by BadLandZ
+BASHISH_THEME=fire
+
+_bashish_theme_fire ()
+{
+
+_bashish_theme_defaults_cp437font
+
+THEME_AUTHOR="BadlandZ"
+
+TITLE="$USER @ $HOSTNAME"
+
+}

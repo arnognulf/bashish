@@ -1,0 +1,7 @@
+BASHISH_THEME=latex
+_bashish_theme_latex () 
+{
+TITLE="LaTeX"
+IMAGEFILE=""
+EICON=tex.png
+}

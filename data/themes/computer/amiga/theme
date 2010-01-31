@@ -1,0 +1,29 @@
+## @(#) created by arne
+#######################
+## theme: amiga
+##
+## the amiga CLI prompt
+## the title and the prompt is 100% correct as of the kickstart 1.3 rom
+## seen in the UAE emulator
+
+BASHISH_THEME=amiga
+
+_bashish_theme_amiga ()
+{
+
+THEME_AUTHOR="arne <thomas.eriksson@gmail.com>"
+THEME_NAME="Amiga"
+THEME_VERSION="Workbench 1.0"
+THEME_COMMENT="A amiga prompt as seen in uae, the font is pearl from the linux sources but it doesn't differ much from topaz"
+
+PROMPT="${TTY##*/}>"
+TITLE="New Cli Window"
+BGCOLOR="#afafaf"
+FGCOLOR="#000000"
+CURSORCOLOR="#608fbf"
+FONTNAME="Amiga Forever"
+FONTSIZE=12
+BGTRANSPARENCY=0
+
+EICON=shell.png
+}

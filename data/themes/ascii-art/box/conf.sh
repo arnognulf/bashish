@@ -1,0 +1,2 @@
+
+MAINCOLOR=4

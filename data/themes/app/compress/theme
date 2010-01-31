@@ -1,0 +1,43 @@
+#!/bin/sh
+## The 'compress' theme
+##
+## this theme was made for programs handling file compression and to some extent
+## backup.
+##
+## If it can identify the action, it rather sets the action as title rather than 
+## the command name
+BASHISH_THEME=compress
+_bashish_theme_compress ()
+{
+	TITLE="${BASHISH_ARGV[0]##*/}"
+	
+	case "${BASHISH_ARGV[0]##*/}" in
+	gzip) TITLE="GNUZip";;
+	bzip2) TITLE="BZip2" ;;
+	bunzip2):;;
+	tar)
+		TITLE="Tape Archiver"
+		case ${BASHISH_ARGV[0]} in
+		*x*) TITLE="Decompressing";;
+		*c*) TITLE="Compressing";;
+		esac
+		test "x${BASHISH_ARGV[0]}" != x && case ${BASHISH_ARGV[1]} in
+		""|-) TITLE=$TITLE" from standard input...";;
+		*) TITLE="$TITLE ${BASHISH_ARGV[1]##*/}";;
+		esac
+	;;
+	unzip)
+		#case "${BASHISH_ARGV[1]}" in
+		#*.zip|*.ZIP)
+		TITLE="Decompressing ${BASHISH_ARGV[1]##*/}"
+		#-)TITLE="Decompressing ${BASHISH_ARGV[2]##*/}"
+		#easc
+	;;
+	zip)TITLE=Decompressing;;
+	unarj|rar|unrar)
+		TITLE="Decompressing ${BASHISH_ARGV[2]}"
+	;;
+	esac
+	EICON=archive.png
+	ICON=$TITLE
+}

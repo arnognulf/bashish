@@ -1,0 +1,20 @@
+## @(#) created by arne
+#######################
+##
+## tinycolor is a theme optimized for low-speed 
+## terminals capable of color where screen space
+## and transferred data are considerations to make
+##
+## remove color seq's if color is white
+## fast version without constant redrawing
+
+BASHISH_THEME=tinycolor
+
+_bashish_theme_tinycolor ()
+{
+THEME_AUTHOR="arne <arne@users.sourceforge.net>"
+BASHISH_SETTINGS[0]=maincolor
+
+TITLE="$USER @ $HOSTNAME"
+
+}

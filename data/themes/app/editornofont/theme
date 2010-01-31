@@ -1,0 +1,38 @@
+BASHISH_THEME=editornofont
+
+_bashish_theme_editornofont ()
+{
+	local APP
+	APP=${BASHISH_ARGV[0]##*/}
+	TITLE="`printf ${APP:0:1}|tr 'a-z' 'A-Z'`${APP:1}"
+	IMAGEFILE=""
+	AFGCOLOR=black
+	ABGCOLOR=white
+	BGCOLOR="#f2eee0"
+	FGCOLOR="#000000"
+	CURSORCOLOR="#555555"
+	FIXWINCH=1
+	XFONT="-sgi-type-medium-r-normal--13-130-72-72-m-80-iso8859-1"
+	CFONT=roman-1.fnt.gz
+	ICON=$TITLE
+	
+	case "$APP" in
+	less|more) TITLE=Pager; EICON=document.png;;
+	nano) EICON=nano.png;;
+	emacs) EICON=gnu-head.png;;
+	vim|vi) EICON=vim.png ;;
+	*)
+		case "$TERMNAME" in
+		gnome-terminal)
+			EICON=gedit.png
+		;;	
+		*)
+			EICON=editor.png
+		esac
+	esac
+	test "x${BASHISH_ARGV[1]}" != x&&TITLE="${TITLE}: ${BASHISH_ARGV[1]}"
+	IMAGEFILE=""
+	BGTRANSPARENCY=0
+	
+	DELAY=1
+}

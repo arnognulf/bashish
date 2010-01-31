@@ -1,0 +1,9 @@
+BASHISH_THEME=multics
+
+_bashish_theme_multics ()
+{
+	TITLE="Multics"
+	FGCOLOR="#111111"
+	BGCOLOR="#f2eee0"
+	FONTNAME="Courier New"
+}

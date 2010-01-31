@@ -1,0 +1,13 @@
+BASHISH_THEME=video
+
+_bashish_theme_video ()
+{
+XFONT=nex6x10.pcf.gz
+CFONT=lcd.fnt
+TITLE=$BTAPP
+## hearttracker green:
+FGCOLOR="9CAA9C"
+BGCOLOR="000012"
+EICON=emblem-mm.png
+IMAGEFILE=""
+}

@@ -1,0 +1,51 @@
+#!/bin/sh
+## freebsd, netbsd, and openbsd
+BASHISH_THEME=lcars
+_bashish_theme_lcars ()
+{
+THEME_AUTHOR="arne <arne AT users.sourceforge.net>"
+THEME_NAME=LCARS
+TITLE=LCARS
+_bashish_theme_defaults_cp437font
+
+test -z "$LCARS_CONSOLE"&&LCARS_CONSOLE="$RANDOM"
+
+case "$LCARS_CONSOLE" in
+*3|*4|*5)
+## original 
+COLOR[3]="#bd7835"
+   COLOR[4]="#7f80cf"
+   COLOR[1]="#a15353"
+  COLOR[6]="#a27ea2"
+;;
+*0|*1|*2)
+  COLOR[4]="#bd7835"
+COLOR[3]="#a27ea2"
+   COLOR[1]="#a15353"
+ COLOR[6]="#7f80cf"
+;;
+*6|*7)
+COLOR[3]="#bd7835"
+  COLOR[4]="#a15353"
+   COLOR[1]="#a27ea2"
+  COLOR[6]="#7f80cf"
+
+;;
+
+*8|*9)
+COLOR[3]="#7f80cf"
+COLOR[4]="#a27ea2"
+ COLOR[1]="#a15353"
+COLOR[6]="#bd7835"
+esac 
+
+SIZE_Y=80
+SIZE_Y=30
+FGCOLOR="#bd7835"
+BGCOLOR="#000000"
+CURSORCOLOR="#000000"
+XFONT=scrub.pcf.gz
+BGTRANSPARENCY=0
+EICON=lcars-2.jpg
+BOLDCOLOR=$COLOR[4]
+}
