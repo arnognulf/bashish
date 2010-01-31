@@ -95,15 +95,14 @@ THEMECAP="\
 	_bashish_vt100_sane\
 	_bashish_gnome-terminal_winch\
 	_bashish_xterm_printtitle\
+	_bashish_vt100_reverse\
 	_bashish_gnome-terminal_properties\
 	_bashish_generic_bulkprint\
 	_bashish_generic_logo\
 	_bashish_generic_cleanvar"
 }
 
-## gnome-terminal doesn't make use of control sequence characters to control
-## it's behaviour, instead it uses an external process to communicate with it
-## in this case gconftool-2
+## BeOS Terminal, simple xtermish
 function themecap_beterm
 {
 TERMNAME=beterm
