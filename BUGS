@@ -1,5 +1,11 @@
+
 KNOWN BUGS
 ----------
+## $LAUNCHER PID isnt updated when running child shells and then
+## exiting
+kill -s WINCH $LAUNCHER_PID 2>/dev/null
+
+
 * bashish --configure does not work yet, remove your ~/.bashish and install
   again if you would like to add another shell.
 

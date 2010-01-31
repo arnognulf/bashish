@@ -35,7 +35,8 @@ function _bashish_gnome-terminal_winch
 	:
 	;;
 	*)
-		kill -s WINCH $LAUNCHER_PID
+		## $LAUNCHER PID isnt updated when running child shells and then exiting
+		kill -s WINCH $LAUNCHER_PID 2>/dev/null
 		return 0
 	esac
 	test "x${FONTNAME}${FONTSIZE}" = "x${BASHISH_STATE[401]}${BASHISH_STATE[402]}" && kill -s WINCH $LAUNCHER_PID 2>/dev/null

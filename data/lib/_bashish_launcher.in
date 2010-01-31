@@ -105,10 +105,6 @@ function _bashish_theme
 function _bashish_restore
 {
 	printf "USER_TITLE=\"${TITLE}\"" >"$HOME/.bashish/tmp/${TTY##*/}/subproc"
-	case "$COLORTERM" in
-	gnome-terminal):;;
-	*) _bashish_waitwinch
-	esac
 }
 
 ## I didn't manage to make this work with an OR or AND switch :/

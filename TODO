@@ -7,6 +7,8 @@ Also, feature-wishes go here :)
 
 bashish-2.2.2
 -------------
+root '#' when id 0
+
 unpack all themes so we can have version control instead of having a
 propietary .bt format
 

@@ -34,7 +34,16 @@ function termhandler
 	in
 	CYGWIN_98*) exit 0
 	esac
-	
+
+	## when not owner of tty (su / sudo ) or no tty is connected (incorrectly configured chroot)
+	## bashish will silently refuse to load
+	case "${TTY}" in
+	/*) 
+		test -O "${TTY}"  || errorhandler 42
+	;;
+	*) errorhandler 42
+	esac
+
 	## clean up bashish zombie processes that are connected to disconnected ttys
 	typeset TTYS
 	for TTYS in $HOME/.bashish/tmp/*
@@ -47,13 +56,6 @@ function termhandler
 		} 2>/dev/null
 	done
 
-	## when not owner of tty (su / sudo ) or no tty is connected (incorrectly configured chroot)
-	## bashish will silently refuse to load
-	case "${TTY}" in
-	/*) test -O "${TTY}" || errorhandler 42 ;;
-	*) errorhandler 42
-	esac
-	
 	## detect UTF-8
 	test "x$BASHISH_CP" = x && {
 		BASHISH_CP=437
