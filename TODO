@@ -12,7 +12,8 @@ title()
 name()
 functions from überprompt
 
-gnome-terminal theming
+unpack all themes so we can have version control instead of having a
+propietary .bt format
 
 add uberprompt theme
 

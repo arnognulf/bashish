@@ -9,6 +9,11 @@ in the prompt, making them a nuicance to use.
 A lot of polish have been done to this release in fixing smaller and larger
 bugs and problems.
 
+Perhaps most notably is the fix/workaround of the nagging gnome-terminal
+dialogs, this however disables most theming of applications in
+gnome-terminal (ie. you may not set colors and fonts in themed apps in gnome
+terminal).
+
 The release number bump comes from changing the theme API slightly,
 now the prompt() function to let bashish hook into is called
 _bashish_promptcmd() in order to not collide with prompt() as introduced in
