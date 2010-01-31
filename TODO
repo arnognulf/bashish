@@ -7,13 +7,6 @@ Also, feature-wishes go here :)
 
 bashish-2.2.2
 -------------
-prompt()
-title()
-name()
-functions from überprompt
-
-apptitle from uberprompt?
-
 unpack all themes so we can have version control instead of having a
 propietary .bt format
 
@@ -24,6 +17,8 @@ color() function
 nice to have $HOME/.bashish/prompt link
 
 fix fire theme
+
+apptitle from uberprompt?
 
 bashish-2.0.7
 -------------

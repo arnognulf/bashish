@@ -72,7 +72,7 @@ esac
 
 ## write the shell PID so "bashishtheme" can force a theme update by
 ## sending a WINCH, which subsequently makes promptupdate to run
-printf "$$" >$HOME/.bashish/tmp/${TTY##*/}/shpid
+test -d "$HOME/.bashish/tmp/${TTY##*/}" && printf "$$" >$HOME/.bashish/tmp/${TTY##*/}/shpid
 
 ## load the fallback prompt to memory
 _bashish_promptupdate ()
