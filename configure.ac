@@ -66,7 +66,7 @@ AC_DEFINE_UNQUOTED( DOCDIR, [L"$(eval echo $docdir)"], [Documentation directory]
 #AC_DEFINE_UNQUOTED( SYSCONFDIR, [L"$(eval echo $sysconfdir)"], [System configuration directory] )
 #AC_SUBST( SYSCONFDIR, ["$(eval echo $sysconfdir)"] )
 
-AC_CONFIG_FILES([Makefile bashish.spec data/bashish-version man/bashish.1 man/bashishtheme.1 data/lib/_bashish_bashish_fork data/lib/_bashish_bashish_subproc data/lib/_bashish_fork data/lib/_bashish_launcher data/lib/_bashish_prompt_cwd data/lib/_bashish_prompt_fillx data/lib/_bashish_prompt_testloc data/lib/_bashish_subproc ])
+AC_CONFIG_FILES([Makefile bashish.spec data/bashish-version man/bashish.1 man/bashishtheme.1 data/lib/_bashish_bashish_subproc data/lib/_bashish_fork data/lib/_bashish_launcher data/lib/_bashish_prompt_cwd data/lib/_bashish_prompt_fillx data/lib/_bashish_prompt_testloc data/lib/_bashish_subproc ])
 AC_OUTPUT
 
 echo ""

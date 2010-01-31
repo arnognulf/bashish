@@ -175,7 +175,7 @@ else
 	errorhandler 3
 fi
 
-module sys/gnometerminalhandler
+_bashish_module sys/gnometerminalhandler
 
 
 ## sync version

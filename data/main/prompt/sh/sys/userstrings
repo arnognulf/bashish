@@ -56,13 +56,13 @@ Without argument, a default title will be set.
 	if test "x$*" = x
 	then
 		TITLE=""
+		
 	else
 		TITLE="$*"
 	fi
 	
 	export TITLE
-	test "x$DISPLAY" != x && printf "\033]0;$TITLE\007"
-	test "x$TERM" = xxterm && printf "\033]0;$TITLE\007"
+	printf "USER_TITLE=\"${TITLE}\"" >"$HOME/.bashish/tmp/${TTY##*/}/subproc"
 }
 
 ## set default prompt string

@@ -1,3 +1,0 @@
-#!/bin/bash
-## fork a process in the background
-${1+$@}&

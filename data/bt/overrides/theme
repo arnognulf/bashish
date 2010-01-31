@@ -43,6 +43,9 @@ test "$CURSORCOLOR"||CURSORCOLOR="$FGCOLOR"
 test "$BOLDCOLOR"||BOLDCOLOR="$FGCOLOR"
 test "$UNDERLINECOLOR"||UNDERLINECOLOR="$FGCOLOR"
 
+## user title set with the title() function
+test "x$USER_TITLE" != x && TITLE=${USER_TITLE}
+
 ## ansi foreground and background
 ## comment these lines and ugly colors will repaint your nice puTTY, Mac OS X
 ## terminal or whatnext. this code disables bashish use of ansi foreground and background

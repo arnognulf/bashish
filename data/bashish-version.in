@@ -1,1 +1,3 @@
-@PACKAGE_VERSION@ Bulky bulk
+#!/bin/bash
+BASHISHDIR="/home/arno/Unix/share/bashish"
+BASHISH_SHELL="/bin/bash"

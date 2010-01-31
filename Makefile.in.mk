@@ -39,7 +39,10 @@ pkgdatadir = $(datadir)/bashish
 ##
 
 bashish:
-	for i in bin/bashish bin/bashishtheme; do\
+	for i in bin/bashish \
+                 bin/bashishtheme \
+	    ; do\
+		rm $$i; \
 		./genheader $(BASHISH_SHELL) $(datadir)/bashish >$$i; \
 		cat $$i.in >>$$i; \
 	done;

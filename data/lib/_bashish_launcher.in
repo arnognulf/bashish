@@ -94,7 +94,7 @@ function _bashish_theme
 		n=0
 		while test $n -lt $BASHISH_ARGC
 		do
-			printf "BASHISH_ARGV[$n]=\"${BASHISH_ARGV[$n]}\";"
+			printf "USER_TITLE=\"\";BASHISH_ARGV[$n]=\"${BASHISH_ARGV[$n]}\";"
 			let n++
 		done
 		printf "BASHISH_PWD=\"$PWD\";BASHISH_ARGC=$BASHISH_ARGC;LAUNCHER_PID=$$"
@@ -104,7 +104,7 @@ function _bashish_theme
 }
 function _bashish_restore
 {
-	printf "" >"$HOME/.bashish/tmp/${TTY##*/}/subproc"
+	printf "USER_TITLE=\"${TITLE}\"" >"$HOME/.bashish/tmp/${TTY##*/}/subproc"
 	case "$COLORTERM" in
 	gnome-terminal):;;
 	*) _bashish_waitwinch
