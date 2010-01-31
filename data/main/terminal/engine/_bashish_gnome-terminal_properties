@@ -20,8 +20,19 @@
 
 function _bashish_gnome-terminal_properties
 {
+	## do not activate gnome theming if in app theming mode
+	## if enabled, this would affect all terminals,
+	## I have not found an automatic workaround for this, 
+	## only manually specifying a profile for each tty which is quite annoying
+	case "$BTDIR" in
+	*/prompt/|*/prompt)
+	:
+	;;
+	*)
+		return 0
+	esac
+		
 	typeset BASHISH_GCONFARGS
-	
 	## icon
 	test "$EICON" -a "${BASHISH_STATE[301]}" != "$EICON" && {
 		BASHISH_GCONFARGS=$BASHISH_GCONFARGS" --set  /apps/gnome-terminal/profiles/Bashish/icon --type string $(_bashish_whichbtdir $EICON)/$EICON"
