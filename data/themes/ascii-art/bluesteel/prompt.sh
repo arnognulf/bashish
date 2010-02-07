@@ -35,7 +35,7 @@
 ###########################
 
 
-prompt ()
+_bashish_prompt ()
 {
 TIME=`date +"%R:%S"`
 FADE1=[32m
@@ -53,18 +53,5 @@ PS1="
 [9${MAINCOLOR}m`_bashish_prompt_cp437 C0`[3${MAINCOLOR}m$LINE[90m$LINE[9${MAINCOLOR}m>[A[4D[3${MAINCOLOR}m`_bashish_prompt_fillx $LINE`["$COLUMNS"D[37m`_bashish_prompt_cp437 DA`$LINE[9${MAINCOLOR}m$LINE[3${MAINCOLOR}m$LINE[90m$LINE[9${MAINCOLOR}m[[3${MAINCOLOR}m""$USER[9${MAINCOLOR}m""@[3${MAINCOLOR}m""`hostname`[9${MAINCOLOR}m][90m$LINE$LINE[3${MAINCOLOR}m─[9${MAINCOLOR}m─[37m──[9${MAINCOLOR}m─[9${MAINCOLOR}m[[3${MAINCOLOR}m$TIME[9${MAINCOLOR}m[6D:[2C:[2C][90m──[3${MAINCOLOR}m─[9${MAINCOLOR}m─[37m──[9${MAINCOLOR}m─[9${MAINCOLOR}m["`_bashish_prompt_cwd "\033[9"${MAINCOLOR}"m" "\033[3"${MAINCOLOR}"m" 58`"[9${MAINCOLOR}m][90m$LINE$LINE[3${MAINCOLOR}m$LINE[9${MAINCOLOR}m$LINE[37m$LINE$LINE[9${MAINCOLOR}m$LINE$LINE[0m
 [4C "
 }
-prompt
+_bashish_prompt
 
-## sh does not support 'builtin'
-cd ()
-{
-	chdir ${1+"$@"}
-	prompt
-}
-
-## posh does not support 'chdir'
-type type 1>/dev/null 2>/dev/null || cd ()
-{
-	builtin cd "$@"
-	prompt
-}
