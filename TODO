@@ -7,6 +7,18 @@ Also, feature-wishes go here :)
 
 bashish-2.2.2
 -------------
+main/bashishtheme/sys/setopts:28
+fails after new theme has been created
+really load/unpack theme after loaded
+
+shell-init: error retrieving current directory: getcwd: cannot access parent
+directories: No such file or directory
+shell-init: error retrieving current directory: getcwd: cannot access parent
+directories: No such file or directory
+shell-init: error retrieving current directory: getcwd: cannot access parent
+directories: No such file or directory
+
+
 work correctly when sudo -s is used. 
 indicate with '#' when id 0
 something messy here

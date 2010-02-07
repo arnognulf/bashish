@@ -77,6 +77,9 @@ test -d "$HOME/.bashish/tmp/${TTY##*/}" && printf "$$" >$HOME/.bashish/tmp/${TTY
 ## load the fallback prompt to memory
 _bashish_promptupdate ()
 {
+	## temporarily disable CTRL+C
+	trap "" INT
+	
 	## check if the theme is unsynced with the latest theme in 
 	## bashishtheme, if so, force a theme update
 	test -f "$HOME/.bashish/tmp/${TTY##*/}/sync" || {
@@ -128,6 +131,8 @@ _bashish_promptupdate ()
 	else
 		type precmd >/dev/null && precmd
 	fi
+	## re-enable CTRL+C
+	trap INT
 }
 
 if test "x$BASH" != x

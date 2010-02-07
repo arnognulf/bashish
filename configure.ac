@@ -1,5 +1,5 @@
 ## Process this file with autoconf to produce a configure script.
-AC_INIT([Bashish],[2.0.7], [thomas.eriksson@gmail.com], [bashish])
+AC_INIT([Bashish],[2.2.2], [thomas.eriksson@gmail.com], [bashish])
 
 ## Set up various programs needed for install
 AC_PROG_INSTALL

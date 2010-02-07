@@ -19,10 +19,10 @@
 ##################################################################################
 ##
 ## provides:
-## theme_find()
+## _bashish_find()
 ##
 ## usage:
-## theme_find [THEME]
+## _bashish_find [THEME]
 ## 
 ## sets global variable THEMENAME with full path and filename to selected theme
 ## returns 1 if given THEME could not be found, no THEMENAME will be set
@@ -31,9 +31,14 @@
 function _bashish_find
 {
 	typeset n=0
-	while test "${THEME_LIST[$n]}"
+	while test "x${THEME_LIST[$n]}" != x
 	do
-		test x${THEME_LIST[$n]##*/} = x${1} -o x${THEME_LIST[$n]##*/} = x${1}.bt &&{ THEME=${1%.bt};THEME=${THEME##*/}; THEMEFILE=${THEME_LIST[$n]};return 0; }
+		test x"${THEME_LIST[$n]##*/}" = "x${1}" -o x"${THEME_LIST[$n]##*/}" = x"${1}".bt && \
+			{ THEME=${1%.bt};\
+			  THEME=${THEME##*/};\
+			  THEMEFILE=${THEME_LIST[$n]};\
+			  return 0; \
+			}
 		let n++
 	done
 	return 1
