@@ -7,8 +7,6 @@ Also, feature-wishes go here :)
 
 bashish-2.2.2
 -------------
-TITLE variable in theme/prompt.[sh|ksh|bash|zsh|tcsh]
-
 main/bashishtheme/sys/setopts:28
 fails after new theme has been created
 really load/unpack theme after loaded
