@@ -85,6 +85,9 @@ _bashish_promptupdate ()
 	test -f "$HOME/.bashish/tmp/${TTY##*/}/sync" || {
 		bashish
 		hash -r
+		## a small delay makes the term settle down before reloading the prompt
+		sleep 0.5
+
 	}
 	_bashish_module sys/clearprompt
 
@@ -94,8 +97,6 @@ _bashish_promptupdate ()
 		:
 	}
 
-	## a small delay makes the term settle down before reloading the prompt
-	sleep 0.5
 
 	## load the fallback prompt to memory
 	test -f "$HOME/.bashish/bt/defaults/prompt.$SHELLNAME" && . "$HOME/.bashish/bt/defaults/prompt.$SHELLNAME"
