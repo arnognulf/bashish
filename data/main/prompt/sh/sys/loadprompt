@@ -132,6 +132,10 @@ _bashish_promptupdate ()
 	else
 		type precmd >/dev/null && precmd
 	fi
+	
+	## load _bashish_title() if available
+	_bashish_title
+	
 	## re-enable CTRL+C
 	trap INT
 }

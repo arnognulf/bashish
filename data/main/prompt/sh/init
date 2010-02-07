@@ -38,6 +38,9 @@ _bashish_module sys/detectsh
 ## load prompt helpers
 _bashish_module sys/loadhelpers
 
+## load the title stuff
+_bashish_module sys/title
+
 ## load the theme engine
 _bashish_module sys/loadprompt
 
