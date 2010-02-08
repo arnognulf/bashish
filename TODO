@@ -7,6 +7,9 @@ Also, feature-wishes go here :)
 
 bashish-2.2.2
 -------------
+broken on zsh
+xterm detection code should be moved to a library
+
 main/bashishtheme/sys/setopts:28
 fails after new theme has been created
 really load/unpack theme after loaded
