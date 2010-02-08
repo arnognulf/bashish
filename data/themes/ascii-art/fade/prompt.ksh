@@ -7,6 +7,7 @@
 
 
 _bashish_prompt () {
+eval _bashish_prompt_shellvars
 
 ## load some compat variables, TIME, DATE, BEGIN_HIDE, END_HIDE etc
 #eval $(_bashish_shellcompat)

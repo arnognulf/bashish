@@ -8,8 +8,7 @@ FGCYAN="[36m"
 NORMAL="[0m"
 FGRED="[31m"
 
-function prompt {
-	unset -f prompt
+function _bashish_prompt {
 	typeset UP="`_bashish_prompt_cp437 DF`"
 	typeset DO="`_bashish_prompt_cp437 DC`"
 	typeset FU="`_bashish_prompt_cp437 DB`"
@@ -23,4 +22,4 @@ $FGBLUE"$DO$DO$DO$DO$DO$DO"
  \[$FGBLUE\]$UP$UP$UP$UP$UP$UP$UP$UP$UP$UP \[$FGRED\]$UP$UP$UP$UP$UP$UP$UP$UP$UP$UP$UP$UP\[$NORMAL\]   "
 
 }
-prompt
+_bashish_prompt

@@ -7,8 +7,24 @@ Also, feature-wishes go here :)
 
 bashish-2.2.2
 -------------
+shellvars lib, fix bluesteel
+foo ()
+{
+        printf "typeset FOO=bar"
+}
+FOO=WIN
+bar ()
+{
+        eval $(foo)
+        FOO=FAIL
+        echo "$FOO"
+}
+
+bar
+echo $FOO
+
+
 broken on zsh
-xterm detection code should be moved to a library
 
 no parsing on zsh/ksh only userland code
 
@@ -29,9 +45,6 @@ indicate with '#' when id 0
 something messy here
 
 bashishtheme [--disable-gnome-terminal|--enable-gnome-terminal]
-
-unpack all themes so we can have version control instead of having a
-propietary .bt format
 
 add uberprompt theme
 

@@ -40,35 +40,26 @@ case "$1" in
 zsh)
 function _bashish_prompt_shellvars
 {
-
-	printf "typeset ESC=\"\033\"\n"
-	printf "typeset EMBED=\"%%{\"\n"
-	printf "typeset UNEMBED=\"%%}\"\n"
+	printf "typeset ESC=\"\033\" EMBED=\"%%{\" UNEMBED=\"%%}\"\n"
 }
 ;;
 bash)
 function _bashish_prompt_shellvars
 {
 
-	printf "typeset ESC=\"\033\"\n"
-	printf "typeset EMBED=\"\\[\"\n"
-	printf "typeset UNEMBED=\"\\]\"\n"
+	printf "typeset ESC=\"\033\" EMBED=\"\\[\" UNEMBED=\"\\]\"\n"
 }
 ;;
 ksh)
 function _bashish_prompt_shellvars
 {
-	printf "typeset ESC=\"\033\"\n"
-	printf "typeset EMBED=\"\"\n"
-	printf "typeset UNEMBED=\"\"\n"
+	printf "typeset ESC=\"\033\" EMBED=\"\" UNEMBED=\"\"\n"
 }
 ;;
 sh)
 function _bashish_prompt_shellvars
 {
-	printf "ESC=\"\033\"\n"
-	printf "EMBED=\"\"\n"
-	printf "UNEMBED=\"\"\n"
+	printf "ESC=\"\033\";EMBED=\"\";UNEMBED=\"\"\n"
 }
 esac		
 
