@@ -62,10 +62,17 @@ function _bashish_unpack
 	*)
 		## the "-z" flag to tar is a GNU extension
 		## hence a more compatible tar command must be used
-		gzip -cd ${THEMEFILE} |( cd ${THEMEDIR}&&tar xf - )
-		test "x${BTAPP}" = x && theme_prompt
+		#gzip -cd ${THEMEFILE} |( cd ${THEMEDIR}&&tar xf - )
+		cp ${THEMEFILE}/* ${THEMEDIR}
 		RETURN=0
 		ln -s "${THEMEDIR}" "${DESTDIR}"
+
+		if test "x${BTAPP}" = x
+		then
+			ln -s "${THEMEDIR}" "${HOME}/.bashish/prompt"
+			theme_prompt
+		fi
+		
 	esac
 	_bashish_themedb
 	test x${BTAPP} != x && _bashish_appdb

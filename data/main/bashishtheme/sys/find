@@ -33,12 +33,14 @@ function _bashish_find
 	typeset n=0
 	while test "x${THEME_LIST[$n]}" != x
 	do
-		test x"${THEME_LIST[$n]##*/}" = "x${1}" -o x"${THEME_LIST[$n]##*/}" = x"${1}".bt && \
-			{ THEME=${1%.bt};\
-			  THEME=${THEME##*/};\
-			  THEMEFILE=${THEME_LIST[$n]};\
-			  return 0; \
-			}
+		if test 	x"${THEME_LIST[$n]##*/}" = "x${1}" \
+	 			-f "${THEME_LIST[$n]##*/}"/theme
+		then
+			THEME=${1};\
+			THEME=${THEME##*/};\
+			THEMEFILE=${THEME_LIST[$n]};\
+			return 0; \
+		fi
 		let n++
 	done
 	return 1

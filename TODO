@@ -23,6 +23,8 @@ work correctly when sudo -s is used.
 indicate with '#' when id 0
 something messy here
 
+bashishtheme [--disable-gnome-terminal|--enable-gnome-terminal]
+
 unpack all themes so we can have version control instead of having a
 propietary .bt format
 

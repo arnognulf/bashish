@@ -33,7 +33,7 @@ function errorhandler
 {
 	typeset ERROR=$1
 	case "$1" in
-	99) printf "not implemented";;
+	99) printf "$BASHISHTHEME: not implemented";;
 	10) exit 10;;
 	12) printf "$BASHISHTHEME: interactive mode unavaliable since dialog could not be found";;
 	20) printf "$BASHISHTHEME: file was saved to $BTFILE";;
@@ -71,6 +71,9 @@ $BASHISHTHEME [themename]
 
 To save a theme, enter:
 $BASHISHTHEME [save]
+
+To list available themes, enter:
+$BASHISHTHEME -l
 
 $BASHISHTHEME is the theme changer for Bashish.
 If $BASHISHTHEME is started without options an interactive dialog will be presented to the user.
@@ -110,9 +113,6 @@ case "$BASHISH_ARGC" in
 	## denote that bashishtheme is in interactive mode
 	BASHISHTHEME_MODE=interactive
 
-	case ${BASHISH_ARGV[0]} in
-	-*) helphandler;;
-	esac
 	## provide the unpack
 	_bashish_module sys/unpack
 
@@ -131,6 +131,7 @@ case "$BASHISH_ARGC" in
 	;;
 *)
 	case "${BASHISH_ARGV[0]}" in
+	-l*|--l*) for THEME_ITEM in ${THEME_LIST[*]##*/}; do echo "$THEME_ITEM";done | sort; errorhandler 0;;
 	save)
 		_bashish_module sys/save
 		_bashish_save
@@ -180,5 +181,5 @@ exit 0
 	esac
 ;;
 esac
-
+echo ${BASHISH_ARGV[0]}
 errorhandler 99

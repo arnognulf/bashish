@@ -11,17 +11,17 @@ function _bashish_list
 	typeset n=0
 	function _bashish_list
 	{
-		typeset FILE
-		for FILE in "$1"/*
+		typeset DIR
+		for DIR in "$1"/*
 		do
-		
-			test "x${FILE}" != "x*" && if test -d "${FILE}"
+			test "x${DIR}" != "x/*" && \
+			if test -f "${DIR}/theme"
 			then
-				_bashish_list "${FILE}"
-			elif test -f "${FILE}"
-			then
-				THEME_LIST[$n]="${FILE}"
+				THEME_LIST[$n]="${DIR}"
 				let n++
+			elif test -d "${DIR}"
+			then
+				_bashish_list "${DIR}"
 			fi
 		done
 	}
