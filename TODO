@@ -10,6 +10,8 @@ bashish-2.2.2
 broken on zsh
 xterm detection code should be moved to a library
 
+no parsing on zsh/ksh only userland code
+
 main/bashishtheme/sys/setopts:28
 fails after new theme has been created
 really load/unpack theme after loaded

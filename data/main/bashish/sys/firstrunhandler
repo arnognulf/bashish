@@ -86,17 +86,6 @@ do
 done
 ln -sf "$HOME/.bashish/bt/cache/none" "$HOME/.bashish/bt/prompt"
 printf "BASHISH_THEME=none;function _bashish_theme_none { :;}" >$HOME/.bashish/bt/cache/none/theme
-for DIR in defaults overrides
-do
-	for PROMPT_FILE in kiss bash zsh ksh sh csh tcsh fish rc dos
-	do
-		: > $HOME/.bashish/bt/${DIR}/prompt.$PROMPT_FILE
-	done
-done
-for PROMPT_FILE in kiss csh tcsh fish rc dos
-do
-	: > $HOME/.bashish/bt/prompt/prompt.$PROMPT_FILE
-done
 for FILE in $BASHISHDIR/bt/defaults/*
 do
 	cp $FILE $HOME/.bashish/bt/defaults/

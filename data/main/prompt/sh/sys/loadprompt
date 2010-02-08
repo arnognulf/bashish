@@ -30,45 +30,6 @@
 ## prompt setting function, null as default
 _bashish_prompt () { :;}
 
-## yay for ksh!
-case "$SHELLNAME" in
-ksh)
-cd ()
-{
-	unset -f cd
-	cd "$@"
-	_bashish_prompt
-	cd ()
-	{
-		unset -f cd
-		cd "$@"
-		_bashish_prompt
-	}
-}
-;;
-bash|zsh)
-cd ()
-{
-	builtin cd "$@"
-	_bashish_prompt
-}
-;;
-sh)
-## sh does not support 'builtin'
-cd ()
-{
-	chdir ${1+"$@"}
-	_bashish_prompt
-}
-
-## posh does not support 'chdir'
-type type 1>/dev/null 2>/dev/null || cd ()
-{
-	builtin cd "$@"
-	_bashish_prompt
-}
-
-esac
 
 ## write the shell PID so "bashishtheme" can force a theme update by
 ## sending a WINCH, which subsequently makes promptupdate to run
@@ -89,7 +50,30 @@ _bashish_promptupdate ()
 		sleep 0.5
 
 	}
-	_bashish_module sys/clearprompt
+	PS2='> '
+	PS3='#? '
+	PS4='+ '
+
+	## load the fallback prompt to memory
+	case "$SHELLNAME" in
+	bash)
+		PS1='\s-\v\$ '
+		unset PROMPT_COMMAND
+	;;
+	zsh)
+		PS1='%m%# '
+		PS2='%_> '
+		PS3='?# '
+		PS4='+%N:%i> '
+		unset RPS1 RPS2
+		unset -f precmd preexec
+	;;
+	*)
+		case '$UID' in
+		0) PS1='# ';;
+		*) PS1='$ ';;
+		esac
+	esac
 
 	## don't bug the user if no _bashish_prompt() function is installed
 	_bashish_prompt ()
@@ -99,6 +83,18 @@ _bashish_promptupdate ()
 
 
 	## load the fallback prompt to memory
+	if test -f "$HOME/.bashish/bt/defaults/prompt.$SHELLNAME"
+	then
+		. "$HOME/.bashish/bt/defaults/prompt.$SHELLNAME"
+	else
+		if test -f "$HOME/.bashish/bt/defaults/prompt.ksh"
+		then
+			. "$HOME/.bashish/bt/defaults/prompt.ksh"
+		else
+			test -f "$HOME/.bashish/bt/defaults/prompt.sh" && . "$HOME/.bashish/bt/defaults/prompt.sh"
+		fi
+	fi
+
 	test -f "$HOME/.bashish/bt/defaults/prompt.$SHELLNAME" && . "$HOME/.bashish/bt/defaults/prompt.$SHELLNAME"
 	
 	## load config defaults
@@ -119,20 +115,22 @@ _bashish_promptupdate ()
 		fi
 	fi
 
-	## continue loading if prompt is loaded cleanly
-	test -f "$HOME/.bashish/bt/prompt/prompt.$SHELLNAME" && . "$HOME/.bashish/bt/prompt/prompt.$SHELLNAME"
-
 	## prompt overrides
-	test -f "$HOME/.bashish/bt/overrides/prompt.$SHELLNAME" && . "$HOME/.bashish/bt/overrides/prompt.$SHELLNAME"
-
-	if test "x$BASH" != x
+	if test -f "$HOME/.bashish/bt/overrides/prompt.$SHELLNAME"
 	then
-		:
-		$PROMPT_COMMAND
+		. "$HOME/.bashish/bt/overrides/prompt.$SHELLNAME"
 	else
-		type precmd >/dev/null && precmd
+		if test -f "$HOME/.bashish/bt/overrides/prompt.ksh"
+		then
+			. "$HOME/.bashish/bt/overrides/prompt.ksh"
+		else
+			test -f "$HOME/.bashish/bt/overrides/prompt.sh" && . "$HOME/.bashish/bt/overrides/prompt.sh"
+		fi
 	fi
-	
+
+	## load the bashish prompt
+	_bashish_prompt
+
 	## load _bashish_title() if available
 	_bashish_title
 	
@@ -140,6 +138,21 @@ _bashish_promptupdate ()
 	trap INT
 }
 
+## winch promptupdate
+_bashish_winch_promptupdate()
+{
+	_bashish_promptupdate
+	if test "x$BASH" != x
+	then
+		:
+		$PROMPT_COMMAND
+	else
+		type precmd >/dev/null && precmd
+	fi
+
+}
+
+## re-paint on winch signals
 if test "x$BASH" != x
 then
 	trap "PROMPT_COMMAND=\"unset PROMPT_COMMAND;_bashish_promptupdate\"" WINCH
@@ -147,6 +160,47 @@ elif test "x$ZSH_NAME" != x
 then
 	trap "echo \"precmd () { unset -f precmd; _bashish_promptupdate;}" WINCH	
 fi
+
+## re-paint whenever changing directory
+case "$SHELLNAME" in
+ksh)
+cd ()
+{
+	unset -f cd
+	cd "$@"
+	_bashish_promptupdate
+	cd ()
+	{
+		unset -f cd
+		cd "$@"
+		_bashish_promptupdate
+	}
+}
+;;
+bash|zsh)
+cd ()
+{
+	builtin cd "$@"
+	_bashish_promptupdate
+}
+;;
+sh)
+## sh does not support 'builtin'
+cd ()
+{
+	chdir ${1+"$@"}
+	_bashish_promptupdate
+}
+
+## posh does not support 'chdir'
+type type 1>/dev/null 2>/dev/null || cd ()
+{
+	builtin cd "$@"
+	_bashish_promptupdate
+}
+
+esac
+
 
 ## Normal theme initialization by sending a WINCH signal
 kill -s WINCH $$

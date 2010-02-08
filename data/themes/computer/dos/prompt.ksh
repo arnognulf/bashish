@@ -28,9 +28,9 @@ _bashish_TRANSDIR()
 {
 	if test "x$PROMPTSTR" = x
 	then
-		printf C:"${PWD//\//\\\\}"|tr a-z A-Z
+		echo -nE C:"${PWD//\//\\\\}"|tr a-z A-Z
 	else
-		printf ${PROMPTSTR//\//\\\\}|tr a-z A-Z
+		echo -nE ${PROMPTSTR//\//\\\\}|tr a-z A-Z
 	fi
 }
 fi

@@ -30,25 +30,31 @@
 ## if the terminal interprets titles (most do: ie xterm, some not, ie linux
 ## console) this string should not print out on
 ## the screen, and thus the terminal would not report the cursor being moved
-printf "\033]0;title\007\033[6n"
+_bashish_prompt_isxterm ()
+{
+	## run only once
+	unset -f _bashish_prompt_isxterm
+	printf "\033]0;title\007\033[6n"
 
-i=0
-until test "$i" = 9
-do
-	CHAR=""
-	read -t1 -n1 CHAR
-	case "$CHAR" in
-	|[|[0-9]|\;) CURPOS="$CURPOS$CHAR";let i++;;
-	R)CURPOS="$CURPOS$CHAR";break;;
+	i=0
+	until test "$i" = 9
+	do
+		CHAR=""
+		read -t1 -n1 CHAR
+		case "$CHAR" in
+		|[|[0-9]|\;) CURPOS="$CURPOS$CHAR";let i++;;
+		R)CURPOS="$CURPOS$CHAR";break;;
+		esac
+	done
+	## clear terminal response
+	printf "\[A[20D                    [20D[0m" >/dev/tty
+	
+	_bashish_title() { :;}
+	case "$CURPOS" in
+	*";1R")
+		return 0
+	;;
 	esac
-done
-## clear terminal response
-printf "\[A[20D                    [20D[0m" >/dev/tty
-
-_bashish_title() { :;}
-case "$CURPOS" in
-*";1R")
-	exit 0
-;;
-esac
-exit 1
+	return 1
+}
+_bashish_prompt_isxterm
