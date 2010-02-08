@@ -20,7 +20,6 @@
 
 function _bashish_save
 {
-	set -x
 	## run in a subshell so the themeloading won't pollute the enviroment
 	typeset THEMEFILE FILE SHELLNAME THEMEDIR
 	## do basic checks
@@ -68,5 +67,4 @@ function _bashish_save
 		#	test -f "prompt.$SHELLNAME"||: >prompt.$SHELLNAME
 		#done
 	)
-	set +x
 }
