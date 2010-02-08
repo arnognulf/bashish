@@ -7,24 +7,17 @@ Also, feature-wishes go here :)
 
 bashish-2.2.2
 -------------
-shellvars lib, fix bluesteel
-foo ()
+shellvars: en_US 12-hour time
+
+
+bashishtheme:
+bashishtheme()
 {
-        printf "typeset FOO=bar"
-}
-FOO=WIN
-bar ()
-{
-        eval $(foo)
-        FOO=FAIL
-        echo "$FOO"
+	bashishtheme && _prompt_update
 }
 
-bar
-echo $FOO
 
-
-broken on zsh
+broken & untested on zsh & ksh & sh & dash
 
 no parsing on zsh/ksh only userland code
 

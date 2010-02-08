@@ -1,2 +1,2 @@
 
-set MAINCOLOR 
+set MAINCOLOR 4
