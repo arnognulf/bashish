@@ -1,0 +1,75 @@
+#!/bin/bash
+##################################################################################
+##
+## notice: you must open this file with UTF-8 encoding, elsewise it will be truncated
+##
+##################################################################################
+##################################################################################
+## Bashish, a console theme engine
+## Copyright (C) 2006 Thomas Eriksson
+##
+## This program is free software; you can redistribute it and/or
+## modify it under the terms of the GNU General Public License
+## as published by the Free Software Foundation; either version 2
+## of the License, or (at your option) any later version.
+##
+## This program is distributed in the hope that it will be useful,
+## but WITHOUT ANY WARRANTY; without even the implied warranty of
+## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+## GNU General Public License for more details.
+## 
+##
+## along with this program; if not, write to the Free Software
+## Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+##################################################################################
+##
+## _bashish_prompt_shellvars is a prompt helper
+##
+## it prints some helpful variables for prompts, currently
+## ESC - escape
+## EMBED - begin printing of terminal control characters within a prompt which would not be used for prompt length calculation
+## UNEMBED - end a terminal control character statement
+## 
+## the variables are local for the prompt and will not mess up local variables
+##
+##################################################################################
+
+
+## call this function with eval $(_bashish_prompt_shellvars)
+case "$1" in
+zsh)
+function _bashish_prompt_shellvars
+{
+
+	printf "typeset ESC=\"\033\"\n"
+	printf "typeset EMBED=\"%%{\"\n"
+	printf "typeset UNEMBED=\"%%}\"\n"
+}
+;;
+bash)
+function _bashish_prompt_shellvars
+{
+
+	printf "typeset ESC=\"\033\"\n"
+	printf "typeset EMBED=\"\\[\"\n"
+	printf "typeset UNEMBED=\"\\]\"\n"
+}
+;;
+ksh)
+function _bashish_prompt_shellvars
+{
+	printf "typeset ESC=\"\033\"\n"
+	printf "typeset EMBED=\"\"\n"
+	printf "typeset UNEMBED=\"\"\n"
+}
+;;
+sh)
+function _bashish_prompt_shellvars
+{
+	printf "ESC=\"\033\"\n"
+	printf "EMBED=\"\"\n"
+	printf "UNEMBED=\"\"\n"
+}
+esac		
+
+_bashish_prompt_shellvars
