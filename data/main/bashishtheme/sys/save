@@ -20,6 +20,7 @@
 
 function _bashish_save
 {
+	set -x
 	## run in a subshell so the themeloading won't pollute the enviroment
 	typeset THEMEFILE FILE SHELLNAME THEMEDIR
 	## do basic checks
@@ -47,13 +48,15 @@ function _bashish_save
 			printf "${0##*/}: specify themedirectory:\n$HOME/.bashish/themes/"
 			read THEMEDIR
 		done
-		mkdir -p "$HOME/.bashish/themes/${THEMEDIR}"
-		THEMEFILE="themes/$THEMEDIR/${BASHISH_THEME}.bt"
+		THEMEFILE="themes/$THEMEDIR/${BASHISH_THEME}"
 	fi
 	THEMEFILE=$HOME/.bashish/${THEMEFILE}
 	## clean up backup files and empty files before saving
 	for FILE in *; do test -s "${FILE}"||rm "${FILE}";case ${FILE} in *~)rm ${FILE};;esac;done
-	tar cf - . | gzip -c >${THEMEFILE}||errorhandler 27
+	#tar cf - . | gzip -c >${THEMEFILE}||errorhandler 27
+
+	mkdir -p "${THEMEFILE}"
+	cp -f * "${THEMEFILE}/"||errorhandler 27
 	(
 		. ./theme
 		## test if this is the prompt theme
@@ -65,4 +68,5 @@ function _bashish_save
 		#	test -f "prompt.$SHELLNAME"||: >prompt.$SHELLNAME
 		#done
 	)
+	set +x
 }

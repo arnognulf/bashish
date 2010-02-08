@@ -34,7 +34,7 @@ function _bashish_find
 	while test "x${THEME_LIST[$n]}" != x
 	do
 		if test 	x"${THEME_LIST[$n]##*/}" = "x${1}" \
-	 			-f "${THEME_LIST[$n]##*/}"/theme
+	 			-a -f "${THEME_LIST[$n]}"/theme
 		then
 			THEME=${1};\
 			THEME=${THEME##*/};\
