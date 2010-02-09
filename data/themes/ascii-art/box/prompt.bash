@@ -1,7 +1,7 @@
 #!/bin/sh
 _bashish_prompt ()
 {
-ESC=""
+eval $(_bashish_prompt_shellvars)
 
 test x${LINES} = x && LINES=132
 typeset i=0

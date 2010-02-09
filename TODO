@@ -7,7 +7,16 @@ Also, feature-wishes go here :)
 
 bashish-2.2.2
 -------------
+default theme: bluesteel?
+prompt func for themes
+
 shellvars: en_US 12-hour time
+
+add uberprompt theme
+
+color() function
+
+fix fire theme
 
 
 bashishtheme:
@@ -39,13 +48,9 @@ something messy here
 
 bashishtheme [--disable-gnome-terminal|--enable-gnome-terminal]
 
-add uberprompt theme
+bashish [--configure]
 
-color() function
-
-nice to have $HOME/.bashish/prompt link
-
-fix fire theme
+clean various UTF-8 themes
 
 bashish-2.0.7
 -------------
