@@ -30,7 +30,11 @@
 _bashish_title () { :;}
 _bashish_prompt_isxterm && _bashish_title () 
 {
+	printf "\033]0;${TITLE}\007"
 	case $SHELLNAME in
+	sh|ksh)
+	return 0
+	;;
 	bash)
 	typeset EMBED="\["
 	typeset UNEMBED="\]"
@@ -38,6 +42,6 @@ _bashish_prompt_isxterm && _bashish_title ()
 	zsh)
 	typeset EMBED="%{"
 	typeset UNEMBED="%}"
-	esac	
+	esac
 	PS1=${PS1}"${EMBED}\033]0;"${TITLE}"\007${UNEMBED}"
 }
