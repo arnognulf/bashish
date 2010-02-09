@@ -55,6 +55,7 @@ function _bashish_save
 	#tar cf - . | gzip -c >${THEMEFILE}||errorhandler 27
 
 	mkdir -p "${THEMEFILE}"
+	rm -f "${THEMEFILE}"/*
 	cp -f * "${THEMEFILE}/"||errorhandler 27
 	(
 		. ./theme

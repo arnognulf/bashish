@@ -18,11 +18,17 @@
 ## Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 ##################################################################################
 
+_bashish_promptcmd()
+{
+	BASHISH_CWD=`_bashish_prompt_cwd "${ESC}[31m" "${ESC}[37m" 39`
+}
+_bashish_promptcmd
+
 _bashish_prompt ()
 {
 typeset i=0
 typeset FILLY=""
-typeset ESC=""
+eval $(_bashish_prompt_shellvars $SHELLNAME)
 
 while test "$i" -lt $(($LINES))
 do
@@ -31,58 +37,10 @@ do
 done
 
 
-_bashish_promptcmd()
-{
-	BASHISH_CWD=`_bashish_prompt_cwd "\033[31m" "\033[37m" 39`
-}
-_bashish_promptcmd
 
 ## this is messy stuff, cannot comment in code so I comment above
 ## don't whine if the comments are wrong ;)
-
-## sorta killed testloc, the comments below are obsolete!
-
-# hide chars
-# save cursor
-# set non-scrollable region at y=$LINES y=$LINES-1
-# move y=$LINES x=0
-# print char
-# fill x with " "
-# print char
-# move to y=$LINES x=4
-# colors (
-# colors user
-# colors @
-# colors hostname
-# colors )
-# cursor right 2
-# (
-# $BASHISH_CWD
-# )
-# colors
-# move to y=$LINES x=$COLUMNS-12
-# colors (
-# colors time
-# back 6, colors :
-# forward 2, colors :
-# forward 2
-# colors )
-# colors
-# move to y=$LINES x=0
-# print upward $FILLY ## SHOULD BE DOWNWARD!
-# colors
-# cursor restore
-# colors
-# end char-hiding
-# char
-# begin char-hiding
-# colors " = "
-# colors
-# char char
-# restore colors
-
-## changed scrolling region to LINES-2 and erases command line
-PS1="\[\
+PS1="${EMBED}\
 ${ESC}[2A\
 ${ESC}[2B\
 ${ESC}[0m\
@@ -116,17 +74,16 @@ ${ESC}[2C\
 ${ESC}[31m)\
 ${ESC}8\
 ${ESC}[0;4;32m\
-\]\
+${UNEMBED}\
 `_bashish_prompt_cp437 DC`\
-\[\
+${EMBED}\
 ${ESC}[0;42;31m\
-\] = \[\
+${UNEMBED} = ${EMBED}\
 ${ESC}[0;31m\
-\]\
-`_bashish_prompt_cp437 C4`<\[\
+${UNEMBED}\
+`_bashish_prompt_cp437 C4`<${EMBED}\
 ${ESC}[0m\
-\]\
+${UNEMBED}\
  "
-unset -f _bashish_prompt
 }
 _bashish_prompt

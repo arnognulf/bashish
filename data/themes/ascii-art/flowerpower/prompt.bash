@@ -1,6 +1,5 @@
 #!/bin/bash
 function _bashish_prompt {
-unset -f _bashish_prompt
 typeset UP="`_bashish_prompt_cp437 DF`"
 typeset DO="`_bashish_prompt_cp437 DC`"
 PS1="[34m$DO[34;103m$UP[0;34m$DO

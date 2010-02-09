@@ -40,4 +40,3 @@ MEMTOTAL="$(cat /proc/meminfo |grep Mem:|sed -e "s/   / /g" -e "s/  / /g"|cut -d
 
 PS1='r $(date +%k:%M) $(uptime |cut -d" " -f12|sed "s/,//g") '$(($(cat /proc/meminfo |grep Mem:|sed -e "s/   / /g" -e "s/  / /g"|cut -d" " -f3)))'
 '
-unset PROMPT_COMMAND
