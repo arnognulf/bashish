@@ -51,6 +51,44 @@ bashishtheme [--disable-gnome-terminal|--enable-gnome-terminal]
 bashish [--configure]
 
 clean various UTF-8 themes
+checklist::
+:::::::::::
+amiga
+bluesteel
+box
+browser
+c64
+chat
+compress
+conda
+dos
+ean
+editor
+editornofont
+editor_reversed
+evilroot
+fade
+fire
+flowerpower
+generic
+hearttracker
+invertfgbg
+lcars
+*m0an
+manual
+mixer
+moo
+multics
+mvs
+mvsmono
+poker
+tinycolor
+ubuntu
+urbandawn
+video
+
+
+
 
 bashish-2.0.7
 -------------

@@ -46,6 +46,7 @@ _bashish_promptupdate ()
 	test -f "$HOME/.bashish/tmp/${TTY##*/}/sync" || {
 		bashish
 		hash -r
+		printf "\033[0;0r"
 		## a small delay makes the term settle down before reloading the prompt
 		sleep 0.5
 

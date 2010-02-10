@@ -18,16 +18,12 @@
 ## Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 ##################################################################################
 
-_bashish_promptcmd()
-{
-	BASHISH_CWD=`_bashish_prompt_cwd "${ESC}[31m" "${ESC}[37m" 39`
-}
-_bashish_promptcmd
-
 _bashish_prompt ()
 {
 typeset i=0
 typeset FILLY=""
+typeset BASHISH_CWD=`_bashish_prompt_cwd "${ESC}[31m" "${ESC}[37m" 39`
+
 eval $(_bashish_prompt_shellvars $SHELLNAME)
 
 while test "$i" -lt $(($LINES))
@@ -36,7 +32,7 @@ do
 	let i++
 done
 
-
+test "x$PROMPTSTR" = x && typeset PROMPTSTR="${USER}${ESC}[42;31m@${ESC}[37m${HOSTNAME}"
 
 ## this is messy stuff, cannot comment in code so I comment above
 ## don't whine if the comments are wrong ;)
@@ -56,12 +52,10 @@ ${ESC}[42;30m`_bashish_prompt_fillx \" \" 2`\
 ${ESC}[0;32m`_bashish_prompt_cp437 DC`\
 ${ESC}[$LINES;4H\
 ${ESC}[42;31m(\
-${ESC}[37m\u\
-${ESC}[42;31m@\
-${ESC}[37m\h\
+${ESC}[37m$PROMPTSTR\
 ${ESC}[31m)\
 ${ESC}[2C(\
-${ESC}[37m"'$BASHISH_CWD'"\
+${ESC}[37m$BASHISH_CWD\
 ${ESC}[31m)\
 ${ESC}[33m\
 ${ESC}[$LINES;$(($COLUMNS - 12))H\

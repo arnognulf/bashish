@@ -131,7 +131,7 @@ case "$BASHISH_ARGC" in
 	;;
 *)
 	case "${BASHISH_ARGV[0]}" in
-	-l*|--l*) for THEME_ITEM in ${THEME_LIST[*]##*/}; do echo "$THEME_ITEM";done | sort; errorhandler 0;;
+	-l*|--l*) for THEME_ITEM in ${THEME_LIST[*]##*/}; do echo "$THEME_ITEM";done | sort|uniq; errorhandler 0;;
 	save)
 		_bashish_module sys/save
 		_bashish_save
