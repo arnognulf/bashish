@@ -39,7 +39,7 @@ testloc ()
 #	let XPOS++
 #}
 
-PS1="\[7[0;"'$(($LINES - 2))'"r["'$(($LINES - 1))'";0H`fillx \`_bashish_prompt_cp437 C4\``[7m4[0m[4mA[0m["'$LINES'";"'$(($COLUMNS - 7))'"H"'$YPOS'"/0158\]COMMAND  ===> "
+PS1="\[7[0;"'$(($LINES - 2))'"r["'$(($LINES - 1))'";0H`_bashish_prompt_fillx \`_bashish_prompt_cp437 C4\``[7m4[0m[4mA[0m["'$LINES'";"'$(($COLUMNS - 7))'"H"'$YPOS'"/0158\]COMMAND  ===> "
 
 ## count 027/00n
 ## the prompt redraws each time a character is printed
