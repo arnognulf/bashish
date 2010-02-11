@@ -30,6 +30,8 @@
 _bashish_title () { :;}
 _bashish_prompt_isxterm && _bashish_title () 
 {
+	typeset TITLE
+	test "x${TITLESTR}" = x && TITLE="${TITLESTR}"
 	printf "\033]0;${TITLE}\007"
 	case $SHELLNAME in
 	sh|ksh)
@@ -43,5 +45,5 @@ _bashish_prompt_isxterm && _bashish_title ()
 	typeset EMBED="%{"
 	typeset UNEMBED="%}"
 	esac
-	PS1=${PS1}"${EMBED}\033]0;"${TITLE}"\007${UNEMBED}"
+	PS1=${PS1}"${EMBED}\033]0;"${TITLESTR}"\007${UNEMBED}"
 }

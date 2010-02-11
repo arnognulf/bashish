@@ -7,6 +7,8 @@ Also, feature-wishes go here :)
 
 bashish-2.2.2
 -------------
+title() ? what can we has?
+
 default theme: bluesteel?
 prompt func for themes
 
@@ -86,9 +88,6 @@ tinycolor
 ubuntu
 urbandawn
 video
-
-
-
 
 bashish-2.0.7
 -------------

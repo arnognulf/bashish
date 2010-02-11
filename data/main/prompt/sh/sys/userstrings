@@ -51,18 +51,17 @@ Without argument, a default title will be set.
 "
 	return 1
 	;;
-	-n*) shift; $_local TITLE;;
+	-n*) shift; $_local TITLESTR;;
 	esac
 	if test "x$*" = x
 	then
-		TITLE=""
+		TITLESTR=""
 		
 	else
-		TITLE="$*"
+		TITLESTR="$*"
 	fi
 	
-	export TITLE
-	printf "USER_TITLE=\"${TITLE}\"" >"$HOME/.bashish/tmp/${TTY##*/}/subproc"
+	printf "USER_TITLE=\"${TITLESTR}\"" >"$HOME/.bashish/tmp/${TTY##*/}/subproc"
 }
 
 ## set default prompt string
@@ -71,7 +70,7 @@ prompt ()
 	case "$@" in
 	-h*) printf "\
 prompt() is part of Bashish by Thomas Eriksson.
-prompt sets the terminal prompt string in uberprompt.
+prompt sets the terminal prompt string
 
 Usage: prompt [PROMPT]
 Without argument, a default prompt will be set.
