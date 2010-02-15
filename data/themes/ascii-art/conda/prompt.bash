@@ -18,8 +18,12 @@
 ## Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 ##################################################################################
 
+
 _bashish_prompt ()
 {
+TITLE="( $USER @ $HOSTNAME )"
+
+
 typeset i=0
 typeset FILLY=""
 typeset BASHISH_CWD=`_bashish_prompt_cwd "${ESC}[31m" "${ESC}[37m" 39`

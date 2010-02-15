@@ -51,12 +51,11 @@ Without argument, a default title will be set.
 "
 	return 1
 	;;
-	-n*) shift; $_local TITLESTR;;
+	-n*) shift; $_typeset TITLESTR;;
 	esac
 	if test "x$*" = x
 	then
-		TITLESTR=""
-		
+		TITLESTR="${TITLE}"		
 	else
 		TITLESTR="$*"
 	fi
