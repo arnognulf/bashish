@@ -33,14 +33,14 @@ test -d ${HOME}/.bashish/modules/sh/conf && {
 echo "bashish: 1.x series configuration of bashish found, your configuration will be removed and updated to 2.x
 bashish: press any key to continue, CTRL+C to exit"
 read -n1
-rm -rf ${HOME}/.bashish
+rm -rf "${HOME}"/.bashish
 }
 ## test wether to update bashish or not
-if test -d ${HOME}/.bashish
+if test -d "${HOME}"/.bashish
 then
 	BASHISH_UPDATE_STRING="A new version of Bashish is available.\n\nWould you like to update the user configuration of Bashish?"
 	## test for Bashish1
-	test -f "$HOME/.bashish/bashish-version" && read LOCALVERSION < $HOME/.bashish/bashish-version
+	test -f "$HOME/.bashish/bashish-version" && read LOCALVERSION < "${HOME}"/.bashish/bashish-version
 	read GLOBALVERSION < $BASHISHDIR/bashish-version
 	test "x$GLOBALVERSION" = "x$LOCALVERSION" || if type -p dialog 1>/dev/null
 	then
@@ -82,17 +82,21 @@ type -p dialog 1>/dev/null && printf "\033[44m"
 
 for DIR in / /bt /bt/app /bt/cache /bt/cache/none /bt/overrides /bt/defaults /themes /tmp /launcher
 do
-	mkdir -p $HOME/.bashish$DIR
+	mkdir -p "${HOME}"/.bashish$DIR
 done
-ln -sf "$HOME/.bashish/bt/cache/none" "$HOME/.bashish/bt/prompt"
-printf "BASHISH_THEME=none;function _bashish_theme_none { :;}" >$HOME/.bashish/bt/cache/none/theme
-for FILE in $BASHISHDIR/bt/defaults/*
+
+## install the bluesteel theme by default
+cp -rf "$BASHISHDIR/themes/ascii-art/bluesteel" "$HOME/.bashish/bt/cache/bluesteel"
+ln -s "$HOME/.bashish/bt/cache/bluesteel" "${HOME}/.bashish/prompt"
+ln -s "$HOME/.bashish/bt/cache/bluesteel" "${HOME}/.bashish/bt/prompt"
+
+for FILE in "${BASHISHDIR}"/bt/defaults/*
 do
-	cp $FILE $HOME/.bashish/bt/defaults/
+	cp "${FILE}" "${HOME}"/.bashish/bt/defaults/
 done
 for FILE in $BASHISHDIR/bt/overrides/*
 do
-	cp $FILE $HOME/.bashish/bt/overrides/
+	cp "${FILE}" "${HOME}"/.bashish/bt/overrides/
 done
 
 ## whiz bang autodetection code
@@ -113,13 +117,13 @@ esac
 BASHISH_INSTALL_STRING2="Select your primary shell from the list below. Brackets specify the startup-file Bashish will alter."
 if type -p dialog 1>/dev/null
 then
-	dialog  --backtitle "$BACKTITLE" --title "$TITLE" --default-item "$DEFAULT" --menu "$BASHISH_INSTALL_STRING2" 0 0 0 bash "GNU Bash [~/.bashrc]" zsh "Z Shell [~/.zshrc]" sh "Bourne shell compatible [${ENV-\~/.profile]}]" csh "Berkely C-Shell [~/.cshrc]" tcsh "Enhanced C-Shell [~/.tcshrc]" fish "Friendly Interactive SHell [~/.fish]" rc "Plan/9 shell [~/.rcrc]" es "Extensible Shell [~/.esrc]" lsh "DOS like shell [~/.autoexec]" osh "Old Thomson Shell [~/.oshrc]" kiss "keep it simple shell [~/.kissrc]" 2>$HOME/.bashish/tmp/dialogfe||{
+	dialog  --backtitle "$BACKTITLE" --title "$TITLE" --default-item "$DEFAULT" --menu "$BASHISH_INSTALL_STRING2" 0 0 0 bash "GNU Bash [~/.bashrc]" zsh "Z Shell [~/.zshrc]" sh "Bourne shell compatible [${ENV-\~/.profile]}]" csh "Berkely C-Shell [~/.cshrc]" tcsh "Enhanced C-Shell [~/.tcshrc]" fish "Friendly Interactive SHell [~/.fish]" rc "Plan/9 shell [~/.rcrc]" es "Extensible Shell [~/.esrc]" lsh "DOS like shell [~/.autoexec]" osh "Old Thomson Shell [~/.oshrc]" kiss "keep it simple shell [~/.kissrc]" 2>"${HOME}"/.bashish/tmp/dialogfe||{
 		## clean up
-		rm -rf $HOME/.bashish
+		rm -rf "${HOME}"/.bashish
 		exit 1
 	}
-	read INPUT <$HOME/.bashish/tmp/dialogfe
-	rm $HOME/.bashish/tmp/dialogfe
+	read INPUT <"${HOME}"/.bashish/tmp/dialogfe
+	rm "${HOME}"/.bashish/tmp/dialogfe
 else
 nag ()
 {
