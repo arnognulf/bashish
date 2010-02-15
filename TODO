@@ -14,24 +14,13 @@ _bashish_prompt_argv()
 {
 	printf \"foo\" \"bar\"
 }
-kör ej _bashish_prompt
 
 default theme: bluesteel?
 prompt func for themes
 
 add uberprompt theme
 
-color() function
-
 fix fire theme
-
-
-bashishtheme:
-bashishtheme()
-{
-	bashishtheme && _prompt_update
-}
-
 
 broken & untested on zsh & ksh & sh & dash
 
