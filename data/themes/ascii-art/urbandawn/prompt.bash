@@ -20,4 +20,3 @@ PS1="\[\0337\033[0;"'$(($LINES - 3))'"r\033["'$(($LINES - 2))'";0H\
 `_bashish_prompt_fillx \" $HA$HA $FL$FL$HA$HA$HA$FL$FL$HA$FL$FL$HA$FL$FL$FL$FL$HA$HA$FL$FL$HA$FL$FL$HA$FL$FL\"`\0338[0m\]>"
 
 }
-_basish_prompt

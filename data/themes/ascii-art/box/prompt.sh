@@ -1,1 +1,0 @@
-MAINCOLOR=1

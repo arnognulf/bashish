@@ -3,7 +3,7 @@
 # Adapted by jf
 # Changed By Spidey 08/06 Adding Ending brackets \]
 # Changed by Arnognulf, converted to Bashish prompt, UTF-8
-function _bashish_prompt {
+_bashish_prompt() {
 typeset COLOR1=3
 typeset COLOR2=1
 typeset FADE="`_bashish_prompt_cp437 DB B2 B1 B0`"
@@ -16,4 +16,3 @@ PS2="\[[01;33;43m\]$FADE\[[00;31;43m\]$FADE2\[[00;31;40m\]$FADE\[[01;01;31m\
 
 
 }
-_bashish_prompt

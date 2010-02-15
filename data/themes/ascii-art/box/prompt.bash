@@ -57,4 +57,3 @@ ${ESC}[0m\]"
 #─
 PS2=">"
 }
-_bashish_prompt

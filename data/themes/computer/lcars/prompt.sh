@@ -3,7 +3,8 @@
 ## creates $FILLX
 
 
-function _bashish_prompt {
+_bashish_prompt ()
+{
 eval $(_bashish_prompt_shellvars $SHELLNAME)
 typeset FGBLUE="${ESC}[34m"
 typeset FGYELLOW="${ESC}[33m"
@@ -32,4 +33,3 @@ $FGBLUE$DO$DO$DO$DO$DO$DO
  ${EMBED}$FGBLUE${UNEMBED}$UP$UP$UP$UP$UP$UP$UP$UP$UP$UP ${EMBED}$FGRED${UNEMBED}$UP$UP$UP$UP$UP$UP$UP$UP$UP$UP$UP$UP${EMBED}$NORMAL${UNEMBED}   "
 
 }
-_bashish_prompt

@@ -9,10 +9,15 @@ bashish-2.2.2
 -------------
 title() ? what can we has?
 
+
+_bashish_prompt_argv()
+{
+	printf \"foo\" \"bar\"
+}
+kör ej _bashish_prompt
+
 default theme: bluesteel?
 prompt func for themes
-
-shellvars: en_US 12-hour time
 
 add uberprompt theme
 
@@ -31,6 +36,9 @@ bashishtheme()
 broken & untested on zsh & ksh & sh & dash
 
 no parsing on zsh/ksh only userland code
+
+shellvars: en_US 12-hour time
+
 
 main/bashishtheme/sys/setopts:28
 fails after new theme has been created

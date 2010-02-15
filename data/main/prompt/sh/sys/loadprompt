@@ -47,8 +47,57 @@ _bashish_promptupdate ()
 		bashish
 		hash -r
 		printf "\033[0;0r"
+	
+		## load the fallback prompt to memory
+		if test -f "$HOME/.bashish/bt/defaults/prompt.$SHELLNAME"
+		then
+			. "$HOME/.bashish/bt/defaults/prompt.$SHELLNAME"
+		else
+			if test -f "$HOME/.bashish/bt/defaults/prompt.ksh"
+			then
+				. "$HOME/.bashish/bt/defaults/prompt.ksh"
+			else
+				test -f "$HOME/.bashish/bt/defaults/prompt.sh" && . "$HOME/.bashish/bt/defaults/prompt.sh"
+			fi
+		fi
+	
+		test -f "$HOME/.bashish/bt/defaults/prompt.$SHELLNAME" && . "$HOME/.bashish/bt/defaults/prompt.$SHELLNAME"
+		
+		## load config defaults
+		test -f "$HOME/.bashish/bt/prompt/conf.sh" && . "$HOME/.bashish/bt/prompt/conf.sh"
+	
+	
+		## continue loading if prompt is loaded cleanly
+		## if not available, try to use 
+		if test -f "$HOME/.bashish/bt/prompt/prompt.$SHELLNAME"
+		then
+			. "$HOME/.bashish/bt/prompt/prompt.$SHELLNAME"
+		else
+			if test -f "$HOME/.bashish/bt/prompt/prompt.ksh"
+			then
+				. "$HOME/.bashish/bt/prompt/prompt.ksh"
+			else
+				test -f "$HOME/.bashish/bt/prompt/prompt.sh" && . "$HOME/.bashish/bt/prompt/prompt.sh"
+			fi
+		fi
+	
+		## prompt overrides
+		if test -f "$HOME/.bashish/bt/overrides/prompt.$SHELLNAME"
+		then
+			. "$HOME/.bashish/bt/overrides/prompt.$SHELLNAME"
+		else
+			if test -f "$HOME/.bashish/bt/overrides/prompt.ksh"
+			then
+				. "$HOME/.bashish/bt/overrides/prompt.ksh"
+			else
+				test -f "$HOME/.bashish/bt/overrides/prompt.sh" && . "$HOME/.bashish/bt/overrides/prompt.sh"
+			fi
+		fi
+	
+	
 		## a small delay makes the term settle down before reloading the prompt
 		sleep 0.5
+		
 
 	}
 	PS2='> '
@@ -76,62 +125,14 @@ _bashish_promptupdate ()
 		esac
 	esac
 
-	## don't bug the user if no _bashish_prompt() function is installed
-	_bashish_prompt ()
-	{
-		:
-	}
-
-
-	## load the fallback prompt to memory
-	if test -f "$HOME/.bashish/bt/defaults/prompt.$SHELLNAME"
-	then
-		. "$HOME/.bashish/bt/defaults/prompt.$SHELLNAME"
-	else
-		if test -f "$HOME/.bashish/bt/defaults/prompt.ksh"
-		then
-			. "$HOME/.bashish/bt/defaults/prompt.ksh"
-		else
-			test -f "$HOME/.bashish/bt/defaults/prompt.sh" && . "$HOME/.bashish/bt/defaults/prompt.sh"
-		fi
-	fi
-
-	test -f "$HOME/.bashish/bt/defaults/prompt.$SHELLNAME" && . "$HOME/.bashish/bt/defaults/prompt.$SHELLNAME"
-	
-	## load config defaults
-	test -f "$HOME/.bashish/bt/prompt/conf.sh" && . "$HOME/.bashish/bt/prompt/conf.sh"
-
-
-	## continue loading if prompt is loaded cleanly
-	## if not available, try to use 
-	if test -f "$HOME/.bashish/bt/prompt/prompt.$SHELLNAME"
-	then
-		. "$HOME/.bashish/bt/prompt/prompt.$SHELLNAME"
-	else
-		if test -f "$HOME/.bashish/bt/prompt/prompt.ksh"
-		then
-			. "$HOME/.bashish/bt/prompt/prompt.ksh"
-		else
-			test -f "$HOME/.bashish/bt/prompt/prompt.sh" && . "$HOME/.bashish/bt/prompt/prompt.sh"
-		fi
-	fi
-
-	## prompt overrides
-	if test -f "$HOME/.bashish/bt/overrides/prompt.$SHELLNAME"
-	then
-		. "$HOME/.bashish/bt/overrides/prompt.$SHELLNAME"
-	else
-		if test -f "$HOME/.bashish/bt/overrides/prompt.ksh"
-		then
-			. "$HOME/.bashish/bt/overrides/prompt.ksh"
-		else
-			test -f "$HOME/.bashish/bt/overrides/prompt.sh" && . "$HOME/.bashish/bt/overrides/prompt.sh"
-		fi
-	fi
-
+	## load defaults
+	_bashish_defaults
 	## load the bashish prompt
 	_bashish_prompt
 
+	## load overrides
+	_bashish_overrides
+	
 	## load _bashish_title() if available
 	_bashish_title
 	

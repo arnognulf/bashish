@@ -23,5 +23,4 @@ _bashish_prompt()
 	PS1="`_bashish_TRANSDIR`> "
 }
 
-_bashish_prompt
 

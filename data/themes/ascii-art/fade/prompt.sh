@@ -33,5 +33,3 @@ PS2="${EMBED}\
 ${ESC}[3${MAINCOLOR};40m${UNEMBED}$FADE${EMBED}\
 ${ESC}[0m${UNEMBED}>"
 }
-
-_bashish_prompt

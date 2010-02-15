@@ -68,4 +68,3 @@ ${ESC}[4C "
 
 esac
 }
-_bashish_prompt
