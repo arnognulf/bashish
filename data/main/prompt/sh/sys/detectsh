@@ -49,3 +49,4 @@ test "$SHELLNAME" || {
 	test "$BASH_VERSION"&&SHELLNAME=bash
 }
 
+test "x${TTY}" = x && TTY=$(tty 2>/dev/null)

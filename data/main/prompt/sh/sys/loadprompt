@@ -27,14 +27,15 @@
 ##
 ######################################################################
 
-## prompt setting function, null as default
-_bashish_prompt () { :;}
-
-
 ## write the shell PID so "bashishtheme" can force a theme update by
 ## sending a WINCH, which subsequently makes promptupdate to run
-test -d "$HOME/.bashish/tmp/${TTY##*/}" && printf "$$" >$HOME/.bashish/tmp/${TTY##*/}/shpid
-
+test "x${TTY}" = x && TTY=$(tty 2>/dev/null)
+test -d "$HOME/.bashish/tmp/${TTY##*/}" || mkdir -p "$HOME/.bashish/tmp/${TTY##*/}"
+if test -d "$HOME/.bashish/tmp/${TTY##*/}"
+then
+	printf "$$" >$HOME/.bashish/tmp/${TTY##*/}/shpid
+	test -f "$HOME/.bashish/tmp/${TTY##*/}/sync" && rm "$HOME/.bashish/tmp/${TTY##*/}/sync"
+fi
 ## load the fallback prompt to memory
 _bashish_promptupdate ()
 {
@@ -44,6 +45,9 @@ _bashish_promptupdate ()
 	## check if the theme is unsynced with the latest theme in 
 	## bashishtheme, if so, force a theme update
 	test -f "$HOME/.bashish/tmp/${TTY##*/}/sync" || {
+		## dummy fallback prompt
+		_bashish_prompt() { :;}
+
 		bashish
 		hash -r
 		printf "\033[0;0r"
@@ -127,6 +131,7 @@ _bashish_promptupdate ()
 
 	## load defaults
 	_bashish_defaults
+
 	## load the bashish prompt
 	_bashish_prompt
 
@@ -204,5 +209,6 @@ type type 1>/dev/null 2>/dev/null || cd ()
 esac
 
 
-## Normal theme initialization by sending a WINCH signal
-kill -s WINCH $$
+## load prompt
+_bashish_promptupdate
+
