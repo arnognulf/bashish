@@ -40,12 +40,6 @@ _bashish_prompt ()
 {
 eval $(_bashish_prompt_shellvars $SHELLNAME)
 
-if test x$SHELLNAME = xsh
-then
-_typeset=""
-else
-typeset _typeset=typeset
-fi
 $_typeset FADE1="${ESC}[32m"
 $_typeset BASHISH_C4=`_bashish_prompt_cp437 C4`
 $_typeset BASHISH_DA=`_bashish_prompt_cp437 DA`

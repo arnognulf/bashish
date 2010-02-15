@@ -1,7 +1,6 @@
 #!/bin/bash
 _bashish_prompt() {
-eval $(_bashish_shellvars $SHELLNAME)
-test "x$RANDOM" != x && _typeset=typeset 
+eval $(_bashish_prompt_shellvars $SHELLNAME)
 $_typeset UP="`_bashish_prompt_cp437 DF`"
 $_typeset DO="`_bashish_prompt_cp437 DC`"
 PS1="${ESC}[34m$DO${ESC}[34;103m$UP${ESC}[0;34m$DO
