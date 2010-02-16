@@ -1,7 +1,5 @@
 bashish-2.2.2
 -------------
-bug: btapp load twice at startup
-
 bug: prompt() not ok in bluesteel and others
 
 bug: apptheme fail, ln not updated to non-bt format?
