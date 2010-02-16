@@ -5,5 +5,4 @@ if ( ! $?BASHISH_OLDPATH ) then                                                 
 	setenv PATH $HOME/.bashish/launcher:$BASHISHDIR/lib/:$BASHISH_OLDPATH       ## line added by bashish
 endif                                                                               ## line added by bashish
 setenv PATH $HOME/.bashish/launcher:$BASHISHDIR/lib/:$BASHISH_OLDPATH       ## line added by bashish
-bashish                                                                             ## line added by bashish
 source $BASHISHDIR/main/prompt/csh/init                                             ## line added by bashish

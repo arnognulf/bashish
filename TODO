@@ -1,8 +1,15 @@
 bashish-2.2.2
 -------------
+bug: btapp load twice at startup
+
+bug: prompt() not ok in bluesteel and others
+
+bug: apptheme fail, ln not updated to non-bt format?
 
 _bashish_prompt_argv()
-only colors?
+crop bright- invert and other keywords if not applicable
+only colors? red blue green
+not fgblue bgred etc, interpreted by themes, most significant color first
 
 bashishtheme fade --color=blue,red,white
 bashishtheme fade blue red green
@@ -11,9 +18,6 @@ _bashish_prompt_argv()
 {
 	printf \"foo\" \"bar\"
 }
-
-default theme: bluesteel?
-prompt func for themes
 
 add uberprompt theme
 

@@ -6,5 +6,4 @@ BASHSIH_CP=437                                                ## line added by b
 _bashish_utfcheck && BASHISH_CP=utf8                          ## line added by bashish
 ENV=$HOME/.profile                                            ## line added by bashish
 export BASHISH_CP BASHISH_OLDPATH TTY ENV                     ## line added by bashish
-bashish                                                       ## line added by bashish
 . $BASHISHDIR/main/prompt/sh/init                             ## line added by bashish
