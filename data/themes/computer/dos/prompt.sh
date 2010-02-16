@@ -4,7 +4,6 @@
 ## the DOS theme
 ##
 
-TITLE=SH-DOS
 #bourne
 _bashish_TRANSDIR()
 {
@@ -20,7 +19,16 @@ _bashish_TRANSDIR()
 
 _bashish_prompt()
 {
+	eval $(_bashish_prompt_shellvars $SHELLNAME)
+	eval $(_bashish_prompt_parsecolors "$@")
+
+	TITLE=SH-DOS
 	PS1="`_bashish_TRANSDIR`> "
+	if test "x${BASHISH_COLOR0}" != x
+	then
+		PS1="${EMBED}${ESC}[0;3${BASHISH_COLOR0}m${UNEMBED}$PS1${EMBED}${ESC}[0m${UNEMBED}"
+	fi
+	
 }
 
 

@@ -13,7 +13,7 @@ THEME_NAME="generic DOS"
 THEME_VERSION="6.22"
 
 XFONT="vga-8x16.pcf.gz"
-TITLE="SH-DOS [${TTY##*/}]"
+TITLE="SH-DOS"
 
 BGCOLOR="#000000"
 FGCOLOR="#cccccc"

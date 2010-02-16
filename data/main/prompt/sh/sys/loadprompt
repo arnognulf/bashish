@@ -67,10 +67,6 @@ _bashish_promptupdate ()
 	
 		test -f "$HOME/.bashish/bt/defaults/prompt.$SHELLNAME" && . "$HOME/.bashish/bt/defaults/prompt.$SHELLNAME"
 		
-		## load config defaults
-		test -f "$HOME/.bashish/bt/prompt/conf.sh" && . "$HOME/.bashish/bt/prompt/conf.sh"
-	
-	
 		## continue loading if prompt is loaded cleanly
 		## if not available, try to use 
 		if test -f "$HOME/.bashish/bt/prompt/prompt.$SHELLNAME"

@@ -38,5 +38,12 @@ fi
 
 _bashish_prompt()
 {
+	eval $(_bashish_prompt_shellvars $SHELLNAME)
+	eval $(_bashish_prompt_parsecolors "$@")
+
 	PS1="`_bashish_TRANSDIR`> "
+	if test "x${BASHISH_COLOR0}" != x
+	then
+		PS1="${EMBED}${ESC}[0;3${BASHISH_COLOR0}m${UNEMBED}$PS1${EMBED}${ESC}[0m${UNEMBED}"
+	fi
 }
