@@ -20,6 +20,7 @@
 
 function _bashish_unpack
 {
+
 	## set theme name
 	case "$1" in
 	none) THEME=none;;
@@ -78,5 +79,16 @@ function _bashish_unpack
 		
 	esac
 	_bashish_themedb
+	printf "#"'!'"/bin/sh\n_bashish_prompt_argv()\n{\n:\n" >"${DESTDIR}/argv.sh"
+	INDEX=1
+	while test ${INDEX} -lt ${BASHISH_ARGC}
+	do
+		printf "printf \"\\\\\"${BASHISH_ARGV[$INDEX]}\\\\\" \"\n"
+		let INDEX++
+	done >>"${DESTDIR}"/argv.sh
+	printf "\n}\n" >>"${DESTDIR}"/argv.sh
+
+
 	test x${BTAPP} != x && _bashish_appdb
+
 }

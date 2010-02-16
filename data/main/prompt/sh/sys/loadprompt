@@ -84,7 +84,7 @@ _bashish_promptupdate ()
 				test -f "$HOME/.bashish/bt/prompt/prompt.sh" && . "$HOME/.bashish/bt/prompt/prompt.sh"
 			fi
 		fi
-	
+		
 		## prompt overrides
 		if test -f "$HOME/.bashish/bt/overrides/prompt.$SHELLNAME"
 		then
@@ -97,8 +97,10 @@ _bashish_promptupdate ()
 				test -f "$HOME/.bashish/bt/overrides/prompt.sh" && . "$HOME/.bashish/bt/overrides/prompt.sh"
 			fi
 		fi
-	
-	
+		
+		## load argv.sh function
+		. "$HOME/.bashish/bt/prompt/argv.sh"
+
 		## a small delay makes the term settle down before reloading the prompt
 		sleep 0.5
 		
@@ -133,7 +135,7 @@ _bashish_promptupdate ()
 	_bashish_defaults
 
 	## load the bashish prompt
-	_bashish_prompt
+	eval _bashish_prompt $(_bashish_prompt_argv)
 
 	## load overrides
 	_bashish_overrides

@@ -22,13 +22,13 @@
 _bashish_prompt ()
 {
 TITLE="( $USER @ $HOSTNAME )"
-
-
-typeset i=0
-typeset FILLY=""
-typeset BASHISH_CWD=`_bashish_prompt_cwd "${ESC}[31m" "${ESC}[37m" 39`
-
 eval $(_bashish_prompt_shellvars $SHELLNAME)
+eval $(_bashish_prompt_parsecolors "$@")
+test "x${BASHISH_COLOR0}" = x && eval $(_bashish_prompt_parsecolors green)
+
+$_typeset i=0
+$_typeset FILLY=""
+$_typeset BASHISH_CWD=`_bashish_prompt_cwd "\033[31m" "\033[37m" 39`
 
 while test "$i" -lt $(($LINES))
 do
@@ -36,7 +36,7 @@ do
 	let i++
 done
 
-test "x$PROMPTSTR" = x && typeset PROMPTSTR="${USER}${ESC}[42;31m@${ESC}[37m${HOSTNAME}"
+test "x$PROMPTSTR" = x && typeset PROMPTSTR="${USER}${ESC}[4${BASHISH_COLOR0};31m@${ESC}[37m${HOSTNAME}"
 
 ## this is messy stuff, cannot comment in code so I comment above
 ## don't whine if the comments are wrong ;)
@@ -45,17 +45,17 @@ ${ESC}[2A\
 ${ESC}[2B\
 ${ESC}[0m\
 ${ESC}7\
-${ESC}[42;30m\
+${ESC}[4${BASHISH_COLOR0};30m\
 $FILLY\
 ${ESC}[0;$(($LINES - 2))r\
 ${ESC}[$(($LINES - 1));0H\
-${ESC}[0m${ESC}[K${ESC}[42;30m  ${ESC}[E\
+${ESC}[0m${ESC}[K${ESC}[4${BASHISH_COLOR0};30m  ${ESC}[E\
 ${ESC}[$(($LINES));0H\
-${ESC}[0;32m`_bashish_prompt_cp437 DF`\
-${ESC}[42;30m`_bashish_prompt_fillx \" \" 2`\
-${ESC}[0;32m`_bashish_prompt_cp437 DC`\
+${ESC}[0;3${BASHISH_COLOR0}m`_bashish_prompt_cp437 DF`\
+${ESC}[4${BASHISH_COLOR0};30m`_bashish_prompt_fillx \" \" 2`\
+${ESC}[0;3${BASHISH_COLOR0}m`_bashish_prompt_cp437 DC`\
 ${ESC}[$LINES;4H\
-${ESC}[42;31m(\
+${ESC}[4${BASHISH_COLOR0};31m(\
 ${ESC}[37m$PROMPTSTR\
 ${ESC}[31m)\
 ${ESC}[2C(\
@@ -71,11 +71,11 @@ ${ESC}[2C:\
 ${ESC}[2C\
 ${ESC}[31m)\
 ${ESC}8\
-${ESC}[0;4;32m\
+${ESC}[0;4;3${BASHISH_COLOR0}m\
 ${UNEMBED}\
 `_bashish_prompt_cp437 DC`\
 ${EMBED}\
-${ESC}[0;42;31m\
+${ESC}[0;4${BASHISH_COLOR0};31m\
 ${UNEMBED} = ${EMBED}\
 ${ESC}[0;31m\
 ${UNEMBED}\

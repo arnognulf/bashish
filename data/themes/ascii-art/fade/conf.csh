@@ -1,2 +1,0 @@
-
-set MAINCOLOR=4

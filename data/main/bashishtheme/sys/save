@@ -50,13 +50,17 @@ function _bashish_save
 		THEMEFILE="themes/$THEMEDIR/${BASHISH_THEME}"
 	fi
 	THEMEFILE=$HOME/.bashish/${THEMEFILE}
-	## clean up backup files and empty files before saving
-	for FILE in *; do test -s "${FILE}"||rm "${FILE}";case ${FILE} in *~)rm ${FILE};;esac;done
-	#tar cf - . | gzip -c >${THEMEFILE}||errorhandler 27
-
 	mkdir -p "${THEMEFILE}"
 	rm -f "${THEMEFILE}"/*
-	cp -f * "${THEMEFILE}/"||errorhandler 27
+	## only copy the needed files
+	for FILE in *
+	do
+		case "${FILE}" in
+		## do nothing if temp-file or argv andor conf file
+		*~|argv*|conf*) : do nothing ;;
+		*)
+		## save if file is nonzero 
+		test -s "${FILE}" && cp "${FILE}" "${THEMEFILE}" || errorhandler 27;;esac;done
 	(
 		. ./theme
 		## test if this is the prompt theme

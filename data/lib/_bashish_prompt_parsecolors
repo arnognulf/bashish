@@ -1,0 +1,52 @@
+#!/bin/bash
+##################################################################################
+## Bashish, a console theme engine
+## Copyright (C) 2006 Thomas Eriksson
+##
+## This program is free software; you can redistribute it and/or
+## modify it under the terms of the GNU General Public License
+## as published by the Free Software Foundation; either version 2
+## of the License, or (at your option) any later version.
+##
+## This program is distributed in the hope that it will be useful,
+## but WITHOUT ANY WARRANTY; without even the implied warranty of
+## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+## GNU General Public License for more details.
+## 
+##
+## along with this program; if not, write to the Free Software
+## Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+##################################################################################
+##
+## _bashish_prompt_parsecolors is a theme helper
+## translate color names to ansi color numbers (not foreground, background nor attributes)
+##
+## _BASHISH_COLOR0
+## ..
+## _BASHISH_COLORn
+##
+## where n is an arbitary number of colors
+##
+##################################################################################
+
+function _bashish_prompt_parsecolors
+{
+	typeset i=0
+	for ARG in "$@"
+	do
+		test $i -gt 0 && printf ";"
+		case "${ARG}" in
+		black) eval printf \"\\\$_typeset BASHISH_COLOR${i}=0\";let i++;;
+		red) eval printf \"\\\$_typeset BASHISH_COLOR${i}=1\";let i++;;
+		green) eval printf \"\\\$_typeset BASHISH_COLOR${i}=2\";let i++;;
+		yellow) eval printf \"\\\$_typeset BASHISH_COLOR${i}=3\";let i++;;
+		blue) eval printf \"\\\$_typeset BASHISH_COLOR${i}=4\";let i++;;
+		magenta) eval printf \"\\\$_typeset BASHISH_COLOR${i}=5\";let i++;;
+		cyan) eval printf \"\\\$_typeset BASHISH_COLOR${i}=6\";let i++;;
+		white) eval printf \"\\\$_typeset BASHISH_COLOR${i}=7\";let i++;;
+		esac
+	done
+	#_bashish_prompt_parsecolors "$@"
+}
+
+_bashish_prompt_parsecolors "$@"

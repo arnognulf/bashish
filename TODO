@@ -1,21 +1,10 @@
 bashish-2.2.2
 -------------
+delete MAINCOLOR, conf-files
+
 bug: prompt() not ok in bluesteel and others
 
 bug: apptheme fail, ln not updated to non-bt format?
-
-_bashish_prompt_argv()
-crop bright- invert and other keywords if not applicable
-only colors? red blue green
-not fgblue bgred etc, interpreted by themes, most significant color first
-
-bashishtheme fade --color=blue,red,white
-bashishtheme fade blue red green
-
-_bashish_prompt_argv()
-{
-	printf \"foo\" \"bar\"
-}
 
 add uberprompt theme
 

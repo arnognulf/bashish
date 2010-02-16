@@ -143,8 +143,6 @@ read -n1 INPUT
 
 		_bashish_module sys/update
 		_bashish_update
-		_bashish_module sys/setopts
-		_bashish_setopts
 		_bashish_module sys/termcleanup
 		_bashish_termcleanup
 exit 0
@@ -163,14 +161,17 @@ exit 0
 		_bashish_module sys/themedb
 		## provide bashish appdb
 		_bashish_module sys/appdb
-
+		
 		case ${BASHISH_ARGV[1]} in
-		-*|"") BTAPP="";_bashish_unpack "${BASHISH_ARGV[0]}";;
-		*) BTAPP="${BASHISH_ARGV[0]}"; _bashish_unpack "${BASHISH_ARGV[1]}"
+		-*|""|bright*|dim*|underscore*|blink*|reverse*|hidden*|black|red|green|yellow|blue|magenta|cyan|white)
+			BTAPP="";_bashish_unpack "${BASHISH_ARGV[0]}";;
+		*)
+			BTAPP="${BASHISH_ARGV[0]}"; _bashish_unpack "${BASHISH_ARGV[1]}"
 		
 			## application theme changer
 			BTAPP=${BASHISH_ARGV[0]}
 		esac
+
 		_bashish_module sys/update
 		_bashish_update
 		_bashish_module sys/setopts
