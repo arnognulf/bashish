@@ -1,25 +1,17 @@
 bashish-2.2.2
 -------------
-delete MAINCOLOR, conf-files
-
-bug: prompt() not ok in bluesteel and others
+broken & untested on zsh & ksh & sh & dash
+test -t
+?no parsing on zsh/ksh only userland code
 
 bug: apptheme fail, ln not updated to non-bt format?
 
+bug_lowpri: _bashish_prompt_* does not expand to functions, always sourced, why?
+
 add uberprompt theme
 
-fix fire theme
-
-broken & untested on zsh & ksh & sh & dash
-
-no parsing on zsh/ksh only userland code
 
 shellvars: en_US 12-hour time
-
-
-main/bashishtheme/sys/setopts:28
-fails after new theme has been created
-really load/unpack theme after loaded
 
 shell-init: error retrieving current directory: getcwd: cannot access parent
 directories: No such file or directory
@@ -33,47 +25,8 @@ bashishtheme [--disable-gnome-terminal|--enable-gnome-terminal]
 
 bashish [--configure]
 
-clean various UTF-8 themes
-checklist::
-:::::::::::
-amiga
-*bluesteel
-*box
-browser
-*c64
-chat
-compress
-*conda
-*dos
-ean
-editor
-editornofont
-editor_reversed
-evilroot
-*fade
-fire
-flowerpower
-generic
-hearttracker
-invertfgbg
-*lcars
-*m0an
-manual
-mixer
-*moo
-multics
-mvs
-mvsmono
-poker
-tinycolor
-ubuntu
-urbandawn
-video
-
-bashish-2.0.7
--------------
-woops:
-
+old todo
+--------
 bashishtheme joe editor
 does not work!
 hopefully no one will notice ;)

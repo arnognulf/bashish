@@ -1,5 +1,21 @@
 2.2.2 - I'm not dead yet!
 -------------------------
+What's hot:
+-----------
+* Set the theme color at load, eg:
+
+  $ bashishtheme box blue
+  $ bashishtheme fade red
+
+* Set a string for the prompt, title or both, eg:
+  
+  $ title compiling      # sets the title to "compiling" 
+  $ prompt haxin\'       # sets a string in some prompts to "haxin'"
+  $ name breaking stuff  # sets both title and prompt to "breaking stuff"
+
+Longer notes
+------------
+
 Bashish has been bitrotting for quite a while, there were some obsticles I
 did not see an easy way to fix (gnome-terminal being pita to use with
 bashish) and the pretty "conda" and "box" themes, which sometimes ate
