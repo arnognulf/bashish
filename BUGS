@@ -1,31 +1,8 @@
 
 KNOWN BUGS
 ----------
-## $LAUNCHER PID isnt updated when running child shells and then
-## exiting
-kill -s WINCH $LAUNCHER_PID 2>/dev/null
-
-
 * bashish --configure does not work yet, remove your ~/.bashish and install
   again if you would like to add another shell.
-
-* ARGV is not used correctly in 'bashish' and 'bashishtheme' commands
-
-* rxvt-beta in ubuntu x86-64 segfaults, discouraged in use with bashish
-
-* rxvt-cvs has problems updating the font if using a pixmap background.
-  This  bug needs further investigation and has thus not been
-  reported to the Rxvt developers.
-
-* Rxvt-cvs clears the screen each time a theme repaint occurs.
-  This bug is reported to the Rxvt developers.
-
-* Eterm versions below 0.9.3 have several color setting bugs. If possible
-  do use the latest version.
-
-* XTerm has resize problems under Sawfish(and others) Fullscreen mode.
-  This has been reported to XTerm maintainer, the bug is currently
-  present as of version 194.
 
 * Suspending with un-theming and re-themeing when returning to the
   application is only supported on bash:

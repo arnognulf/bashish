@@ -47,10 +47,10 @@ _bashish_promptupdate ()
 	test -f "$HOME/.bashish/tmp/${TTY##*/}/sync" || {
 		## dummy fallback prompt
 		_bashish_prompt() { :;}
-
+		## reset scrolling region from older prompts
+		printf "\033[0;0r"
 		bashish
 		hash -r
-		printf "\033[0;0r"
 	
 		## load the fallback prompt to memory
 		if test -f "$HOME/.bashish/bt/defaults/prompt.$SHELLNAME"
