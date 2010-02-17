@@ -1,2 +1,2 @@
-function _bashish_theme_elite { :;}
+_bashish_theme_elite2 () { :;}
 BASHISH_THEME=elite2
