@@ -6,8 +6,6 @@ broken & untested on zsh & ksh & sh & dash & csh & tcsh
 test -t
 ?no parsing on zsh/ksh only userland code
 
-bug: apptheme fail, ln not updated to non-bt format?
-
 bug_lowpri: _bashish_prompt_* does not expand to functions, always sourced, why?
 main/sys/sh/loadhelpers -- declare -f $fn 2>/dev/null || $fn
 

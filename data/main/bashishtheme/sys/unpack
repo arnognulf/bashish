@@ -20,7 +20,6 @@
 
 function _bashish_unpack
 {
-
 	## set theme name
 	case "$1" in
 	none) THEME=none;;
@@ -28,8 +27,8 @@ function _bashish_unpack
 	esac
 
 	## set themedir
-	THEMEDIR=${HOME}/.bashish/bt/cache/${THEME}
-	mkdir -p ${THEMEDIR}
+	THEMEDIR="${HOME}/.bashish/bt/cache/${THEME}"
+	mkdir -p "${THEMEDIR}"
 
 	DESTDIR=${HOME}/.bashish/bt/prompt
 	test "x${BTAPP}" != x && DESTDIR="$HOME/.bashish/bt/app/${BTAPP##*/}"
@@ -41,7 +40,6 @@ function _bashish_unpack
 		test x$BTAPP = x && {
 			## if $THEMENAME is set to the string "none"
 			## it's theme directory is removed
-			mkdir ${THEMEDIR}
 			printf "function _bashish_theme_none { :;};BASHISH_THEME=none" >${THEMEDIR}/theme
 			test -e "${DESTDIR}" && rm "${DESTDIR}"
 			ln -s "${THEMEDIR}" "${DESTDIR}"
@@ -61,7 +59,6 @@ function _bashish_unpack
 		then
 			test -e "${HOME}/.bashish/prompt" && rm "${HOME}/.bashish/prompt"
 			ln -s "${THEMEDIR}" "${HOME}/.bashish/prompt"
-			theme_prompt
 		fi
 		
 	esac
@@ -77,5 +74,5 @@ function _bashish_unpack
 
 
 	test x${BTAPP} != x && _bashish_appdb
-
+set +x
 }
