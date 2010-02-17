@@ -17,6 +17,7 @@ What's hot:
   $ title compiling      # sets the title to "compiling" 
   $ prompt haxin\'       # sets a string in some prompts to "haxin'"
   $ name breaking stuff  # sets both title and prompt to "breaking stuff"
+                         # try it out on eg the conda theme!
 
 
 Longer notes

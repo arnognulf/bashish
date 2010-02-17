@@ -28,10 +28,6 @@ bashish [--configure]
 
 old todo
 --------
-bashishtheme joe editor
-does not work!
-hopefully no one will notice ;)
-
 settings:
 --fontname="Bitstream Vera Sans" --fontsize=16 
 fc-list |cut -d: -f1 | sort | uniq
@@ -137,26 +133,6 @@ Unxutils.sf.net (zsh)
 ---------------------
 does not use cp437 mode by default
 
-
-
-portable bluesteel
-.--------------------------------------- \n
-------[ C:\WINDOWS\SYSTEM32\
-|
-'-->
-
-portable conda:
-
-.-:-<
-|
-'----------------------------------------\[go back\]
-
-bashishtheme:
-only app/* in appselector and non-app/ in themeselector
-
-work without dialog!
-
-
 fix /dev/vcsa apps in linux console (eg. fte) and always reset colors and
 fonts?
 
@@ -174,18 +150,6 @@ http://www.ussg.iu.edu/hypermail/linux/kernel/9911.1/0916.html
 
 http://netbsd.gw.com/cgi-bin/man-cgi?wsconsctl+8+NetBSD-current
 
-
-bashish-screen 
---------------
-provide virtual bashish enviroment by redirecting output to specified tty.
-screen would be a protected theme command and always wrapped?
-##if unthemed, bashish provides screen transparency.
-detect tty changed or disconnected.
-
-test -O /dev/pts/[n]
-
-re-detect terminal, instruct bashish process (running in screen)
-reload terminal theme engine, themecap
 
 legacy compatibility
 --------------------
@@ -227,28 +191,11 @@ use 'cut' in bluesteel when one cannot use bash string manipulation
 run bashish in the overloaded function/alias and make "dumber" shells
 restart if needed.
 
-esh shell support
------------------
-Esh is a very impressive shell, it is very small both in size and memory
-consumption, it is only superseeded in size by the Old Thompson ports from
-UNIX V6, despite having almost all features you would expect from bash:
-programmable
-prompt
-job control
-
-it's a bit LISPish but I will break it for sure :)
-
-( script foo )
-
-( prompt foobar )
-
 bashish2.1
 ----------
 documentation
 
 tomy retro computer: http://www.floodgap.com/retrobits/tomy/tutti.html
-
-Port the BashPrompt themes to zsh, bash and tcsh!
 
 gnome support
 -------------
@@ -415,19 +362,4 @@ sleep ?
 prompt handles startup logo
 
 future...
-
-µBashish
---------
-µBashish - Embedded bashish with only prompt changing 
-#and decompressed
-#themes which then get linked
-./configure --enable-embedded=csh
-
-./configure --disable-terminal --enable-prompt=csh
-
-same structure, disable terminal
-simplified 'bashish' launcher
-simplified wrapper, prints "$@"
-non-arguments
-old-style STDERR title printing
 
