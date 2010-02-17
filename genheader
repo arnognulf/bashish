@@ -13,11 +13,6 @@ esac
 echo $NI "\
 #!$1
 BASHISHDIR=\"$2\"
-BASHISH_SHELL=\"$1\"
+BASHISH_SHELL=\"/bin/bash\"
 "
-case "$1" in
-*zsh*)
-echo $NI "emulate -L ksh
-"
-esac
 
