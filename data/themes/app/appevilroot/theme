@@ -6,7 +6,7 @@
 ###########################
 
 BASHISH_THEME=evilroot
-_bashish_theme_evilroot ()
+_bashish_theme_appevilroot ()
 {
 EICON=dialog-warning3.png
 BGCOLOR="#000000"

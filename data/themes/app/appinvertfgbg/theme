@@ -1,5 +1,5 @@
 BASHISH_THEME=invertfgbg
-_bashish_theme_invertfgbg()
+_bashish_theme_appinvertfgbg()
 {
 TITLE="${BASHISH_ARGV[0]*/}"
 IMAGEFILE=""

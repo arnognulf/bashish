@@ -1,6 +1,6 @@
 BASHISH_THEME=editor
 
-_bashish_theme_editor ()
+_bashish_theme_appeditor ()
 {
 	local APP
 	APP=${BASHISH_ARGV[0]##*/}

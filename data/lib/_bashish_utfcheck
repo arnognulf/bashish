@@ -1,4 +1,5 @@
 #!/bin/bash
+#this file can only be read by bash, not zsh nor ksh
 ##################################################################################
 ## Bashish, a console theme engine
 ## Copyright (C) 2006 Thomas Eriksson
@@ -24,8 +25,8 @@
 ##
 ##################################################################################
 
-## this file may only be loaded in ksh88 compatible mode
-test "x$RANDOM" = x && _bashish_utfcheck
+#this file can only be read by bash, not zsh nor ksh
+test "x$BASH" = x && _bashish_utfcheck
 
 function _bashish_utfcheck {
 	unset -f _bashish_utfcheck

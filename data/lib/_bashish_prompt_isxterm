@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 ##################################################################################
 ## Bashish, a console theme engine
 ## Copyright (C) 2005 Thomas Eriksson
@@ -27,10 +27,11 @@
 ##
 ######################################################################
 
+# only run in bash
 ## if the terminal interprets titles (most do: ie xterm, some not, ie linux
 ## console) this string should not print out on
 ## the screen, and thus the terminal would not report the cursor being moved
-_bashish_prompt_isxterm ()
+test x$BASH != x && _bashish_prompt_isxterm ()
 {
 	## run only once
 	unset -f _bashish_prompt_isxterm

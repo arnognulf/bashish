@@ -1,15 +1,17 @@
-BASHISH_THEME=editornofont
+BASHISH_THEME=editor_reversed
 
-_bashish_theme_editornofont ()
+_bashish_theme_appeditor_reversed ()
 {
-	local APP
+	local APP OLDFGCOLOR OLDBGCOLOR
 	APP=${BASHISH_ARGV[0]##*/}
 	TITLE="`printf ${APP:0:1}|tr 'a-z' 'A-Z'`${APP:1}"
 	IMAGEFILE=""
 	AFGCOLOR=black
 	ABGCOLOR=white
-	BGCOLOR="#f2eee0"
-	FGCOLOR="#000000"
+	OLD_BGCOLOR="$BGCOLOR"
+	OLD_FGCOLOR="$FGCOLOR"
+	BGCOLOR="$OLD_FGCOLOR"
+	FGCOLOR="$OLD_BGCOLOR"
 	CURSORCOLOR="#555555"
 	FIXWINCH=1
 	XFONT="-sgi-type-medium-r-normal--13-130-72-72-m-80-iso8859-1"
@@ -35,4 +37,7 @@ _bashish_theme_editornofont ()
 	BGTRANSPARENCY=0
 	
 	DELAY=1
+	FONTNAME="ProFontWindows"
+	FONTSIZE=15
+
 }

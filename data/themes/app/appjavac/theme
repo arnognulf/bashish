@@ -1,5 +1,5 @@
 BASHISH_THEME=javac
-_bashish_theme_javac ()
+_bashish_theme_appjavac ()
 {
 TITLE="Compiling ${ARGV[0]/.java/}"
 

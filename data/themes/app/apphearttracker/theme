@@ -1,6 +1,6 @@
 BASHISH_THEME=hearttracker
 
-_bashish_theme_hearttracker ()
+_bashish_theme_apphearttracker ()
 {
 XFONT=nex6x10.pcf.gz
 TITLE=${BASHISH_ARGV[0]##*/}

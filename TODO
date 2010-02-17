@@ -2,7 +2,7 @@ bashish-2.2.2
 -------------
 bug: does not show logo on startup
 
-broken & untested on zsh & ksh & sh & dash & csh & tcsh
+bug: broken & untested on zsh & ksh & sh & dash & csh & tcsh
 test -t
 ?no parsing on zsh/ksh only userland code
 

@@ -1,6 +1,6 @@
 #!/bin/sh
 BASHISH_THEME=manual
-_bashish_theme_manual ()
+_bashish_theme_appmanual ()
 {
 XFONT=type13.pcf.gz
 LFONT=roman-1.fnt.gz

@@ -1,6 +1,6 @@
 BASHISH_THEME=mixer
 
-_bashish_theme_mixer ()
+_bashish_theme_appmixer ()
 {
 TITLE="$BTAPP"
 

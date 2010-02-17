@@ -1,6 +1,6 @@
 ## icon from wordpress
 BASHISH_THEME=chat
-_bashish_theme_chat ()
+_bashish_theme_appchat ()
 {
 XFONT=ScrB11.pcf.gz
 case ${BASHISH_ARGV[0]} in
