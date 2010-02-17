@@ -1,6 +1,7 @@
 #!/bin/sh
 #!theme
-
+_bashish_prompt ()
+{
 HEARTS="`_bashish_prompt_cp437 03`"
 DIAMONDS="`_bashish_prompt_cp437 04`"
 SPADES="`_bashish_prompt_cp437 06`"
@@ -108,7 +109,7 @@ playhand()
 	CARD3="`cardcolor``cardvalue`"
 	CARD4="`cardcolor``cardvalue`"
 }
-	
+playhand	
 PROMPT_COMMAND=playhand
 precmd()
 {
@@ -124,3 +125,4 @@ PS1="\033[37m$CH$CH $CH$CH $CH$CH $CH$CH $CH$CH
 
 "
 unset CH
+}
