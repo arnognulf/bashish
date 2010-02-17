@@ -3,7 +3,6 @@ Prerequisites
 
 Bashish requires the following packages to run:
 
- - a korn shell interpreter:
    * bash >=2.04
 
 Additional packages are recommended but not required:

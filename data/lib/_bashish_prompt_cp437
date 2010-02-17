@@ -493,4 +493,4 @@ dec|ascii)
 		fi
 	}
 esac
-_bashish_prompt_cp437 "$@"
+test x$BASHISH_FNLOAD != x1 && _bashish_prompt_cp437 "$@"

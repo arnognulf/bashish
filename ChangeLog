@@ -22,7 +22,7 @@ What's hot:
 
 What's not:
 -----------
-support on zsh and ksh is unfortually very broken
+support on zsh and ksh is unfortually a bit broken
 
 Longer notes
 ------------
@@ -43,10 +43,10 @@ terminal).
 
 The release number bump comes from changing the theme API slightly,
 now the prompt() function to let bashish hook into is called
-_bashish_promptcmd() in order to not collide with prompt() as introduced in
+_bashish_prompt() in order to not collide with prompt() as introduced in
 this release.
 
-The new feature is called "userstrings" and only have support on a few
+Another new feature is called "userstrings" and only have support on a few
 themes, more to come :)
 
 userstrings is available to the user in the form of the following functions
@@ -57,7 +57,7 @@ name()
 They modify a part of the prompt or the title so a user quickly can name a
 terminal "hacking", "LaTeXing", "wget job" and so on, nobody really
 remembers tty numbers anyway :)
-Each theme may interpret the $PROMPTSTR and $TITLE strings as they want and
+Each theme may interpret the $PROMPTSTR and $TITLESTR strings as they want and
 combine them with the current theme however possible, or not at all.
 If a theme haven't got userstring support, nothing will happen.
 

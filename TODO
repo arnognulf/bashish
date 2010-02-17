@@ -1,11 +1,6 @@
 bashish-2.2.2
 -------------
 bug: broken & untested on zsh & ksh & sh & dash & csh & tcsh
-test -t
-?no parsing on zsh/ksh only userland code
-
-bug_lowpri: _bashish_prompt_* does not expand to functions, always sourced, why?
-main/sys/sh/loadhelpers -- declare -f $fn 2>/dev/null || $fn
 
 showcase video on youtube
 

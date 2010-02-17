@@ -28,7 +28,7 @@
 ######################################################################
 
 _bashish_title () { :;}
-_bashish_prompt_isxterm && _bashish_title () 
+_bashish_isxterm && _bashish_title () 
 {
 	test "x$TITLESTR" = x && TITLESTR="${TITLE}"
 	eval $(_bashish_prompt_shellvars $SHELLNAME)

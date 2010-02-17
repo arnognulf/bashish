@@ -38,9 +38,9 @@ _bashish_loadhelpers ()
 	"") :;;
 	*) return 0;;
 	esac
-	test "x$RANDOM" != x && for LIB in $BASHISHDIR/lib/_bashish_prompt_*
+	test "x$RANDOM" != x && for LIB in "$BASHISHDIR"/lib/_bashish_prompt_*
 	do
-		eval "${LIB##*/} () { . \$BASHISHDIR/lib/${LIB##*/} \"\$@\";}"
+		BASHISH_FNLOAD=1 . "$BASHISHDIR/lib/${LIB##*/}"
 	done
 }
 _bashish_loadhelpers
