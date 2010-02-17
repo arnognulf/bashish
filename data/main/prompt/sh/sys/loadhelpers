@@ -33,7 +33,7 @@ _bashish_loadhelpers ()
 	## most helpers are not ported to non-bash shells yet
 	test "x$BASH" = x && return 0
 	unset -f _bashish_loadhelpers
-	case $ZSH_VERSION in
+	case "$ZSH_VERSION" in
 	4*) emulate -L ksh ;;
 	"") :;;
 	*) return 0;;

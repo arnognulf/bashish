@@ -2,6 +2,10 @@
 -------------------------
 What's hot:
 -----------
+* New themes
+  elite - from the BashPrompt-4.5b6 package, now with UTF-8 and a bit more spiffiness
+  uberprompt - simplicity is king!
+
 * Set the theme color at load, eg:
 
   $ bashishtheme box blue
@@ -12,6 +16,7 @@ What's hot:
   $ title compiling      # sets the title to "compiling" 
   $ prompt haxin\'       # sets a string in some prompts to "haxin'"
   $ name breaking stuff  # sets both title and prompt to "breaking stuff"
+
 
 Longer notes
 ------------

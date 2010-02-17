@@ -1,15 +1,17 @@
 bashish-2.2.2
 -------------
-broken & untested on zsh & ksh & sh & dash
+bug: does not show logo on startup
+
+broken & untested on zsh & ksh & sh & dash & csh & tcsh
 test -t
 ?no parsing on zsh/ksh only userland code
 
 bug: apptheme fail, ln not updated to non-bt format?
 
 bug_lowpri: _bashish_prompt_* does not expand to functions, always sourced, why?
+main/sys/sh/loadhelpers -- declare -f $fn 2>/dev/null || $fn
 
-add uberprompt theme
-
+showcase video on youtube
 
 shellvars: en_US 12-hour time
 
@@ -19,7 +21,6 @@ shell-init: error retrieving current directory: getcwd: cannot access parent
 directories: No such file or directory
 shell-init: error retrieving current directory: getcwd: cannot access parent
 directories: No such file or directory
-
 
 bashishtheme [--disable-gnome-terminal|--enable-gnome-terminal]
 

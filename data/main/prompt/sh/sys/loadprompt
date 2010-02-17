@@ -95,7 +95,8 @@ _bashish_promptupdate ()
 		fi
 		
 		## load argv.sh function
-		. "$HOME/.bashish/bt/prompt/argv.sh"
+		_bashish_prompt_argv() { :;}
+		test -f "$HOME/.bashish/bt/prompt/argv.sh" && . "$HOME/.bashish/bt/prompt/argv.sh"
 
 		## a small delay makes the term settle down before reloading the prompt
 		sleep 0.5

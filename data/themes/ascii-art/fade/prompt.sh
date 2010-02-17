@@ -10,6 +10,7 @@ _bashish_prompt () {
 ## load some compat variables, TIME, DATE, BEGIN_HIDE, END_HIDE etc
 eval $(_bashish_prompt_shellvars $SHELLNAME)
 eval $(_bashish_prompt_parsecolors "$@")
+test "x${BASHISH_COLOR0}" = x && eval $(_bashish_prompt_parsecolors blue)
 
 typeset FADE="`_bashish_prompt_cp437 DB B2 B1 B0`"
 test x${PROMPTSTR} = x && typeset PROMPTSTR=${USER}@${HOSTNAME}
