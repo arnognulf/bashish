@@ -32,6 +32,6 @@ _bashish_prompt_isxterm && _bashish_title ()
 {
 	test "x$TITLESTR" = x && TITLESTR="${TITLE}"
 	eval $(_bashish_prompt_shellvars $SHELLNAME)
-	printf "\033]0;${TITLESTR}\007"
-	PS1=${PS1}"${EMBED}\033]0;"'${TITLESTR}'"\007${UNEMBED}"
+	printf "${ESC}]0;${TITLESTR}${BEL}"
+	PS1="${EMBED}${ESC}]0;"'${TITLESTR}'"${BEL}${UNEMBED}"${PS1}
 }

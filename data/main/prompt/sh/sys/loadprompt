@@ -30,6 +30,8 @@
 ## write the shell PID so "bashishtheme" can force a theme update by
 ## sending a WINCH, which subsequently makes promptupdate to run
 test "x${TTY}" = x && TTY=$(tty 2>/dev/null)
+test "x${HOSTNAME}" = x && HOSTNAME=$(hostname)
+
 test -d "$HOME/.bashish/tmp/${TTY##*/}" || mkdir -p "$HOME/.bashish/tmp/${TTY##*/}"
 if test -d "$HOME/.bashish/tmp/${TTY##*/}"
 then
@@ -40,7 +42,10 @@ fi
 _bashish_promptupdate ()
 {
 	## temporarily disable CTRL+C
-	trap "" INT
+	test "x$ZSH_NAME$BASH" != x && trap "" INT
+	
+	## zsh need this
+	test x"$ZSH_NAME" != x && setopt prompt_subst
 	
 	## check if the theme is unsynced with the latest theme in 
 	## bashishtheme, if so, force a theme update
@@ -119,7 +124,8 @@ _bashish_promptupdate ()
 		PS3='?# '
 		PS4='+%N:%i> '
 		unset RPS1 RPS2
-		unset -f precmd preexec
+		## zsh warns if functions does not exists
+		unset -f precmd preexec 2>/dev/null
 	;;
 	*)
 		case '$UID' in
@@ -141,7 +147,7 @@ _bashish_promptupdate ()
 	_bashish_title
 	
 	## re-enable CTRL+C
-	trap INT
+	test "x$ZSH_NAME$BASH" != x && trap INT
 }
 
 ## winch promptupdate
@@ -164,7 +170,7 @@ then
 	trap "PROMPT_COMMAND=\"unset PROMPT_COMMAND;_bashish_promptupdate\"" WINCH
 elif test "x$ZSH_NAME" != x
 then
-	trap "echo \"precmd () { unset -f precmd; _bashish_promptupdate;}" WINCH	
+	trap "eval \"precmd () { unset -f precmd; _bashish_promptupdate;}\"" WINCH
 fi
 
 ## re-paint whenever changing directory

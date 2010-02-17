@@ -11,7 +11,7 @@ case `echo -n` in
 esac
 
 echo $NI "\
-#!$1
+#!/bin/bash
 BASHISHDIR=\"$2\"
 BASHISH_SHELL=\"/bin/bash\"
 "
