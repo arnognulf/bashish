@@ -1,6 +1,23 @@
 bashish-2.2.2
 -------------
+
+
+bashish theme
+
+
+ #2
+bashish 2 version n.n.n
+
+######################################arno###%%brunhilde%%%%%%%
+/var/src/wut/ 
+
 bug: broken & untested on zsh & ksh & sh & dash & csh & tcsh
+bug: app wrappers silently ignore if no bashish is available not stop in
+write to fifo
+
+validate theme when saving
+
+more helpful messages by bashishtheme save
 
 showcase video on youtube
 

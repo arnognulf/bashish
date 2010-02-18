@@ -73,7 +73,7 @@ To save a theme, enter:
 $BASHISHTHEME [save]
 
 To list available themes, enter:
-$BASHISHTHEME -l
+$BASHISHTHEME list
 
 $BASHISHTHEME is the theme changer for Bashish.
 If $BASHISHTHEME is started without options an interactive dialog will be presented to the user.
@@ -131,8 +131,8 @@ case "$BASHISH_ARGC" in
 	;;
 *)
 	case "${BASHISH_ARGV[0]}" in
-	-l*|--l*) for THEME_ITEM in ${THEME_LIST[*]##*/}; do echo "$THEME_ITEM";done | sort|uniq; errorhandler 0;;
-	save)
+	list|show|-l*|--l*) for THEME_ITEM in ${THEME_LIST[*]##*/}; do echo "$THEME_ITEM";done | sort|uniq; errorhandler 0;;
+	save|-s|--s*)
 		_bashish_module sys/save
 		_bashish_save
 		printf "\
