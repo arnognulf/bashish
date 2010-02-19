@@ -5,5 +5,4 @@ cp dist/bashish-2.2.2.tar.gz dist/bashish_2.2.2.orig.tar.gz
 cp -rf deb-stuff "dist/${BASHISH_NAME_VERSION}/debian"
 cd "dist/${BASHISH_NAME_VERSION}"
 debuild -us -uc
-
-
+dpkg-scanpackages . /dev/null | gzip -cd - >Packages.gz
