@@ -1,4 +1,5 @@
-# Blue
+#!/usr/bin/env csh 
+ # Blue
 # Created by BadlandZ in v.0.4b
 # Adapted by jf
 # Changed By Spidey 08/06 Adding Ending brackets %}

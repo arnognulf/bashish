@@ -36,6 +36,7 @@ poormansfind()
 		elif test -f ${FILE}
 		then
 			case ${FILE} in
+			*/theme|*.bash|*.sh|*.csh|*.tcsh|*.rc|*.ksh) MODE=755 filefunc;;
 			*/autoload|data/themes/*|data/main/terminal/templates/*|data/bashish-version|*.png|*.kiss|*.dos|*.cmd|*.bat|*/dos/*)MODE=644 filefunc;;
 			data/bashish-version.in|*~|DEADJOE):;;
 			*.in) FILE=${FILE%.in};MODE=755 filefunc;;

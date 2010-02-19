@@ -1,16 +1,14 @@
 Source: bashish
 Section: shells
-Priority: optional
-Maintainer: Debian Java Mailing List <debian-unknown@lists.debian.org>
-Uploaders: Stefan Gybas <sgybas@debian.org>, Arnaud Vandyck <avdyk@debian.org>, Michael Koch <konqueror@gmx.de>, Matthias Klose <doko@debian.org>, Torsten Werner <twerner@debian.org>
-Build-Depends: debhelper (>= 5)
-Standards-Version: 3.8.2
-Vcs-Svn: svn://svn.debian.org/svn/pkg-unknown/trunk/bashish
-Vcs-Browser: http://svn.debian.org/wsvn/pkg-unknown/trunk/bashish/
+Priority: extra
+Build-Depends: debhelper (>= 7), autotools-dev
+Maintainer: Thomas Eriksson <arno@users.sourceforge.net>
+Standards-Version: 3.8.3
+Homepage: http://bashish.sourceforge.net
 
 Package: bashish
 Architecture: all
-Suggests: xfonts-artwiz, bash (>= 3.1)
+Depends: ${misc:Depends}, tcsh | csh | c-shell, bash (>= 3.0), rc, fish
 Description: Theme environment for text terminals
  Bashish is a theme environment for text terminals. It can
  change colors, font, transparency, and background image
@@ -22,10 +20,11 @@ Description: Theme environment for text terminals
   * Want a good looking prompt.
   * Want to customize the appearance of terminal commands.
   * Want informative titles based on the command arguments.
+  * Need different fonts for different applications - eg.
+    Chinese, Japanese, OEM Terminal fonts.
  .
  Compared to writing your own aliases for commands, Bashish
  supports very complex customization options and does not
  affect neither aliases/functions nor redirected commands.
  .
  web site: http://bashish.sourceforge.net
-

@@ -1,2 +1,3 @@
-set prompt="C:\>"
+#!/usr/bin/env csh 
+ set prompt="C:\>"
 

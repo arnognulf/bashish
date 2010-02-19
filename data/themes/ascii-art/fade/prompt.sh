@@ -1,3 +1,4 @@
+#!/bin/sh
 # Blue
 # Created by BadlandZ in v.0.4b
 # Adapted by jf

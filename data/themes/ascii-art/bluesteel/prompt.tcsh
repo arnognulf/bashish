@@ -1,4 +1,5 @@
-#!/bin/csh
+#!/usr/bin/env csh 
+ #!/bin/csh
 ##################################################################################
 ## Copyright (c) 2006, Thomas Eriksson
 ## All rights reserved.

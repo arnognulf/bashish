@@ -1,2 +1,3 @@
-set prompt=READY"\
+#!/usr/bin/env csh 
+ set prompt=READY"\
 "

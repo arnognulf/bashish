@@ -1,8 +1,9 @@
 #!/bin/bash
 BASHISH_NAME_VERSION="$(cat data/bashish-version)"
+cp dist/bashish-2.2.2.tar.gz dist/bashish_2.2.2.orig.tar.gz
 
 cp -rf deb-stuff "dist/${BASHISH_NAME_VERSION}/debian"
 cd "dist/${BASHISH_NAME_VERSION}"
-debuild -i -us -uc -b
+debuild -us -uc
 
 

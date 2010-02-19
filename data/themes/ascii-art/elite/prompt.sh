@@ -1,3 +1,4 @@
+#!/bin/sh
 # Created by KrON from windowmaker on IRC
 # Changed by Spidey 08/06
 # converted to bashish, and updated by arno

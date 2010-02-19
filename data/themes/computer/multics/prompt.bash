@@ -1,3 +1,4 @@
+#!/bin/sh
 ## @(#) created by arne
 #######################
 ## the multics theme

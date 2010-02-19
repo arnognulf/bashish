@@ -1,3 +1,4 @@
+#!/bin/sh
 #!/bin/bash
 _bashish_prompt() {
 eval $(_bashish_prompt_shellvars $SHELLNAME)

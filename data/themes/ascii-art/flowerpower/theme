@@ -1,5 +1,4 @@
 #!/bin/sh
-#!theme
 ## freebsd, netbsd, and openbsd
 
 BASHISH_THEME=flowerpower

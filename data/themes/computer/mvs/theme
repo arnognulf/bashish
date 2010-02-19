@@ -1,3 +1,4 @@
+#!/bin/sh
 BASHISH_THEME=mvs
 _bashish_theme_mvs ()
 {

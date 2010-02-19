@@ -1,3 +1,4 @@
+#!/bin/sh
 ## icon from wordpress
 BASHISH_THEME=chat
 _bashish_theme_appchat ()

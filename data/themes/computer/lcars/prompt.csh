@@ -1,4 +1,5 @@
-#!/bin/csh
+#!/usr/bin/env csh 
+
 ## freebsd, netbsd, and openbsd
 
 set FGBLUE="`$BASHISHDIR/bin/color fgblue`"

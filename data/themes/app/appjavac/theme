@@ -1,3 +1,4 @@
+#!/bin/sh
 BASHISH_THEME=javac
 _bashish_theme_appjavac ()
 {

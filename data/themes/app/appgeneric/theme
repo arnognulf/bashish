@@ -1,3 +1,4 @@
+#!/bin/sh
 BASHISH_THEME=generic
 _bashish_theme_appgeneric ()
 {

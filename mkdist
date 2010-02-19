@@ -5,7 +5,6 @@ rm -f dist.tar
 ## first cleanup backup files
 BASHISH_NAME_VERSION="$(cat data/bashish-version)"
 
-for DELETE_FILE in $(find . -type f |grep "~"); do rm "$DELETE_FILE";done
 tar cf dist.tar *
 
 mkdir -p "dist/${BASHISH_NAME_VERSION}"
