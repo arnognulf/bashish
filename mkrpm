@@ -1,0 +1,8 @@
+#!/bin/bash
+BASHISH_NAME_VERSION="$(cat data/bashish-version)"
+
+mkdir -p "${HOME}/rpmbuild/SOURCES"
+cp dist/${BASHISH_NAME_VERSION}.tar.gz "${HOME}/rpmbuild/SOURCES/"
+rpmbuild -ba  --nodeps bashish.spec
+cp "${HOME}/rpmbuild/RPMS/noarch/${BASHISH_NAME_VERSION}-1.bashish.generic.noarch.rpm" dist/
+#rm -rf "${HOME}/rpmbuild/"

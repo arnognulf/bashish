@@ -1,0 +1,60 @@
+#!/usr/bin/make -f
+
+DEB_HOST_GNU_TYPE ?= $(shell dpkg-architecture -qDEB_HOST_GNU_TYPE)
+DEB_BUILD_GNU_TYPE ?= $(shell dpkg-architecture -qDEB_BUILD_GNU_TYPE)
+
+CFLAGS += -g -Wall $(if $(findstring noopt,$(DEB_BUILD_OPTIONS)),-O0,-O2)
+
+configure: configure-stamp
+configure-stamp:
+	dh_testdir
+	for f in config.sub config.guess; do \
+	  if [ -r /usr/share/misc/$$f ]; then \
+	    if [ ! -f $$f.orig ]; then \
+	      mv $$f $$f.orig; \
+	      cp -f /usr/share/misc/$$f $$f; \
+	    fi; \
+	  fi; \
+	done
+	./configure --without-xsel --build=$(DEB_BUILD_GNU_TYPE) \
+	  --host=$(DEB_HOST_GNU_TYPE) --prefix=/usr --sysconfdir=/etc \
+	  --localstatedir=/var --mandir=\$${prefix}/share/man CFLAGS="$(CFLAGS)"
+	touch $@
+
+build: configure
+	dh_testdir
+	$(MAKE)
+
+install: build
+	dh_testdir
+	dh_testroot
+	dh_clean -k -X config.sub -X config.guess
+	$(MAKE) DESTDIR=$(CURDIR)/debian/tmp install
+	dh_installdocs README
+	dh_installchangelogs ChangeLog
+	dh_installdeb
+
+clean:
+	dh_testdir
+	dh_testroot
+	dh_clean -X config.sub -X config.guess
+	rm -f build-stamp configure-stamp
+	if [ -f Makefile ]; then make distclean; fi
+	for f in config.sub config.guess; do \
+	  if [ -e $$f.orig ]; then mv $$f.orig $$f; fi; \
+	done
+
+binary-arch: build install
+	dh_testdir
+	dh_testroot
+	dh_compress
+	dh_fixperms
+	dh_shlibdeps
+	dh_gencontrol
+	dh_md5sums
+	dh_builddeb
+
+binary-indep: build install
+
+binary: binary-indep binary-arch
+.PHONY: configure build install clean binary-indep binary-arch binary

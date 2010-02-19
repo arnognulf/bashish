@@ -1,7 +1,0 @@
-Since bashish is not included in debian/ubuntu, the files here are included
-in the source package for people who would like to build their own .deb
-packages.
-
-note that debian/ubuntu discourages having a debian directory distributed
-with the source since this conflicts with the packagers own debian/
-directory.

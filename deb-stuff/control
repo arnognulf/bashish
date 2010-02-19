@@ -1,4 +1,4 @@
-Package: bashish
+Source: bashish
 Version: 2.2.2
 Section: shells
 Priority: optional

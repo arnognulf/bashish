@@ -1,0 +1,19 @@
+#!/bin/bash
+set -x
+rm -rf dist
+rm -f dist.tar
+## first cleanup backup files
+BASHISH_NAME_VERSION="$(cat data/bashish-version)"
+
+for DELETE_FILE in $(find . -type f |grep "~"); do rm "$DELETE_FILE";done
+tar cf dist.tar *
+
+mkdir -p "dist/${BASHISH_NAME_VERSION}"
+cd "dist/${BASHISH_NAME_VERSION}"
+tar xf ../../dist.tar
+rm -rf .git
+rm -f data/bashish-version Makefile bashish.spec data/bashish-version man/bashish.1 man/bashishtheme.1 config.status config.log
+cd ..
+tar czf ${BASHISH_NAME_VERSION}.tar.gz ${BASHISH_NAME_VERSION}
+cd ..
+rm dist.tar
