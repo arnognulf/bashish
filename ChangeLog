@@ -65,6 +65,10 @@ Each theme may interpret the $PROMPTSTR and $TITLESTR strings as they want and
 combine them with the current theme however possible, or not at all.
 If a theme haven't got userstring support, nothing will happen.
 
+
+I've cleaned the build system, hopefully making releases of higher quality
+and possibility for people to fork it since everything is included!
+
 2.0.7 - Bulky bulk
 ------------------
 This release comes with some minor updates and fixes.
