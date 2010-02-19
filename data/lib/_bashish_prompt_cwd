@@ -1,0 +1,62 @@
+#!/bin/bash
+##################################################################################
+## Bashish, a console theme engine
+## Copyright (C) 2006 Thomas Eriksson
+##
+## This program is free software; you can redistribute it and/or
+## modify it under the terms of the GNU General Public License
+## as published by the Free Software Foundation; either version 2
+## of the License, or (at your option) any later version.
+##
+## This program is distributed in the hope that it will be useful,
+## but WITHOUT ANY WARRANTY; without even the implied warranty of
+## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+## GNU General Public License for more details.
+## 
+##
+## along with this program; if not, write to the Free Software
+## Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+##################################################################################
+##
+## _bashish_prompt_cwd is a prompt helper
+##
+## it provides the current working directory with:
+## * colored directory delimiters
+## * homedir replaced by homedir
+## * directory cutoff for a specified length
+##
+## USAGE:
+## _bashish_prompt_cwd [SEPCOLOR] [TXTCOLOR] [CUTOFF]
+##
+## SEPCOLOR is the escape sequence for setting the directory separator color
+## TXTCOLOR is the escape sequence for setting the directory text color
+## CUTOFF   is the amount of characters to print before cutting the directory
+##
+##################################################################################
+
+## chop off element by element and replace with "..." if not enough space
+function _bashish_prompt_cwd
+{
+	typeset CWD="" DIR="" IFS=: PWD="$(pwd)" CWD="" IFS INT_MAX=9223372036854775807 SEPCOLOR=${1} TXTCOLOR=${2} CUTOFF=${3:-$INT_MAX}
+
+	if test "x$COLUMNS" = x
+	then
+		IFS=" "
+		for COLUMNS in $(stty size);do :;done
+		unset IFS
+	fi
+	eval "case \"$PWD\" in "$HOME"*) PWD=\${PWD:"${#HOME}"};CWD=\$TXTCOLOR\~;;/)CWD=\$SEPCOLOR/;esac"
+	test $(( $COLUMNS - ${#PWD} )) -lt ${CUTOFF} && { 
+		CWD=${TXTCOLOR}...
+		eval "PWD=\"\${PWD:$(( ${#PWD} - ( $COLUMNS - $CUTOFF ) ))}\""
+	}
+	IFS=/
+	for DIR in $PWD
+	do
+		CWD="$CWD${TXTCOLOR}$DIR${SEPCOLOR}/"
+	done
+	unset IFS
+	printf "${CWD%/}"
+}
+test x$BASHISH_FNLOAD != x1 && _bashish_prompt_cwd "$@"
+

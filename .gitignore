@@ -12,14 +12,6 @@ Makefile
 bashish.spec
 config.log
 config.status
-data/lib/_bashish_launcher
-data/lib/_bashish_bashish_fork
-data/lib/_bashish_bashish_subproc
-data/lib/_bashish_fork
-data/lib/_bashish_prompt_cwd
-data/lib/_bashish_prompt_fillx
-data/lib/_bashish_prompt_testloc
-data/lib/_bashish_subproc
 data/themes/computer/*.bt
 data/themes/ascii-art/*.bt
 data/themes/app/*.bt

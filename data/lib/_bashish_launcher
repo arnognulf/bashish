@@ -1,0 +1,150 @@
+#!/bin/bash
+##################################################################################
+## Bashish, a console theme engine
+## Copyright (C) 2005 Thomas Eriksson
+##
+## This program is free software; you can redistribute it and/or
+## modify it under the terms of the GNU General Public License
+## as published by the Free Software Foundation; either version 2
+## of the License, or (at your option) any later version.
+##
+## This program is distributed in the hope that it will be useful,
+## but WITHOUT ANY WARRANTY; without even the implied warranty of
+## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+## GNU General Public License for more details.
+## 
+##
+## along with this program; if not, write to the Free Software
+## Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+##################################################################################
+
+## put zsh in compatible mode
+case "$ZSH_VERSION" in
+"") :;;
+*) emulate ksh;;
+esac
+
+## trap CTRL+C so the terminal is not left in a 
+## partially-themed state
+trap "" INT
+
+## some shells can not set $TTY
+test "x$TTY" = x && TTY=$(tty -s)
+
+## 'type -f' is changed to 'type -f' type -f is the bash builtin, applications suspend 
+## directly after starting...
+## must implemement some kind of locking mechanism - and write a test case for the linux ioctl bug
+
+## prevent calling myself by stripping the leading element in the path
+SELF=$(type -p "${0##*/}")
+while test "x$SELF" = "x$(type -p ${0##*/})"
+do
+	PATH=${PATH#*:}
+done
+
+## C-ish argv & argc
+## different versions of ksh have different output when "type -p" is run.
+BASHISH_ARGV[0]="$(type -p ${0##*/})"
+BASHISH_ARGV[0]="/${BASHISH_ARGV[0]#*/}"
+
+## return status when a command cannot be found is 127
+test "x${BASHISH_ARGV[0]}" = x/ && { printf "bashish: ${0##*/}: command not found\n"; exit 127; }
+
+i=0
+for ARGV_TMP in "$@"
+do
+	## pdksh cannot handle arrays longer than 1024
+	test "x$KSH_VERSION" != x -a "$i" -gt 1022 && break
+	let i++
+	BASHISH_ARGV[$i]="${ARGV_TMP}"
+done
+
+BASHISH_ARGC=${#BASHISH_ARGV[*]}
+
+
+## the following function waits for the WINCH signal to be sent, 
+## this serves several purposes:
+## 1. wait for control sequencies to finish execution to avoid flicker on 
+##    XTerm and rxvt compatible terminals
+## 2. (at least) in Linux, the WINCH signal may block the ioctl to set terminal 
+##    properties, especially in editors, but a few other programs are also affected.
+##
+## if size changing does not occur - on the instruction of Bashish, an artificial
+## signal will be sent.
+##
+## This workaround code also makes "man" behave better and reformat man pages correctly
+unset WINCH
+trap "WINCH=1" WINCH
+function _bashish_waitwinch
+{
+	typeset TRAPTIMEOUT="$SECONDS"
+	let TRAPTIMEOUT+=2
+	until test "x$WINCH" != x -o $SECONDS -gt $TRAPTIMEOUT
+	do
+		sleep 0.1
+	done
+	unset WINCH
+}
+
+## theme function, sends $BASHISH_PWD $BASHISH_ARGV[n] and $BASHISH_ARGC[n] to
+## the theme process
+function _bashish_theme
+{
+	{
+		n=0
+		while test $n -lt $BASHISH_ARGC
+		do
+			printf "USER_TITLE=\"\";BASHISH_ARGV[$n]=\"${BASHISH_ARGV[$n]}\";"
+			let n++
+		done
+		printf "BASHISH_PWD=\"$PWD\";BASHISH_ARGC=$BASHISH_ARGC;LAUNCHER_PID=$$"
+
+	} >"$HOME/.bashish/tmp/${TTY##*/}/subproc"
+	_bashish_waitwinch
+}
+function _bashish_restore
+{
+	printf "USER_TITLE=\"${TITLE}\"" >"$HOME/.bashish/tmp/${TTY##*/}/subproc"
+}
+
+## I didn't manage to make this work with an OR or AND switch :/
+## disable if BASHISH_DISABLE is set or if no fifo is avaliable
+test "x$BASHISH_DISABLED" != x \
+&&{ function _bashish_restore { :;}; function _bashish_theme { :;};}
+test ! -p "$HOME/.bashish/tmp/${TTY##*/}/subproc" \
+&&{ function _bashish_restore { :;};function _bashish_theme { :;};}
+
+## prevent children processes from themeing, this is mainly by performance reasons
+## but also since Bashish can lose it's state.
+export BASHISH_DISABLED=1
+_bashish_theme
+
+trap - INT
+
+## run the actual command with its arguments
+
+## only bash works in monitor mode
+test "x$BASH" != x && set -m
+"${BASHISH_ARGV[0]}" "$@"
+
+## the wrapper will have the same return status as the command
+RETSTATUS=$?
+trap "" INT
+
+## test if the process has supspend so we can untheme cleanly
+test "x$BASH" != x && while test "$(jobs)"
+do
+	_bashish_restore
+	suspend
+	_bashish_theme
+	trap - INT
+	fg
+	RETSTATUS=$?
+	trap "" INT
+
+done
+
+_bashish_restore
+
+## exit with the returncode of the command
+exit $RETSTATUS
