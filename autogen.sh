@@ -9,4 +9,3 @@ then
 	rm -r autom4te.cache
 fi
 ./configure "$@"
-

@@ -3,4 +3,6 @@ BASHISH_NAME_VERSION="$(cat data/bashish-version)"
 
 cp -rf deb-stuff "dist/${BASHISH_NAME_VERSION}/debian"
 cd "dist/${BASHISH_NAME_VERSION}"
-debuild -us -uc
+debuild -i -us -uc -b
+
+

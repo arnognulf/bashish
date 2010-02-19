@@ -1,11 +1,7 @@
-bashish (2.2.2) unstable; urgency=low
+bashish (2.2.2-0.0) unstable; urgency=low
 
+  * Non-maintainer upload.
   * Initial Release.
 
  -- Thomas Eriksson <arno@users.sourceforge.net>  Fri, 19 Feb 2010 15:09:04 +0100
 
-bashish (2.0.6) unstable; urgency=low
-
-  * bogus Release.
-
- -- Thomas Eriksson <arno@users.sourceforge.net>  Fri, 19 Feb 2010 13:09:04 +0100

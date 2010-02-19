@@ -1,14 +1,18 @@
 Source: bashish
-Version: 2.2.2
 Section: shells
 Priority: optional
+Maintainer: Debian Java Mailing List <debian-unknown@lists.debian.org>
+Uploaders: Stefan Gybas <sgybas@debian.org>, Arnaud Vandyck <avdyk@debian.org>, Michael Koch <konqueror@gmx.de>, Matthias Klose <doko@debian.org>, Torsten Werner <twerner@debian.org>
+Build-Depends: debhelper (>= 5)
+Standards-Version: 3.8.2
+Vcs-Svn: svn://svn.debian.org/svn/pkg-unknown/trunk/bashish
+Vcs-Browser: http://svn.debian.org/wsvn/pkg-unknown/trunk/bashish/
+
+Package: bashish
 Architecture: all
-Depends: dialog
 Suggests: xfonts-artwiz, bash (>= 3.1)
-Installed-Size: 802
-Maintainer: Thomas Eriksson <thomas.eriksson@gmail.com>
 Description: Theme environment for text terminals
- Bashish is a theme enviroment for text terminals. It can
+ Bashish is a theme environment for text terminals. It can
  change colors, font, transparency, and background image
  on a per-application basis. Additionally Bashish supports
  prompt changing on common shells such as bash, zsh, and
@@ -24,3 +28,4 @@ Description: Theme environment for text terminals
  affect neither aliases/functions nor redirected commands.
  .
  web site: http://bashish.sourceforge.net
+
