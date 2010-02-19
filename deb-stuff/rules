@@ -1,10 +1,5 @@
 #!/usr/bin/make -f
 
-DEB_HOST_GNU_TYPE ?= $(shell dpkg-architecture -qDEB_HOST_GNU_TYPE)
-DEB_BUILD_GNU_TYPE ?= $(shell dpkg-architecture -qDEB_BUILD_GNU_TYPE)
-
-CFLAGS += -g -Wall $(if $(findstring noopt,$(DEB_BUILD_OPTIONS)),-O0,-O2)
-
 configure: configure-stamp
 configure-stamp:
 	dh_testdir
@@ -16,9 +11,8 @@ configure-stamp:
 	    fi; \
 	  fi; \
 	done
-	./configure --without-xsel --build=$(DEB_BUILD_GNU_TYPE) \
-	  --host=$(DEB_HOST_GNU_TYPE) --prefix=/usr --sysconfdir=/etc \
-	  --localstatedir=/var --mandir=\$${prefix}/share/man CFLAGS="$(CFLAGS)"
+	./configure --host=$(DEB_HOST_GNU_TYPE) --prefix=/usr --sysconfdir=/etc \
+	  --localstatedir=/var --mandir=\$${prefix}/share/man
 	touch $@
 
 build: configure
