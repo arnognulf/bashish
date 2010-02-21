@@ -18,14 +18,9 @@
 ## Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 ########################################################
 ##
-## This is the prompt loader for bashish
+## Detect if term is xterm title compatible, must run in bash
 ##
 ########################################################
-##
-## NOTE! Incomplete, buggy and non-POSIX shells may parse
-## this file, so no ksh-specific code will be accepted in here
-##
-######################################################################
 
 # only run in bash
 ## if the terminal interprets titles (most do: ie xterm, some not, ie linux

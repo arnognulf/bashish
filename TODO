@@ -1,5 +1,7 @@
 bashish-2.2.2
 -------------
+# for root users
+
 helpful info from bashish when loaded without arguments
 or scrap bashish "user-mode" entirely and replace with bashishtheme
 
@@ -17,7 +19,7 @@ shell-init: error retrieving current directory: getcwd: cannot access parent
 directories: No such file or directory
 shell-init: error retrieving current directory: getcwd: cannot access parent
 directories: No such file or directory
-
+5~
 bashishtheme [--disable-gnome-terminal|--enable-gnome-terminal]
 
 bashish [--configure]
