@@ -100,7 +100,7 @@ function _bashish_module
 }
 
 ## prompt the user if the $HOME/.bashish directory is missing
-test -d $HOME/.bashish || { bashish;errorhandler 10;}
+test -d $HOME/.bashish || { bashish --init;errorhandler 10;}
 
 ## returncodes
 ## 1 if prompt theme was not changed

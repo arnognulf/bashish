@@ -47,13 +47,7 @@ OPTIONS
 To run a themed application from a GUI terminal, one can supply the APPLICATION with 
 APPLICATION OPTIONS to the commandline.
 
-SHELL is one of: ash bash dash es esh fish ksh lsh mksh osh pdksh rc sh tcsh zsh
-
-Without options, Bashish (re)starts the terminal theme environment, this is used internally
-by bashishtheme(1), but can also be used by the user to force a terminal update.
-
-Normally, \"bashish\" is launched from the shell startup file.
-On unsupported shells it may be used to launch the bashish environment.
+To change themes, use the command bashishtheme.
 "
 
 	exit 1
@@ -165,7 +159,6 @@ If you installed by source, please _install_ bashish with the same version as yo
 	#fi
 	errorhandler 0
 ;;
---h*|-h*)	helphandler;;
 --v*|-v*)	printf "`cat $BASHISHDIR/bashish-version`\n";;
 --bashishdir|-b) printf "$BASHISHDIR\n";;
 --autoon=*)
@@ -185,14 +178,13 @@ If you installed by source, please _install_ bashish with the same version as yo
 	cat ${AUTORC} 2>/dev/null| grep -v '## line added by bashish' 1>${AUTORC}.new
 	mv ${AUTORC}.new ${AUTORC}
 	;;
-"")
+--init)
 	## when bashish is issued without arguments, it will theme the terminal
 	## and start a themed subprocess
 	# if first time execution?
 	# create homedir and give the user a brief introduction
 	## detect terminals and if needed ask for user input before bashish is
 	## forked into oblivion
-	
 	_bashish_module sys/termhandler && {
 		termhandler
 		## engage!
@@ -208,7 +200,36 @@ If you installed by source, please _install_ bashish with the same version as yo
 		true
 	}
 ;;
--*)
+"")
+	## when bashish is issued without arguments, it will theme the terminal
+	## and start a themed subprocess
+	# if first time execution?
+	# create homedir and give the user a brief introduction
+	## detect terminals and if needed ask for user input before bashish is
+	## forked into oblivion
+	
+	if tty 2>/dev/null 1>/dev/null 
+	then
+		helphandler
+	else
+	
+	_bashish_module sys/termhandler && {
+		termhandler
+		## engage!
+		printf "LAUNCHER_PID=$$" >"$HOME/.bashish/tmp/${TTY##*/}/subproc"
+		trap "WINCH=1" WINCH
+		TRAPTIMEOUT=$SECONDS
+		let TRAPTIMEOUT+=2
+		until test x$WINCH != x -o $SECONDS -gt $TRAPTIMEOUT
+		do
+			sleep 0.1
+		done
+	
+		true
+	}
+	fi
+;;
+-*|--h*|-h*)
 	helphandler
 ;;
 *)
