@@ -1,4 +1,3 @@
-legacy
 Makefile.in
 *~
 configure
@@ -12,7 +11,4 @@ Makefile
 bashish.spec
 config.log
 config.status
-data/themes/computer/*.bt
-data/themes/ascii-art/*.bt
-data/themes/app/*.bt
 dist
