@@ -103,3 +103,26 @@ Without argument, a default prompt and title will be set.
 	title "$@"
 	prompt "$@"
 }
+
+## color 
+color()
+{
+	typeset ARG 2>/dev/null
+	case "$@" in
+	-h*) printf "\
+color() is part of Bashish by Thomas Eriksson.
+color sets the color style for the prompt in bashish (if supported by the prompt).
+
+Usage: color [PROMPT]
+Without argument, a default prompt color will be set
+"
+	return 1
+	esac
+	if test "x$1" = x
+	then
+		. "$HOME/bt/prompt/argv.sh"
+	else
+		eval "_bashish_prompt_argv() { "$(for ARG in "$@"; do printf "printf \"$ARG\";";done)" }"
+	fi
+	_bashish_promptupdate
+}
