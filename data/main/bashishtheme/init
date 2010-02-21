@@ -37,12 +37,21 @@ function errorhandler
 	10) exit 10;;
 	12) printf "$BASHISHTHEME: interactive mode unavaliable since dialog could not be found";;
 	20) printf "$BASHISHTHEME: file was saved to $BTFILE";;
-	21) printf "$BASHISHTHEME: aborting on users request";;
-	22) printf "$BASHISHTHEME: could not parse theme";;
-	23) printf "$BASHISHTHEME: this program must be executed from a valid themedirectory.
-$BASHISHTHEME: the prompt theme directory is located in \${HOME}/.bashish/bt/prompt";;
-	24) printf "$BASHISHTHEME: theme was not saved";;
-	25) printf "$BASHISHTHEME: \$BASHISH_THEME not set";;
+	21) printf "$BASHISHTHEME: error saving, aborting on users request";;
+	22) printf "$BASHISHTHEME: error saving, could not parse theme-file";;
+	220) printf "$BASHISHTHEME: error saving, header in prompt.[zsh|ksh|bash|sh] or theme does not start with #"'!'"/bin/sh";;
+	221) printf "$BASHISHTHEME: error saving, could not parse prompt.sh-file";;
+	222) printf "$BASHISHTHEME: error saving, could not parse prompt.ksh-file";;
+	223) printf "$BASHISHTHEME: error saving, could not parse prompt.bash-file";;
+	224) printf "$BASHISHTHEME: error saving, could not parse prompt.zsh-file";;
+	23) printf "$BASHISHTHEME: error saving, this program must be executed from a valid themedirectory.
+$BASHISHTHEME: error saving, the prompt theme directory is located in \${HOME}/.bashish/bt/prompt";;
+	24) printf "$BASHISHTHEME: error saving, theme was not saved";;
+	25) printf "$BASHISHTHEME: error saving, \$BASHISH_THEME not set";;
+	251) printf "$BASHISHTHEME: error saving, _bashish_theme_\$BASHISH_THEME() function not existing or incorrectly named";;
+	261) printf "$BASHISHTHEME: error saving, _bashish_prompt() nonexistant or named incorrectly in prompt.sh";;
+	262) printf "$BASHISHTHEME: error saving, _bashish_prompt() nonexistant or named incorrectly in prompt.ksh";;
+	263) printf "$BASHISHTHEME: error saving, _bashish_prompt() nonexistant or named incorrectly in prompt.bash";;
 	24) printf "$BASHISHTHEME: an error occured";;
 	27) printf "$BASHISHTHEME: an error occured while saving the theme";;
 	30) printf "$BASHISHTHEME: theme not found";;

@@ -24,8 +24,58 @@ function _bashish_save
 	typeset THEMEFILE FILE SHELLNAME THEMEDIR
 	## do basic checks
 	( test -f $PWD/theme || exit 23 ) || errorhandler 23
+	## theme parsing fail?
 	( . ./theme||exit 22 ) || errorhandler 22
+
+	typeset HEADERFILE=""
+	## header check
+	for HEADERFILE in ./prompt.sh ./prompt.ksh ./prompt.zsh ./prompt.bash ./theme
+	do
+		test -f "${HEADERFILE}" && case $(head -n1 "$HEADERFILE") in
+		"#!/bin/sh"):;;
+		*) errorhandler 220 ;;
+		esac
+	done
+	unset -f _bashish_prompt 2>/dev/null
+	
+	## theme parsing fail?
+	if test -f ./prompt.sh
+	then
+		sh ./prompt.sh || errorhandler 221
+		( . ./prompt.sh ; declare -f _bashish_prompt 2>/dev/null 1>/dev/null || exit 261)|| errorhandler 261
+
+	fi
+
+	if test -f ./prompt.ksh
+	then
+		bash ./prompt.ksh || errorhandler 222
+		( . ./prompt.bash ; declare -f _bashish_prompt 2>/dev/null 1>/dev/null || exit 262)|| errorhandler 262
+
+	fi
+
+	if test -f ./prompt.ksh -a "x$(type -p ksh)" != x
+	then
+		ksh ./prompt.ksh || errorhandler 222
+
+	fi
+
+	if test -f ./prompt.bash
+	then
+		bash ./prompt.bash || errorhandler 223
+		( . ./prompt.bash ; declare -f _bashish_prompt 2>/dev/null 1>/dev/null || exit 263)|| errorhandler 263
+
+	fi
+
+	if test -f ./prompt.zsh -a "x$(type -p zsh)" != x
+	then
+		zsh ./prompt.zsh || errorhandler 222
+	fi
+
+
+	
 	 . ./theme ; test "x$BASHISH_THEME" != x|| errorhandler 25
+	declare -f "_bashish_theme_${BASHISH_THEME}" 1>/dev/null 2>/dev/null || errorhandler 251
+	 
 	unset -f "_bashish_theme_$BASHISH_THEME"
 	## the "-z" flag to tar is a GNU extension
 	## hence a more compatible tar command must be issued

@@ -6,6 +6,9 @@ helpful info from bashish when loaded without arguments
 
 bashish theme
 
+uninstall package if bashish is removed
+local-uninstall.sh
+
 
  #2
 bashish 2 version n.n.n
