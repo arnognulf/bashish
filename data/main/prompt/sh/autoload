@@ -1,4 +1,5 @@
-BASHISHDIR=`bashish --bashishdir`                             ## line added by bashish
+BASHISHDIR=`bashish --bashishdir 2>/dev/null`                 ## line added by bashish
+if test "x$BASHISHDIR" != x;then                              ## line added by bashish
 test "$BASHISH_OLDPATH"||BASHISH_OLDPATH=$PATH                ## line added by bashish
 TTY=`tty`                                                     ## line added by bashish
 PATH=$HOME/.bashish/launcher:$BASHISHDIR/lib:$BASHISH_OLDPATH ## line added by bashish
@@ -7,3 +8,4 @@ _bashish_utfcheck && BASHISH_CP=utf8                          ## line added by b
 ENV=$HOME/.profile                                            ## line added by bashish
 export BASHISH_CP BASHISH_OLDPATH TTY ENV                     ## line added by bashish
 . $BASHISHDIR/main/prompt/sh/init                             ## line added by bashish
+fi                                                            ## line added by bashish
