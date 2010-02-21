@@ -1,8 +1,11 @@
 #!/bin/bash
 BASHISH_NAME_VERSION="$(cat data/bashish-version)"
-cp dist/bashish-2.2.2.tar.gz dist/bashish_2.2.2.orig.tar.gz
-
-cp -rf deb-stuff "dist/${BASHISH_NAME_VERSION}/debian"
-cd "dist/${BASHISH_NAME_VERSION}"
+cd dist
+cp "${BASHISH_NAME_VERSION}".tar.gz "${BASHISH_NAME_VERSION/-/_}".orig.tar.gz
+tar -xvzf "${BASHISH_NAME_VERSION}".tar.gz
+cp -rf ../deb-stuff "${BASHISH_NAME_VERSION}/debian"
+cd "${BASHISH_NAME_VERSION}"
 debuild -us -uc
+cd ..
+rm -rf "${BASHISH_NAME_VERSION}"
 dpkg-scanpackages . /dev/null | gzip -cd - >Packages.gz

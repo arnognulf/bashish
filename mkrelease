@@ -6,5 +6,6 @@ for DELETE_FILE in $(find . -type f |grep "~"); do rm "$DELETE_FILE";done
 bash ./mkdist
 bash ./mkrpm
 bash ./mkdeb 
+bash ./mkslack
 cd dist
 md5sum * >MD5SUMS

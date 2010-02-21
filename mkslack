@@ -1,0 +1,13 @@
+#!/bin/bash
+BASHISH_NAME_VERSION="$(cat data/bashish-version)"
+cd dist
+tar -xvzf "${BASHISH_NAME_VERSION}".tar.gz
+
+mkdir -p "${BASHISH_NAME_VERSION}"/install
+cp ../slack-desc "${BASHISH_NAME_VERSION}"/install
+fakeroot chown -R root:root "${BASHISH_NAME_VERSION}"/install
+cd "${BASHISH_NAME_VERSION}"
+./configure --prefix=/usr && make && fakeroot make install prefix=${PWD}/usr
+fakeroot tar cvzf "../${BASHISH_NAME_VERSION}"-noarch-1_slackwarepkg.tgz install usr
+cd ..
+rm -rf "${BASHISH_NAME_VERSION}"

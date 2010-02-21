@@ -14,5 +14,6 @@ rm -rf .git
 rm -f data/bashish-version Makefile bashish.spec data/bashish-version man/bashish.1 man/bashishtheme.1 config.status config.log
 cd ..
 tar czf ${BASHISH_NAME_VERSION}.tar.gz ${BASHISH_NAME_VERSION}
+rm -rf "${BASHISH_NAME_VERSION}"
 cd ..
 rm dist.tar
