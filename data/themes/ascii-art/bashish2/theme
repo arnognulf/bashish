@@ -1,9 +1,9 @@
 #!/bin/sh
 ## @(#) created by arne
 #######################
-BASHISH_THEME=bluesteel
+BASHISH_THEME=bashish2
 
-_bashish_theme_bluesteel ()
+_bashish_theme_bashish2 ()
 {
 THEME_AUTHOR="arne <arne@users.sourceforge.net>"
 _bashish_theme_defaults_cp437font

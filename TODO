@@ -5,10 +5,6 @@ git -> changelog
 helpful info from bashish when loaded without arguments
 or scrap bashish "user-mode" entirely and replace with bashishtheme
 
-uninstall package if bashish is removed
-local-uninstall.sh
-
-
  #2
 bashish 2 version n.n.n
 
