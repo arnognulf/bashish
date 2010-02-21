@@ -52,5 +52,5 @@ $_typeset BASHISH_CWD=`_bashish_prompt_cwd "\\[\033[1;3${BASHISH_COLOR0}m\\]" "\
 test "x${PROMPTSTR}" = x && $_typeset PROMPTSTR="$USER"
 
 PS1="[47;90;7m`_bashish_prompt_fillx \" \" $(expr ${#HOSTNAME} + ${#PROMPTSTR} + 7)`${PROMPTSTR}  [0;7;1m  ${HOSTNAME}   
-\[[0m\] ${BASHISH_CWD}\[[0m\] "'$(__git_ps1 "[1m|[0m%s[1m|[0m ")'
+\[[0m\] ${BASHISH_CWD}\[[0m\] "'$(__git_ps1 "[1m|[2m%s[1m|[0m ")'
 }
