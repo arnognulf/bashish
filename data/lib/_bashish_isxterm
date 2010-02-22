@@ -30,7 +30,7 @@ test x$BASH != x && _bashish_prompt_isxterm ()
 {
 	## run only once
 	unset -f _bashish_prompt_isxterm
-	printf "\033]0;title\007\033[6n"
+	printf "\033]0;     \007\033[6n"
 
 	i=0
 	until test "$i" = 9

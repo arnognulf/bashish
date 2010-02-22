@@ -40,7 +40,7 @@ _bashish_prompt ()
 {
 eval $(_bashish_prompt_shellvars $SHELLNAME)
 eval $(_bashish_prompt_parsecolors "$@")
-test "x${BASHISH_COLOR0}" = x && eval $(_bashish_prompt_parsecolors white)
+test "x${BASHISH_COLOR0}" = x && eval $(_bashish_prompt_parsecolors white black)
 
 $_typeset FADE1="${ESC}[32m"
 $_typeset BASHISH_C4=`_bashish_prompt_cp437 C4`
@@ -51,6 +51,6 @@ $_typeset BASHISH_CWD=`_bashish_prompt_cwd "\\[\033[1;3${BASHISH_COLOR0}m\\]" "\
 
 test "x${PROMPTSTR}" = x && $_typeset PROMPTSTR="$USER"
 
-PS1="[47;90;7m`_bashish_prompt_fillx \" \" $(expr ${#HOSTNAME} + ${#PROMPTSTR} + 7)`${PROMPTSTR}  [0;7;1m  ${HOSTNAME}   
-\[[0m\] ${BASHISH_CWD}\[[0m\] "'$(__git_ps1 "[1m|[2m%s[1m|[0m ")'
+PS1="[4${BASHISH_COLOR0};9${BASHISH_COLOR1};7m`_bashish_prompt_fillx \" \" $(expr ${#HOSTNAME} + ${#PROMPTSTR} + 7)`${PROMPTSTR}  [4${BASHISH_COLOR1};3${BASHISH_COLOR0};7;1m  ${HOSTNAME}   
+\[[0m\] ${BASHISH_CWD}\[[0m\] "'$(__git_ps1 "[1m|[2m%s[1m|[0m "'")\[[0m\]"
 }
