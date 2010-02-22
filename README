@@ -21,22 +21,6 @@ transparency and background image on a per-application basis. Additionally
 Bashish supports prompt changing on common shells such as bash, zsh and tcsh.
 
 
-What's new for number two?
---------------------------
-The second major release of Bashish consists of a major redesign and rewrite.
-It is not theme compatible with older releases.
-
-Highlights of this release include:
-* Cleaner enviroment, no longer use aliases or functions for application theming.
-* Easy-to-use Dialog-based configuration.
-* Multi-shell theme support.
-* Better performance.
-* Less bugs.
-
-For a complete list of the changes from the 1.9 series, check the CHANGES
-document.
-
-
 Getting started
 ---------------
 First, run the 'bashish' command, it will ask you which shell you primary

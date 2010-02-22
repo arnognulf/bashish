@@ -107,6 +107,9 @@ function _bashish_restore
 	printf "USER_TITLE=\"${TITLE}\"" >"$HOME/.bashish/tmp/${TTY##*/}/subproc"
 }
 
+## disable bashish if no bashish process is running
+kill -WINCH $(cat "$HOME/.bashish/tmp/${TTY##*/}/pid") 2>/dev/null 1>/dev/null || BASHISH_DISABLED=1
+
 ## I didn't manage to make this work with an OR or AND switch :/
 ## disable if BASHISH_DISABLE is set or if no fifo is avaliable
 test "x$BASHISH_DISABLED" != x \
