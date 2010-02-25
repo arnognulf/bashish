@@ -44,7 +44,7 @@ then
 	read GLOBALVERSION < $BASHISHDIR/bashish-version
 	test "x$GLOBALVERSION" = "x$LOCALVERSION" || if type -p dialog 1>/dev/null
 	then
-		dialog --backtitle "$BACKTITLE" --title "$TITLE" --yes-label Update --no-label "Keep old" --yesno "${BASHISH_UPDATE_STRING}" 0 0
+		dialog --backtitle "$BACKTITLE" --title "$TITLE" --yesno "${BASHISH_UPDATE_STRING}" 0 0
 		UPDATE="$?"
 	else
 		printf "\n${0##*/}: $BASHISH_UPDATE_STRING [Y/n]"
@@ -66,7 +66,7 @@ else
 	BASHISH_INSTALL_STRING1="Install the Bashish theme engine for your shell?"
 	if type -p dialog 1>/dev/null
 	then
-		dialog  --backtitle "$BACKTITLE" --title "$TITLE" --yes-label Install --no-label Cancel --yesno "$BASHISH_INSTALL_STRING1" 0 0||exit 1
+		dialog  --backtitle "$BACKTITLE" --title "$TITLE" --yesno "$BASHISH_INSTALL_STRING1" 0 0||exit 1
 	else
 		printf "\n${0##*/}: $BASHISH_INSTALL_STRING1 [Y/n]"
 		read ANSWER

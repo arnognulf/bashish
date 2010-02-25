@@ -2,6 +2,7 @@
 set -x
 rm -rf dist
 rm -f dist.tar
+
 ## first cleanup backup files
 BASHISH_NAME_VERSION="$(cat data/bashish-version)"
 

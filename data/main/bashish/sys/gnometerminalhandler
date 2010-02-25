@@ -27,7 +27,7 @@
 
 
 IFS="[]"
-for LIST in `gconftool-2 --get /apps/gnome-terminal/global/profile_list`;do :;done
+for LIST in $(gconftool-2 --get /apps/gnome-terminal/global/profile_list 2>/dev/null);do :;done
 case "$LIST" in
 *,Bashish|Bashish,*|*,Bashish,*)
 	:
@@ -49,4 +49,6 @@ bashish: if you do not wish to let bashish handle the theming of gnome-terminal,
 
 bashish: please close all gnome-terminal tabs and windows and restart gnome-terminal to restart bashish."
 read -n1
+"")
 esac
+unset IFS

@@ -125,9 +125,6 @@ case "$BASHISH_ARGC" in
 	## provide the unpack
 	_bashish_module sys/unpack
 
-	## provide bashish save
-	_bashish_module sys/themedb
-
 	## provide bashish appdb
 	_bashish_module sys/appdb
 
@@ -166,8 +163,6 @@ exit 0
 		## provide the unpack
 		_bashish_module sys/unpack
 
-		## provide bashish save
-		_bashish_module sys/themedb
 		## provide bashish appdb
 		_bashish_module sys/appdb
 		
