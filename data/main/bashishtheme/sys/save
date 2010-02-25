@@ -115,7 +115,7 @@ function _bashish_save
 		. ./theme
 		## test if this is the prompt theme
 		OLD_BASHISH_THEME="$BASHISH_THEME"
-		. $HOME/.bashish/bt/prompt/theme
+		. $HOME/.bashish/prompt/theme
 		## disable for now, to enable the writing of common code in lower shell levels (ie ksh for ksh bash and zsh)
 		#test "x$BASHISH_THEME" = "x$OLD_BASHISH_THEME" && for SHELLNAME in bash zsh sh rc csh fish tcsh ksh
 		#do

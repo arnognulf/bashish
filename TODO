@@ -6,20 +6,11 @@ helpful info from bashish when loaded without arguments
 or scrap bashish "user-mode" entirely and replace with bashishtheme
 
 bug: broken & untested on zsh & ksh & sh & dash & csh & tcsh
-bug: app wrappers silently ignore if no bashish is available not stop in
-write to fifo
 
 showcase video on youtube
 
 shellvars: en_US 12-hour time
 
-shell-init: error retrieving current directory: getcwd: cannot access parent
-directories: No such file or directory
-shell-init: error retrieving current directory: getcwd: cannot access parent
-directories: No such file or directory
-shell-init: error retrieving current directory: getcwd: cannot access parent
-directories: No such file or directory
-5~
 bashishtheme [--disable-gnome-terminal|--enable-gnome-terminal]
 
 bashish [--configure]

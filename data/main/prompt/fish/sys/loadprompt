@@ -23,11 +23,11 @@
 ########################################################
 
 ## load the fallback prompt to memory
-. $HOME/.bashish/bt/defaults/prompt.fish
+. $HOME/.bashish/defaults/prompt.fish
 
 ## load the prompt theme to memory
-. $HOME/.bashish/bt/prompt/prompt.fish
+. $HOME/.bashish/prompt/prompt.fish
 
 ## load the prompt overrides to memory
-. $HOME/.bashish/bt/overrides/prompt.fish
+. $HOME/.bashish/overrides/prompt.fish
 

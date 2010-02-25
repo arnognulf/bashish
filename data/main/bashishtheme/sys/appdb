@@ -24,10 +24,10 @@ function _bashish_appdb
 	
 	for APP in $HOME/.bashish/launcher/*
 	do
-		test -d ${HOME}/.bashish/bt/app/${APP##*/}||rm ${APP} 2>/dev/null
+		test -d ${HOME}/.bashish/app/${APP##*/}||rm ${APP} 2>/dev/null
 	done
 	
-	for APP in $HOME/.bashish/bt/app/*
+	for APP in $HOME/.bashish/app/*
 	do
 		test -L ${HOME}/.bashish/launcher/${APP##*/}||ln -sf ${BASHISHDIR}/lib/_bashish_launcher ${HOME}/.bashish/launcher/${APP##*/}
 	done

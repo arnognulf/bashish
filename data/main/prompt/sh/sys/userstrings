@@ -120,7 +120,7 @@ Without argument, a default prompt color will be set
 	esac
 	if test "x$1" = x
 	then
-		. "$HOME/.bashish/bt/prompt/argv.sh"
+		. "$HOME/.bashish/prompt/argv.sh"
 	else
 		eval "_bashish_prompt_argv() { "$(for ARG in "$@"; do printf "printf \"$ARG\";";done)" }"
 	fi

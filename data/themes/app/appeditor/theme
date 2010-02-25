@@ -1,5 +1,5 @@
 #!/bin/sh
-BASHISH_THEME=editor
+BASHISH_THEME=appeditor
 
 _bashish_theme_appeditor ()
 {

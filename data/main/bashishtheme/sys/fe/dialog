@@ -109,7 +109,7 @@ app_selector ()
 	typeset LOOP=continue
 	while test $LOOP = continue
 	do
-		eval dialog --ok-label Select --cancel-label Close --default-item \"\$ITEM\" --backtitle \"$BACKTITLE\" --title \"Select application to theme\" --extra-label "Remove" --extra-button --menu \"'Navigate with the arrow keys. Press <OK> to select theme. Press <Remove> to disable themeing for the selected application. Press <Close> to return to main menu'\" 0 0 0  \""<new>"\" \"\" $(for FILE in $HOME/.bashish/bt/app/*; do test "x${FILE##*/}" != "x*" && printf \"${FILE#$HOME/.bashish/bt/app/}\"" "\"\"" ";done) 2>$HOME/.bashish/tmp/dialogfe
+		eval dialog --ok-label Select --cancel-label Close --default-item \"\$ITEM\" --backtitle \"$BACKTITLE\" --title \"Select application to theme\" --extra-label "Remove" --extra-button --menu \"'Navigate with the arrow keys. Press <OK> to select theme. Press <Remove> to disable themeing for the selected application. Press <Close> to return to main menu'\" 0 0 0  \""<new>"\" \"\" $(for FILE in $HOME/.bashish/app/*; do test "x${FILE##*/}" != "x*" && printf \"${FILE#$HOME/.bashish/app/}\"" "\"\"" ";done) 2>$HOME/.bashish/tmp/dialogfe
 		typeset RETURN="$?"
 		printf "\033[44m"
 		read ITEM <$HOME/.bashish/tmp/dialogfe

@@ -23,11 +23,11 @@
 ########################################################
 
 ## load the fallback prompt to memory
-. $HOME/.bashish/bt/defaults/prompt.rc
+. $HOME/.bashish/defaults/prompt.rc
 
 ## load the prompt theme to memory
-. $HOME/.bashish/bt/prompt/prompt.rc
+. $HOME/.bashish/prompt/prompt.rc
 
 ## load the prompt overrides to memory
-. $HOME/.bashish/bt/overrides/prompt.rc
+. $HOME/.bashish/overrides/prompt.rc
 

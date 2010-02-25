@@ -26,53 +26,40 @@ function _bashish_unpack
 	*) _bashish_find "$1"||errorhandler 30
 	esac
 
-	## set themedir
-	THEMEDIR="${HOME}/.bashish/bt/cache/${THEME}"
-	mkdir -p "${THEMEDIR}"
 
-	DESTDIR=${HOME}/.bashish/bt/prompt
-	test "x${BTAPP}" != x && DESTDIR="$HOME/.bashish/bt/app/${BTAPP##*/}"
-	test -L "${DESTDIR}" && rm "${DESTDIR}"
+	DESTDIR=${HOME}/.bashish/prompt
+	test "x${BTAPP}" != x && DESTDIR="$HOME/.bashish/app/${BTAPP##*/}"
+	if test -d "${DESTDIR}"
+	then
+		rm "${DESTDIR}"/* 2>/dev/null
+	else
+		mkdir -p "${DESTDIR}"
+	fi
+	
+	
 	## check for presence of a theme dir and a theme string to load
 	## check for special theme strings
-	case ${THEME} in
+	case "${THEME}" in
 	none)
-		test x$BTAPP = x && {
-			## if $THEMENAME is set to the string "none"
-			## it's theme directory is removed
-			printf "function _bashish_theme_none { :;};BASHISH_THEME=none" >${THEMEDIR}/theme
-			test -e "${DESTDIR}" && rm "${DESTDIR}"
-			ln -s "${THEMEDIR}" "${DESTDIR}"
-	
+		test "x$BTAPP" = x && {
+			rm "${HOME}/.bashish/launcher/${BTAPP}" ## remove launcher
+			rm -rf "${DESTDIR}" ## remove themedir
 		}
 	;;
 	*)
-		## the "-z" flag to tar is a GNU extension
-		## hence a more compatible tar command must be used
-		#gzip -cd ${THEMEFILE} |( cd ${THEMEDIR}&&tar xf - )
-		cp ${THEMEFILE}/* ${THEMEDIR}
+		cp "${THEMEFILE}"/* "${DESTDIR}"/
 		RETURN=0
-		test -e "${DESTDIR}" && rm "${DESTDIR}"
-		ln -s "${THEMEDIR}" "${DESTDIR}"
 
-		if test "x${BTAPP}" = x
+		if test x"${BTAPP}" = x
 		then
-			test -e "${HOME}/.bashish/prompt" && rm "${HOME}/.bashish/prompt"
-			ln -s "${THEMEDIR}" "${HOME}/.bashish/prompt"
+			printf "#"'!'"/bin/sh\n_bashish_prompt_argv()\n{\n:\n" >"${DESTDIR}/argv.sh"
+			INDEX=1
+			while test ${INDEX} -lt ${BASHISH_ARGC}
+			do
+				printf "printf \"\\\\\"${BASHISH_ARGV[$INDEX]}\\\\\" \"\n"
+				let INDEX++
+			done >>"${DESTDIR}"/argv.sh
+			printf "\n}\n" >>"${DESTDIR}"/argv.sh
 		fi
-		
 	esac
-	_bashish_themedb
-	printf "#"'!'"/bin/sh\n_bashish_prompt_argv()\n{\n:\n" >"${DESTDIR}/argv.sh"
-	INDEX=1
-	while test ${INDEX} -lt ${BASHISH_ARGC}
-	do
-		printf "printf \"\\\\\"${BASHISH_ARGV[$INDEX]}\\\\\" \"\n"
-		let INDEX++
-	done >>"${DESTDIR}"/argv.sh
-	printf "\n}\n" >>"${DESTDIR}"/argv.sh
-
-
-	test x${BTAPP} != x && _bashish_appdb
-set +x
 }

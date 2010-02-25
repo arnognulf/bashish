@@ -20,12 +20,12 @@
 
 ## create directories
 (
-	for MKDIR in bt/app tmp
+	for MKDIR in app tmp prompt launcher
 	do
 		mkdir -p $HOME/.bashish/$MKDIR
 	done
 )
 
 ## copy some good default app themes
-cp $BASHISHDIR/bt/app/* $HOME/.bashish/bt/app/
+cp $BASHISHDIR/app/* $HOME/.bashish/app/
 

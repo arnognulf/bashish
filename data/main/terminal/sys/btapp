@@ -22,7 +22,7 @@
 typeset APPDIR APPNAME IFS
 
 ## load each btapp alias/function
-for APPDIR in $HOME/.bashish/bt/app/* 
+for APPDIR in $HOME/.bashish/app/* 
 do
 	test "x${APPDIR##*/}" = "x*"&& break
 	## set the the name of each application to $APPNAME

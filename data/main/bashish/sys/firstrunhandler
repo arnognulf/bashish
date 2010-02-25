@@ -24,6 +24,7 @@
 ## corresponding to the shell set in /etc/passwd
 ##
 ###############################################################################
+	set -x
 
 BACKTITLE="Bashish user installation"
 TITLE="$BACKTITLE"
@@ -76,27 +77,25 @@ else
 	fi
 
 fi
-
-## visual hack for dialog
-type -p dialog 1>/dev/null && printf "\033[44m" 
-
-for DIR in / /bt /bt/app /bt/cache /bt/cache/none /bt/overrides /bt/defaults /themes /tmp /launcher
+for DIR in / /app /overrides /defaults /themes /tmp /launcher /prompt
 do
 	mkdir -p "${HOME}"/.bashish$DIR
 done
 
-## install the bluesteel theme by default
-cp -rf "$BASHISHDIR/themes/ascii-art/bluesteel" "$HOME/.bashish/bt/cache/bluesteel"
-ln -s "$HOME/.bashish/bt/cache/bluesteel" "${HOME}/.bashish/prompt"
-ln -s "$HOME/.bashish/bt/cache/bluesteel" "${HOME}/.bashish/bt/prompt"
-
-for FILE in "${BASHISHDIR}"/bt/defaults/*
+for FILE in "${BASHISHDIR}"/defaults/*
 do
-	cp "${FILE}" "${HOME}"/.bashish/bt/defaults/
+	cp "${FILE}" "${HOME}"/.bashish/defaults/
 done
-for FILE in $BASHISHDIR/bt/overrides/*
+
+for FILE in "${BASHISHDIR}"/themes/ascii-art/bluesteel/*
 do
-	cp "${FILE}" "${HOME}"/.bashish/bt/overrides/
+	cp "${FILE}" "${HOME}"/.bashish/prompt/
+done
+
+
+for FILE in $BASHISHDIR/overrides/*
+do
+	cp "${FILE}" "${HOME}"/.bashish/overrides/
 done
 
 ## whiz bang autodetection code
@@ -117,6 +116,10 @@ esac
 BASHISH_INSTALL_STRING2="Select your primary shell from the list below. Brackets specify the startup-file Bashish will alter."
 if type -p dialog 1>/dev/null
 then
+	set -x
+	## visual hack for dialog
+	type -p dialog 1>/dev/null && printf "\033[44m" 
+	
 	dialog  --backtitle "$BACKTITLE" --title "$TITLE" --default-item "$DEFAULT" --menu "$BASHISH_INSTALL_STRING2" 0 0 0 bash "GNU Bash [~/.bashrc]" zsh "Z Shell [~/.zshrc]" sh "Bourne shell compatible [${ENV-\~/.profile]}]" csh "Berkely C-Shell [~/.cshrc]" tcsh "Enhanced C-Shell [~/.tcshrc]" fish "Friendly Interactive SHell [~/.fish]" rc "Plan/9 shell [~/.rcrc]" es "Extensible Shell [~/.esrc]" lsh "DOS like shell [~/.autoexec]" osh "Old Thomson Shell [~/.oshrc]" kiss "keep it simple shell [~/.kissrc]" 2>"${HOME}"/.bashish/tmp/dialogfe||{
 		## clean up
 		rm -rf "${HOME}"/.bashish

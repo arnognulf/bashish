@@ -51,57 +51,63 @@ _bashish_promptupdate ()
 	## bashishtheme, if so, force a theme update
 	test -f "$HOME/.bashish/tmp/${TTY##*/}/sync" || {
 		## dummy fallback prompt
+		_bashish_defaults() { :;}
+		_bashish_overrides() { :;}
 		_bashish_prompt() { :;}
+
+		## test if there actually is a prompt we could load
+		test -f "$HOME/.bashish/prompt/prompt.sh"||{ return 0;}
+		
 		## reset scrolling region
 		printf "\033[0;0r"
 		bashish --init
 		hash -r
 	
 		## load the fallback prompt to memory
-		if test -f "$HOME/.bashish/bt/defaults/prompt.$SHELLNAME"
+		if test -f "$HOME/.bashish/defaults/prompt.$SHELLNAME"
 		then
-			. "$HOME/.bashish/bt/defaults/prompt.$SHELLNAME"
+			. "$HOME/.bashish/defaults/prompt.$SHELLNAME"
 		else
-			if test -f "$HOME/.bashish/bt/defaults/prompt.ksh"
+			if test -f "$HOME/.bashish/defaults/prompt.ksh"
 			then
-				. "$HOME/.bashish/bt/defaults/prompt.ksh"
+				. "$HOME/.bashish/defaults/prompt.ksh"
 			else
-				test -f "$HOME/.bashish/bt/defaults/prompt.sh" && . "$HOME/.bashish/bt/defaults/prompt.sh"
+				test -f "$HOME/.bashish/defaults/prompt.sh" && . "$HOME/.bashish/defaults/prompt.sh"
 			fi
 		fi
 	
-		test -f "$HOME/.bashish/bt/defaults/prompt.$SHELLNAME" && . "$HOME/.bashish/bt/defaults/prompt.$SHELLNAME"
+		test -f "$HOME/.bashish/defaults/prompt.$SHELLNAME" && . "$HOME/.bashish/defaults/prompt.$SHELLNAME"
 		
 		## continue loading if prompt is loaded cleanly
 		## if not available, try to use 
-		if test -f "$HOME/.bashish/bt/prompt/prompt.$SHELLNAME"
+		if test -f "$HOME/.bashish/prompt/prompt.$SHELLNAME"
 		then
-			. "$HOME/.bashish/bt/prompt/prompt.$SHELLNAME"
+			. "$HOME/.bashish/prompt/prompt.$SHELLNAME"
 		else
-			if test -f "$HOME/.bashish/bt/prompt/prompt.ksh"
+			if test -f "$HOME/.bashish/prompt/prompt.ksh"
 			then
-				. "$HOME/.bashish/bt/prompt/prompt.ksh"
+				. "$HOME/.bashish/prompt/prompt.ksh"
 			else
-				test -f "$HOME/.bashish/bt/prompt/prompt.sh" && . "$HOME/.bashish/bt/prompt/prompt.sh"
+				test -f "$HOME/.bashish/prompt/prompt.sh" && . "$HOME/.bashish/prompt/prompt.sh"
 			fi
 		fi
 		
 		## prompt overrides
-		if test -f "$HOME/.bashish/bt/overrides/prompt.$SHELLNAME"
+		if test -f "$HOME/.bashish/overrides/prompt.$SHELLNAME"
 		then
-			. "$HOME/.bashish/bt/overrides/prompt.$SHELLNAME"
+			. "$HOME/.bashish/overrides/prompt.$SHELLNAME"
 		else
-			if test -f "$HOME/.bashish/bt/overrides/prompt.ksh"
+			if test -f "$HOME/.bashish/overrides/prompt.ksh"
 			then
-				. "$HOME/.bashish/bt/overrides/prompt.ksh"
+				. "$HOME/.bashish/overrides/prompt.ksh"
 			else
-				test -f "$HOME/.bashish/bt/overrides/prompt.sh" && . "$HOME/.bashish/bt/overrides/prompt.sh"
+				test -f "$HOME/.bashish/overrides/prompt.sh" && . "$HOME/.bashish/overrides/prompt.sh"
 			fi
 		fi
 		
 		## load argv.sh function
 		_bashish_prompt_argv() { :;}
-		test -f "$HOME/.bashish/bt/prompt/argv.sh" && . "$HOME/.bashish/bt/prompt/argv.sh"
+		test -f "$HOME/.bashish/prompt/argv.sh" && . "$HOME/.bashish/prompt/argv.sh"
 
 		## a small delay makes the term settle down before reloading the prompt
 		sleep 0.5

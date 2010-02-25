@@ -45,7 +45,7 @@ function errorhandler
 	223) printf "$BASHISHTHEME: error saving, could not parse prompt.bash-file";;
 	224) printf "$BASHISHTHEME: error saving, could not parse prompt.zsh-file";;
 	23) printf "$BASHISHTHEME: error saving, this program must be executed from a valid themedirectory.
-$BASHISHTHEME: error saving, the prompt theme directory is located in \${HOME}/.bashish/bt/prompt";;
+$BASHISHTHEME: error saving, the prompt theme directory is located in \${HOME}/.bashish/prompt";;
 	24) printf "$BASHISHTHEME: error saving, theme was not saved";;
 	25) printf "$BASHISHTHEME: error saving, \$BASHISH_THEME not set";;
 	251) printf "$BASHISHTHEME: error saving, _bashish_theme_\$BASHISH_THEME() function not existing or incorrectly named";;

@@ -17,6 +17,6 @@
 ## along with this program; if not, write to the Free Software
 ## Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 ##################################################################################
-source $HOME/.bashish/bt/defaults/prompt.$SHELLNAME
-source $HOME/.bashish/bt/prompt/prompt.$SHELLNAME
-source $HOME/.bashish/bt/overrides/prompt.$SHELLNAME
+source $HOME/.bashish/defaults/prompt.$SHELLNAME
+source $HOME/.bashish/prompt/prompt.$SHELLNAME
+source $HOME/.bashish/overrides/prompt.$SHELLNAME
