@@ -24,7 +24,6 @@
 ## corresponding to the shell set in /etc/passwd
 ##
 ###############################################################################
-	set -x
 
 BACKTITLE="Bashish user installation"
 TITLE="$BACKTITLE"
