@@ -17,17 +17,10 @@
 ## along with this program; if not, write to the Free Software
 ## Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 ##################################################################################
-##
-## this is the interface to the user when the 'bashish' command is
-## issued, if no arguments are given, a bashish session will start
-##
-## the bashish command has quite some options which are parsed here
-##
-###############################################################################
 
-## termhandler checks if a bashish process is running, if it doesn't,
+## termloader checks if a bashish process is running, if it doesn't,
 ## the user is asked for needed input and then a process is started
-function termhandler
+function _bashish_termloader
 {
 	## the bashish terminal part makes no sense in Cygwin 9x/ME
 	test "x$TERM" = xcygwin && case "$(uname)"
@@ -95,3 +88,5 @@ function termhandler
 	export TTY BASHISHDIR BASHISH_UTF
 	$BASHISH_SHELL $BASHISHDIR/lib/_bashish_fork $BASHISH_SHELL $BASHISHDIR/lib/_bashish_subproc
 }
+_bashish_termloader
+

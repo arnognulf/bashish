@@ -28,6 +28,10 @@ function _bashish_module
 {
 	. $BASHISHDIR/main/terminal/$1
 }
+
+## check and create bashish directories if nonexistant
+_bashish_module sys/createdirs
+
 ## detect terminal type
 _bashish_module sys/termdetect
 

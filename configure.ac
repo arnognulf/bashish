@@ -34,7 +34,7 @@ AC_DEFINE_UNQUOTED( DOCDIR, [L"$(eval echo $docdir)"], [Documentation directory]
 #AC_DEFINE_UNQUOTED( SYSCONFDIR, [L"$(eval echo $sysconfdir)"], [System configuration directory] )
 #AC_SUBST( SYSCONFDIR, ["$(eval echo $sysconfdir)"] )
 
-AC_CONFIG_FILES([data/bashish-version Makefile bashish.spec man/bashish.1 man/bashishtheme.1 ])
+AC_CONFIG_FILES([data/bashish-version Makefile bashish.spec man/bashish.1])
 AC_OUTPUT
 
 echo ""

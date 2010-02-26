@@ -1,0 +1,84 @@
+#!/bin/bash
+##################################################################################
+## Bashish, a console theme engine
+## Copyright (C) 2010 Thomas Eriksson
+##
+## This program is free software; you can redistribute it and/or
+## modify it under the terms of the GNU General Public License
+## as published by the Free Software Foundation; either version 2
+## of the License, or (at your option) any later version.
+##
+## This program is distributed in the hope that it will be useful,
+## but WITHOUT ANY WARRANTY; without even the implied warranty of
+## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+## GNU General Public License for more details.
+## 
+## You should have received a copy of the GNU General Public License
+## along with this program; if not, write to the Free Software
+## Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+##################################################################################
+##
+## This is the theme engine starter for bashish
+##
+########################################################
+
+if test -d "${HOME}/.basihish"
+then
+	## make sure all dirs are available, note that prompt will
+	## be created when a theme is loaded
+	for DIR in app overrides defaults themes tmp launcher
+	do
+		test -d "${HOME}"/.bashish/"${DIR}" || mkdir "${HOME}"/.bashish/"$DIR"
+	done
+else
+	mkdir "${HOME}"/.bashish
+	for DIR in app overrides defaults themes tmp launcher prompt
+	do
+		mkdir "${HOME}"/.bashish/"$DIR"
+	done
+	
+	## load a default theme
+	cp "${BASHISHDIR}"/themes/ascii-art/bluesteel/*  "${HOME}"/.bashish/prompt/
+fi
+
+for FILE in "${BASHISHDIR}"/defaults/*
+do
+	test -f "${HOME}"/.bashish/defaults/"${FILE##*/}" || \
+		cp "${FILE}" "${HOME}"/.bashish/defaults/
+done
+
+for FILE in $BASHISHDIR/overrides/*
+do
+	test -f "${HOME}"/.bashish/overrides/"${FILE##*/}" || \
+		cp "${FILE}" "${HOME}"/.bashish/overrides/
+done
+updaterc ()
+{
+	typeset SHELLRC="$1"
+	test -f "${SHELLRC}" || cp -f "/etc/${SHELLRC##*/.}" "${SHELLRC}" 2>/dev/null
+	test -f "${SHELLRC}" || cp -f "/etc/profile" "${SHELLRC}" 2>/dev/null
+	if ! grep '## line added by bashish' "${SHELLRC}" 1>/dev/null 2>/dev/null
+	then
+		test -f "${SHELLRC}"&&{ cat "${SHELLRC}"| grep -v '## line added by bashish' >"${{SHELLRC}}.new";mv "${SHELLRC}.new" "${{SHELLRC}}";}
+		cat "$BASHISHDIR/main/prompt/$AUTOSHELL/autoload" >>"${SHELLRC}"
+	fi
+
+}
+test -f "${HOME}"/.bash_profile && updaterc "${HOME}"/.bash_profile
+updaterc "${HOME}"/.profile
+updaterc "${HOME}"/.bashrc
+
+## gnome stuff
+IFS="[]"
+for LIST in $(gconftool-2 --get /apps/gnome-terminal/global/profile_list 2>/dev/null);do :;done
+case "$LIST" in
+""|*,Bashish|Bashish,*|*,Bashish,*)
+	:
+;;
+*)
+	## load schema
+	gconftool-2 --load "$BASHISHDIR/main/terminal/templates/gnome-terminal/schema"
+	gconftool-2 --type string --set /apps/gnome-terminal/global/default_profile "Bashish"
+	gconftool-2 --type list --list-type=string --set /apps/gnome-terminal/global/profile_list "[${LIST},Bashish]"
+esac
+unset IFS

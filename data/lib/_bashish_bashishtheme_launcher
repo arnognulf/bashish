@@ -117,7 +117,6 @@ eval $(while test $n -lt $BASHISH_ARGC;do printf " "\""${BASHISH_ARGV[$n]}"\";le
 #sleep 3
 RETSTATUS=$?
 trap "" INT
-#kill -s URG $$
 ## test if the process has supspend so we can untheme cleanly
 test "x$BASH" != x && while test "$(jobs)"
 do
@@ -131,7 +130,6 @@ do
 
 done
 _bashish_restore
-#kill -s URG $$
 trap - INT
 
 ## exit with the returncode of the command

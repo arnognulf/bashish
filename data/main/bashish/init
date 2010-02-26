@@ -1,7 +1,7 @@
 #!/bin/bash
 ##################################################################################
 ## Bashish, a console theme engine
-## Copyright (C) 2005 Thomas Eriksson
+## Copyright (C) 2010 Thomas Eriksson
 ##
 ## This program is free software; you can redistribute it and/or
 ## modify it under the terms of the GNU General Public License
@@ -18,228 +18,159 @@
 ## Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 ##################################################################################
 ##
-## this is the interface to the user when the 'bashish' command is
-## issued, if no arguments are given, a bashish session will start
-##
-## the bashish command has quite some options which are parsed here
+## bashishtheme provides mechanisms for changing themes.
+## it is loaded by the bashishtheme command
 ##
 ###############################################################################
 
-SELF=${0##*/}
+TTY=$(tty)
 
-function helphandler
-{
-	printf "
-USAGE:
+## command name, bashishtheme?
+BASHISHNAME="${0##*/}"
 
-${0##*/} [[OPTIONS] | [[APPLICATION] [APPLICATION OPTIONS]] ]
-
-${0##*/} launches the terminal part of the \"bashish\" theme enviroment.
-
-OPTIONS
--h|--help        This help
--u|--uninstall   Uninstall bashish configuration files
--b|--bashishdir  Show bashish system directory
--v|--version     Show version
---autoon=[SHELL] Enable automatic loading for SHELL
---autooff=[SHELL Disable automatic loading for SHELL.
-
-To run a themed application from a GUI terminal, one can supply the APPLICATION with 
-APPLICATION OPTIONS to the commandline.
-
-To change themes, use the command bashishtheme.
-"
-
-	exit 1
-}
-
-
-
+## print out fault message, help and return with a return status
 function errorhandler
 {
-	case $1 in
-	1) :;;
-	2)printf "$SELF: the supported values are 'bash' 'csh' 'fish' 'ksh' 'lsh' 'rc' 'sh' 'tcsh' 'zsh'";;
-	3)printf "$SELF: the prompt themer is not installed";;
-	4)printf "$SELF: user requested exit";;
-	5)printf "$SELF: sorry, Bashish needs the dialog utility in order to install.";;
-	6)printf "$SELF: you need to perform a full install of Bashish to enable command theming";;
-	7)printf "$SELF: bashish does not work when not connected to a tty";;
-	42)	## silently exit when not owner of tty
-		exit 42;;
-	99)printf "$SELF: not implemented";;
+	if test "x$2" != x
+	then
+		printf "${BASHISHNAME}: $2\n"
+		exit $2
+	else 
+	typeset ERROR=$1
+	case "$1" in
+	99) printf "$BASHISHNAME: not implemented";;
+	12) printf "$BASHISHNAME: interactive mode unavaliable since dialog could not be found";;
+	20) printf "$BASHISHNAME: file was saved to $BTFILE";;
+	21) printf "$BASHISHNAME: error saving, aborting on users request";;
+	22) printf "$BASHISHNAME: error saving, could not parse theme-file";;
+	220) printf "$BASHISHNAME: error saving, header in prompt.[zsh|ksh|bash|sh] or theme does not start with #"'!'"/bin/sh";;
+	221) printf "$BASHISHNAME: error saving, could not parse prompt.sh-file";;
+	222) printf "$BASHISHNAME: error saving, could not parse prompt.ksh-file";;
+	223) printf "$BASHISHNAME: error saving, could not parse prompt.bash-file";;
+	224) printf "$BASHISHNAME: error saving, could not parse prompt.zsh-file";;
+	23) printf "$BASHISHNAME: error saving, this program must be executed from a valid themedirectory.
+$BASHISHNAME: error saving, the prompt theme directory is located in \${HOME}/.bashish/prompt";;
+	24) printf "$BASHISHNAME: error saving, theme was not saved";;
+	25) printf "$BASHISHNAME: error saving, \$BASHISH_THEME not set";;
+	251) printf "$BASHISHNAME: error saving, _bashish_theme_\$BASHISH_THEME() function not existing or incorrectly named";;
+	261) printf "$BASHISHNAME: error saving, _bashish_prompt() nonexistant or named incorrectly in prompt.sh";;
+	262) printf "$BASHISHNAME: error saving, _bashish_prompt() nonexistant or named incorrectly in prompt.ksh";;
+	263) printf "$BASHISHNAME: error saving, _bashish_prompt() nonexistant or named incorrectly in prompt.bash";;
+	24) printf "$BASHISHNAME: an error occured";;
+	27) printf "$BASHISHNAME: an error occured while saving the theme";;
+	30) printf "$BASHISHNAME: theme not found";;
+	80) 	helphandler
+		printf "
+$BASHISHNAME: you need to install the \"dialog\" utility in order to use the interactive mode\n\n";;
+	0) exit 0;;
+	1) exit 1;;
 	esac
-	test $1 != 0&&printf "\n$SELF: aborting with return code $1\n"
-	exit $1
+	printf "\n"
+	#helphandler
+	exit $ERROR
+	fi
+}
+
+## help
+function helphandler
+{
+	BASHISHNAME_MODE=help
+	printf "
+Bashish by Thomas Eriksson
+
+Usage:
+
+To change to a theme by name, enter:
+$BASHISHNAME [themename]
+
+To save a theme, enter:
+$BASHISHNAME [save]
+
+To list available themes, enter:
+$BASHISHNAME list
+
+$BASHISHNAME is the theme changer for Bashish.
+If $BASHISHNAME is started without options an interactive dialog will be presented to the user.
+With the interactive dialog, the user can choose a theme for the prompt or for individual applications.
+
+If $BASHISHNAME is supplied with the \"save\" option, the theme in the current working directory will be saved.
+"
 }
 
 function _bashish_module
 {
-	test -f $BASHISHDIR/main/bashish/$1||return 1
-	. $BASHISHDIR/main/bashish/$1
-	return 0
+	. $BASHISHDIR/main/bashishtheme/$1
 }
 
-## test if the user configuration directory needs to be updated
-LOCALVERSION=""
-test -d "$HOME/.bashish" || _bashish_module sys/firstrunhandler
-test -f "$HOME/.bashish/bashish-version" || _bashish_module sys/firstrunhandler
-read LOCALVERSION < ${HOME}/.bashish/bashish-version
-read GLOBALVERSION < ${BASHISHDIR}/bashish-version
-test "x$GLOBALVERSION" = "x$LOCALVERSION" || _bashish_module sys/firstrunhandler
+## returncodes
+## 1 if prompt theme was not changed
+## >1 if an error occured
+## 0 if prompt theme was successfully changed
+RETURN=1
 
+## by default bashishtheme is used in batch mode
+BASHISHNAME_MODE=batch
 
-## it is nescessary for bashish to know its tty
-test "x${TTY}" = x && TTY=$(tty)
-case "${BASHISH_ARGV[0]}" in
---bashishdir) printf "$BASHISHDIR\n"; errorhandler 0;;
---userdir) printf "$HOME/.bashish\n"; errorhandler 0;;
--c*|--c*|--configure) errorhandler 99;;
--u*|--u*)
-	
-	BASHISH_UNINSTALL_STRING1="Uninstall Bashish from your user account?"
-	#if type -p dialog 1>/dev/null
-	#then
-	#	dialog --yes-label "Uninstall" --no-label "Cancel" --backtitle "Bashish User Uninstallation" --yesno "$BASHISH_UNINSTALL_STRING1" 0 0 || exit 1
-	#else
-		printf "bashish: $BASHISH_UNINSTALL_STRING1 [yes]\n"
-		read INPUT
-		case "$INPUT" in
-		n*|N*) errorhandler 4;;
-		*) :
-		esac
-	#fi
+## create a list over avaliable themes
+_bashish_module sys/list
 
-	for i in sh bash zsh tcsh csh rc
-	do
-		_bashish_module sys/autohandler
-		autohandler $i
-		test -f $AUTORC&&{
-			cat $AUTORC| grep -v '## line added by bashish' 1>${AUTORC}.new
-			mv $AUTORC.new ${AUTORC}
-		}
-	done
-	for BASHISH_PID in $HOME/.bashish/tmp/*/pid
-	do
-		if test -f "${BASHISH_PID}"
-		then
-			read PID<$BASHISH_PID
-			kill -9 `cat $BASHISH_PID`
-		fi
-	done
-	gconftool-2 --recursive-unset /apps/gnome-terminal/profiles/Bashish
-	gconftool-2 --unset /apps/gnome-terminal/profiles/Bashish
-	gconftool-2 --type string --set /apps/gnome-terminal/global/default_profile "Default"
-	NEW_LIST="$(gconftool-2 --get /apps/gnome-terminal/global/profile_list|sed -e 's/Bashish//g' -e 's/,,/,/g' -e 's/\[,/\[/g' -e 's/,\]/\]/g')"
-	gconftool-2 --type list --list-type=string --set /apps/gnome-terminal/global/profile_list "${NEW_LIST}"
+## provide the find function
+_bashish_module sys/find
 
-	rm -rf $HOME/.bashish
-	BASHISH_UNINSTALL_STRING2="Bashish is now removed from your user account.
+case "$BASHISH_ARGC" in
+0)
+	## denote that bashishtheme is in interactive mode
+	BASHISHNAME_MODE=interactive
 
-However, it is still available system-wide.
-If you installed Bashish by using a package manager, you must remove the bashish package from your system.
-eg:
-For Ubuntu/Debian and similar systems:
-# apt-get remove bashish
+	## provide the unpack
+	_bashish_module sys/unpack
 
-For Gentoo:
-# emerge unmerge bashish
+	## provide bashish appdb
+	_bashish_module sys/appdb
 
-For Fedora/Mandriva/SuSE:
-# yum remove bashish
-
-If you installed by source, please _install_ bashish with the same version as you did before, and then run
-# make uninstall
-"
-	#if type -p dialog
-	#then
-	#	dialog --msgbox "$BASHISH_UNINSTALL_STRING2" 0 0
-	#else
-		printf "bashish: $BASHISH_UNINSTALL_STRING2\n"
-	#fi
+	## interactive mode
+	_bashish_module sys/fe/dialog
+	_bashish_module sys/update
 	errorhandler 0
-;;
---v*|-v*)	printf "`cat $BASHISHDIR/bashish-version`\n";;
---bashishdir|-b) printf "$BASHISHDIR\n";;
---autoon=*)
-	
-	_bashish_module sys/autohandler
-	autohandler ${BASHISH_ARGV[0]}
-	if test -f "$BASHISHDIR/main/prompt/$AUTOSHELL/autoload";then
-		cat "$BASHISHDIR/main/prompt/$AUTOSHELL/autoload" >>$AUTORC
-	else
-		errorhandler 3
-	fi
 	;;
---autooff=*)
-
-	_bashish_module sys/autohandler
-	autohandler ${BASHISH_ARGV[0]}
-	cat ${AUTORC} 2>/dev/null| grep -v '## line added by bashish' 1>${AUTORC}.new
-	mv ${AUTORC}.new ${AUTORC}
-	;;
---init)
-	## when bashish is issued without arguments, it will theme the terminal
-	## and start a themed subprocess
-	# if first time execution?
-	# create homedir and give the user a brief introduction
-	## detect terminals and if needed ask for user input before bashish is
-	## forked into oblivion
-	_bashish_module sys/termhandler && {
-		termhandler
-		## engage!
-		printf "LAUNCHER_PID=$$" >"$HOME/.bashish/tmp/${TTY##*/}/subproc"
-		trap "WINCH=1" WINCH
-		TRAPTIMEOUT=$SECONDS
-		let TRAPTIMEOUT+=2
-		until test x$WINCH != x -o $SECONDS -gt $TRAPTIMEOUT
-		do
-			sleep 0.1
-		done
-	
-		true
-	}
-;;
-"")
-	## when bashish is issued without arguments, it will theme the terminal
-	## and start a themed subprocess
-	# if first time execution?
-	# create homedir and give the user a brief introduction
-	## detect terminals and if needed ask for user input before bashish is
-	## forked into oblivion
-	
-	if tty 2>/dev/null 1>/dev/null 
-	then
-		helphandler
-	else
-	
-	_bashish_module sys/termhandler && {
-		termhandler
-		## engage!
-		printf "LAUNCHER_PID=$$" >"$HOME/.bashish/tmp/${TTY##*/}/subproc"
-		trap "WINCH=1" WINCH
-		TRAPTIMEOUT=$SECONDS
-		let TRAPTIMEOUT+=2
-		until test x$WINCH != x -o $SECONDS -gt $TRAPTIMEOUT
-		do
-			sleep 0.1
-		done
-	
-		true
-	}
-	fi
-;;
--*|--h*|-h*)
-	helphandler
-;;
 *)
-	## b0rk, this is not available anymore 
+	case "${BASHISH_ARGV[0]}" in
+	"") 
+if test ! -d ~/.bashish
+then
+printf "\
+This will enable Bashish prompt and terminal themeing
+
+the following files will be modified:
+~/.bashrc
+~/.profile
+~/.bash_profile (if already exists)
+
+press ENTER to enable Bashish theming
+or hit CTRL+C to quit
+"
+read -n1
+	_bashish_module sys/termloader
+else
+helphandler
+fi
+
+	;;
+	init|-i*|--init) _bashish_module sys/termloader ;;
+	uninstall|--u*|-u*) _bashish_module sys/uninstall 
+printf "${BASHISHNAME}: bashish is now uninstalled
+"
+;;
+	list|show|-l*|--l*) for THEME_ITEM in ${THEME_LIST[*]##*/}; do echo "$THEME_ITEM";done | sort|uniq; errorhandler 0;;
+	exec|-e*|--e*)
+	echo "b0rk, this is not available yet"
+	exit 42
 	#$BASHISHDIR/lib/_bashish_appdb
 
 	## single application mode
 	## eg. when launching a bashish themed application from a GUI
 	## first launch bashish
-	if _bashish_module sys/termhandler
+	if _bashish_module sys/termloader
 	then
 	
 		termhandler
@@ -256,4 +187,43 @@ If you installed by source, please _install_ bashish with the same version as yo
 	else
 		errorhandler 6
 	fi
+	;;
+	save|-s|--s*)
+		_bashish_module sys/save
+		printf "\
+$BASHISHNAME: theme was sucessfully saved
+$BASHISHNAME: press \033[1mreturn\033[0m to load the saved theme
+"
+read -n1 INPUT
+
+		_bashish_module sys/update
+		_bashish_module sys/termcleanup
+exit 0
+		;;
+	-*)	helphandler;;
+	*)
+		## provide the unpack fn
+		_bashish_module sys/unpack
+
+		## provide bashish appdb
+		_bashish_module sys/appdb
+		
+		case ${BASHISH_ARGV[1]} in
+		-*|""|bright*|dim*|underscore*|blink*|reverse*|hidden*|black|red|green|yellow|blue|magenta|cyan|white)
+			BTAPP="";_bashish_unpack "${BASHISH_ARGV[0]}";;
+		*)
+			BTAPP="${BASHISH_ARGV[0]}"; _bashish_unpack "${BASHISH_ARGV[1]}"
+		
+			## application theme changer
+			BTAPP=${BASHISH_ARGV[0]}
+		esac
+
+		_bashish_module sys/update
+		_bashish_module sys/termcleanup
+		errorhandler 0
+	esac
+;;
 esac
+## we shouldn't have gotten here
+echo ${BASHISH_ARGV[0]}
+errorhandler 99

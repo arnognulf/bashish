@@ -40,7 +40,6 @@ pkgdatadir = $(datadir)/bashish
 
 bashish:
 	for i in bin/bashish \
-                 bin/bashishtheme \
 	    ; do\
 		rm $$i; \
 		./genheader $(BASHISH_SHELL) $(datadir)/bashish >$$i; \
@@ -68,7 +67,6 @@ dist:	distclean tar.gz rpm
 
 clean:
 	rm -f data/bashish_version data/lib/_bashish_launcher
-	rm -f bin/bashish bin/bashishtheme
 	rm -f man/*.1
 
 distclean: clean

@@ -1,6 +1,6 @@
 #!/bin/bash
 rm -rf dist
-rm -f man/bashish.1 man/bashishtheme.1
+rm -f man/bashish.1
 rm -f bin/bashish bin/bashishtheme
 
 for DELETE_FILE in $(find . -type f |grep "~"); do rm "$DELETE_FILE";done

@@ -180,3 +180,4 @@ app_add ()
 	test "$BTAPP"&&return 0
 	return 1
 }
+_bashish_fe

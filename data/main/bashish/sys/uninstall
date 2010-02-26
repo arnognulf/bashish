@@ -1,7 +1,7 @@
 #!/bin/bash
 ##################################################################################
 ## Bashish, a console theme engine
-## Copyright (C) 2005 Thomas Eriksson
+## Copyright (C) 2010 Thomas Eriksson
 ##
 ## This program is free software; you can redistribute it and/or
 ## modify it under the terms of the GNU General Public License
@@ -17,31 +17,15 @@
 ## along with this program; if not, write to the Free Software
 ## Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 ##################################################################################
-## autohandler() sets the following variables
-## $AUTOSHELL subdir to which specific autoload file is located in
-## $AUTORC initialization file where the autoload code should be added/removed from
-function autohandler
-{
-	AUTOSHELL=${1##*=}
-	case "$AUTOSHELL" in
-	fish)AUTORC="$HOME/.fish";;
-	bash)
-		AUTORC="$HOME/.bashrc"
-		AUTOSHELL=sh
-	;;
-	zsh)AUTORC="$HOME/.zshrc";AUTOSHELL=sh;;
-	dash|ash|sh|ksh|pdksh|mksh)
-		AUTORC="$HOME/.profile"
-		test -f "$ENV" && AUTORC="${ENV}"
-		AUTOSHELL=sh
-	;;
-	rc)AUTORC="$HOME/.rcrc";;
-	es)AUTORC="$HOME/.esrc";AUTOSHELL=rc;;
-	csh)AUTORC="$HOME/.cshrc";;
-	tcsh)AUTORC="$HOME/.tcshrc";AUTOSHELL=csh;;
-	lsh)AUTORC="$HOME/.autoexec";AUTOSHELL=dos;;
-	osh)AUTORC="$HOME/.oshrc";AUTOSHELL=osh;;
-	esh)AUTORC="$HOME/.eshrc";AUTOSHELL=esh;;
-	*)errorhandler 2;;
-	esac
-}
+
+## remove gnome-terminal profiles
+if type -p gconftool-2 1>/dev/null 2>/dev/null
+then
+gconftool-2 --recursive-unset /apps/gnome-terminal/profiles/Bashish
+gconftool-2 --unset /apps/gnome-terminal/profiles/Bashish
+gconftool-2 --type string --set /apps/gnome-terminal/global/default_profile "Default"
+NEW_LIST="$(gconftool-2 --get /apps/gnome-terminal/global/profile_list|sed -e 's/Bashish//g' -e 's/,,/,/g' -e 's/\[,/\[/g' -e 's/,\]/\]/g')"
+gconftool-2 --type list --list-type=string --set /apps/gnome-terminal/global/profile_list "${NEW_LIST}"
+fi
+## remove local bashish directory
+rm -rf "${HOME}"/.bashish

@@ -1,23 +1,23 @@
 bashish-2.2.2
 -------------
-bug: weirdness with MacOSX Terminal.app and bluesteel
+feat: computers are named foo.local on OSX, for hostnames, remember to do
+${HOSTNAME%%*.}
+feat: bashish exec foo -bar -baz
+kill old bashish and bashishtheme
 bug: remove shell selection alltogether, insert for bashrc and .profile for
 now
 
-# for root users
+bug: weirdness with MacOSX Terminal.app and bluesteel
 
-rename bashish to bashishexec
-rename bashishtheme to bashish
+feat: # for root users
 
 bug: broken & untested on zsh & ksh & sh & dash & csh & tcsh
 
-showcase video on youtube
+feat: shellvars: en_US 12-hour time
 
-shellvars: en_US 12-hour time
+feat: bashishtheme [--disable-gnome-terminal|--enable-gnome-terminal]
 
-bashishtheme [--disable-gnome-terminal|--enable-gnome-terminal]
-
-bashish [--configure]
+nice: showcase video on youtube
 
 old todo
 --------

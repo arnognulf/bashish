@@ -41,10 +41,8 @@ function _bashish_unpack
 	## check for special theme strings
 	case "${THEME}" in
 	none)
-		test "x$BTAPP" = x && {
-			rm "${HOME}/.bashish/launcher/${BTAPP}" ## remove launcher
-			rm -rf "${DESTDIR}" ## remove themedir
-		}
+		test "x$BTAPP" = x && rm "${HOME}/.bashish/launcher/${BTAPP}" ## remove launcher
+		rm -rf "${DESTDIR}" ## remove themedir
 	;;
 	*)
 		cp "${THEMEFILE}"/* "${DESTDIR}"/

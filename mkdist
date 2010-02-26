@@ -12,7 +12,7 @@ mkdir -p "dist/${BASHISH_NAME_VERSION}"
 cd "dist/${BASHISH_NAME_VERSION}"
 tar xf ../../dist.tar
 rm -rf .git
-rm -f data/bashish-version Makefile bashish.spec data/bashish-version man/bashish.1 man/bashishtheme.1 config.status config.log
+rm -f data/bashish-version Makefile bashish.spec data/bashish-version man/bashish.1 config.status config.log
 cd ..
 tar czf ${BASHISH_NAME_VERSION}.tar.gz ${BASHISH_NAME_VERSION}
 rm -rf "${BASHISH_NAME_VERSION}"
