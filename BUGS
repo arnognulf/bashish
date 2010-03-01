@@ -1,35 +1,5 @@
-
-KNOWN BUGS
-----------
-* bashish --configure does not work yet, remove your ~/.bashish and install
-  again if you would like to add another shell.
-
-* Suspending with un-theming and re-themeing when returning to the
-  application is only supported on bash:
-  * zsh complains about wrong FD:
-    http://sourceforge.net/tracker/index.php?func=detail&aid=1413647&group_id=4068&atid=104068
-  * pdksh suspends when trying to launch the command
-  * ksh93 ignores if monitor mode is set or not
-  perhaps I'm misunderstanding the "monitor" feature :) please point me to
-  appropiate documentation if that's the case :)
-  there is a workaround in Bashish so monitor mode will not be actived on
-  non-bash shells.
-
-
-Resolved / Workaround
----------------------
-* Resolved. This bug was because the early code for supporting
-  gnome-terminal would accidently add multiple profiles to the profile_list
-  key in gconf, this is no longer the case since the profiles are named
-  after the ttys.
-
-  bashish might crash gnome-terminal upon starting a new tab, 
-  discussion here: 
-  http://bugzilla.gnome.org/show_bug.cgi?id=167557
-
-"Yet, since the fix is so simple, and (god knows why) somebody's tripped on this
-problem before, I vote for the patch being applied." :)
-
+BUGS
+----
 * The following bug is now mostly killed for Bashish, bashish now traps the WINCH 
   before the application is started. The delay waiting for the SIGWINCH is roughly 
   0.4s   on my AMD64 2800+

@@ -31,10 +31,9 @@ then
 		test -d "${HOME}"/.bashish/"${DIR}" || mkdir "${HOME}"/.bashish/"$DIR"
 	done
 else
-	mkdir "${HOME}"/.bashish
 	for DIR in app overrides defaults themes tmp launcher prompt
 	do
-		mkdir "${HOME}"/.bashish/"$DIR"
+		test -d "${HOME}"/.bashish/"${DIR}" || mkdir "${HOME}"/.bashish/"$DIR"
 	done
 	
 	## load a default theme

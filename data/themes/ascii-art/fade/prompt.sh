@@ -27,7 +27,7 @@ ${ESC}[37;40;1m ${DATE} ${TIME}\
 ${ESC}[9${BASHISH_COLOR0}m\
 ${ESC}[6D:\
 ${ESC}[2C:\
-${ESC}[2C\033[0m
+${ESC}[2C${ESC}[0m
 ${EMBED}${ESC}[3${BASHISH_COLOR0};1m${UNEMBED}"`_bashish_prompt_cwd "${EMBED}\033[0;3${BASHISH_COLOR0}m${UNEMBED}" "${EMBED}\033[3${BASHISH_COLOR0};1m${UNEMBED}" \`expr $COLUMNS / 2\``"/${EMBED}\
 ${ESC}[0m${UNEMBED} "
 PS2="${EMBED}\

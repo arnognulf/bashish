@@ -18,14 +18,14 @@
 ## Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 ##################################################################################
 ##
-## bashishtheme provides mechanisms for changing themes.
-## it is loaded by the bashishtheme command
+## bashish provides mechanisms for changing themes.
+## it is loaded by the bashish command
 ##
 ###############################################################################
 
 TTY=$(tty)
 
-## command name, bashishtheme?
+## command name, bashish?
 BASHISHNAME="${0##*/}"
 
 ## print out fault message, help and return with a return status
@@ -99,7 +99,7 @@ If $BASHISHNAME is supplied with the \"save\" option, the theme in the current w
 
 function _bashish_module
 {
-	. $BASHISHDIR/main/bashishtheme/$1
+	. $BASHISHDIR/main/bashish/$1
 }
 
 ## returncodes
@@ -108,7 +108,7 @@ function _bashish_module
 ## 0 if prompt theme was successfully changed
 RETURN=1
 
-## by default bashishtheme is used in batch mode
+## by default bashish is used in batch mode
 BASHISHNAME_MODE=batch
 
 ## create a list over avaliable themes
@@ -119,7 +119,7 @@ _bashish_module sys/find
 
 case "$BASHISH_ARGC" in
 0)
-	## denote that bashishtheme is in interactive mode
+	## denote that bashish is in interactive mode
 	BASHISHNAME_MODE=interactive
 
 	## provide the unpack
@@ -154,12 +154,14 @@ read -n1
 else
 helphandler
 fi
-
+errorhandler 1
 	;;
-	init|-i*|--init) _bashish_module sys/termloader ;;
+	--bashishdir|-b) printf "$BASHISHDIR\n";errorhandler 1;;
+	init|-i*|--init) _bashish_module sys/termloader ;errorhandler 1;;
 	uninstall|--u*|-u*) _bashish_module sys/uninstall 
 printf "${BASHISHNAME}: bashish is now uninstalled
 "
+errorhandler 1
 ;;
 	list|show|-l*|--l*) for THEME_ITEM in ${THEME_LIST[*]##*/}; do echo "$THEME_ITEM";done | sort|uniq; errorhandler 0;;
 	exec|-e*|--e*)
@@ -198,7 +200,7 @@ read -n1 INPUT
 
 		_bashish_module sys/update
 		_bashish_module sys/termcleanup
-exit 0
+errorhandler 0
 		;;
 	-*)	helphandler;;
 	*)

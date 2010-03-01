@@ -27,5 +27,26 @@ gconftool-2 --type string --set /apps/gnome-terminal/global/default_profile "Def
 NEW_LIST="$(gconftool-2 --get /apps/gnome-terminal/global/profile_list|sed -e 's/Bashish//g' -e 's/,,/,/g' -e 's/\[,/\[/g' -e 's/,\]/\]/g')"
 gconftool-2 --type list --list-type=string --set /apps/gnome-terminal/global/profile_list "${NEW_LIST}"
 fi
+removerc () {
+	SHELLRC="$1"
+	test -f "${SHELLRC}"||return 1
+	cat "$SHELLRC"| grep -v '## line added by bashish' 1>"${SHELLRC}".new
+	mv "$SHELLRC".new "${SHELLRC}"
+}
+removerc "${HOME}"/.bashrc
+removerc "${HOME}"/.profile
+removerc "${HOME}"/.bash_profile
+
+done
+for BASHISH_PID in $HOME/.bashish/tmp/*/pid
+do
+	if test -f "${BASHISH_PID}"
+	then
+		read PID<$BASHISH_PID
+		kill -9 `cat $BASHISH_PID`
+	fi
+done
+
 ## remove local bashish directory
 rm -rf "${HOME}"/.bashish
+

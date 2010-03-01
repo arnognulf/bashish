@@ -58,7 +58,6 @@ make DESTDIR=%{buildroot} install
 %dir %{_datadir}/%{name}/themes/computer
 %{_datadir}/%{name}/themes/computer/*
 %doc %{_mandir}/man1/bashish.1*
-%doc %{_mandir}/man1/bashishtheme.1*
 
 %changelog
 

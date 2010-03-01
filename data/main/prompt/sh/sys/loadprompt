@@ -55,9 +55,6 @@ _bashish_promptupdate ()
 		_bashish_overrides() { :;}
 		_bashish_prompt() { :;}
 
-		## test if there actually is a prompt we could load
-		test -f "$HOME/.bashish/prompt/prompt.sh"||{ return 0;}
-		
 		## reset scrolling region
 		printf "\033[0;0r"
 		bashish --init

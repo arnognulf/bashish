@@ -1,5 +1,15 @@
 bashish-2.2.2
 -------------
+bashish save
+more feats:
+grep '\\033': warn bash
+grep '\\e': warn bash
+grep '%{': warn zsh
+grep '${HOSTNAME}': warn osx
+grep '$HOSTNAME': warn osx
+
+
+
 feat: computers are named foo.local on OSX, for hostnames, remember to do
 ${HOSTNAME%%*.}
 feat: bashish exec foo -bar -baz
@@ -19,6 +29,8 @@ feat: bashishtheme [--disable-gnome-terminal|--enable-gnome-terminal]
 
 nice: showcase video on youtube
 
+feat: cygwin+oem font?
+http://c2.com/cgi/wiki?BetterCygwinTerminal
 old todo
 --------
 settings:

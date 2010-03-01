@@ -1,0 +1,21 @@
+To remove bashish from your system, not only your homedir.
+Download the same release as you installed.
+
+First, verify the version:
+
+$ bashish -v
+
+then get the bashishdir from the bashish command
+(replace /usr/local in this example with the path bashish outputs)
+
+$ bashish --bashishdir
+/usr/local/share/bashish
+
+now you can either use autoconf to uninstall
+
+$ ./configure --prefix=/usr/local
+$ make uninstall
+
+or manually remove the files (as root):
+# rm -rf /usr/local/share/bashish
+# rm -f /usr/local/bin/bashish

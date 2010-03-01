@@ -1,70 +1,48 @@
 .TH bashish 1  "February 30, 2006" "version @PACKAGE_VERSION@" "USER COMMANDS"
 
+
 .SH NAME
-bashish \- the Bashish terminal theme engine
+bashish \- theme changer for Bashish
 
 .SH SYNOPSIS 
-.B  bashish \fB[\fIOPTION\fB]\fR \fB[[\fICOMMAND\fB]\fR \fB[\fICOMMAND OPTIONS\fB]]\fR
+.B  bashish \fB[\fIOPTION\fB]\fR
 
 .SH DESCRIPTION 
 .PP
 Bashish is a theme enviroment for text terminals. It can change colors, font,
 transparency and background image on a per-application basis. Additionally
 Bashish supports prompt changing on common shells such as bash, zsh and tcsh.
-
-The \fIbashish\fP command launches the terminal theme part of the \fBBashish theme enviroment\fP.
-
-Without options, \fIbashish\fP (re)starts the terminal theme enviroment, this is used internally
-by \fIbashishtheme\fP(1), but can also be used by the user to force a terminal update.
-
-Normally, \fIbashish\fP is launched from the shell startup file.
-On unsupported shells it may be used to launch the bashish enviroment.
-
+.TP
+There is no need to restart the shell after \fIbashish\fP has been issued.
 .SH OPTIONS 
 .PP
-If invoked without options, \fIbashish\fP will launch a new Bashish session.
-.TP
-A \fICOMMAND\fR - optionally with arguments - may be given to the \fBbashish\fP launcher and will then be executed in themed mode and then exit.
-.TP
-An \fIOPTION\fP may be given to \fIbashish\fP to control the theme enviroment, most of the options will not start a new Bashish session.
-.TP
-\fB\-\-help
-show short usage of Bashish
-.TP
-\fB\-\-bashishdir
-print the global Bashish directory
-.TP
-\fB\-u|\-\-uninstall
-Uninstall bashish configuration files
-.TP
-\fB\-\-autoon=<SHELL>
-Enable automatic loading for SHELL
-
-SHELL is one of: ash bash dash es esh fish ksh lsh mksh osh pdksh rc sh tcsh zsh
-.TP
-\fB\-\-autooff=<SHELL>
-Disable automatic loading for SHELL
+If invoked without options, \fIbashish\fP will start the dialog based theme changer frontend.
 .TP
 
-\fB\-\-version
-print Bashish version
-
-
-
-
-
-.SH DIAGNOSTICS
-Bashish error messages are few, self-explaining and safe to ignore.
+\fB-h, --help
+short help
+.TP
+\fB-a, --about
+display theme information
+.TP
+\fB-l, --list
+list avaliable themes in the global theme directories of bashish
+.TP
+\fBsave
+This option will save the theme to its theme directory, and reload it if no
+parsing errors can be found.
+When saving a theme, the current working directory must contain the theme to be saved.
 
 .SH "SEE ALSO"
 .PD 0
 .TP
-\fIbashishtheme\fP(1)
 \fIThe Bashish Documentation\fP, Thomas Eriksson
+.TP
+\fIbashish\fP(1)
 .TP
 
 .SH COPYRIGHT 
-Bashish is Copyright (c) 1999-2005 Thomas Eriksson.
+bashish is Copyright (c) 1999-2005 Thomas Eriksson.
 
 This program is free software; you can redistribute it and/or modify 
 it under the terms of the GNU General Public License as published 
@@ -83,11 +61,9 @@ MA 02111-1307 USA.
 
 .SH BUGS
 .TP
-See Bashish README
+One or two bugs may exist in bashish.
 
 .SH AUTHORS 
-The original version of this manual page were written by the Debian maintainer of Bashish, Bruno David Rodrigues <bruno.rodrigues@litux.org>.
-.TP
-It has afterwards been rewritten in raw roff by Thomas \'arne\' Eriksson <arne@users.sourceforge.net> who is the author of Bashish.
-For a complete list of contributors to Bashish, see the CREDITS file.
+Thomas \'arne\' Eriksson <arne@users.sourceforge.net> is the author of Bashish and this manual page.
+Patches and fixes from people listed in CREDITS.
 
