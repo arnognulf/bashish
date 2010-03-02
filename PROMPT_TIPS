@@ -1,0 +1,3 @@
+
+if having a multi-line prompt and the downmost lines background always gets
+painted, then you need to terminate the line above with \033[0m.
