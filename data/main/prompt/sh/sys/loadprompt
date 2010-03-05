@@ -56,7 +56,7 @@ _bashish_promptupdate ()
 		_bashish_prompt() { :;}
 
 		## reset scrolling region
-		printf "\033[0;0r"
+		printf "\033[H\033[2J\033[0;0r"
 		bashish --init
 		hash -r
 	
