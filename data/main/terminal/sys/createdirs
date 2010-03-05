@@ -22,7 +22,7 @@
 ##
 ########################################################
 
-if test -d "${HOME}/.basihish"
+if test -d "${HOME}/.bashish"
 then
 	## make sure all dirs are available, note that prompt will
 	## be created when a theme is loaded
