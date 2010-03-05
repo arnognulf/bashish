@@ -1,5 +1,7 @@
 bashish-2.2.2
 -------------
+bug: b0rked colors, perhaps related to gconf-schema changes?
+
 bashish save
 more feats:
 grep '\\033': warn bash
@@ -7,8 +9,6 @@ grep '\\e': warn bash
 grep '%{': warn zsh
 grep '${HOSTNAME}': warn osx
 grep '$HOSTNAME': warn osx
-
-
 
 feat: computers are named foo.local on OSX, for hostnames, remember to do
 ${HOSTNAME%%*.}

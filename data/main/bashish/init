@@ -181,7 +181,7 @@ errorhandler 1
 ;;
 	list|show|-l*|--l*) for THEME_ITEM in ${THEME_LIST[*]##*/}; do echo "$THEME_ITEM";done | sort|uniq; errorhandler 0;;
 	exec|-e*|--e*)
-	echo "b0rk, this is not available yet"
+	echo "exec is not available yet"
 	exit 42
 	#$BASHISHDIR/lib/_bashish_appdb
 
