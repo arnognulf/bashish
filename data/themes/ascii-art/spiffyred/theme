@@ -7,6 +7,6 @@ BASHISH_THEME=spiffyred
 _bashish_theme_spiffyred ()
 {
 THEME_AUTHOR="arne <arne@users.sourceforge.net>"
-TITLE="$USER@$HOSTNAME"
+TITLE="$USER@${HOSTNAME%%.*}"
 
 }

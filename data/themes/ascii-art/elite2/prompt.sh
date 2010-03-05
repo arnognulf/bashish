@@ -20,7 +20,7 @@ $_typeset BASHISH_C0=`_bashish_prompt_cp437 C0` # └
 $_typeset BASHISH_C4=`_bashish_prompt_cp437 C4` # ─
 
 
-test x$PROMPTSTR = x && $_typeset PROMPTSTR="${USER}$COLOR3@$COLOR1${HOSTNAME}"
+test x$PROMPTSTR = x && $_typeset PROMPTSTR="${USER}$COLOR3@$COLOR1${HOSTNAME%%.*}"
 PS1="$COLOR3${BASHISH_DA}\
 $COLOR1${BASHISH_C4}\
 $COLOR2(\

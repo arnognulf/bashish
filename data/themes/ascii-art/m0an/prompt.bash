@@ -28,7 +28,7 @@ $_typeset GREY="${EMBED}${ESC}[1;30m${UNEMBED}"
 $_typeset LGREY="${EMBED}${ESC}[0;37;40m${UNEMBED}" 
 $_typeset NCOLOR="${EMBED}${ESC}[0m${UNEMBED}"
 
-test "x${PROMPTSTR}" = x && $_typeset PROMPTSTR="${USER}$GREY@$CYAN${HOSTNAME}"
+test "x${PROMPTSTR}" = x && $_typeset PROMPTSTR="${USER}$GREY@$CYAN${HOSTNAME%%.*}"
 
 ## And now, for the prompt!
 PS1="\

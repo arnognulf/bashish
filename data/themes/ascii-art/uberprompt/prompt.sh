@@ -7,7 +7,7 @@ _bashish_prompt()
 	eval $(_bashish_prompt_shellvars "$SHELLNAME")
 
 	typeset UNDERLINE LINECHAR
-	TITLE="$HOSTNAME"
+	TITLE="${HOSTNAME%%.*}"
 	test x"$PROMPTSTR" = x && PROMPTSTR="$HOSTNAME"
 	i=1
 	LINECHAR=" "

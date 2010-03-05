@@ -8,6 +8,6 @@ _bashish_theme_spiffydeb ()
 {
 THEME_AUTHOR="arne <arne@users.sourceforge.net>"
 _bashish_theme_defaults_cp437font
-TITLE="$USER@$HOSTNAME"
+TITLE="$USER@${HOSTNAME%%.*}"
 
 }

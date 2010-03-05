@@ -21,7 +21,7 @@
 
 _bashish_prompt ()
 {
-TITLE="( $USER @ $HOSTNAME )"
+TITLE="( $USER @ ${HOSTNAME%%.*} )"
 eval $(_bashish_prompt_shellvars $SHELLNAME)
 eval $(_bashish_prompt_parsecolors "$@")
 test "x${BASHISH_COLOR0}" = x && eval $(_bashish_prompt_parsecolors white)
@@ -33,7 +33,7 @@ $_typeset i=0
 $_typeset FILLY=""
 $_typeset BASHISH_CWD=`_bashish_prompt_cwd "\\[${ESC}[1;3${BASHISH_COLOR0}m\\]" "\\[${ESC}[2m\\]" 39`
 
-test "x$PROMPTSTR" = x && typeset PROMPTSTR="${USER}${ESC}[4${BASHISH_COLOR0};31m@${ESC}[3${BASHISH_COLOR0}m${HOSTNAME}"
+test "x$PROMPTSTR" = x && typeset PROMPTSTR="${USER}${ESC}[4${BASHISH_COLOR0};31m@${ESC}[3${BASHISH_COLOR0}m${HOSTNAME%%.*}"
 
 $_typeset ROOT='$'
 test "x${UID}" = x0 && ROOT="#"

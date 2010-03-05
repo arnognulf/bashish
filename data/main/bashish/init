@@ -90,16 +90,18 @@ Advanced Usage:
 
 Theme handling:
 
-To change to a theme by name, enter:
-$BASHISHNAME [themename] [<color1>] [<color2>] [<...>] [<colorn>]
+To change to a theme by the name THEMENAME, enter:
+$BASHISHNAME THEMENAME [<color1>] [<color2>] [<...>] [<colorn>]
 
-To save a theme, enter:
-$BASHISHNAME [save]
+Colors are optional (and not all themes support them) and may be any of the following words:
+cyan magenta blue red yellow white black green
+
+To save a theme in the current directory, enter:
+$BASHISHNAME save
 
 To list available themes, enter:
 $BASHISHNAME list
 
-If $BASHISHNAME is supplied with the \"save\" option, the theme in the current working directory will be saved.
 "
 errorhandler 0
 }

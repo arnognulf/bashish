@@ -8,6 +8,6 @@ _bashish_theme_box ()
 {
 THEME_AUTHOR="arne <arne@users.sourceforge.net>"
 BASHISH_SETTINGS[0]=maincolor
-TITLE="[ $USER @ $HOSTNAME ]"
+TITLE="[ $USER @ ${HOSTNAME%%.*} ]"
 _bashish_theme_defaults_cp437font
 }

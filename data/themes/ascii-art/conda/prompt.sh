@@ -21,7 +21,7 @@
 
 _bashish_prompt ()
 {
-TITLE="( $USER @ $HOSTNAME )"
+TITLE="( $USER @ ${HOSTNAME%%.*} )"
 eval $(_bashish_prompt_shellvars $SHELLNAME)
 eval $(_bashish_prompt_parsecolors "$@")
 test "x${BASHISH_COLOR0}" = x && eval $(_bashish_prompt_parsecolors green)
@@ -36,7 +36,7 @@ do
 	let i++
 done
 
-test "x$PROMPTSTR" = x && typeset PROMPTSTR="${USER}${ESC}[4${BASHISH_COLOR0};31m@${ESC}[37m${HOSTNAME}"
+test "x$PROMPTSTR" = x && typeset PROMPTSTR="${USER}${ESC}[4${BASHISH_COLOR0};31m@${ESC}[37m${HOSTNAME%%.*}"
 
 ## this is messy stuff, cannot comment in code so I comment above
 ## don't whine if the comments are wrong ;)

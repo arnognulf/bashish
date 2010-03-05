@@ -8,7 +8,7 @@ THEME_AUTHOR="arne <brummelufs@hotmail.com>"
 ## I carboncopied this from a screenshot, *pew*
 
 ASCII_LOGO=boot
-TITLE="$HOSTNAME"
+TITLE="${HOSTNAME%%.*}"
 PROMPT="COMMAND  ===> "
 
 CURSORCOLOR="#ffffff"

@@ -8,7 +8,7 @@ _bashish_theme_bashish2 ()
 THEME_AUTHOR="arne <arne@users.sourceforge.net>"
 _bashish_theme_defaults_cp437font
 
-TITLE="$USER @ $HOSTNAME"
+TITLE="$USER @ ${HOSTNAME%%.*}"
 
 BGCOLOR="#000000"
 FGCOLOR="#cccccc"

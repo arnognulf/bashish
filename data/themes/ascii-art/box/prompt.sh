@@ -10,7 +10,7 @@ test "x${GIT_PS1}" != x && GIT_PS1="${ESC}[0;3${BASHISH_COLOR0}m|${ESC}[1;3${BAS
 test x${LINES} = x && LINES=132
 $_typeset i=0
 $_typeset FILLY=""
-test "x${PROMPTSTR}" = x && $_typeset PROMPTSTR="${USER}${ESC}[3"${BASHISH_COLOR0}"m@${ESC}[9"${BASHISH_COLOR0}"m${HOSTNAME}"
+test "x${PROMPTSTR}" = x && $_typeset PROMPTSTR="${USER}${ESC}[3"${BASHISH_COLOR0}"m@${ESC}[9"${BASHISH_COLOR0}"m${HOSTNAME%%.*}"
 $_typeset BASHISH_B3="`_bashish_prompt_cp437 B3`"
 while test "$i" -lt ${LINES}
 do
