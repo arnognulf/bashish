@@ -78,7 +78,16 @@ function helphandler
 	printf "
 Bashish by Thomas Eriksson
 
-Usage:
+Advanced Usage:
+
+--uninstall        uninstall bashish
+--enable-terminal  enable terminal theming
+--disable-terminal disable terminal themeing (but keep prompt changing enabled)
+
+Theme handling:
+
+$BASHISHNAME is the theme changer for Bashish.
+
 
 To change to a theme by name, enter:
 $BASHISHNAME [themename]
@@ -88,10 +97,6 @@ $BASHISHNAME [save]
 
 To list available themes, enter:
 $BASHISHNAME list
-
-$BASHISHNAME is the theme changer for Bashish.
-If $BASHISHNAME is started without options an interactive dialog will be presented to the user.
-With the interactive dialog, the user can choose a theme for the prompt or for individual applications.
 
 If $BASHISHNAME is supplied with the \"save\" option, the theme in the current working directory will be saved.
 "
@@ -151,14 +156,23 @@ press ENTER to enable Bashish theming
 or hit CTRL+C to quit
 "
 read -n1
-	_bashish_module sys/termloader
+	_bashish_module sys/createdirs
+printf "\
+Bashish is now installed.
+
+Restart your terminal or logoff and logon again to start theming your shell.
+
+"
+	errorhandler 1
 else
 helphandler
 fi
 errorhandler 1
 	;;
 	--bashishdir|-b) printf "$BASHISHDIR\n";errorhandler 1;;
-	init|-i*|--init) _bashish_module sys/termloader ;errorhandler 1;;
+	--enable-terminal) test -f "${HOME}"/.bashish/terminal-theming-disabled && rm "${HOME}"/.bashish/terminal-theming-disabled ; gconftool-2 --type string --set /apps/gnome-terminal/global/default_profile "Bashish" 2>/dev/null ;;
+	--disable-terminal) touch "${HOME}"/.bashish/terminal-theming-disabled ; gconftool-2 --type string --set /apps/gnome-terminal/global/default_profile "Default" 2>/dev/null ;;
+	init|-i*|--init) _bashish_module sys/createdirs; _bashish_module sys/termloader ;errorhandler 1;;
 	uninstall|--u*|-u*) _bashish_module sys/uninstall 
 printf "${BASHISHNAME}: bashish is now uninstalled
 "

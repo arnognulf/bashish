@@ -43,11 +43,10 @@ make DESTDIR=%{buildroot} install
 %{_bindir}/*
 %dir %{_datadir}/%{name}
 %{_datadir}/%{name}/bashish-version
-%dir %{_datadir}/%{name}/bt
-%dir %{_datadir}/%{name}/bt/defaults
-%{_datadir}/%{name}/bt/defaults/*
-%dir %{_datadir}/%{name}/bt/overrides
-%{_datadir}/%{name}/bt/overrides/*
+%dir %{_datadir}/%{name}/defaults
+%{_datadir}/%{name}/defaults/*
+%dir %{_datadir}/%{name}/overrides
+%{_datadir}/%{name}/overrides/*
 %{_datadir}/%{name}/lib
 %{_datadir}/%{name}/main
 %dir %{_datadir}/%{name}/themes

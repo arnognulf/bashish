@@ -65,6 +65,9 @@ function _bashish_termloader
 		*) ps "$BASHISH_SUBPROC" && PROCEXIST=1;;
 		esac >/dev/null 2>/dev/null
 	}
+
+	## if terminal loading is not enabled, don't start the terminal themer
+	test -f "${HOME}"/.bashish/terminal-theming-disabled && return 0
 	
 	## ps usage which at least works with linux and cygwin
 	if test "$PROCEXIST" = 1

@@ -31,6 +31,7 @@ then
 		test -d "${HOME}"/.bashish/"${DIR}" || mkdir "${HOME}"/.bashish/"$DIR"
 	done
 else
+	mkdir "${HOME}/.bashish"
 	for DIR in app overrides defaults themes tmp launcher prompt
 	do
 		test -d "${HOME}"/.bashish/"${DIR}" || mkdir "${HOME}"/.bashish/"$DIR"
@@ -38,6 +39,7 @@ else
 	
 	## load a default theme
 	cp "${BASHISHDIR}"/themes/ascii-art/bluesteel/*  "${HOME}"/.bashish/prompt/
+	set +x
 fi
 
 for FILE in "${BASHISHDIR}"/defaults/*
@@ -56,11 +58,16 @@ updaterc ()
 	typeset SHELLRC="$1"
 	test -f "${SHELLRC}" || cp -f "/etc/${SHELLRC##*/.}" "${SHELLRC}" 2>/dev/null
 	test -f "${SHELLRC}" || cp -f "/etc/profile" "${SHELLRC}" 2>/dev/null
+	case "${SHELLRC}" in
+	*/.profile|*/.bashrc|*/.bash_profile)
 	if ! grep '## line added by bashish' "${SHELLRC}" 1>/dev/null 2>/dev/null
 	then
-		test -f "${SHELLRC}"&&{ cat "${SHELLRC}"| grep -v '## line added by bashish' >"${{SHELLRC}}.new";mv "${SHELLRC}.new" "${{SHELLRC}}";}
-		cat "$BASHISHDIR/main/prompt/$AUTOSHELL/autoload" >>"${SHELLRC}"
+		test -f "${SHELLRC}"&&{ cat "${SHELLRC}"| grep -v '## line added by bashish' >"${SHELLRC}.new";mv "${SHELLRC}.new" "${SHELLRC}";}
+		cat "$BASHISHDIR/main/prompt/sh/autoload" >>"${SHELLRC}"
 	fi
+	;;
+	*) echo "createdirs: SHELLRC not implemented yet"
+	esac
 
 }
 test -f "${HOME}"/.bash_profile && updaterc "${HOME}"/.bash_profile
