@@ -70,22 +70,9 @@
       </value>
     </entry>
     <entry>
-      <key>font</key>
-      <value>
-        <string>Monaco 8</string>
-      </value>
-    </entry>
-    <entry>
       <key>foreground_color</key>
       <value>
         <string>#ADAAAD</string>
-      </value>
-    </entry>
-    <entry>
-      <key>icon</key>
-      <schema_key>/schemas/apps/gnome-terminal/profiles/Bashish/icon</schema_key>
-      <value>
-        <string>gnome-terminal.png</string>
       </value>
     </entry>
     <entry>
@@ -127,12 +114,6 @@
       <schema_key>/schemas/apps/gnome-terminal/profiles/Bashish/scrollback_lines</schema_key>
       <value>
         <int>500</int>
-      </value>
-    </entry>
-    <entry>
-      <key>scrollbar_position</key>
-      <value>
-        <string>hidden</string>
       </value>
     </entry>
     <entry>
@@ -193,13 +174,6 @@
       <schema_key>/schemas/apps/gnome-terminal/profiles/Bashish/visible_name</schema_key>
       <value>
         <string>Bashish</string>
-      </value>
-    </entry>
-    <entry>
-      <key>word_chars</key>
-      <schema_key>/schemas/apps/gnome-terminal/profiles/Bashish/word_chars</schema_key>
-      <value>
-        <string>-A-Za-z0-9,./?%&amp;#:_</string>
       </value>
     </entry>
   </entrylist>
