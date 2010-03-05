@@ -4,6 +4,8 @@ _bashish_prompt ()
 eval $(_bashish_prompt_shellvars $SHELLNAME)
 eval $(_bashish_prompt_parsecolors "$@")
 test "x${BASHISH_COLOR0}" = x && eval $(_bashish_prompt_parsecolors blue)
+$_typeset GIT_PS1=$(__git_ps1 "%s" 2>/dev/null)
+test "x${GIT_PS1}" != x && GIT_PS1="${ESC}[0;3${BASHISH_COLOR0}m|${ESC}[1;3${BASHISH_COLOR0}m${GIT_PS1}${ESC}[0;3${BASHISH_COLOR0}m"
 
 test x${LINES} = x && LINES=132
 $_typeset i=0
@@ -38,7 +40,7 @@ ${ESC}[3${BASHISH_COLOR0}m[\
 ${ESC}[9${BASHISH_COLOR0}m${PROMPTSTR}\
 ${ESC}[3${BASHISH_COLOR0}m]\
 ${ESC}[2C[\
-${ESC}[9${BASHISH_COLOR0}m$BASHISH_CWD\
+${ESC}[9${BASHISH_COLOR0}m$BASHISH_CWD${GIT_PS1}\
 ${ESC}[3${BASHISH_COLOR0}m]\
 ${ESC}[9${BASHISH_COLOR0}m\
 ${ESC}[$LINES;$(($COLUMNS - 12))H\
