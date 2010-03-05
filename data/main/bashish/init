@@ -34,7 +34,7 @@ function errorhandler
 	if test "x$2" != x
 	then
 		printf "${BASHISHNAME}: $2\n"
-		exit $2
+		exit $1
 	else 
 	typeset ERROR=$1
 	case "$1" in
@@ -76,7 +76,11 @@ function helphandler
 {
 	BASHISHNAME_MODE=help
 	printf "
-Bashish by Thomas Eriksson
+Bashish  Copyright (c) 2010 Thomas Eriksson
+Bashish comes with absolutely no warranty
+This is free software, and you are welcome
+to redistribute it under certain conditions
+See the GNU General Public License v2 for details
 
 Advanced Usage:
 
@@ -86,11 +90,8 @@ Advanced Usage:
 
 Theme handling:
 
-$BASHISHNAME is the theme changer for Bashish.
-
-
 To change to a theme by name, enter:
-$BASHISHNAME [themename]
+$BASHISHNAME [themename] [<color1>] [<color2>] [<...>] [<colorn>]
 
 To save a theme, enter:
 $BASHISHNAME [save]
@@ -170,8 +171,8 @@ fi
 errorhandler 1
 	;;
 	--bashishdir|-b) printf "$BASHISHDIR\n";errorhandler 1;;
-	--enable-terminal) test -f "${HOME}"/.bashish/terminal-theming-disabled && rm "${HOME}"/.bashish/terminal-theming-disabled ; gconftool-2 --type string --set /apps/gnome-terminal/global/default_profile "Bashish" 2>/dev/null ;;
-	--disable-terminal) touch "${HOME}"/.bashish/terminal-theming-disabled ; gconftool-2 --type string --set /apps/gnome-terminal/global/default_profile "Default" 2>/dev/null ;;
+	--enable-terminal) test -f "${HOME}"/.bashish/terminal-theming-disabled && rm "${HOME}"/.bashish/terminal-theming-disabled ; gconftool-2 --type string --set /apps/gnome-terminal/global/default_profile "Bashish" 2>/dev/null; errorhandler 1 "terminal theming enabled";;
+	--disable-terminal) touch "${HOME}"/.bashish/terminal-theming-disabled ; gconftool-2 --type string --set /apps/gnome-terminal/global/default_profile "Default" 2>/dev/null; errorhandler 1 "terminal theming disabled" ;;
 	init|-i*|--init) _bashish_module sys/createdirs; _bashish_module sys/termloader ;errorhandler 1;;
 	uninstall|--u*|-u*) _bashish_module sys/uninstall 
 printf "${BASHISHNAME}: bashish is now uninstalled
