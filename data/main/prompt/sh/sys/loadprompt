@@ -38,9 +38,50 @@ then
 	printf "$$" >$HOME/.bashish/tmp/${TTY##*/}/shpid
 	test -f "$HOME/.bashish/tmp/${TTY##*/}/sync" && rm "$HOME/.bashish/tmp/${TTY##*/}/sync"
 fi
+## restore terminal on best effort
+_bashish_restore()
+{
+	PS2='> '
+	PS3='#? '
+	PS4='+ '
+
+	## load the fallback prompt to memory
+	case "$SHELLNAME" in
+	bash)
+		PS1='\s-\v\$ '
+		unset PROMPT_COMMAND
+	;;
+	zsh)
+		PS1='%m%# '
+		PS2='%_> '
+		PS3='?# '
+		PS4='+%N:%i> '
+		unset RPS1 RPS2
+		## zsh warns if functions does not exists
+		unset -f precmd preexec 2>/dev/null
+	;;
+	*)
+		case '$UID' in
+		0) PS1='# ';;
+		*) PS1='$ ';;
+		esac
+	esac
+}
+
 ## load the fallback prompt to memory
 _bashish_promptupdate ()
 {
+	## self destruct if no .bashish is found (otherwise bashish would install after an uninstall)
+	if test -d "${HOME}/.bashish"
+	then
+		:
+	else
+		_bashish_restore
+		unset -f cd
+		unset -f _bashish_promptupdate _bashish_winch_promptupdate
+		return 0
+	fi
+	
 	## temporarily disable CTRL+C
 	test "x$ZSH_NAME$BASH" != x && trap "" INT
 	
@@ -111,31 +152,9 @@ _bashish_promptupdate ()
 		
 
 	}
-	PS2='> '
-	PS3='#? '
-	PS4='+ '
-
-	## load the fallback prompt to memory
-	case "$SHELLNAME" in
-	bash)
-		PS1='\s-\v\$ '
-		unset PROMPT_COMMAND
-	;;
-	zsh)
-		PS1='%m%# '
-		PS2='%_> '
-		PS3='?# '
-		PS4='+%N:%i> '
-		unset RPS1 RPS2
-		## zsh warns if functions does not exists
-		unset -f precmd preexec 2>/dev/null
-	;;
-	*)
-		case '$UID' in
-		0) PS1='# ';;
-		*) PS1='$ ';;
-		esac
-	esac
+	
+	## restore prompt
+	_bashish_restore
 
 	## load defaults
 	_bashish_defaults

@@ -202,11 +202,5 @@
         <string>-A-Za-z0-9,./?%&amp;#:_</string>
       </value>
     </entry>
-    <entry>
-      <key>x_font</key>
-      <value>
-        <string>tixus</string>
-      </value>
-    </entry>
   </entrylist>
 </gconfentryfile>
