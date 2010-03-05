@@ -5,6 +5,11 @@
 _bashish_prompt() 
 {
 	eval $(_bashish_prompt_shellvars "$SHELLNAME")
+	$_typeset GIT_PS1=$(__git_ps1 "%s" 2>/dev/null)
+	test "x${GIT_PS1}" != x && GIT_PS1="(${GIT_PS1}) "
+	$_typeset ROOT=""
+	test "x${UID}" = x0 && ROOT="# "
+
 
 	typeset UNDERLINE LINECHAR
 	TITLE="${HOSTNAME%%.*}"
@@ -47,5 +52,5 @@ _bashish_prompt()
 	NONPRINT_END=""
 	NEWLINE="
 "
-	PS1="${UNDERLINE}${NEWLINE}${HIDE}${ESC}[A${ESC}[${COLUMNS}G${VT100LINECHAR}${LINECHAR}${ESC}[0m${ESC}[B${ESC}[0G${ESC}[1;7m${UNHIDE} "$PROMPTSTR" ${HIDE}${ESC}[0m${UNHIDE} "
+	PS1="${UNDERLINE}${NEWLINE}${EMBED}${ESC}[A${ESC}[${COLUMNS}G${VT100LINECHAR}${LINECHAR}${ESC}[0m${ESC}[B${ESC}[0G${ESC}[1;7m${UNEMBED} "$PROMPTSTR" ${GIT_PS1}${ROOT}${EMBED}${ESC}[0m${UNEMBED} "
 }

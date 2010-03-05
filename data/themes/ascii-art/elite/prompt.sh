@@ -17,10 +17,10 @@ $_typeset BASHISH_C0=`_bashish_prompt_cp437 C0` # └
 $_typeset BASHISH_C4=`_bashish_prompt_cp437 C4` # ─
 $_typeset BASHISH_F9=`_bashish_prompt_cp437 F9` # ∙
 $_typeset BASHISH_FA=`_bashish_prompt_cp437 FA` # ·
-test "x$PROMPTSTR" = x && $_typeset PROMPTSTR="${ESC}[3${BASHISH_COLOR1}m${USER}${ESC}[3${BASHISH_COLOR0}m@${ESC}[3${BASHISH_COLOR1}m${HOSTNAME%%.*}"
+test "x$PROMPTSTR" = x && $_typeset PROMPTSTR="${USER}${ESC}[3${BASHISH_COLOR0}m@${ESC}[3${BASHISH_COLOR1}m${HOSTNAME%%.*}"
 
 PS1="${ESC}[3${BASHISH_COLOR1}m${BASHISH_DA}${BASHISH_C4}\
-${ESC}[3${BASHISH_COLOR0}m(${ESC}[0m${PROMPTSTR}${ESC}[3${BASHISH_COLOR0}m)\
+${ESC}[3${BASHISH_COLOR0}m(${ESC}[3${BASHISH_COLOR1}m${PROMPTSTR}${ESC}[3${BASHISH_COLOR0}m)\
 ${ESC}[3${BASHISH_COLOR1}m-\
 ${ESC}[3${BASHISH_COLOR0}m(\
 ${ESC}[3${BASHISH_COLOR1}m${TIME}\

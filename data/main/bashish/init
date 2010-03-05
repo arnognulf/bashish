@@ -173,8 +173,33 @@ fi
 errorhandler 1
 	;;
 	--bashishdir|-b) printf "$BASHISHDIR\n";errorhandler 1;;
-	--enable-terminal) test -f "${HOME}"/.bashish/terminal-theming-disabled && rm "${HOME}"/.bashish/terminal-theming-disabled ; gconftool-2 --type string --set /apps/gnome-terminal/global/default_profile "Bashish" 2>/dev/null; errorhandler 1 "terminal theming enabled";;
-	--disable-terminal) touch "${HOME}"/.bashish/terminal-theming-disabled ; gconftool-2 --type string --set /apps/gnome-terminal/global/default_profile "Default" 2>/dev/null; errorhandler 1 "terminal theming disabled" ;;
+	--enable-terminal)
+## gnome stuff
+IFS="[]"
+for LIST in $(gconftool-2 --get /apps/gnome-terminal/global/profile_list 2>/dev/null);do :;done
+case "$LIST" in
+""|*,Bashish|Bashish,*|*,Bashish,*)
+	:
+;;
+*)
+	## load schema
+	gconftool-2 --load "$BASHISHDIR/main/terminal/templates/gnome-terminal/schema"
+	gconftool-2 --type string --set /apps/gnome-terminal/global/default_profile "Bashish"
+	gconftool-2 --type list --list-type=string --set /apps/gnome-terminal/global/profile_list "[${LIST},Bashish]"
+esac
+unset IFS
+
+	test -f "${HOME}"/.bashish/terminal-theming-disabled && rm "${HOME}"/.bashish/terminal-theming-disabled ; gconftool-2 --type string --set /apps/gnome-terminal/global/default_profile "Bashish" 2>/dev/null; errorhandler 1 "terminal theming enabled";;
+	--disable-terminal) 
+if type -p gconftool-2 1>/dev/null 2>/dev/null
+then
+gconftool-2 --recursive-unset /apps/gnome-terminal/profiles/Bashish
+gconftool-2 --unset /apps/gnome-terminal/profiles/Bashish
+gconftool-2 --type string --set /apps/gnome-terminal/global/default_profile "Default"
+NEW_LIST="$(gconftool-2 --get /apps/gnome-terminal/global/profile_list|sed -e 's/Bashish//g' -e 's/,,/,/g' -e 's/\[,/\[/g' -e 's/,\]/\]/g')"
+gconftool-2 --type list --list-type=string --set /apps/gnome-terminal/global/profile_list "${NEW_LIST}"
+fi
+	touch "${HOME}"/.bashish/terminal-theming-disabled ; gconftool-2 --type string --set /apps/gnome-terminal/global/default_profile "Default" 2>/dev/null; errorhandler 1 "terminal theming disabled" ;;
 	init|-i*|--init) _bashish_module sys/createdirs; _bashish_module sys/termloader ;errorhandler 1;;
 	uninstall|--u*|-u*) _bashish_module sys/uninstall 
 printf "${BASHISHNAME}: bashish is now uninstalled

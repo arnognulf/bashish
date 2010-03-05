@@ -14,14 +14,16 @@ Additional packages are recommended but not required:
 Various fonts (optional for some themes, most importantly the c64 theme):
  - Adore64.ttf from http://www.freakyfonts.de/zip/adore64.zip
  - amiga4ever.ttf from http://www.freakyfonts.de/zip/amiga4ever.zip
+ - DOSEGA.ttf from http://mateusz.viste.free.fr/dos/dosega.zip
 
 If you're using fontconfig (any recent Linux does), unzip the fonts and copy
 them to "$HOME/.fonts/", then run fc-cache as follows:
 
  $ fc-cache "$HOME/.fonts"
 
-and restart your terminal (if using gnome-terminal, you _must_ exit all
-terminals and restart them).
+and restart your terminal.
+If you are using gnome-terminal, you _must_ exit all
+terminals and restart them.
 
 Additional install procedure (if you got bashish from github)
 =============================================================
