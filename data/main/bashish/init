@@ -95,6 +95,7 @@ With the interactive dialog, the user can choose a theme for the prompt or for i
 
 If $BASHISHNAME is supplied with the \"save\" option, the theme in the current working directory will be saved.
 "
+errorhandler 0
 }
 
 function _bashish_module
