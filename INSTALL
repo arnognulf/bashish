@@ -11,9 +11,15 @@ Additional packages are recommended but not required:
  - xwininfo (for X support)
  - xprop (for X support)
 
+Additional install procedure (if you got bashish from github)
+=============================================================
+If you got bashish from github, you need to install autoconf and automake
+and run the following command to generate ./configure as specified below
 
-Simple install procedure
-========================
+ % ./autogen.sh
+
+Simple install procedure (if you got bashish from the tar.gz-source)
+====================================================================
 
  % ./configure
  % make                                   # Create bashish headers
