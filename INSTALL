@@ -11,6 +11,10 @@ Additional packages are recommended but not required:
  - xwininfo (for X support)
  - xprop (for X support)
 
+Various fonts (optional for some themes, most importantly the c64 theme):
+ - Adore64.ttf from http://www.freakyfonts.de/zip/adore64.zip
+ - amiga4ever.ttf from http://www.freakyfonts.de/zip/amiga4ever.zip
+
 Additional install procedure (if you got bashish from github)
 =============================================================
 If you got bashish from github, you need to install autoconf and automake

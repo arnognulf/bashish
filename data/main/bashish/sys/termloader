@@ -68,6 +68,8 @@ function _bashish_termloader
 
 	## if terminal loading is not enabled, don't start the terminal themer
 	test -f "${HOME}"/.bashish/terminal-theming-disabled && return 0
+
+	IPCDIR="$HOME/.bashish/tmp/${TTY##*/}"
 	
 	## ps usage which at least works with linux and cygwin
 	if test "$PROCEXIST" = 1
@@ -75,13 +77,13 @@ function _bashish_termloader
 		## kill old process
 		kill $BASHISH_SUBPROC 2>/dev/null
 	else
-		IPCDIR="$HOME/.bashish/tmp/${TTY##*/}"
-		mkdir -p "$HOME/.bashish/tmp/${TTY##*/}/"
+		mkdir -p "${IPCDIR}/"
 		test -p "$IPCDIR/subproc" || mkfifo "$IPCDIR/subproc"
 
 	fi
 	export TTY BASHISHDIR BASHISH_UTF
 	$BASHISH_SHELL $BASHISHDIR/lib/_bashish_fork $BASHISH_SHELL $BASHISHDIR/lib/_bashish_subproc
+	echo "" > "$IPCDIR/subproc"
 }
 _bashish_termloader
 
