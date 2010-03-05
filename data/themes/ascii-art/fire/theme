@@ -11,6 +11,6 @@ _bashish_theme_defaults_cp437font
 
 THEME_AUTHOR="BadlandZ"
 
-TITLE="$USER @ ${HOSTNAME%%.*}"
+TITLE="$USER @ $HOSTNAME"
 
 }
