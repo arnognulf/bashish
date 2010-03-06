@@ -35,6 +35,7 @@ ${ESC}7\
 $FILLY\
 ${ESC}[0;$(($LINES - 1))r\
 ${ESC}[$LINES;0H\
+${ESC}[K\
 ${ESC}[3${BASHISH_COLOR0}m${BASHISH_C0}`_bashish_prompt_fillx ${BASHISH_C4} 2`${BASHISH_D9}\
 ${ESC}["$LINES";4H\
 ${ESC}[3${BASHISH_COLOR0}m[\
@@ -46,7 +47,7 @@ ${ESC}[3${BASHISH_COLOR0}m]\
 ${ESC}[9${BASHISH_COLOR0}m\
 ${ESC}[$LINES;$(($COLUMNS - 12))H\
 ${ESC}[3${BASHISH_COLOR0}m[\
-${ESC}[9${BASHISH_COLOR0}m\t\
+${ESC}[9${BASHISH_COLOR0}m${TIME}\
 ${ESC}[3${BASHISH_COLOR0}m\
 ${ESC}[6D:\
 ${ESC}[2C:\
@@ -69,6 +70,7 @@ ${ESC}7\
 $FILLY\
 ${ESC}[0;$(($LINES - 1))r\
 ${ESC}[$LINES;0H\
+${ESC}[K\
 ${ESC}[3${BASHISH_COLOR0}m${BASHISH_C0}`_bashish_prompt_fillx ${BASHISH_C4} 2`${BASHISH_D9}\
 ${ESC}["$LINES";4H\
 ${ESC}[3${BASHISH_COLOR0}m[\
@@ -80,7 +82,7 @@ ${ESC}[3${BASHISH_COLOR0}m]\
 ${ESC}[9${BASHISH_COLOR0}m\
 ${ESC}[$LINES;$(($COLUMNS - 12))H\
 ${ESC}[3${BASHISH_COLOR0}m[\
-${ESC}[9${BASHISH_COLOR0}m\t\
+${ESC}[9${BASHISH_COLOR0}m${TIME}\
 ${ESC}[3${BASHISH_COLOR0}m\
 ${ESC}[6D:\
 ${ESC}[2C:\

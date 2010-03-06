@@ -58,6 +58,7 @@ ${ESC}[4${BASHISH_COLOR0};30m\
 $FILLY\
 ${ESC}[0;$(($LINES - 2))r\
 ${ESC}[$(($LINES - 1));0H\
+${ESC}[K\
 ${ESC}[0m${ESC}[K${ESC}[4${BASHISH_COLOR0};30m  ${ESC}[E\
 ${ESC}[$(($LINES));0H\
 ${ESC}[0;3${BASHISH_COLOR0}m`_bashish_prompt_cp437 DF`\
