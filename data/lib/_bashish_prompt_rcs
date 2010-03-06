@@ -1,0 +1,68 @@
+#!/bin/bash
+##################################################################################
+## Bashish, a console theme engine
+## Copyright (C) 2010 Thomas Eriksson
+##
+## This program is free software; you can redistribute it and/or
+## modify it under the terms of the GNU General Public License
+## as published by the Free Software Foundation; either version 2
+## of the License, or (at your option) any later version.
+##
+## This program is distributed in the hope that it will be useful,
+## but WITHOUT ANY WARRANTY; without even the implied warranty of
+## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+## GNU General Public License for more details.
+## 
+##
+## along with this program; if not, write to the Free Software
+## Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+##################################################################################
+##
+## _bashish_prompt_parsecolors is a theme helper
+## translate color names to ansi color numbers (not foreground, background nor attributes)
+##
+## BASHISH_COLOR0
+## ..
+## BASHISH_COLORn
+##
+## where n is an arbitary number of colors
+##
+##################################################################################
+_bashish_prompt_rcs_traverse ()
+{
+	test "x${1}" = x && return 0
+
+	if test -d "${1}/.hg"
+	then
+		hg branch 2>/dev/null
+	elif test -d "${1}/.bzr"
+	then
+		#bzr revno 2>/dev/null
+		printf "${PWD##*/}"
+	else
+		_bashish_prompt_rcs_traverse "${1%/*}"
+	fi
+:
+}
+
+_bashish_prompt_rcs ()
+{
+svn info 2>/dev/null| grep URL:
+	## use the original __git_ps1 and check for a git-dir
+	typeset -f __git_ps1 1>/dev/null 2>/dev/null || . "$BASHISHDIR"/lib/__git_ps1
+	typeset GIT_PS1=$(__git_ps1 %s 2>/dev/null)
+	test x"${GIT_PS1}" != x && { printf "${GIT_PS1}"; return 0; }
+	
+	## hg and bzr detection
+	_bashish_prompt_rcs_traverse "${PWD}"
+	typeset HGBZR_PS1=$(_bashish_prompt_rcs_traverse "${PWD}")
+	test x"${HGBZR_PS1}" != x && { printf "${HGBZR_PS1}"; return 0; }
+
+	## svn detection
+	## from: http://code.dmpayton.com/dotfiles/src/tip/.bashrc
+	test -d .svn && typeset SVN_PS1=$(svn info 2>/dev/null| grep URL:)
+	test x"${SVN_PS1##*/}" != x && { printf "${SVN_PS1##*/}"; return 0; }
+
+}
+
+test x$BASHISH_FNLOAD != x1 && _bashish_prompt_rcs "$@"
