@@ -8,13 +8,14 @@ _bashish_prompt() {
 eval $(_bashish_prompt_shellvars $SHELLNAME)
 eval $(_bashish_prompt_parsecolors "$@")
 test "x${BASHISH_COLOR0}" = x && eval $(_bashish_prompt_parsecolors yellow red)
+test "x${BASHISH_COLOR1}" = x && eval $(_bashish_prompt_parsecolors $1 red)
 
 $_typeset FADE="`_bashish_prompt_cp437 DB B2 B1 B0`"
 $_typeset FADE2="`_bashish_prompt_cp437 B0 B1 B2 DB`"
 $_typeset BASHISH_CWD=`_bashish_prompt_cwd "\\[${ESC}[3${BASHISH_COLOR1}m\\]" "\\[${ESC}[3${BASHISH_COLOR0}m\\]" 39`
 $_typeset GIT_PS1=$(__git_ps1 "%s" 2>/dev/null)
 test "x${GIT_PS1}" != x && GIT_PS1="${EMBED}${ESC}[3${BASHISH_COLOR1};1m${UNEMBED}(${EMBED}${ESC}[3${BASHISH_COLOR0};1m${UNEMBED}${GIT_PS1}${EMBED}${ESC}[3${BASHISH_COLOR1};1m${UNEMBED})${EMBED}${ESC}[0m${UNEMBED} "
-test x${PROMPTSTR} = x && $_typeset PROMPTSTR=${USER}@${HOSTNAME}
+test x${PROMPTSTR} = x && $_typeset PROMPTSTR=${USER}@${HOSTNAME%%.*}
 
 $_typeset ROOT=""
 test "x${UID}" = x0 && ROOT="$EMBED${ESC}[3${BASHISH_COLOR0};1m$UNEMBED#$EMBED${ESC}[0m$UNEMBED "
