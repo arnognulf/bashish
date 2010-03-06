@@ -49,7 +49,7 @@ function _bashish_save
 	if test -f ./prompt.ksh
 	then
 		bash ./prompt.ksh || errorhandler 222
-		( . ./prompt.bash ; declare -f _bashish_prompt 2>/dev/null 1>/dev/null || exit 262)|| errorhandler 262
+		( . ./prompt.ksh ; declare -f _bashish_prompt 2>/dev/null 1>/dev/null || exit 262)|| errorhandler 262
 
 	fi
 

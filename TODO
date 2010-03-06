@@ -1,6 +1,8 @@
 bashish-2.2.2
 -------------
 bug: c64 doesn't work on osx
+feat: center logos
+feat: fix urbandawn and the mvs themes
 feat: bashish exec foo -bar -baz
 
 bug: broken & untested on zsh & ksh & sh & dash & csh & tcsh
