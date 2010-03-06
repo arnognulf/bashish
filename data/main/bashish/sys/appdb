@@ -22,14 +22,14 @@ function _bashish_appdb
 {
 	typeset APP
 	
-	for APP in $HOME/.bashish/launcher/*
+	for APP in "$HOME"/.bashish/launcher/*
 	do
-		test -d ${HOME}/.bashish/app/${APP##*/}||rm ${APP} 2>/dev/null
+		test -d "${HOME}"/.bashish/app/"${APP##*/}"||rm "${APP}" 2>/dev/null
 	done
 	
-	for APP in $HOME/.bashish/app/*
+	for APP in "$HOME"/.bashish/app/*
 	do
-		test -L ${HOME}/.bashish/launcher/${APP##*/}||ln -sf ${BASHISHDIR}/lib/_bashish_launcher ${HOME}/.bashish/launcher/${APP##*/}
+		test -L "${HOME}/.bashish/launcher/${APP##*/}"||ln -sf "${BASHISHDIR}"/lib/_bashish_launcher "${HOME}"/.bashish/launcher/${APP##*/}
 	done
 }
 _bashish_appdb

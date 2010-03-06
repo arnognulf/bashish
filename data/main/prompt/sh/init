@@ -25,7 +25,7 @@
 ## _bashish_module is a function that reads and executes shell script modules
 _bashish_module ()
 {
-	. $BASHISHDIR/main/prompt/sh/$1
+	. "$BASHISHDIR"/main/prompt/sh/$1
 }
 
 

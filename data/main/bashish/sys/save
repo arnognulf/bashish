@@ -94,8 +94,8 @@ function _bashish_save
 	## the "-z" flag to tar is a GNU extension
 	## hence a more compatible tar command must be issued
 	_bashish_find "$BASHISH_THEME"
-	THEMEFILE=${THEMEFILE#$BASHISHDIR}
-	THEMEFILE=${THEMEFILE#$HOME/.bashish}
+	THEMEFILE="${THEMEFILE#$BASHISHDIR}"
+	THEMEFILE="${THEMEFILE#$HOME/.bashish}"
 	if test "x$THEMEFILE" != x
 	then
 		printf "${0##*/}: update ${THEMEFILE#/themes/}? [yes]"
@@ -113,7 +113,7 @@ function _bashish_save
 		done
 		THEMEFILE="themes/$THEMEDIR/${BASHISH_THEME}"
 	fi
-	THEMEFILE=$HOME/.bashish/${THEMEFILE}
+	THEMEFILE="$HOME"/.bashish/${THEMEFILE}
 	mkdir -p "${THEMEFILE}"
 	rm -f "${THEMEFILE}"/*
 	## only copy the needed files
@@ -129,7 +129,7 @@ function _bashish_save
 		. ./theme
 		## test if this is the prompt theme
 		OLD_BASHISH_THEME="$BASHISH_THEME"
-		. $HOME/.bashish/prompt/theme
+		. "$HOME"/.bashish/prompt/theme
 	)
 }
 _bashish_save

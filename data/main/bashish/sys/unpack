@@ -27,7 +27,7 @@ function _bashish_unpack
 	esac
 
 
-	DESTDIR=${HOME}/.bashish/prompt
+	DESTDIR="${HOME}"/.bashish/prompt
 	test "x${BTAPP}" != x && DESTDIR="$HOME/.bashish/app/${BTAPP##*/}"
 	if test -d "${DESTDIR}"
 	then

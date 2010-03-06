@@ -22,9 +22,9 @@
 ## write the pid of this process
 #set -x
 
-printf "$$" 1> $HOME/.bashish/tmp/${TTY##*/}/pid
+printf "$$" 1> "$HOME"/.bashish/tmp/${TTY##*/}/pid
 ## init bashish
-. $BASHISHDIR/main/terminal/init
+. "${BASHISHDIR}"/main/terminal/init
 
 ## main loop
 ## wait for input from FIFO, execute input, loop
@@ -36,7 +36,7 @@ do
 	unset BTAPP BASHISH_ARGV ARGV EVAL
 
 	## test if fifo is avaliable
-	test -p $HOME/.bashish/tmp/${TTY##*/}/subproc||exit 1
+	test -p "$HOME"/.bashish/tmp/${TTY##*/}/subproc||exit 1
 	read EVAL <"$HOME/.bashish/tmp/${TTY##*/}/subproc"
 	eval $EVAL
 	_bashish_brefresh
@@ -48,7 +48,7 @@ do
 	do
 	unset BTAPP BASHISH_ARGV[*] EVAL
 	## test if fifo is avaliable
-	test -p $HOME/.bashish/tmp/${TTY##*/}/subproc||exit 1
+	test -p "$HOME"/.bashish/tmp/${TTY##*/}/subproc||exit 1
 	read EVAL <"$HOME/.bashish/tmp/${TTY##*/}/subproc"
 	eval $EVAL
 	done

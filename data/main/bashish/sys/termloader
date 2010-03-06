@@ -39,7 +39,7 @@ function _bashish_termloader
 
 	## clean up bashish zombie processes that are connected to disconnected ttys
 	typeset TTYS
-	for TTYS in $HOME/.bashish/tmp/*
+	for TTYS in "$HOME"/.bashish/tmp/*
 	do
 		test -O "/dev/${TTYS##*/}" -o -O "/dev/pts/${TTYS##*/}"||{
 			read TTYPID <"${TTYS}/pid" 2>/dev/null
@@ -52,13 +52,13 @@ function _bashish_termloader
 	## detect UTF-8
 	test "x$BASHISH_CP" = x && {
 		BASHISH_CP=437
-		. $BASHISHDIR/lib/_bashish_utfcheck && BASHISH_CP=utf8
+		. "$BASHISHDIR"/lib/_bashish_utfcheck && BASHISH_CP=utf8
 	}
 
 	## Cygwin compatibility code
 	typeset PROCEXIST=0
  	test -f "$HOME/.bashish/tmp/${TTY##*/}/pid" && {
- 		read BASHISH_SUBPROC <$HOME/.bashish/tmp/${TTY##*/}/pid
+ 		read BASHISH_SUBPROC <"$HOME"/.bashish/tmp/"${TTY##*/}"/pid
 
 		case "$(uname)" in
 		CYGWIN*) ps -f -u "$USER" | grep "$BASHISH_SUBPROC" && PROCEXIST=1;;
@@ -82,7 +82,7 @@ function _bashish_termloader
 
 	fi
 	export TTY BASHISHDIR BASHISH_UTF
-	$BASHISH_SHELL $BASHISHDIR/lib/_bashish_fork $BASHISH_SHELL $BASHISHDIR/lib/_bashish_subproc
+	"$BASHISH_SHELL" "$BASHISHDIR"/lib/_bashish_fork "$BASHISH_SHELL" "$BASHISHDIR"/lib/_bashish_subproc
 	echo "" > "$IPCDIR/subproc"
 }
 _bashish_termloader

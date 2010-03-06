@@ -21,15 +21,15 @@ function _bashish_konsole_init
 {
 	return 0
 	## kill bashish_dcop if running
-	BASHISH_DCOP="$(cat $HOME/.bashish/system/konsole/gschemadir/$BASHISH_GSCHEMA/pid 2>/dev/null)"
+	BASHISH_DCOP="$(cat ${HOME}/.bashish/system/konsole/gschemadir/$BASHISH_GSCHEMA/pid 2>/dev/null)"
 	#ps "$BASHISH_DCOP" >/dev/null && case "`ps $BASHISH_DCOP 2>/dev/null`" in
 	#*bashish*)
 	#	kill "$BASHISH_DCOP"
 	#esac
 	
 	## create gschema dir with two fifos
-	mkdir -p $HOME/.bashish/tmp/${TTY#*/}/
-	for FIFO in $HOME/.bashish/tmp/${TTY#*/}/reparse $HOME/.bashish/system/konsole/gschemadir/$BASHISH_GSCHEMA/title
+	mkdir -p "$HOME"/.bashish/tmp/${TTY#*/}/
+	for FIFO in "$HOME"/.bashish/tmp/${TTY#*/}/reparse "$HOME"/.bashish/system/konsole/gschemadir/$BASHISH_GSCHEMA/title
 	do
 		test -p $FIFO || mkfifo $FIFO
 	done
@@ -41,11 +41,11 @@ function _bashish_konsole_init
 	#tail -f $HOME/.bashish/tmp/${TTY#*/}/title|dcop --pipe konsole-$KONSOLE_PROCESS $BASHISH_SESSION renameSession %1 &
 
 	## fork the bashish_dcop handler into the background
-	$BASHISHDIR/bin/fork $BASHISHDIR/bin/bashish_dcop $BASHISH_GSCHEMA $PPID $BASHISH_SESSION
+	"$BASHISHDIR"/bin/fork "$BASHISHDIR"/bin/bashish_dcop $BASHISH_GSCHEMA $PPID $BASHISH_SESSION
 
 	### initialize konsole profile
-	mkdir -p $HOME/.kde/share/apps/konsole/
-	cp $BASHISHDIR/system/konsole/bashish.schema $HOME/.kde/share/apps/konsole/bashish$BASHISH_GSCHEMA.schema
+	mkdir -p "$HOME"/.kde/share/apps/konsole/
+	cp "$BASHISHDIR"/system/konsole/bashish.schema "$HOME"/.kde/share/apps/konsole/bashish$BASHISH_GSCHEMA.schema
 
 	## the konsole_init function is only needed once
 	## thus an empty placeholder can replace it

@@ -55,10 +55,10 @@ function _bashish_brefresh
 {
 	if test "${BASHISH_ARGV[0]}"; then
 		## set BTDIR to APPDIR
-		typeset BTDIR=$HOME/.bashish/app/${BASHISH_ARGV[0]##*/}
+		typeset BTDIR="$HOME"/.bashish/app/${BASHISH_ARGV[0]##*/}
 	else
 		## $BTDIR points to the theme dir
-		typeset BTDIR=$HOME/.bashish/prompt/
+		typeset BTDIR="$HOME"/.bashish/prompt/
 	fi
 	## load default theme options
 	_bashish_theme_defaults

@@ -48,7 +48,7 @@ do
 		cp "${FILE}" "${HOME}"/.bashish/defaults/
 done
 
-for FILE in $BASHISHDIR/overrides/*
+for FILE in "$BASHISHDIR"/overrides/*
 do
 	test -f "${HOME}"/.bashish/overrides/"${FILE##*/}" || \
 		cp "${FILE}" "${HOME}"/.bashish/overrides/

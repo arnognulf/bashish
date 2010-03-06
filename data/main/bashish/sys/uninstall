@@ -37,7 +37,7 @@ removerc "${HOME}"/.bashrc
 removerc "${HOME}"/.profile
 removerc "${HOME}"/.bash_profile
 
-for BASHISH_PID in $HOME/.bashish/tmp/*/pid
+for BASHISH_PID in "$HOME"/.bashish/tmp/*/pid
 do
 	if test -f "${BASHISH_PID}"
 	then

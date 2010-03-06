@@ -26,7 +26,7 @@
 function _bashish_update
 {
 	rm "$HOME"/.bashish/tmp/*/sync 2>/dev/null
-	for SHPIDFILE in $HOME/.bashish/tmp/*/shpid*
+	for SHPIDFILE in "$HOME"/.bashish/tmp/*/shpid*
 	do
 		case "$SHPIDFILE" in
 		*/\*/shpid*) return 0;;

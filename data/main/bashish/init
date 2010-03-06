@@ -108,7 +108,7 @@ errorhandler 0
 
 function _bashish_module
 {
-	. $BASHISHDIR/main/bashish/$1
+	. "$BASHISHDIR"/main/bashish/$1
 }
 
 ## returncodes
@@ -222,7 +222,7 @@ errorhandler 1
 		## magic globbing code
 		TEMP=$(declare -p BASHISH_ARGV)
 		PATH=$BASHISH_OLDPATH
-		printf "BASHISH_BASHISH_ARGV=${TEMP#*=};BTAPP='${0##*/}'" 1>$HOME/.bashish/tmp/${TTY##*/}/subproc
+		printf "BASHISH_BASHISH_ARGV=${TEMP#*=};BTAPP='${0##*/}'" 1>"$HOME"/.bashish/tmp/"${TTY##*/}"/subproc
 		#read input <$HOME/.bashish/tmp/${TTY##*/}/singitback
 		n=1
 		eval $(printf \"${0##*/}\"; while test "$n" -lt ${BASHISH_ARGC};do
