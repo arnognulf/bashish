@@ -45,7 +45,7 @@ function _bashish_prompt_cwd
 		for COLUMNS in $(stty size);do :;done
 		unset IFS
 	fi
-	eval "case \"$PWD\" in "$HOME"*) PWD=\${PWD:"${#HOME}"};CWD=\$TXTCOLOR\~;;/)CWD=\$SEPCOLOR/;esac"
+	eval "case \"$PWD\" in "$HOME"*) PWD=\${PWD:"${#HOME}"};CWD=\${TXTCOLOR}\~;;/)CWD=\${SEPCOLOR}/;esac"
 	test $(( $COLUMNS - ${#PWD} )) -lt ${CUTOFF} && { 
 		CWD=${TXTCOLOR}...
 		eval "PWD=\"\${PWD:$(( ${#PWD} - ( $COLUMNS - $CUTOFF ) ))}\""
