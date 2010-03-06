@@ -24,11 +24,14 @@ _bashish_prompt ()
 TITLE="( $USER @ ${HOSTNAME%%.*} )"
 eval $(_bashish_prompt_shellvars $SHELLNAME)
 eval $(_bashish_prompt_parsecolors "$@")
-test "x${BASHISH_COLOR0}" = x && eval $(_bashish_prompt_parsecolors green)
+test "x${BASHISH_COLOR2}" = x && eval $(_bashish_prompt_parsecolors green red white)
 
 $_typeset i=0
 $_typeset FILLY=""
-$_typeset BASHISH_CWD=`_bashish_prompt_cwd "\033[31m" "\033[37m" 39`
+$_typeset BASHISH_CWD=`_bashish_prompt_cwd "${ESC}[3${BASHISH_COLOR1}m" "${ESC}[3${BASHISH_COLOR2}m" 39`
+
+$_typeset GIT_PS1=$(__git_ps1 "%s" 2>/dev/null)
+test "x${GIT_PS1}" != x && GIT_PS1="${ESC}[3${BASHISH_COLOR1}m)  (${ESC}[3${BASHISH_COLOR2}m${GIT_PS1}"
 
 while test "$i" -lt $(($LINES))
 do
@@ -36,7 +39,11 @@ do
 	let i++
 done
 
-test "x$PROMPTSTR" = x && typeset PROMPTSTR="${USER}${ESC}[4${BASHISH_COLOR0};31m@${ESC}[37m${HOSTNAME%%.*}"
+test "x$PROMPTSTR" = x && typeset PROMPTSTR="${USER}${ESC}[4${BASHISH_COLOR0};3${BASHISH_COLOR1}m@${ESC}[3${BASHISH_COLOR2}m${HOSTNAME%%.*}"
+
+$_typeset ROOT="="
+test "x${UID}" = x0 && ROOT="#"
+
 
 ## this is messy stuff, cannot comment in code so I comment above
 ## don't whine if the comments are wrong ;)
@@ -55,33 +62,32 @@ ${ESC}[0;3${BASHISH_COLOR0}m`_bashish_prompt_cp437 DF`\
 ${ESC}[4${BASHISH_COLOR0};30m`_bashish_prompt_fillx \" \" 2`\
 ${ESC}[0;3${BASHISH_COLOR0}m`_bashish_prompt_cp437 DC`\
 ${ESC}[$LINES;4H\
-${ESC}[4${BASHISH_COLOR0};31m(\
-${ESC}[37m$PROMPTSTR\
-${ESC}[31m)\
+${ESC}[4${BASHISH_COLOR0};3${BASHISH_COLOR1}m(\
+${ESC}[3${BASHISH_COLOR2}m$PROMPTSTR\
+${ESC}[3${BASHISH_COLOR1}m)\
 ${ESC}[2C(\
-${ESC}[37m$BASHISH_CWD\
-${ESC}[31m)\
+${ESC}[3${BASHISH_COLOR2}m$BASHISH_CWD${GIT_PS1}\
+${ESC}[3${BASHISH_COLOR1}m)\
 ${ESC}[33m\
 ${ESC}[$LINES;$(($COLUMNS - 12))H\
-${ESC}[31m(\
-${ESC}[37m\t\
-${ESC}[31m\
+${ESC}[3${BASHISH_COLOR1}m(\
+${ESC}[3${BASHISH_COLOR2}m${TIME}\
+${ESC}[3${BASHISH_COLOR1}m\
 ${ESC}[6D:\
 ${ESC}[2C:\
 ${ESC}[2C\
-${ESC}[31m)\
+${ESC}[3${BASHISH_COLOR1}m)\
 ${ESC}8\
 ${ESC}[0;4;3${BASHISH_COLOR0}m\
 ${UNEMBED}\
 `_bashish_prompt_cp437 DC`\
 ${EMBED}\
-${ESC}[0;4${BASHISH_COLOR0};31m\
-${UNEMBED} = ${EMBED}\
-${ESC}[0;31m\
+${ESC}[0;4${BASHISH_COLOR0};3${BASHISH_COLOR1}m\
+${UNEMBED} ${ROOT} ${EMBED}\
+${ESC}[0;3${BASHISH_COLOR1}m\
 ${UNEMBED}\
 `_bashish_prompt_cp437 C4`<${EMBED}\
 ${ESC}[0m\
 ${UNEMBED}\
  "
 }
-_bashish_prompt

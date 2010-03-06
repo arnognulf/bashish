@@ -70,8 +70,22 @@ function _bashish_save
 	then
 		zsh ./prompt.zsh || errorhandler 222
 	fi
-
-
+	## syntax parsing end
+	
+	## warn if using unwanted constructs
+	for FILE in ./prompt.sh ./prompt.bash ./prompt.ksh ./prompt.zsh
+	do
+		test -f "${FILE}" || continue
+		grep '\\033' "$FILE" && echo "$BASHISHNAME: warning: use \${ESC} instead of \\033 since it may not work on some shells"
+		grep '\\007' "$FILE" && echo "$BASHISHNAME: warning: use \${BEL} instead of \\007 since it may not work on some shells"
+		grep '\\e' "$FILE" && echo "$BASHISHNAME: warning: use \${ESC} instead of \\e since it may not work on some shells"
+		grep '\\d' "$FILE" && echo "$BASHISHNAME: warning: use \${DATE} instead of \\d since it may not work on some shells"
+		grep '\\t' "$FILE" && echo "$BASHISHNAME: warning: use \${TIME} instead of \\t since it may not work on some shells"
+		grep '%{' "$FILE" && echo "$BASHISHNAME: warning: use \${EMBED} and \${UNEMBED} instead of %{ and %} since it may not work on some shells"
+		grep '\\\[' "$FILE" && echo "$BASHISHNAME: warning: use \${EMBED} and \${UNEMBED} instead of \\[ and \\] since it may not work on some shells"
+		grep '${HOSTNAME}' "${FILE}" && echo "$BASHISHNAME: warning: use \${HOSTNAME%%.*} instead of \${HOSTNAME} since the hostname may include several subdomains"
+		grep '$HOSTNAME' "${FILE}" && echo "$BASHISHNAME: warning: use \${HOSTNAME%%.*} instead of \$HOSTNAME since the hostname may include several subdomains"
+	done
 	
 	 . ./theme ; test "x$BASHISH_THEME" != x|| errorhandler 25
 	declare -f "_bashish_theme_${BASHISH_THEME}" 1>/dev/null 2>/dev/null || errorhandler 251
