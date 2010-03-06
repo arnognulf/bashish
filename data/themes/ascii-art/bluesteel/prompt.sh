@@ -53,9 +53,13 @@ $_typeset LINE=`_bashish_prompt_fillx $BASHISH_C4`
 
 test "x${PROMPTSTR}" = x && $_typeset PROMPTSTR="$USER${ESC}[9${BASHISH_COLOR0}m@${ESC}[3${BASHISH_COLOR0}m${HOSTNAME%%.*}"
 
+## Mac OS X needs it's wrap arond turned off for bashish to print the spiffy prompts
+## correctly
+
 case "$SHELLNAME" in
 bash|zsh)
 PS1="\
+${ESC}[?7l\
 ${ESC}[${COLUMNS}D\
 ${ESC}[3${BASHISH_COLOR0}m$LINE\
 ${ESC}[${COLUMNS}D\

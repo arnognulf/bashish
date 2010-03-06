@@ -29,6 +29,7 @@ $_typeset BASHISH_CWD=`_bashish_prompt_cwd "${ESC}[3${BASHISH_COLOR0}m" "${ESC}[
 case "${UID}" in
 0)
 PS1="${EMBED}\
+${ESC}[?7l\
 ${ESC}[A\
 ${ESC}[B\
 ${ESC}7\
@@ -64,6 +65,7 @@ ${ESC}[0m${UNEMBED}"
 ;;
 *)
 PS1="${EMBED}\
+${ESC}[?7l\
 ${ESC}[A\
 ${ESC}[B\
 ${ESC}7\
