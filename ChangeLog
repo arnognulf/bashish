@@ -26,7 +26,7 @@ What's hot:
 
 * Revision indicator
   There is now a branch/revision indicator in several themes which displays
-  branch (if applcable) and revision (also if applicable).
+  branch (if applicable) and revision (also if applicable).
   Coming to a git, hg, svn, bzr and cvs project near you!
   In the themes conda, fade, box, fire, and a few more...
   (feel free to submit branch/revision/other relevant parsing parsing of your favourite rcs

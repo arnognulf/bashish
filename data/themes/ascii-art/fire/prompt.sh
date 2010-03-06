@@ -9,6 +9,7 @@ eval $(_bashish_prompt_shellvars $SHELLNAME)
 eval $(_bashish_prompt_parsecolors "$@")
 test "x${BASHISH_COLOR0}" = x && eval $(_bashish_prompt_parsecolors yellow red)
 test "x${BASHISH_COLOR1}" = x && eval $(_bashish_prompt_parsecolors $1 red)
+PROMPT_COMMAND="_BASHISH_PROMPT_RCS=\$(_bashish_prompt_rcs \${_BASHISH_PROMPT_RCS} ) && _bashish_promptupdate"
 
 $_typeset FADE="`_bashish_prompt_cp437 DB B2 B1 B0`"
 $_typeset FADE2="`_bashish_prompt_cp437 B0 B1 B2 DB`"

@@ -17,6 +17,7 @@ eval $(_bashish_prompt_parsecolors "$@")
 test x"$BASHISH_COLOR0" = x && eval $(_bashish_prompt_parsecolors cyan)
 
 
+PROMPT_COMMAND="_BASHISH_PROMPT_RCS=\$(_bashish_prompt_rcs \${_BASHISH_PROMPT_RCS} ) && _bashish_promptupdate"
 
 $_typeset BASHISH_BF=$(_bashish_prompt_cp437 BF) # ┐
 $_typeset BASHISH_C0=$(_bashish_prompt_cp437 C0) # └

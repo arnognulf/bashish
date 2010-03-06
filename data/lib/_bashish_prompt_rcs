@@ -134,7 +134,7 @@ _bashish_prompt_rcs_git ()
 
 _bashish_prompt_rcs_traverse ()
 {
-	test "x${1}" = x && return 0
+	test "x${1}" = x && return 1
 
 	if test -d "${1}/.git"
 	then
@@ -159,9 +159,15 @@ _bashish_prompt_rcs_traverse ()
 
 _bashish_prompt_rcs ()
 {
-	## hg and bzr detection
+	typeset OLD_RCS="$1"
+	
+	## git, hg, and bzr detection
 	typeset TRAVERSED_PS1=$(_bashish_prompt_rcs_traverse "${PWD}")
-	test x"${TRAVERSED_PS1}" != x && { printf "${TRAVERSED_PS1}"; return 0; }
+	if test x"${TRAVERSED_PS1}" != x
+	then
+		printf "${TRAVERSED_PS1}"
+		test "x${OLD_RCS}" = "x${TRAVERSED_PS1}" && return 1
+	fi
 
 	## svn detection
 	if test -d .svn
@@ -179,16 +185,26 @@ _bashish_prompt_rcs ()
 		done
 		unset IFS
 		eval typeset SVN_PS1="\"\${SVN_URL#${SVN_ROOT}/}\""
-		test x"${SVN_PS1%%/*}" != x && { printf "${SVN_PS1%%/*}:${SVN_REV}"; return 0; }
+		if test x"${SVN_PS1%%/*}" != x
+		then
+			printf "${SVN_PS1%%/*}:${SVN_REV}"
+			test "x${OLD_RCS}" = "x${SVN_PS1%%/*}:${SVN_REV}" && return 1
+			return 0
+		fi
 	fi
 	
 	## cvs detection
 	if test -f CVS/Repository
 	then
 		CVS_PS1="$(cat CVS/Repository)"
-		test x"${CVS_PS1%%/*}" != x && { printf "${CVS_PS1%%/*}"; return 0;}
+		if test x"${CVS_PS1%%/*}" != x
+		then
+			printf "${CVS_PS1%%/*}"
+			test "x${OLD_RCS}" = "x${CVS_PS1%%/*}" && return 1
+			return 0
+		fi
 	fi
-	return 0
+	return 1
 }
 
 test x$BASHISH_FNLOAD != x1 && _bashish_prompt_rcs "$@"

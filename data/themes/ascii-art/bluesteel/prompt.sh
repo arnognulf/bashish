@@ -41,6 +41,7 @@ _bashish_prompt ()
 eval $(_bashish_prompt_shellvars $SHELLNAME)
 eval $(_bashish_prompt_parsecolors "$@")
 test "x${BASHISH_COLOR0}" = x && eval $(_bashish_prompt_parsecolors blue)
+PROMPT_COMMAND="_BASHISH_PROMPT_RCS=\$(_bashish_prompt_rcs \${_BASHISH_PROMPT_RCS} ) && _bashish_promptupdate"
 $_typeset RCS_PS1=$(_bashish_prompt_rcs)
 test "x${RCS_PS1}" != x && RCS_PS1="${ESC}[3${BASHISH_COLOR0};1m|${ESC}[0;3${BASHISH_COLOR0}m${RCS_PS1}"
 $_typeset ROOT=">"

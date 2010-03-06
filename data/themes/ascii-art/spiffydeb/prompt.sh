@@ -25,6 +25,7 @@ TITLE="( $USER @ ${HOSTNAME%%.*} )"
 eval $(_bashish_prompt_shellvars $SHELLNAME)
 eval $(_bashish_prompt_parsecolors "$@")
 test "x${BASHISH_COLOR0}" = x && eval $(_bashish_prompt_parsecolors white)
+PROMPT_COMMAND="_BASHISH_PROMPT_RCS=\$(_bashish_prompt_rcs \${_BASHISH_PROMPT_RCS} ) && _bashish_promptupdate"
 
 $_typeset RCS_PS1=$(_bashish_prompt_rcs)
 test "x${RCS_PS1}" != x && RCS_PS1="${EMBED}${ESC}[1;3${BASHISH_COLOR0}m${UNEMBED}|${EMBED}${ESC}[2;3${BASHISH_COLOR0}m${UNEMBED}${RCS_PS1}${EMBED}${ESC}[0m${UNEMBED}"
