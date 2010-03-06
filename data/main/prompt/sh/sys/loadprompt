@@ -35,7 +35,7 @@ test "x${HOSTNAME}" = x && HOSTNAME=$(hostname)
 test -d "$HOME/.bashish/tmp/${TTY##*/}" || mkdir -p "$HOME/.bashish/tmp/${TTY##*/}"
 if test -d "$HOME/.bashish/tmp/${TTY##*/}"
 then
-	printf "$$" >$HOME/.bashish/tmp/${TTY##*/}/shpid
+	printf "$$" >$HOME/.bashish/tmp/${TTY##*/}/shpid$$
 	test -f "$HOME/.bashish/tmp/${TTY##*/}/sync" && rm "$HOME/.bashish/tmp/${TTY##*/}/sync"
 fi
 ## restore terminal on best effort
