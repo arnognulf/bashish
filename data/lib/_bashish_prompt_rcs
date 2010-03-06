@@ -39,7 +39,7 @@ _bashish_prompt_rcs_traverse ()
 		hg branch 2>/dev/null
 	elif test -d "${1}/.bzr"
 	then
-		printf "${1##*/}"
+		printf "${1##*/}:$(bzr revno 2>/dev/null)"
 	else
 		_bashish_prompt_rcs_traverse "${1%/*}"
 	fi
@@ -67,11 +67,12 @@ _bashish_prompt_rcs ()
 			case "${LINE}" in
 			"URL: "*) typeset SVN_URL="${LINE#URL: }";;
 			"Repository Root: "*) typeset SVN_ROOT="${LINE#Repository Root: }";;
+			"Revision: "*) typeset SVN_REV="${LINE#Revision: }"
 			esac
 		done
 		unset IFS
 		eval typeset SVN_PS1="\"\${SVN_URL#${SVN_ROOT}/}\""
-		test x"${SVN_PS1%%/*}" != x && { printf "${SVN_PS1%%/*}"; return 0; }
+		test x"${SVN_PS1%%/*}" != x && { printf "${SVN_PS1%%/*}:${SVN_REV}"; return 0; }
 	fi
 	
 	## cvs detection

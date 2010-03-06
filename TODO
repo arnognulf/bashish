@@ -1,7 +1,7 @@
 bashish-2.2.2
 -------------
 bug: app themes b0rked
-
+bug: scrolling region does not updated if bottom line and dir change
 bug: weirdness with MacOSX Terminal.app and bluesteel
 
 feat: bashish exec foo -bar -baz
