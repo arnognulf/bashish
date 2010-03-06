@@ -3,7 +3,6 @@ WELCOME TO BASHISH2
 Index
 -----
 1  About Bashish
-2  What's new for number two?
 3  Getting started
 4  Changing theme
 6  Application themeing
@@ -23,16 +22,18 @@ Bashish supports prompt changing on common shells such as bash, zsh and tcsh.
 
 Getting started
 ---------------
-First, run the 'bashish' command, it will ask you which shell you primary
-use and then try to configure automatic loading of bashish on that shell.
+First, run the 'bashish' command with no arguments:
+
+ $ bashish
+
+it will ask you to confirm modifying some
+user configuration files.
+Press ENTER and go forth.
 
 Second, restart Bashish.
 
-Bashish should furthermore be configured on the shell you specified, if you
-use an additional shell, run 'bashish --configure'.
-
-After the shell has been restarted, your terminal will appear almost as
-normal. The colors will default to a black background with grey text and 
+After the shell has been restarted, the standard theme of bashish is
+installed. The colors will default to a black background with grey text and 
 ANSI colors with low saturation, your prompt will remain unchanged.
 
 You can now select a theme for each applications and if wanted, one for the
@@ -41,9 +42,17 @@ prompt.
 
 Changing theme
 --------------
-Bashish has a slick and easy dialog-based interface for changing themes, 
-it is started by running the 'bashishtheme' command with no options.
+Show installed themes by running the 'bashish list' command:
 
+ $ bashish list
+
+Specify a theme, eg conda:
+
+ $ bashish conda
+
+and with some colors:
+
+ $ bashish conda blue
 
 Application theming
 -------------------

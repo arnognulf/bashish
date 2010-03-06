@@ -24,7 +24,9 @@ _bashish_prompt ()
 TITLE="( $USER @ ${HOSTNAME%%.*} )"
 eval $(_bashish_prompt_shellvars $SHELLNAME)
 eval $(_bashish_prompt_parsecolors "$@")
-test "x${BASHISH_COLOR2}" = x && eval $(_bashish_prompt_parsecolors green red white)
+test "x${BASHISH_COLOR0}" = x && eval $(_bashish_prompt_parsecolors green red white)
+test "x${BASHISH_COLOR1}" = x && eval $(_bashish_prompt_parsecolors $1 red white)
+test "x${BASHISH_COLOR2}" = x && eval $(_bashish_prompt_parsecolors $1 $2 white)
 
 $_typeset i=0
 $_typeset FILLY=""
