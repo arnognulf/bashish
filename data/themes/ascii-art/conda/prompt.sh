@@ -32,8 +32,8 @@ $_typeset i=0
 $_typeset FILLY=""
 $_typeset BASHISH_CWD=`_bashish_prompt_cwd "${ESC}[3${BASHISH_COLOR1}m" "${ESC}[3${BASHISH_COLOR2}m" 39`
 
-$_typeset GIT_PS1=$(__git_ps1 "%s" 2>/dev/null)
-test "x${GIT_PS1}" != x && GIT_PS1="${ESC}[3${BASHISH_COLOR1}m)  (${ESC}[3${BASHISH_COLOR2}m${GIT_PS1}"
+$_typeset RCS_PS1=$(_bashish_prompt_rcs)
+test "x${RCS_PS1}" != x && RCS_PS1="${ESC}[3${BASHISH_COLOR1}m)  (${ESC}[3${BASHISH_COLOR2}m${RCS_PS1}"
 
 while test "$i" -lt $(($LINES))
 do
@@ -68,7 +68,7 @@ ${ESC}[4${BASHISH_COLOR0};3${BASHISH_COLOR1}m(\
 ${ESC}[3${BASHISH_COLOR2}m$PROMPTSTR\
 ${ESC}[3${BASHISH_COLOR1}m)\
 ${ESC}[2C(\
-${ESC}[3${BASHISH_COLOR2}m$BASHISH_CWD${GIT_PS1}\
+${ESC}[3${BASHISH_COLOR2}m$BASHISH_CWD${RCS_PS1}\
 ${ESC}[3${BASHISH_COLOR1}m)\
 ${ESC}[33m\
 ${ESC}[$LINES;$(($COLUMNS - 12))H\

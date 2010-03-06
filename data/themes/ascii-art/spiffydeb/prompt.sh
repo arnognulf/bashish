@@ -26,8 +26,8 @@ eval $(_bashish_prompt_shellvars $SHELLNAME)
 eval $(_bashish_prompt_parsecolors "$@")
 test "x${BASHISH_COLOR0}" = x && eval $(_bashish_prompt_parsecolors white)
 
-$_typeset GIT_PS1=$(__git_ps1 "%s" 2>/dev/null)
-test "x${GIT_PS1}" != x && GIT_PS1="${EMBED}${ESC}[1;3${BASHISH_COLOR0}m${UNEMBED}|${EMBED}${ESC}[2;3${BASHISH_COLOR0}m${UNEMBED}${GIT_PS1}${EMBED}${ESC}[0m${UNEMBED}"
+$_typeset RCS_PS1=$(_bashish_prompt_rcs)
+test "x${RCS_PS1}" != x && RCS_PS1="${EMBED}${ESC}[1;3${BASHISH_COLOR0}m${UNEMBED}|${EMBED}${ESC}[2;3${BASHISH_COLOR0}m${UNEMBED}${RCS_PS1}${EMBED}${ESC}[0m${UNEMBED}"
 
 $_typeset i=0
 $_typeset FILLY=""
@@ -39,6 +39,6 @@ $_typeset ROOT='$'
 test "x${UID}" = x0 && ROOT="#"
 ## this is messy stuff, cannot comment in code so I comment above
 ## don't whine if the comments are wrong ;)
-PS1="${EMBED}${ESC}[1;3${BASHISH_COLOR0}m${UNEMBED}${USER}${EMBED}${ESC}[2m${UNEMBED}@${EMBED}${ESC}[1;3${BASHISH_COLOR0}m${UNEMBED}${HOSTNAME%%.*}${EMBED}${ESC}[2m${UNEMBED}:${BASHISH_CWD}${EMBED}${ESC}[1;3${BASHISH_COLOR0}m${UNEMBED}${GIT_PS1}${ROOT}${EMBED}${ESC}[0m${UNEMBED} "
+PS1="${EMBED}${ESC}[1;3${BASHISH_COLOR0}m${UNEMBED}${USER}${EMBED}${ESC}[2m${UNEMBED}@${EMBED}${ESC}[1;3${BASHISH_COLOR0}m${UNEMBED}${HOSTNAME%%.*}${EMBED}${ESC}[2m${UNEMBED}:${BASHISH_CWD}${EMBED}${ESC}[1;3${BASHISH_COLOR0}m${UNEMBED}${RCS_PS1}${ROOT}${EMBED}${ESC}[0m${UNEMBED} "
 }
 _bashish_prompt

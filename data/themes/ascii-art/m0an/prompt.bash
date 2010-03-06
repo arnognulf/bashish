@@ -28,10 +28,9 @@ $_typeset GREY="${EMBED}${ESC}[1;30m${UNEMBED}"
 $_typeset LGREY="${EMBED}${ESC}[0;37;40m${UNEMBED}" 
 $_typeset NCOLOR="${EMBED}${ESC}[0m${UNEMBED}"
 
-$_typeset GIT_PS1=$(__git_ps1 "%s" 2>/dev/null)
-test "x${GIT_PS1}" != x && GIT_PS1="${LCYAN}${GIT_PS1}${GREY}|"
-$_typeset ROOT="${BASHISH_BF}"
-test "x${UID}" = x0 && ROOT="#"
+$_typeset RCS_PS1=$(_bashish_prompt_rcs)
+test "x${RCS_PS1}" != x && RCS_PS1="${LCYAN}${RCS_PS1}${GREY}|"
+$_typeset ROOT="${BASHISH_BF}" test "x${UID}" = x0 && ROOT="#"
 
 test "x${PROMPTSTR}" = x && $_typeset PROMPTSTR="${USER}$GREY@$CYAN${HOSTNAME%%.*}"
 
@@ -41,7 +40,7 @@ $GREY${ROOT} ($LCYAN$PROMPTSTR$GREY) [$LCYAN${TIME}${GREY}\
 ${ESC}[6D:\
 ${ESC}[2C:\
 ${ESC}[2C\
-$GREY|$CYAN${DATE}$GREY] [${GIT_PS1}$CYAN`_bashish_prompt_cwd "${EMBED}\
+$GREY|$CYAN${DATE}$GREY] [${RCS_PS1}$CYAN`_bashish_prompt_cwd "${EMBED}\
 ${ESC}[1;30m${UNEMBED}" "${EMBED}\
 ${ESC}[0;3${BASHISH_COLOR0}m${UNEMBED}" 58`$GREY]${NCOLOR}
 $GREY${BASHISH_C0}$CYAN${BASHISH_C4}${BASHISH_C4}$LCYAN${BASHISH_C4}$LCYAN>$NCOLOR "

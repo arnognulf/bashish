@@ -5,8 +5,8 @@
 _bashish_prompt() 
 {
 	eval $(_bashish_prompt_shellvars "$SHELLNAME")
-	$_typeset GIT_PS1=$(__git_ps1 "%s" 2>/dev/null)
-	test "x${GIT_PS1}" != x && GIT_PS1="(${GIT_PS1}) "
+	$_typeset RCS_PS1=$(_bashish_prompt_rcs)
+	test "x${RCS_PS1}" != x && RCS_PS1="(${RCS_PS1}) "
 	$_typeset ROOT=""
 	test "x${UID}" = x0 && ROOT="# "
 
@@ -52,5 +52,5 @@ _bashish_prompt()
 	NONPRINT_END=""
 	NEWLINE="
 "
-	PS1="${UNDERLINE}${NEWLINE}${EMBED}${ESC}[A${ESC}[${COLUMNS}G${VT100LINECHAR}${LINECHAR}${ESC}[0m${ESC}[B${ESC}[0G${ESC}[1;7m${UNEMBED} "$PROMPTSTR" ${GIT_PS1}${ROOT}${EMBED}${ESC}[0m${UNEMBED} "
+	PS1="${UNDERLINE}${NEWLINE}${EMBED}${ESC}[A${ESC}[${COLUMNS}G${VT100LINECHAR}${LINECHAR}${ESC}[0m${ESC}[B${ESC}[0G${ESC}[1;7m${UNEMBED} "$PROMPTSTR" ${RCS_PS1}${ROOT}${EMBED}${ESC}[0m${UNEMBED} "
 }

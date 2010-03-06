@@ -13,8 +13,8 @@ test "x${BASHISH_COLOR0}" = x && eval $(_bashish_prompt_parsecolors blue)
 
 $_typeset FADE="`_bashish_prompt_cp437 DB B2 B1 B0`"
 test x${PROMPTSTR} = x && $_typeset PROMPTSTR=${USER}@${HOSTNAME%%.*}
-$_typeset GIT_PS1=$(__git_ps1 "%s" 2>/dev/null)
-test "x${GIT_PS1}" != x && GIT_PS1="${EMBED}${ESC}[3${BASHISH_COLOR0};2m${UNEMBED}(${EMBED}${ESC}[3${BASHISH_COLOR0};1m${UNEMBED}${GIT_PS1}${EMBED}${ESC}[3${BASHISH_COLOR0};2m${UNEMBED})${EMBED}${ESC}[0m${UNEMBED} "
+$_typeset RCS_PS1=$(_bashish_prompt_rcs)
+test "x${RCS_PS1}" != x && RCS_PS1="${EMBED}${ESC}[3${BASHISH_COLOR0};2m${UNEMBED}(${EMBED}${ESC}[3${BASHISH_COLOR0};1m${UNEMBED}${RCS_PS1}${EMBED}${ESC}[3${BASHISH_COLOR0};2m${UNEMBED})${EMBED}${ESC}[0m${UNEMBED} "
 $_typeset ROOT=""
 test "x${UID}" = x0 && ROOT="$EMBED${ESC}[3${BASHISH_COLOR0};1m$UNEMBED#$EMBED${ESC}[0m$UNEMBED "
 
@@ -31,7 +31,7 @@ ${ESC}[6D:\
 ${ESC}[2C:\
 ${ESC}[2C${ESC}[0m
 ${EMBED}${ESC}[3${BASHISH_COLOR0};1m${UNEMBED}"`_bashish_prompt_cwd "${EMBED}${ESC}[0;3${BASHISH_COLOR0}m${UNEMBED}" "${EMBED}${ESC}[3${BASHISH_COLOR0};1m${UNEMBED}" \`expr $COLUMNS / 2\``"/${EMBED}\
-${ESC}[0m${UNEMBED} ${GIT_PS1}${ROOT}"
+${ESC}[0m${UNEMBED} ${RCS_PS1}${ROOT}"
 
 PS2="${EMBED}\
 ${ESC}[3${BASHISH_COLOR0};40m${UNEMBED}$FADE${EMBED}\
