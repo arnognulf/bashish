@@ -28,6 +28,9 @@
 ## the screen, and thus the terminal would not report the cursor being moved
 test x$BASH != x && _bashish_prompt_isxterm ()
 {
+	## cygwin-terminal is xterm compatible, but does not support terminal responses
+	test "x${TEST_TERM}" = xcygwin && return 0
+
 	## run only once
 	unset -f _bashish_prompt_isxterm
 	printf "\033]0;     \007\033[6n"

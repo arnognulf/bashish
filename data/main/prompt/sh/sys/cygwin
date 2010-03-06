@@ -19,11 +19,11 @@
 ##################################################################################
 
 ## Cygwin needs to be put into OEM mode for spiffy ASCII graphics
-test "x$TERM" = xcygwin && case "$CYGWIN" in
-*codepage:oem*) unset CYGWIN ; test "x$OLD_CYGWIN" != x && CYGWIN=$OLD_CYGWIN;unset OLD_CYGWIN;;
-*) OLD_CYGWIN="$CYGWIN";export OLD_CYGWIN;CYGWIN="$CYGWIN codepage:oem" exec "${0#-*}";;
-"") CYGWIN=codepage:oem exec "${0#-*}" ;;
-esac
+#test "x$TERM" = xcygwin && case "$CYGWIN" in
+#B*codepage:oem*) unset CYGWIN ; test "x$OLD_CYGWIN" != x && CYGWIN=$OLD_CYGWIN;unset OLD_CYGWIN;;
+#*) OLD_CYGWIN="$CYGWIN";export OLD_CYGWIN;CYGWIN="$CYGWIN codepage:oem" exec "${0#-*}";;
+#"") CYGWIN=codepage:oem exec "${0#-*}" ;;
+#esac
 
 ## Cygwin (and others?) does not set COLUMNS and LINES by default
 ## in CygPuTTY COLUMNS and LINES get set to 0,0
@@ -36,7 +36,5 @@ then
 	export COLUMNS LINES
 fi
 
-## cygwin reports errornous size
-test "x$TERM" = xcygwin && {
-	COLUMNS=`expr $COLUMNS - 1`
-}
+## cygwin reports errornous size 
+test "x$TERM" = xcygwin && COLUMNS=`expr $COLUMNS - 1`

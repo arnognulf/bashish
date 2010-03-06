@@ -30,6 +30,9 @@ test "x$BASH" = x && _bashish_utfcheck
 
 function _bashish_utfcheck {
 	unset -f _bashish_utfcheck
+        ## cygwin-terminal is utf-8 compatible, but does not support terminal responses
+        test "x${TEST_TERM}" = xcygwin && return 0
+
 	## check if the terminal is of type VT100 compatible
 	case "$TERM" in
 	vt220|Eterm|vt320|linux|rxvt|rxvt-unicode|iris-ansi|ansi*|xterm*|hpterm|screen|konsole|gnome-terminal|interix|pcvt*|con80x*|con100x*|con132x*|console|386at|AT386|qnx*)

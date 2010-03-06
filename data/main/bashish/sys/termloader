@@ -22,6 +22,9 @@
 ## the user is asked for needed input and then a process is started
 function _bashish_termloader
 {
+	## bashish terminal theming doesn't work on /dev/console (cygwin among others)
+	test "x${TTY}" = x/dev/console && return 0
+	
 	## the bashish terminal part makes no sense in Cygwin 9x/ME
 	test "x$TERM" = xcygwin && case "$(uname)"
 	in
