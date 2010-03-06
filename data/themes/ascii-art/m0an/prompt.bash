@@ -31,7 +31,8 @@ $_typeset NCOLOR="${EMBED}${ESC}[0m${UNEMBED}"
 
 $_typeset RCS_PS1=$(_bashish_prompt_rcs)
 test "x${RCS_PS1}" != x && RCS_PS1="${LCYAN}${RCS_PS1}${GREY}|"
-$_typeset ROOT="${BASHISH_BF}" test "x${UID}" = x0 && ROOT="#"
+$_typeset ROOT="${BASHISH_BF}"
+test "x${UID}" = x0 && ROOT="#"
 
 test "x${PROMPTSTR}" = x && $_typeset PROMPTSTR="${USER}$GREY@$CYAN${HOSTNAME%%.*}"
 

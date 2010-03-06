@@ -2,6 +2,8 @@
 -------------------------
 What's hot:
 -----------
+* No more nagging in gnome-terminal (sorry 'bout that..)
+
 * New themes
   elite - from the BashPrompt-4.5b6 package, now with UTF-8 and a bit more spiffiness
   elite2 - also from BashPrompt-4.5b6
@@ -17,6 +19,11 @@ What's hot:
   $ bashish elite blue green
   $ bashish conda blue
 
+  Colors may also be temporarily set on a per-tty basis by the color()
+  function:
+
+  $ color blue
+
 * Set a string for the prompt, title or both, eg:
   
   $ title compiling      # sets the title to "compiling" 
@@ -27,13 +34,16 @@ What's hot:
 * Revision indicator
   There is now a branch/revision indicator in several themes which displays
   branch (if applicable) and revision (also if applicable).
-  Coming to a git, hg, svn, bzr and cvs project near you!
+  Coming to a git, hg, svn, bzr and cvs repository near you!
   In the themes conda, fade, box, fire, and a few more...
   (feel free to submit branch/revision/other relevant parsing parsing of your favourite rcs
   system, the code is in data/lib/_bashish_prompt_rcs)
 
 * The bashish command is now used to change themes, it supports the same
   syntax as the older bashishtheme utility did.
+
+* Now on GIThub to still your bleeding edge hunger:
+  http://github.com/arnognulf/bashish
 
 What's not:
 -----------
@@ -76,6 +86,8 @@ Each theme may interpret the $PROMPTSTR and $TITLESTR strings as they want and
 combine them with the current theme however possible, or not at all.
 If a theme haven't got userstring support, nothing will happen.
 
+There is also a function to set colors on the fly (only per terminal, will
+reset once you restart): color()
 
 I've cleaned the build system, hopefully making releases of higher quality
 and possibility for people to fork it since everything is included!
