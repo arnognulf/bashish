@@ -1,6 +1,5 @@
 bashish-2.2.2
 -------------
-bug: app themes b0rked
 bug: fade/fire: if at home dir, cwd is only one color
 bug: scrolling region does not updated if bottom line and dir change
 bug: weirdness with MacOSX Terminal.app and bluesteel

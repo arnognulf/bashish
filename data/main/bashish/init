@@ -252,7 +252,6 @@ errorhandler 0
 
 		## provide bashish appdb
 		_bashish_module sys/appdb
-		
 		case ${BASHISH_ARGV[1]} in
 		-*|""|bright*|dim*|underscore*|blink*|reverse*|hidden*|black|red|green|yellow|blue|magenta|cyan|white)
 			BTAPP="";_bashish_unpack "${BASHISH_ARGV[0]}";;

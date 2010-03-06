@@ -32,3 +32,4 @@ function _bashish_appdb
 		test -L ${HOME}/.bashish/launcher/${APP##*/}||ln -sf ${BASHISHDIR}/lib/_bashish_launcher ${HOME}/.bashish/launcher/${APP##*/}
 	done
 }
+_bashish_appdb
