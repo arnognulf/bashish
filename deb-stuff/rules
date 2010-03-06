@@ -54,12 +54,12 @@ clean:
 	[ ! -f Makefile ] || $(MAKE) distclean
 	rm -f config.sub config.guess
 
-	dh_clean  --exclude ./dist/bashish-2.2.2/config.guess.orig --exclude ./dist/bashish-2.2.2/config.sub.orig
+	dh_clean  --exclude ./dist/bashish-2.2.3/config.guess.orig --exclude ./dist/bashish-2.2.3/config.sub.orig
 
 install: build
 	dh_testdir
 	dh_testroot
-	dh_prep   --exclude ./dist/bashish-2.2.2/config.guess.orig --exclude ./dist/bashish-2.2.2/config.sub.orig
+	dh_prep   --exclude ./dist/bashish-2.2.3/config.guess.orig --exclude ./dist/bashish-2.2.3/config.sub.orig
 	dh_installdirs
 
 	# Add here commands to install the package into debian/bashish.

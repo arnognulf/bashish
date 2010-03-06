@@ -1,4 +1,4 @@
-bashish-2.2.2
+bashish-2.2.3
 -------------
 bug: c64 doesn't work on osx
 bug: fail to install on target with spaces
