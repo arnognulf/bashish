@@ -1,8 +1,11 @@
 bashish-2.2.3
 -------------
+feat: center logos
+_bashish_prompt_asciilogo  xcenter logo
+                          nocenter
+
 bug: c64 doesn't work on osx
 bug: fail to install on target with spaces
-feat: center logos
 feat: fix urbandawn and the mvs themes
 feat: bashish exec foo -bar -baz
 

@@ -17,8 +17,10 @@
 ## along with this program; if not, write to the Free Software
 ## Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 ##################################################################################
-function _bashish_generic_logo
+function _bashish_prompt_asciilogo
 {
+	test -f "${HOME}/.bashish/prompt/$1" || return 1
+	
 	## clear the screen prior to displaying startup messages
 	printf "\033[2J"
 
@@ -26,11 +28,52 @@ function _bashish_generic_logo
 	## welcomemessage upon startup
 
 	## ascii startup logo
-	test -f "`_bashish_whichbtdir $ASCII_LOGO`$ASCII_LOGO"&&cat "`_bashish_whichbtdir $ASCII_LOGO`$ASCII_LOGO"
+	typeset IFS="
+"
+	typeset LINELENGTH=0
+	typeset FILELINES=0
+	for LINE in $(cat "${HOME}/.bashish/prompt/$1")
+	do
+		test ${#LINE} -gt ${LINELENGTH} && LINELENGTH=${#LINE}
+		let FILELINES++
+	done
+	unset IFS
+	
+	typeset INDEX=0
+	typeset FILLSPACES=$(((${COLUMNS} - ${LINELENGTH}) / 2 ))
 
-	kill -s WINCH $LAUNCHER_PID 2>/dev/null
+	typeset FILL=""
 
-	## no need no more
-	function _bashish_generic_logo { :;}
+	while test ${INDEX} -lt ${FILLSPACES}
+	do
+		FILL="${FILL} "
+		let INDEX++
+	done
+	typeset FILLHEIGHTSPACES=$(((${LINES} - ${FILELINES})  / 2))
+	INDEX=0
+	while test ${INDEX} -lt ${FILLHEIGHTSPACES}
+	do
+		printf "
+"
+		let INDEX++
+	done
+
+	typeset IFS="
+"
+	for LINE in $(cat "${HOME}/.bashish/prompt/$1")
+	do
+		echo "${FILL}${LINE}"
+	done
+	unset IFS
+
+	INDEX=0
+	while test ${INDEX} -lt ${FILLHEIGHTSPACES}
+	do
+		printf "
+"
+		let INDEX++
+	done
+
 }
 
+test x$BASHISH_FNLOAD != x1 && _bashish_prompt_asciilogo "$@"

@@ -16,6 +16,7 @@ eval $(_bashish_prompt_shellvars $SHELLNAME)
 eval $(_bashish_prompt_parsecolors "$@")
 test x"$BASHISH_COLOR0" = x && eval $(_bashish_prompt_parsecolors cyan)
 
+_bashish_prompt_asciilogo uglyascii.UTF-8
 
 PROMPT_COMMAND="_BASHISH_PROMPT_RCS=\$(_bashish_prompt_rcs \${_BASHISH_PROMPT_RCS} ) && _bashish_promptupdate"
 

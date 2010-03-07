@@ -98,7 +98,6 @@ THEMECAP="\
 	_bashish_vt100_reverse\
 	_bashish_gnome-terminal_properties\
 	_bashish_generic_bulkprint\
-	_bashish_generic_logo\
 	_bashish_generic_cleanvar"
 }
 
@@ -176,7 +175,6 @@ function themecap_xterm-Eterm
 	_bashish_xterm_font\
 	_bashish_xterm_geometry\
 	_bashish_eterm_image\
-	_bashish_generic_logo\
 	_bashish_generic_bulkprint\
 	_bashish_generic_cleanvar\
 	_bashish_xterm_winch\
@@ -206,7 +204,6 @@ function themecap_xterm-rxvt
 	_bashish_xterm_font\
 	_bashish_xterm_geometry\
 	_bashish_rxvt_image\
-	_bashish_generic_logo\
 	_bashish_generic_bulkprint\
 	_bashish_generic_cleanvar\
 	_bashish_xterm_winch\
@@ -231,7 +228,6 @@ function themecap_xterm-urxvt
 	_bashish_urxvt_font\
 	_bashish_xterm_geometry\
 	_bashish_rxvt_image\
-	_bashish_generic_logo\
 	_bashish_generic_bulkprint\
 	_bashish_generic_cleanvar\
 	_bashish_xterm_winch\
@@ -249,7 +245,6 @@ function themecap_xterm-rxvt-nofont
 	_bashish_rxvt_color\
 	_bashish_xterm_ansi\
 	_bashish_rxvt_image\
-	_bashish_generic_logo\
 	_bashish_generic_bulkprint\
 	_bashish_generic_cleanvar\
 	_bashish_vt100_posthide\
@@ -266,7 +261,6 @@ function themecap_xterm_dtterm
 	_bashish_vt100_prehide\
 	_bashish_vt100_sane\
 	_bashish_xterm_printtitle\
-	_bashish_generic_logo\
 	_bashish_generic_bulkprint\
 	_bashish_generic_cleanvar\
 	_bashish_vt100_posthide"
@@ -283,7 +277,6 @@ THEMECAP="\
 	_bashish_vt100_prehide\
 	_bashish_vt100_sane\
 	_bashish_xterm_printtitle\
-	_bashish_generic_logo\
 	_bashish_generic_bulkprint\
 	_bashish_generic_cleanvar\
 	_bashish_vt100_posthide\
@@ -308,7 +301,6 @@ function themecap_xterm-xterm
 	_bashish_xterm_ansi\
 	_bashish_xterm_font\
 	_bashish_xterm_geometry\
-	_bashish_generic_logo\
 	_bashish_generic_bulkprint\
 	_bashish_generic_cleanvar\
 	_bashish_vt100_posthide\
@@ -330,7 +322,6 @@ function themecap_xterm-old
 	_bashish_xterm_color\
 	_bashish_xterm_ansi\
 	_bashish_xterm_font\
-	_bashish_generic_logo\
 	_bashish_generic_bulkprint\
 	_bashish_generic_cleanvar\
 	_bashish_vt100_posthide\
