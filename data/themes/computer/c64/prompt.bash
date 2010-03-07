@@ -2,7 +2,7 @@
 #!/bin/bash
 #testloc ()
 #{
-#	printf "\n\n\n\033[3A"
+#	printf "\n\n\n${ESC}[3A"
 #}
 
 _bashish_c64_cbmerror ()
@@ -88,7 +88,7 @@ eval $(_bashish_prompt_shellvars $SHELLNAME)
 PROMPT_COMMAND="_bashish_c64_cbmerror"
 
 test "x$PROMPTSTR" = x && typeset PROMPTSTR=READY
-
+TITLE=C=
 FILLX=`_bashish_prompt_fillx " "`
 PS1="\
 ${EMBED}${ESC}[r\
@@ -112,4 +112,6 @@ ${PROMPTSTR}
 "
 PS2="?SYNTAX ERROR
 "
+_bashish_prompt_asciilogo xcenter boot
+
 }

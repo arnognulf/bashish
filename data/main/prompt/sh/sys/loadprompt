@@ -44,7 +44,7 @@ _bashish_restore()
 	PS2='> '
 	PS3='#? '
 	PS4='+ '
-
+	unset BASHISH_ASCIILOGO
 	## load the fallback prompt to memory
 	case "$SHELLNAME" in
 	bash)
@@ -91,6 +91,8 @@ _bashish_promptupdate ()
 	## check if the theme is unsynced with the latest theme in 
 	## bashishtheme, if so, force a theme update
 	test -f "$HOME/.bashish/tmp/${TTY##*/}/sync" || {
+		unset BASHISH_ASCIILOGO
+
 		## dummy fallback prompt
 		_bashish_defaults() { :;}
 		_bashish_overrides() { :;}

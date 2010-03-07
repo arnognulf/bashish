@@ -19,7 +19,20 @@
 ##################################################################################
 function _bashish_prompt_asciilogo
 {
-	test -f "${HOME}/.bashish/prompt/$1" || return 1
+	test "x${BASHISH_ASCIILOGO}" != x && return 0
+	
+	typeset XCENTER=1
+	typeset YCENTER=1
+	if test "x$1" = xxcenter
+	then
+		YCENTER=0
+		shift
+	elif test "x$1" = xnocenter
+	then
+		YCENTER=0
+		XCENTER=0
+		shift
+	fi
 	
 	## clear the screen prior to displaying startup messages
 	printf "\033[2J"
@@ -44,14 +57,14 @@ function _bashish_prompt_asciilogo
 
 	typeset FILL=""
 
-	while test ${INDEX} -lt ${FILLSPACES}
+	test x${XCENTER} = x1 && while test ${INDEX} -lt ${FILLSPACES}
 	do
 		FILL="${FILL} "
 		let INDEX++
 	done
 	typeset FILLHEIGHTSPACES=$(((${LINES} - ${FILELINES})  / 2))
 	INDEX=0
-	while test ${INDEX} -lt ${FILLHEIGHTSPACES}
+	test x${YCENTER} = x1 && while test ${INDEX} -lt ${FILLHEIGHTSPACES}
 	do
 		printf "
 "
@@ -67,13 +80,13 @@ function _bashish_prompt_asciilogo
 	unset IFS
 
 	INDEX=0
-	while test ${INDEX} -lt ${FILLHEIGHTSPACES}
+	test x${YCENTER} = x1 && while test ${INDEX} -lt ${FILLHEIGHTSPACES}
 	do
 		printf "
 "
 		let INDEX++
 	done
-
+	BASHISH_ASCIILOGO=1
 }
 
 test x$BASHISH_FNLOAD != x1 && _bashish_prompt_asciilogo "$@"
