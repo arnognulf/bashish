@@ -33,6 +33,15 @@ function _bashish_prompt_asciilogo
 		XCENTER=0
 		shift
 	fi
+
+	typeset XDECREMENT=0
+	if test "x$2" != x
+	then
+		## override length calculation by XDECREMENT 
+		## the lenght calculation include non-printing characters
+		## which must be adjusted for
+		XDECREMENT="$2"
+	fi
 	
 	## clear the screen prior to displaying startup messages
 	printf "\033[2J"
@@ -53,7 +62,7 @@ function _bashish_prompt_asciilogo
 	unset IFS
 	
 	typeset INDEX=0
-	typeset FILLSPACES=$(((${COLUMNS} - ${LINELENGTH}) / 2 ))
+	typeset FILLSPACES=$(((${COLUMNS} - ${LINELENGTH} + ${XDECREMENT}) / 2 ))
 
 	typeset FILL=""
 

@@ -1,0 +1,35 @@
+#!/bin/sh
+## bash (c) Thomas Eriksson this were originally based off the
+## AmigaSHELL project, though it has had a nearly complete rewrite to be
+## accurate to Wb 1.1 =)
+BASHISH_THEME=amigados
+_bashish_theme_amigados ()
+{
+## the CLI prompt
+PROMPT="${TTY##*/}> "
+
+## uhmm.. these font's were from the amigashell project
+CFONT=amiga.fnt.gz
+XFONT=amiga.pcf.gz
+
+## might be a little confusing, though, everything for that old feeling =)
+#IMAGELOGO=amiga.png
+#IMAGELOGOSCALE=100x100
+#IMAGELOGOWAIT=2
+## colors
+BGCOLOR="#0055aa"
+CURSORCOLOR="#ee8800"
+FGCOLOR="#ffffff"
+BGTRANSPARENCY=0
+BGBRIGHTNESSRED=256
+BGBRIGHTNESSGREEN=256
+BGBRIGHTNESSBLUE=256
+FONTNAME="Amiga Forever"
+FONTSIZE=12
+
+ABGCOLOR=blue
+AFGCOLOR=white
+## title (whattaheck am i commenting for? gotta sleep)
+TITLE=AmigaDOS
+
+}

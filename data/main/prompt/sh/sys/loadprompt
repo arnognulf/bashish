@@ -44,7 +44,6 @@ _bashish_restore()
 	PS2='> '
 	PS3='#? '
 	PS4='+ '
-	unset BASHISH_ASCIILOGO
 	## load the fallback prompt to memory
 	case "$SHELLNAME" in
 	bash)
