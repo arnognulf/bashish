@@ -1,0 +1,18 @@
+#!/bin/sh
+
+BASHISH_THEME=vic20
+
+_bashish_theme_vic20 ()
+{
+XFONT=adore64.ttf.gz
+CFONT=c64_8x8.fnt.gz
+FONTNAME=Adore64
+FONTSIZE=14
+
+FGCOLOR="#0000ff"
+BGCOLOR="#ffffff"
+TITLE="C= VIC 20"
+COLOR[6]="#77dfdf"
+BGTRANSPARENCY=0
+
+}

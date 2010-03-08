@@ -1,0 +1,23 @@
+## @(#) created by arne
+#######################
+THEME_AUTHOR="arne <brummelufs@hotmail.com>"
+
+FGCOLOR="0000ff"
+BGCOLOR="ffffff"
+
+SIZE_Y="23"
+SIZE_X="22"
+BGBRIGHTNESS=000000
+TITLE="vic 20"
+CFONT=c64_8x8.fnt.gz
+XFONT=adore64.ttf.gz
+
+BGTRANSPARENCY=0
+
+
+
+
+
+
+
+

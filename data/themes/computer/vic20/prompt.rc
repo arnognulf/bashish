@@ -1,0 +1,3 @@
+#!/usr/bin/rc
+fn prompt () { echo READY }
+prompt=''
