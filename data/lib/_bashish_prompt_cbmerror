@@ -20,7 +20,7 @@
 ##
 ## _bashish_prompt_cbmerror is a prompt helper
 ##
-## given an argument 0 to 28 it answers with the corresponding
+## given an argument 1 to 29 it answers with the corresponding
 ## Microsoft BASIC error
 ##
 ## USAGE:
@@ -32,7 +32,6 @@
 _bashish_prompt_cbmerror ()
 {
 	case "$1" in
-		0) echo "BAD DATA" ;; ## String data was received from an open file, but the program was expecting numeric data.
 		1) echo "BAD SUBSCRIPT" ;; ## The program was trying to reference an element of an array whose number is outside of the range specified in the DIM statement.
 		2) echo "BREAK" ;; ## Program execution was stopped because you hit the <STOP> key.
 		3) echo "CAN'T CONTINUE" ;; ## The CONT command will not work, either because the program was never RUN, there has been an error, or a line has been edited.
@@ -61,6 +60,9 @@ _bashish_prompt_cbmerror ()
 		26) echo "UNDEF'D FUNCTION" ;; ## A user defined function was referenced, but it has never been defined using the DEF FN statement.
 		27) echo "UNDEF'D STATEMENT" ;; ## An attempt was made to GOTO or GOSUB or RUN a line number that doesn't exist.
 		28) echo "VERIFY The program" ;; ## on tape or disk does not match the program currently in memory.
+		29) echo "BAD DATA" ;; ## String data was received from an open file, but the program was expecting numeric data.
+
 	esac
+	return $?
 }
 test x$BASHISH_FNLOAD != x1 && _bashish_prompt_cp437 "$@"
