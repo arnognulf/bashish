@@ -22,14 +22,54 @@
 ##
 ###############################################################################
 
-
 ## disable application themeing
 export BASHISH_DISABLED=1
 
+
 ## restart with XTerm if not connected to a tty
-tty -s||{
-	test "$1"||exec xterm $0
-}
+#tty -s||{
+#	test "$1"||exec xterm $0
+#}
+test -d "$HOME/.bashish/prompt" && case "$1" in
+	init|-i*|--init)
+		## if terminal loading is not enabled, don't start the terminal themer
+		test -f "${HOME}"/.bashish/terminal-theming-disabled && exit 1
+
+		## termloader checks if a bashish process is running, if it doesn't,
+		## the user is asked for needed input and then a process is started
+		## bashish terminal theming doesn't work on /dev/console (cygwin among others)
+		test "x${TTY}" = x/dev/console && exit 1
+		
+		## the bashish terminal part makes no sense in Cygwin 9x/ME
+		test "x$TERM" = xcygwin && case "$(uname)"
+		in
+		CYGWIN_98*) exit 0
+		esac
+	
+		## when not owner of tty (su / sudo ) or no tty is connected (incorrectly configured chroot)
+		## bashish will silently refuse to load
+		case "${TTY}" in
+		/*) 
+			test -O "${TTY}"  || exit 42
+		;;
+		*) exit 42
+		esac
+	
+		## detect UTF-8
+		test "x$BASHISH_CP" = x && {
+			BASHISH_CP=437
+			. "$BASHISHDIR"/lib/_bashish_utfcheck && BASHISH_CP=utf8
+		}
+	
+		IPCDIR="$HOME/.bashish/tmp/${TTY##*/}"
+		export TTY BASHISHDIR BASHISH_UTF
+		## dash is a bit faster at startup, at the cost of syntax
+		FORK_SHELL=sh
+		type -p dash 1>/dev/null 2>/dev/null && FORK_SHELL=dash
+		"$FORK_SHELL" "$BASHISHDIR"/lib/_bashish_fork "$BASHISH_SHELL" "$BASHISHDIR"/main/terminal/init
+		exit 1
+;;
+esac
 
 ## generic C-isch argv 
 ## portable among ksh-compatible shells

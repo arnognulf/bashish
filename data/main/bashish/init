@@ -23,7 +23,9 @@
 ##
 ###############################################################################
 
-TTY=$(tty)
+#TTY=$(tty)
+
+test "x${TTY}" = x && TTY=$(tty 2>/dev/null)
 
 ## command name, bashish?
 BASHISHNAME="${0##*/}"
@@ -120,11 +122,28 @@ RETURN=1
 ## by default bashish is used in batch mode
 BASHISHNAME_MODE=batch
 
-## create a list over avaliable themes
+## provide the list function
 _bashish_module sys/list
 
 ## provide the find function
-_bashish_module sys/find
+#_bashish_module sys/find
+function _bashish_find
+{
+	typeset n=0
+	while test "x${THEME_LIST[$n]}" != x
+	do
+		if test 	x"${THEME_LIST[$n]##*/}" = "x${1}" \
+	 			-a -f "${THEME_LIST[$n]}"/theme
+		then
+			THEME=${1};\
+			THEME=${THEME##*/};\
+			THEMEFILE=${THEME_LIST[$n]};\
+			return 0; \
+		fi
+		let n++
+	done
+	return 1
+}
 
 case "$BASHISH_ARGC" in
 0)
@@ -200,7 +219,6 @@ NEW_LIST="$(gconftool-2 --get /apps/gnome-terminal/global/profile_list|sed -e 's
 gconftool-2 --type list --list-type=string --set /apps/gnome-terminal/global/profile_list "${NEW_LIST}"
 fi
 	touch "${HOME}"/.bashish/terminal-theming-disabled ; gconftool-2 --type string --set /apps/gnome-terminal/global/default_profile "Default" 2>/dev/null; errorhandler 1 "terminal theming disabled" ;;
-	init|-i*|--init) _bashish_module sys/createdirs; _bashish_module sys/termloader ;errorhandler 1;;
 	uninstall|--u*|-u*) _bashish_module sys/uninstall 
 printf "${BASHISHNAME}: bashish is now uninstalled
 "

@@ -26,6 +26,8 @@ printf "$$" 1> "$HOME"/.bashish/tmp/${TTY##*/}/pid
 ## init bashish
 . "${BASHISHDIR}"/main/terminal/init
 
+_bashish_brefresh
+
 ## main loop
 ## wait for input from FIFO, execute input, loop
 while true
