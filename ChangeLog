@@ -1,6 +1,16 @@
 2.2.3 - <Insert appropriate name here>
 --------------------------------------
 
+This release is mainly a critical bugfix for 2.2.2, since 2.2.2 tended to
+break gnome login on Ubuntu.
+
+On the new side, there are the following theme additions:
+amigados - with guru meditation after programs recieves fatal
+           signals
+c128, vic20 - as in the old days
+and some polish on c64
+
+
 2.2.2 - I'm not dead yet!
 -------------------------
 What's hot:
@@ -15,6 +25,7 @@ What's hot:
               specified color offcourse)
   spiffyred - the standard fedora/redhat prompt now in grayscale (or user
               specified color)
+
 
 * Set the theme color at load, eg:
 
