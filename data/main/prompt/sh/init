@@ -190,7 +190,7 @@ _bashish_promptupdate ()
 		test -f "$HOME/.bashish/prompt/argv.sh" && . "$HOME/.bashish/prompt/argv.sh"
 
 		## a small delay makes the term settle down before reloading the prompt
-		sleep 0.5
+		#sleep 0.5
 		
 
 	}
