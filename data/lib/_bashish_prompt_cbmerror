@@ -1,0 +1,66 @@
+#!/bin/bash
+##################################################################################
+## Bashish, a console theme engine
+## Copyright (C) 2010 Thomas Eriksson
+##
+## This program is free software; you can redistribute it and/or
+## modify it under the terms of the GNU General Public License
+## as published by the Free Software Foundation; either version 2
+## of the License, or (at your option) any later version.
+##
+## This program is distributed in the hope that it will be useful,
+## but WITHOUT ANY WARRANTY; without even the implied warranty of
+## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+## GNU General Public License for more details.
+## 
+##
+## along with this program; if not, write to the Free Software
+## Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+##################################################################################
+##
+## _bashish_prompt_cbmerror is a prompt helper
+##
+## given an argument 0 to 28 it answers with the corresponding
+## Microsoft BASIC error
+##
+## USAGE:
+## _bashish_prompt_cbmerror [errnum]
+##
+## all errors and descriptions were taken from
+## http://www.devili.iki.fi/Computers/Commodore/C64/Programmers_Reference/Appendices/page_400.html
+
+_bashish_prompt_cbmerror ()
+{
+	case "$1" in
+		0) echo "BAD DATA" ;; ## String data was received from an open file, but the program was expecting numeric data.
+		1) echo "BAD SUBSCRIPT" ;; ## The program was trying to reference an element of an array whose number is outside of the range specified in the DIM statement.
+		2) echo "BREAK" ;; ## Program execution was stopped because you hit the <STOP> key.
+		3) echo "CAN'T CONTINUE" ;; ## The CONT command will not work, either because the program was never RUN, there has been an error, or a line has been edited.
+		4) echo "DEVICE NOT PRESENT" ;; ## The required I/O device was not available for an OPEN, CLOSE, CMD, PRINT#, INPUT#, or GET#.
+		5) echo "DIVISION BY ZERO" ;; ## Division by zero is a mathematical oddity and not allowed.
+		6) echo "EXTRA IGNORED" ;; ## Too many items of data were typed in response to an INPUT statement. Only the first few items were accepted.
+		7) echo "FILE NOT FOUND" ;; ## If you were looking for a file on tape, and END-OF-TAPE marker was found. If you were looking on disk, no file with that name exists.
+		8) echo "FILE NOT OPEN" ;; ## The file specified in a CLOSE, CMD, PRINT#, INPUT#, or GET#, must first be OPENed.
+		9) echo "FILE OPEN" ;; ## An attempt was made to open a file using the number of an already open file.
+		10) echo "FORMULA TOO COMPLEX" ;; ## The string expression being evaluated should be split into at least two parts for the system to work with, or a formula has too many parentheses.
+		11) echo "ILLEGAL DIRECT" ;; ## The INPUT statement can only be used within a program, and not in direct mode.
+		12) echo "ILLEGAL QUANTITY" ;; ## A number used as the argument of a function or statement is out of the allowable range.
+		13) echo "LOAD" ;; ## There is a problem with the program on tape.
+		14) echo "NEXT WITHOUT FOR" ;; ## This is caused by either incorrectly nesting loops or having a variable name in a NEXT statement that doesn't correspond with one in a FOR statement.
+		15) echo "NOT INPUT FILE" ;; ## An attempt was made to INPUT or GET data from a file which was specified to be for output only.
+		16) echo "NOT OUTPUT FILE" ;; ## An attempt was mode to PRINT data to a file which was specified as input only.
+		17) echo "OUT OF DATA A READ" ;; ## statement was executed but there is no data left unREAD in a DATA statement.
+		18) echo "OUT OF MEMORY" ;; ## There is no more RAM available for program or variables. This may also occur when too many FOR loops have been nested, or when there are too many GOSUBs in effect.
+		19) echo "OVERFLOW" ;; ## The result of a computation is larger than the largest number allowed, which is 1.70141884E+38.
+		20) echo "REDIM'D ARRAY" ;; ## An array may only be DIMensioned once. If an array variable is used before that array is DIM'D, an automatic DIM operation is performed on that array setting the number of elements to ten, and any subsequent DIMs will cause this error.
+		21) echo "REDO FROM START" ;; ## Character data was typed in during an INPUT statement when numeric data was expected. Just re-type the entry so that it is correct, and the program will continue by itself.
+		22) echo "RETURN WITHOUT GOSUBA RETURN" ;; ## statement was encountered, and no GOSUB command has been issued.
+		23) echo "STRING TOO LONG" ;; ## A string can contain up to 255 characters.
+		24) echo "?SYNTAX ERROR" ;; ## A statement is unrecognizable by the Commodore 64. A missing or extra parenthesis, misspelled keywords, etc.
+		25) echo "TYPE MISMATCH" ;; ## This error occurs when a number is used in place of a string, or vice-versa.
+		26) echo "UNDEF'D FUNCTION" ;; ## A user defined function was referenced, but it has never been defined using the DEF FN statement.
+		27) echo "UNDEF'D STATEMENT" ;; ## An attempt was made to GOTO or GOSUB or RUN a line number that doesn't exist.
+		28) echo "VERIFY The program" ;; ## on tape or disk does not match the program currently in memory.
+	esac
+}
+test x$BASHISH_FNLOAD != x1 && _bashish_prompt_cp437 "$@"
