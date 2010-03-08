@@ -1,7 +1,6 @@
 BASHISHDIR="`bashish --bashishdir 2>/dev/null`"                 ## line added by bashish
-if test "x$BASHISHDIR" != x;then                                ## line added by bashish
+TTY=`tty 2>/dev/null` && if test "x$BASHISHDIR" != x;then       ## line added by bashish
 test "$BASHISH_OLDPATH"||BASHISH_OLDPATH="$PATH"                ## line added by bashish
-TTY=`tty`                                                       ## line added by bashish
 PATH="$HOME/.bashish/launcher:$BASHISHDIR/lib:$BASHISH_OLDPATH" ## line added by bashish
 BASHSISH_CP=437                                                 ## line added by bashish
 TEST_TERM="$TERM" _bashish_utfcheck && BASHISH_CP=utf8          ## line added by bashish

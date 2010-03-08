@@ -1,5 +1,6 @@
 bashish-2.2.3
 -------------
+bug: bashish kills gnome-session login, dash fails at parsing? tty?
 bug: c64 doesn't work on osx
 bug: fail to install on target with spaces
 feat: fix urbandawn and the mvs themes
