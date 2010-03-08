@@ -1,5 +1,8 @@
 bashish-2.2.3
 -------------
+feat: move the cursor down in c64 and alike prompts
+      (linux console, old rxvt) since some terminals does not support
+      cursor restore
 feat: increase start-up performance (less I/O? by joining prompt parts?)
 bug: bashish kills gnome-session login, dash fails at parsing? tty?
 bug: c64 doesn't work on osx
