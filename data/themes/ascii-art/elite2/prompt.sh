@@ -7,13 +7,17 @@ _bashish_prompt ()
 {
 eval $(_bashish_prompt_shellvars "$SHELLNAME")
 eval $(_bashish_prompt_parsecolors "$@")
-test x$BASHISH_COLOR0 = x && eval $(_bashish_prompt_parsecolors cyan)
+#test x$BASHISH_COLOR0 = x && eval $(_bashish_prompt_parsecolors cyan)
+test "x$BASHISH_COLOR0" = x && eval $(_bashish_prompt_parsecolors cyan cyan black)
+test "x$BASHISH_COLOR1" = x && eval $(_bashish_prompt_parsecolors "$1" cyan black)
+test "x$BASHISH_COLOR2" = x && eval $(_bashish_prompt_parsecolors "$1" "$2" black)
+
 local COLOR1="${EMBED}${ESC}[0;3${BASHISH_COLOR0}m${UNEMBED}"
-local COLOR2="${EMBED}${ESC}[1;3${BASHISH_COLOR0}m${UNEMBED}"
-local COLOR3="${EMBED}${ESC}[1;30m${UNEMBED}"
+local COLOR2="${EMBED}${ESC}[1;3${BASHISH_COLOR1}m${UNEMBED}"
+local COLOR3="${EMBED}${ESC}[1;3${BASHISH_COLOR2}m${UNEMBED}"
 local COLOR4="${EMBED}${ESC}[0m${UNEMBED}"
 
-$_typeset BASHISH_CWD=`_bashish_prompt_cwd "\\[\033[1;30m\\]" "\\[\033[0;3${BASHISH_COLOR0}m\\]" 39`
+$_typeset BASHISH_CWD=`_bashish_prompt_cwd "\\[\033[1;3${BASHISH_COLOR2}m\\]" "\\[\033[0;3${BASHISH_COLOR0}m\\]" 39`
 
 $_typeset BASHISH_DA=`_bashish_prompt_cp437 DA` # ┌
 $_typeset BASHISH_C0=`_bashish_prompt_cp437 C0` # └

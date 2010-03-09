@@ -90,7 +90,10 @@ TITLE="C= VIC 20"
 test "x$PROMPTSTR" = x && typeset PROMPTSTR=READY.
 FILLX=`_bashish_prompt_fillx " "`
 PS1="\
-${EMBED}${ESC}[r\
+${EMBED}\
+${ESC}7\
+${ESC}[r\
+${ESC}8\
 ${ESC}[3F\
 ${ESC}[3E\
 ${ESC}[3E\
