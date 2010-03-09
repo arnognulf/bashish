@@ -23,6 +23,11 @@ $_typeset BASHISH_DA=`_bashish_prompt_cp437 DA` # ┌
 $_typeset BASHISH_C0=`_bashish_prompt_cp437 C0` # └
 $_typeset BASHISH_C4=`_bashish_prompt_cp437 C4` # ─
 
+PROMPT_COMMAND="_BASHISH_PROMPT_RCS=\$(_bashish_prompt_rcs \${_BASHISH_PROMPT_RCS} ) && _bashish_promptupdate"
+
+$_typeset BASHISH_RCS=$(_bashish_prompt_rcs)
+test "x${BASHISH_RCS}" != x && BASHISH_RCS="${COLOR3}|${COLOR1}${BASHISH_RCS}"
+
 
 test x$PROMPTSTR = x && $_typeset PROMPTSTR="${USER}$COLOR3@$COLOR1${HOSTNAME%%.*}"
 PS1="$COLOR3${BASHISH_DA}\
@@ -51,17 +56,18 @@ $COLOR1\$(date +%m/%d)\
 $COLOR3\
 ${ESC}[3D/\
 ${ESC}[2C\
-)\
+$COLOR2)\
 $COLOR1${BASHISH_C4}\
 $COLOR3-\
 $COLOR4
 $COLOR3${BASHISH_C0}\
 $COLOR1${BASHISH_C4}\
-$COLOR2(\
+${ESC}[0m$COLOR2(\
 $COLOR1\$\
 $COLOR3:\
 $COLOR1${BASHISH_CWD}\
-$COLOR2)\
+${BASHISH_RCS}\
+${ESC}[0m$COLOR2)\
 $COLOR1${BASHISH_C4}\
 $COLOR3-\
 $COLOR4 " 

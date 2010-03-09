@@ -68,8 +68,12 @@ test -d "$HOME/.bashish/prompt" && case "$1" in
 		export TTY BASHISHDIR BASHISH_UTF
 		## dash is a bit faster at startup, at the cost of syntax
 		FORK_SHELL=sh
-		type -p dash 1>/dev/null 2>/dev/null && FORK_SHELL=dash
-		"$FORK_SHELL" "$BASHISHDIR"/lib/_bashish_fork "$BASHISH_SHELL" "$BASHISHDIR"/main/terminal/init
+		_bashish_fork()
+		{
+			${1+"$@"}&
+		}
+		#type -p dash 1>/dev/null 2>/dev/null && FORK_SHELL=dash
+		_bashish_fork "$BASHISH_SHELL" "$BASHISHDIR"/main/terminal/init
 		exit 1
 ;;
 esac

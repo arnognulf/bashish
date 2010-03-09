@@ -1,7 +1,10 @@
 2.2.4 - Quick as lightning
 --------------------------
 
-This release comes with a big start time speedup.
+This release fixes the debian, rpm and slackware packages
+as reported by milleoiseaux.
+
+It also comes with quite a significant start time speedup.
 On my Thinkpad T61, startup has been reduced from 0.800ms to 0.120ms yay!
 
 Some more polish on c64
