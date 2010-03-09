@@ -1,7 +1,5 @@
 bashish-2.2.3
 -------------
-bug: elite2 hide/unhide FAIL (report by samel)
-
 feat: --default-fontname=""
 feat: --default-bgcolor=""
 feat: --default-fgcolor=""
