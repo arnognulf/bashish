@@ -1,5 +1,8 @@
 bashish-2.2.3
 -------------
+bug: c64 themes set TITLESTR permanently
+bug: fix up all other c64 based themes with cursor save, restore
+feat: clock for fire theme
 feat: some modulo for the cbmerror so the range gets 1-255
 feat: move the cursor down in c64 and alike prompts
       (linux console, old rxvt) since some terminals does not support

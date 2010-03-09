@@ -1,3 +1,6 @@
+#!/bin/bash
+BASHISHDIR="@PREFIX@/share/bashish"
+BASHISH_SHELL="/bin/bash"
 ##################################################################################
 ## Bashish, a console theme engine
 ## Copyright (C) 2010 Thomas Eriksson

@@ -39,12 +39,7 @@ pkgdatadir = $(datadir)/bashish
 ##
 
 bashish:
-	for i in bin/bashish \
-	    ; do\
-		rm $$i; \
-		./genheader $(BASHISH_SHELL) $(datadir)/bashish >$$i; \
-		cat $$i.in >>$$i; \
-	done;
+	:
 
 ## Copy all the source files into a new directory and use tar to create
 ## an archive from it. Simplest way I could think of to make an archive

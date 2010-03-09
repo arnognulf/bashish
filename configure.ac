@@ -1,5 +1,5 @@
 ## Process this file with autoconf to produce a configure script.
-AC_INIT([Bashish],[2.2.3], [thomas.eriksson@gmail.com], [bashish])
+AC_INIT([Bashish],[2.2.3],[thomas.eriksson@gmail.com],[bashish])
 
 ## Set up various programs needed for install
 AC_PROG_INSTALL
@@ -8,8 +8,7 @@ AC_PROG_INSTALL
 
 AC_ARG_WITH( 
 	theme, 
-	AC_HELP_STRING([--with-theme=THEME],
-	[specify default theme for bashish]),
+	AS_HELP_STRING([--with-theme=THEME],[specify default theme for bashish]),
 	[BASHISH_THEME=$withval]
 )
 
@@ -34,7 +33,7 @@ AC_DEFINE_UNQUOTED( DOCDIR, [L"$(eval echo $docdir)"], [Documentation directory]
 #AC_DEFINE_UNQUOTED( SYSCONFDIR, [L"$(eval echo $sysconfdir)"], [System configuration directory] )
 #AC_SUBST( SYSCONFDIR, ["$(eval echo $sysconfdir)"] )
 
-AC_CONFIG_FILES([data/main/prompt/sh/autoload data/bashish-version Makefile bashish.spec man/bashish.1])
+AC_CONFIG_FILES([data/main/prompt/sh/autoload data/bashish-version Makefile bashish.spec man/bashish.1 bin/bashish])
 AC_OUTPUT
 
 echo ""
