@@ -25,6 +25,17 @@ fi
 if test "x$BASH" != x -o "x$ZSH_NAME" != zsh
 then
 #bash
+_bashish_fail()
+{
+	RETSTATUS="$?"
+	case "$RETSTATUS" in
+	0|1) return "$RETSTATUS";;
+	128|127) echo "Bad command or file name";;
+	*)echo "Abort, Retry, Fail?"
+	esac
+	return $RETSTATUS
+}
+
 _bashish_TRANSDIR()
 {
 	if test "x$PROMPTSTR" = x
@@ -41,6 +52,8 @@ _bashish_prompt()
 {
 	eval $(_bashish_prompt_shellvars $SHELLNAME)
 	eval $(_bashish_prompt_parsecolors "$@")
+	PROMPT_COMMAND=_bashish_fail
+
 
 	PS1="`_bashish_TRANSDIR`> "
 	if test "x${BASHISH_COLOR0}" != x

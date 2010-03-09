@@ -6,6 +6,7 @@
 ##
 
 #bourne
+
 _bashish_TRANSDIR()
 {
 	if test "x$PROMPTSTR" = x
@@ -22,6 +23,7 @@ _bashish_prompt()
 {
 	eval $(_bashish_prompt_shellvars $SHELLNAME)
 	eval $(_bashish_prompt_parsecolors "$@")
+	PROMPT_COMMAND=_bashish_fail
 
 	TITLE=SH-DOS
 	PS1="`_bashish_TRANSDIR`> "
