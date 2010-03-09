@@ -1,5 +1,8 @@
 bashish-2.2.3
 -------------
+
+feat: put engine-files in terminal/init
+feat: cleanup /dev/nulls
 bug: c64 themes set TITLESTR permanently
 bug: fix up all other c64 based themes with cursor save, restore
 feat: clock for fire theme
