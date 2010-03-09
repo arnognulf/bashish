@@ -4,7 +4,6 @@ configure
 autom4te.cache
 data/bashish-version
 bin/bashish
-bin/bashishtheme
 man/bashish.1
 man/bashishtheme.1
 Makefile

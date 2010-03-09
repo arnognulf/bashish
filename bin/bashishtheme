@@ -1,7 +1,7 @@
 #!/bin/bash
 ##################################################################################
 ## Bashish, a console theme engine
-## Copyright (C) 2005 Thomas Eriksson
+## Copyright (C) 2010 Thomas Eriksson
 ##
 ## This program is free software; you can redistribute it and/or
 ## modify it under the terms of the GNU General Public License
@@ -18,7 +18,7 @@
 ## Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 ##################################################################################
 ##
-## fe/dialog is a visual frontend to bashish theme changing.
+## bashishtheme is a visual frontend to bashish theme changing.
 ## it uses the widely avaliable curses based 'dialog' utility
 ##
 ## the following code is of low quality standard, any improvements are welcome
@@ -52,7 +52,13 @@ _bashish_fe ()
 
 theme_selector ()
 {
-	typeset ITEM="" 
+	typeset ITEM=""
+	typeset INDEX=0
+	for ITEM in $(bashish list)
+	do
+		THEME_LIST[$INDEX]="${ITEM}"
+		let INDEX++
+	done
 	typeset TOT=${#THEME_LIST[*]}
 	typeset n=0
 	test "x$BTAPP" != x && typeset BTAPP_STRING="the prompt"
@@ -95,11 +101,11 @@ theme_selector ()
 	read ITEM <"$HOME"/.bashish/tmp/dialogfe
 	typeset THEME=${ITEM#*/}
 	test "x$THEME" = "x<none>"&&THEME=none
-	_bashish_unpack ${THEME}
-	(
-		_bashish_module sys/setopts
-		_bashish_setopts
-	)
+	bashish ${THEME}
+	#(
+	#	_bashish_module sys/setopts
+	#	_bashish_setopts
+	#)
 	return 0
 }
 
@@ -130,7 +136,7 @@ app_selector ()
 			BTAPP="$ITEM"
 			THEME=none
 			ITEM="<new>"
-			_bashish_unpack ${THEME}
+			bashish ${THEME}
 			}
 		esac
 	done

@@ -1,18 +1,22 @@
 bashish-2.2.3
 -------------
+bug: elite2 hide/unhide FAIL (report by samel)
 
-feat: put engine-files in terminal/init
-feat: cleanup /dev/nulls
+feat: --default-fontname=""
+feat: --default-bgcolor=""
+feat: --default-fgcolor=""
+feat: --default-cursorcolor=""
+feat: fix urbandawn and the mvs themes
+feat: ?put engine-files in terminal/init
+feat: ?cleanup /dev/nulls
 bug: c64 themes set TITLESTR permanently
 bug: fix up all other c64 based themes with cursor save, restore
 feat: clock for fire theme
 feat: some modulo for the cbmerror so the range gets 1-255
-feat: move the cursor down in c64 and alike prompts
-      (linux console, old rxvt) since some terminals does not support
-      cursor restore
+feat: ?put engine-files in terminal/init
+feat: ?cleanup /dev/nulls
 bug: c64 doesn't work on osx, related to recent c64 fix?
 bug: fail to install on target with spaces
-feat: fix urbandawn and the mvs themes
 feat: bashish exec foo -bar -baz
 
 bug: broken & untested on zsh & ksh & sh & dash & csh & tcsh
