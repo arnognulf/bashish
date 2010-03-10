@@ -60,20 +60,20 @@ make DESTDIR=%{buildroot} install
 
 %changelog
 
-* Sat Jul 15 2006 Thomas Eriksson <arne@users.sourceforge.net> 2.0.6-1
+* Sat Jul 15 2010 Thomas Eriksson <arne@users.sourceforge.net> 2.0.6-1
 - removed fillx manpage
 
-* Fri Jul 14 2006 Thomas Eriksson <arne@users.sourceforge.net> 2.0.5-1
+* Fri Jul 14 2010 Thomas Eriksson <arne@users.sourceforge.net> 2.0.5-1
 - removed fillx manpage
 
-* Thu Jun 15 2006 Thomas Eriksson <arne@users.sourceforge.net> 2.0.4-1
+* Thu Jun 15 2010 Thomas Eriksson <arne@users.sourceforge.net> 2.0.4-1
 - fixed doc destination dir
 - added fillx manpage
 
-* Wed Jun 14 2006 Thomas Eriksson <arne@users.sourceforge.net> 2.0.4-1
+* Wed Jun 14 2010 Thomas Eriksson <arne@users.sourceforge.net> 2.0.4-1
 - fixes, removed SuSE specific code
 
-* Sun Mar 12 2006 Pascal Bleser <guru@unixtech.be> 2.0.3-1
+* Sun Mar 12 2010 Pascal Bleser <guru@unixtech.be> 2.0.3-1
 - new package
 
 # Local Variables:

@@ -28,12 +28,12 @@ test "x${BASHISH_COLOR0}" = x && eval $(_bashish_prompt_parsecolors green red wh
 test "x${BASHISH_COLOR1}" = x && eval $(_bashish_prompt_parsecolors $1 red white)
 test "x${BASHISH_COLOR2}" = x && eval $(_bashish_prompt_parsecolors $1 $2 white)
 
-$_typeset i=0
-$_typeset FILLY=""
-$_typeset BASHISH_CWD=`_bashish_prompt_cwd "${ESC}[3${BASHISH_COLOR1}m" "${ESC}[3${BASHISH_COLOR2}m" 39`
+typeset i=0
+typeset FILLY=""
+typeset BASHISH_CWD=`_bashish_prompt_cwd "${ESC}[3${BASHISH_COLOR1}m" "${ESC}[3${BASHISH_COLOR2}m" 39`
 PROMPT_COMMAND="_BASHISH_PROMPT_RCS=\$(_bashish_prompt_rcs \${_BASHISH_PROMPT_RCS} ) && _bashish_promptupdate"
 
-$_typeset RCS_PS1=$(_bashish_prompt_rcs)
+typeset RCS_PS1=$(_bashish_prompt_rcs)
 test "x${RCS_PS1}" != x && RCS_PS1="${ESC}[3${BASHISH_COLOR1}m)  (${ESC}[3${BASHISH_COLOR2}m${RCS_PS1}"
 
 while test "$i" -lt $(($LINES))
@@ -44,7 +44,7 @@ done
 
 test "x$PROMPTSTR" = x && typeset PROMPTSTR="${USER}${ESC}[4${BASHISH_COLOR0};3${BASHISH_COLOR1}m@${ESC}[3${BASHISH_COLOR2}m${HOSTNAME%%.*}"
 
-$_typeset ROOT="="
+typeset ROOT="="
 test "x${UID}" = x0 && ROOT="#"
 
 

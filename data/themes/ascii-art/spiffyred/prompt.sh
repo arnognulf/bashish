@@ -27,17 +27,17 @@ eval $(_bashish_prompt_parsecolors "$@")
 test "x${BASHISH_COLOR0}" = x && eval $(_bashish_prompt_parsecolors white)
 PROMPT_COMMAND="_BASHISH_PROMPT_RCS=\$(_bashish_prompt_rcs \${_BASHISH_PROMPT_RCS} ) && _bashish_promptupdate"
 
-$_typeset RCS_PS1=$(_bashish_prompt_rcs)
+typeset RCS_PS1=$(_bashish_prompt_rcs)
 test "x${RCS_PS1}" != x && RCS_PS1=" ${EMBED}${ESC}[2;3${BASHISH_COLOR0}m${UNEMBED}${RCS_PS1}${EMBED}${ESC}[0m${UNEMBED}"
 
 
-$_typeset i=0
-$_typeset FILLY=""
-$_typeset BASHISH_CWD=`_bashish_prompt_cwd "\\[${ESC}[1;3${BASHISH_COLOR0}m\\]" "\\[${ESC}[2m\\]" 39`
+typeset i=0
+typeset FILLY=""
+typeset BASHISH_CWD=`_bashish_prompt_cwd "\\[${ESC}[1;3${BASHISH_COLOR0}m\\]" "\\[${ESC}[2m\\]" 39`
 
 test "x$PROMPTSTR" = x && typeset PROMPTSTR="${USER}${ESC}[4${BASHISH_COLOR0};31m@${ESC}[3${BASHISH_COLOR0}m${HOSTNAME%%.*}"
 
-$_typeset ROOT='$'
+typeset ROOT='$'
 test "x${UID}" = x0 && ROOT="#"
 
 ## this is messy stuff, cannot comment in code so I comment above

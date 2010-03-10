@@ -20,22 +20,22 @@ _bashish_prompt_asciilogo uglyascii.UTF-8
 
 PROMPT_COMMAND="_BASHISH_PROMPT_RCS=\$(_bashish_prompt_rcs \${_BASHISH_PROMPT_RCS} ) && _bashish_promptupdate"
 
-$_typeset BASHISH_BF=$(_bashish_prompt_cp437 BF) # ┐
-$_typeset BASHISH_C0=$(_bashish_prompt_cp437 C0) # └
-$_typeset BASHISH_C4=$(_bashish_prompt_cp437 C4) # ─
+typeset BASHISH_BF=$(_bashish_prompt_cp437 BF) # ┐
+typeset BASHISH_C0=$(_bashish_prompt_cp437 C0) # └
+typeset BASHISH_C4=$(_bashish_prompt_cp437 C4) # ─
 
-$_typeset LCYAN="${EMBED}${ESC}[1;3${BASHISH_COLOR0}m${UNEMBED}" 
-$_typeset CYAN="${EMBED}${ESC}[0;3${BASHISH_COLOR0}m${UNEMBED}" 
-$_typeset GREY="${EMBED}${ESC}[1;30m${UNEMBED}" 
-$_typeset LGREY="${EMBED}${ESC}[0;37;40m${UNEMBED}" 
-$_typeset NCOLOR="${EMBED}${ESC}[0m${UNEMBED}"
+typeset LCYAN="${EMBED}${ESC}[1;3${BASHISH_COLOR0}m${UNEMBED}" 
+typeset CYAN="${EMBED}${ESC}[0;3${BASHISH_COLOR0}m${UNEMBED}" 
+typeset GREY="${EMBED}${ESC}[1;30m${UNEMBED}" 
+typeset LGREY="${EMBED}${ESC}[0;37;40m${UNEMBED}" 
+typeset NCOLOR="${EMBED}${ESC}[0m${UNEMBED}"
 
-$_typeset RCS_PS1=$(_bashish_prompt_rcs)
+typeset RCS_PS1=$(_bashish_prompt_rcs)
 test "x${RCS_PS1}" != x && RCS_PS1="${LCYAN}${RCS_PS1}${GREY}|"
-$_typeset ROOT="${BASHISH_BF}"
+typeset ROOT="${BASHISH_BF}"
 test "x${UID}" = x0 && ROOT="#"
 
-test "x${PROMPTSTR}" = x && $_typeset PROMPTSTR="${USER}$GREY@$CYAN${HOSTNAME%%.*}"
+test "x${PROMPTSTR}" = x && typeset PROMPTSTR="${USER}$GREY@$CYAN${HOSTNAME%%.*}"
 
 ## And now, for the prompt!
 PS1="\

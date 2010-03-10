@@ -11,14 +11,14 @@ test "x${BASHISH_COLOR0}" = x && eval $(_bashish_prompt_parsecolors yellow red)
 test "x${BASHISH_COLOR1}" = x && eval $(_bashish_prompt_parsecolors $1 red)
 PROMPT_COMMAND="_BASHISH_PROMPT_RCS=\$(_bashish_prompt_rcs \${_BASHISH_PROMPT_RCS} ) && _bashish_promptupdate"
 
-$_typeset FADE="`_bashish_prompt_cp437 DB B2 B1 B0`"
-$_typeset FADE2="`_bashish_prompt_cp437 B0 B1 B2 DB`"
-$_typeset BASHISH_CWD=`_bashish_prompt_cwd "\\[${ESC}[3${BASHISH_COLOR1}m\\]" "\\[${ESC}[3${BASHISH_COLOR0}m\\]" 39`
-$_typeset RCS_PS1=$(_bashish_prompt_rcs)
+typeset FADE="`_bashish_prompt_cp437 DB B2 B1 B0`"
+typeset FADE2="`_bashish_prompt_cp437 B0 B1 B2 DB`"
+typeset BASHISH_CWD=`_bashish_prompt_cwd "\\[${ESC}[3${BASHISH_COLOR1}m\\]" "\\[${ESC}[3${BASHISH_COLOR0}m\\]" 39`
+typeset RCS_PS1=$(_bashish_prompt_rcs)
 test "x${RCS_PS1}" != x && RCS_PS1="${EMBED}${ESC}[3${BASHISH_COLOR1};1m${UNEMBED}(${EMBED}${ESC}[3${BASHISH_COLOR0};1m${UNEMBED}${RCS_PS1}${EMBED}${ESC}[3${BASHISH_COLOR1};1m${UNEMBED})${EMBED}${ESC}[0m${UNEMBED} "
-test x${PROMPTSTR} = x && $_typeset PROMPTSTR=${USER}@${HOSTNAME%%.*}
+test x${PROMPTSTR} = x && typeset PROMPTSTR=${USER}@${HOSTNAME%%.*}
 
-$_typeset ROOT=""
+typeset ROOT=""
 test "x${UID}" = x0 && ROOT="$EMBED${ESC}[3${BASHISH_COLOR0};1m$UNEMBED#$EMBED${ESC}[0m$UNEMBED "
 
 PS1="${EMBED}${ESC}[01;3${BASHISH_COLOR0};4${BASHISH_COLOR0}m${UNEMBED}$FADE${EMBED}${ESC}[01;37;4${BASHISH_COLOR0}m${UNEMBED}${PROMPTSTR}${EMBED}${ESC}[00;3${BASHISH_COLOR1};4${BASHISH_COLOR0}m${UNEMBED}${FADE2}${EMBED}${ESC}[00;3${BASHISH_COLOR1};40m${UNEMBED}$FADE${EMBED}${ESC}[01;37;40m${UNEMBED} \d

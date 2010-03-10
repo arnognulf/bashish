@@ -6,28 +6,28 @@ eval $(_bashish_prompt_parsecolors "$@")
 test "x${BASHISH_COLOR0}" = x && eval $(_bashish_prompt_parsecolors blue)
 PROMPT_COMMAND="_BASHISH_PROMPT_RCS=\$(_bashish_prompt_rcs \${_BASHISH_PROMPT_RCS} ) && _bashish_promptupdate"
 
-$_typeset RCS_PS1=$(_bashish_prompt_rcs 2>/dev/null)
+typeset RCS_PS1=$(_bashish_prompt_rcs 2>/dev/null)
 test "x${RCS_PS1}" != x && RCS_PS1="${ESC}[0;3${BASHISH_COLOR0}m|${ESC}[1;3${BASHISH_COLOR0}m${RCS_PS1}${ESC}[0;3${BASHISH_COLOR0}m"
 
 test x${LINES} = x && LINES=132
-$_typeset i=0
-$_typeset FILLY=""
-test "x${PROMPTSTR}" = x && $_typeset PROMPTSTR="${USER}${ESC}[3"${BASHISH_COLOR0}"m@${ESC}[9"${BASHISH_COLOR0}"m${HOSTNAME%%.*}"
-$_typeset BASHISH_B3="`_bashish_prompt_cp437 B3`"
+typeset i=0
+typeset FILLY=""
+test "x${PROMPTSTR}" = x && typeset PROMPTSTR="${USER}${ESC}[3"${BASHISH_COLOR0}"m@${ESC}[9"${BASHISH_COLOR0}"m${HOSTNAME%%.*}"
+typeset BASHISH_B3="`_bashish_prompt_cp437 B3`"
 while test "$i" -lt ${LINES}
 do
 	FILLY="${FILLY}${ESC}[0G${ESC}[9${BASHISH_COLOR0}m${BASHISH_B3}${ESC}[${COLUMNS}G${ESC}[3"${BASHISH_COLOR0}"m$BASHISH_B3${ESC}[B"
 	let i++
 done
 
-$_typeset BASHISH_C0=`_bashish_prompt_cp437 C0` # └
-$_typeset BASHISH_C4=`_bashish_prompt_cp437 C4` # ─
-$_typeset BASHISH_DA=`_bashish_prompt_cp437 DA` # ┌
-$_typeset BASHISH_D9=`_bashish_prompt_cp437 D9` # ┘
-$_typeset BASHISH_BF=`_bashish_prompt_cp437 BF` # ┐
-$_typeset BASHISH_B3=`_bashish_prompt_cp437 B3` # │
+typeset BASHISH_C0=`_bashish_prompt_cp437 C0` # └
+typeset BASHISH_C4=`_bashish_prompt_cp437 C4` # ─
+typeset BASHISH_DA=`_bashish_prompt_cp437 DA` # ┌
+typeset BASHISH_D9=`_bashish_prompt_cp437 D9` # ┘
+typeset BASHISH_BF=`_bashish_prompt_cp437 BF` # ┐
+typeset BASHISH_B3=`_bashish_prompt_cp437 B3` # │
 
-$_typeset BASHISH_CWD=`_bashish_prompt_cwd "${ESC}[3${BASHISH_COLOR0}m" "${ESC}[9${BASHISH_COLOR0}m" 43`
+typeset BASHISH_CWD=`_bashish_prompt_cwd "${ESC}[3${BASHISH_COLOR0}m" "${ESC}[9${BASHISH_COLOR0}m" 43`
 case "${UID}" in
 0)
 PS1="${EMBED}\

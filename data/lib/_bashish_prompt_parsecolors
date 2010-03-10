@@ -1,7 +1,7 @@
 #!/bin/bash
 ##################################################################################
 ## Bashish, a console theme engine
-## Copyright (C) 2006 Thomas Eriksson
+## Copyright (C) 2010 Thomas Eriksson
 ##
 ## This program is free software; you can redistribute it and/or
 ## modify it under the terms of the GNU General Public License
@@ -36,14 +36,14 @@ function _bashish_prompt_parsecolors
 	do
 		test $i -gt 0 && printf ";"
 		case "${ARG}" in
-		black) eval printf \"\\\$_typeset BASHISH_COLOR${i}=0\";let i++;;
-		red) eval printf \"\\\$_typeset BASHISH_COLOR${i}=1\";let i++;;
-		green) eval printf \"\\\$_typeset BASHISH_COLOR${i}=2\";let i++;;
-		yellow) eval printf \"\\\$_typeset BASHISH_COLOR${i}=3\";let i++;;
-		blue) eval printf \"\\\$_typeset BASHISH_COLOR${i}=4\";let i++;;
-		magenta) eval printf \"\\\$_typeset BASHISH_COLOR${i}=5\";let i++;;
-		cyan) eval printf \"\\\$_typeset BASHISH_COLOR${i}=6\";let i++;;
-		white) eval printf \"\\\$_typeset BASHISH_COLOR${i}=7\";let i++;;
+		black) eval printf \"\\\typeset BASHISH_COLOR${i}=0\";let i++;;
+		red) eval printf \"\\\typeset BASHISH_COLOR${i}=1\";let i++;;
+		green) eval printf \"\\\typeset BASHISH_COLOR${i}=2\";let i++;;
+		yellow) eval printf \"\\\typeset BASHISH_COLOR${i}=3\";let i++;;
+		blue) eval printf \"\\\typeset BASHISH_COLOR${i}=4\";let i++;;
+		magenta) eval printf \"\\\typeset BASHISH_COLOR${i}=5\";let i++;;
+		cyan) eval printf \"\\\typeset BASHISH_COLOR${i}=6\";let i++;;
+		white) eval printf \"\\\typeset BASHISH_COLOR${i}=7\";let i++;;
 		esac
 	done
 }

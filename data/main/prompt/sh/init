@@ -301,7 +301,7 @@ Without argument, a default title will be set.
 "
 	return 1
 	;;
-	-n*) shift; $_typeset TITLESTR;;
+	-n*) shift; typeset TITLESTR;;
 	esac
 	if test "x$*" = x
 	then

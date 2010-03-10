@@ -27,8 +27,8 @@ _bashish_prompt()
 eval $(_bashish_prompt_shellvars $SHELLNAME)
 PROMPT_COMMAND="_bashish_guru"
 _bashish_prompt_asciilogo nocenter logo.start
-test "x${PROMPTSTR}" = x && $_typeset PROMPTSTR="${TTY##*/}"
-test "x${TITLESTR}" = x && $_typeset TITLESTR="AmigaDOS"
+test "x${PROMPTSTR}" = x && typeset PROMPTSTR="${TTY##*/}"
+test "x${TITLESTR}" = x && typeset TITLESTR="AmigaDOS"
 
 PS1="${PROMPTSTR}>"
 TITLE="${TITLESTR}"

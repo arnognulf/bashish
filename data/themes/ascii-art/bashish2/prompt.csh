@@ -1,7 +1,7 @@
 #!/usr/bin/env csh 
  #!/bin/csh
 ##################################################################################
-## Copyright (c) 2006, Thomas Eriksson
+## Copyright (c) 2010, Thomas Eriksson
 ## All rights reserved.
 ##
 ## Redistribution and use in source and binary forms, with or without 
