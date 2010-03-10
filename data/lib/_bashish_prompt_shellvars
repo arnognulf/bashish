@@ -61,7 +61,8 @@ function _bashish_prompt_shellvars
 sh|*)
 function _bashish_prompt_shellvars
 {
-	printf "typeset() { eval \"\$@\";};BEL=\"\007\";ESC=\"\033\";EMBED=\"\";UNEMBED=\";TIME=\`date +\"%%R:%%S\"\`\"\n"
+	## emulate typeset, but do not limit scope to functions
+	printf "typeset () { eval \${1%%=*}=\\\\\"\${1#*=}\\\\\";};BEL=\"\007\";ESC=\"\033\";EMBED=\"\";UNEMBED=\";TIME=\`date +\"%%R:%%S\"\`\"\n"
 }
 esac		
 
