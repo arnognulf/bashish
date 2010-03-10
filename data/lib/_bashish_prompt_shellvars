@@ -42,26 +42,26 @@ case "$SHELLNAME" in
 zsh)
 function _bashish_prompt_shellvars
 {
-	printf "typeset _typeset=typeset BEL=\"\007\" ESC=\"\033\" EMBED=\"%%{\" UNEMBED=\"%%}\" TIME=\"%%*\"\n"
+	printf "typeset BEL=\"\007\" ESC=\"\033\" EMBED=\"%%{\" UNEMBED=\"%%}\" TIME=\"%%*\"\n"
 }
 ;;
 bash)
 function _bashish_prompt_shellvars
 {
 
-	printf "typeset _typeset=typeset BEL=\"\007\" ESC=\"\033\" EMBED=\"\\\\[\" UNEMBED=\"\\\\]\" DATE=\"\\\\d\" TIME=\"\\\\t\"\n"
+	printf "typeset BEL=\"\007\" ESC=\"\033\" EMBED=\"\\\\[\" UNEMBED=\"\\\\]\" DATE=\"\\\\d\" TIME=\"\\\\t\"\n"
 }
 ;;
 ksh)
 function _bashish_prompt_shellvars
 {
-	printf "typeset _typeset=typeset BEL=\"\007\" ESC=\"\033\" EMBED=\"\" UNEMBED=\"\" TIME=\`date +\"%%R:%%S\"\n"
+	printf "typeset BEL=\"\007\" ESC=\"\033\" EMBED=\"\" UNEMBED=\"\" TIME=\`date +\"%%R:%%S\"\n"
 }
 ;;
 sh|*)
 function _bashish_prompt_shellvars
 {
-	printf "_typeset=\"\";BEL=\"\007\";ESC=\"\033\";EMBED=\"\";UNEMBED=\";TIME=\`date +\"%%R:%%S\"\`\"\n"
+	printf "typeset() { eval \"\$@\";};BEL=\"\007\";ESC=\"\033\";EMBED=\"\";UNEMBED=\";TIME=\`date +\"%%R:%%S\"\`\"\n"
 }
 esac		
 
