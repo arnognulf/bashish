@@ -31,20 +31,21 @@
 
 function _bashish_prompt_parsecolors
 {
-	typeset i=0
+	typeset i=0 c=""
 	for ARG in "$@"
 	do
 		test $i -gt 0 && printf ";"
 		case "${ARG}" in
-		black) eval printf \"\\\typeset BASHISH_COLOR${i}=0\";let i++;;
-		red) eval printf \"\\\typeset BASHISH_COLOR${i}=1\";let i++;;
-		green) eval printf \"\\\typeset BASHISH_COLOR${i}=2\";let i++;;
-		yellow) eval printf \"\\\typeset BASHISH_COLOR${i}=3\";let i++;;
-		blue) eval printf \"\\\typeset BASHISH_COLOR${i}=4\";let i++;;
-		magenta) eval printf \"\\\typeset BASHISH_COLOR${i}=5\";let i++;;
-		cyan) eval printf \"\\\typeset BASHISH_COLOR${i}=6\";let i++;;
-		white) eval printf \"\\\typeset BASHISH_COLOR${i}=7\";let i++;;
+		black) c=0;;
+		red) c=1;;
+		green) c=2;;
+		yellow) c=3;;
+		blue) c=4;;
+		magenta) c=5;;
+		cyan) c=6;;
+		white) c=7;;
 		esac
+		eval printf \"typeset BASHISH_COLOR${i}=$c\";let i++
 	done
 }
 
