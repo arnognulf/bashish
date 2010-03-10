@@ -7,6 +7,9 @@ as reported by milleoiseaux.
 It also comes with quite a significant start time speedup.
 On my Thinkpad T61, startup has been reduced from 0.800ms to 0.110ms yay!
 
+The curses based theme changer is back, in the form of 'bashishtheme'.
+It does not, however, support color arguments.
+
 Some more polish on c64
 dos has gotten two classic error messages!
 

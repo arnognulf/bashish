@@ -1,5 +1,11 @@
 bashish-2.2.3
 -------------
+dash:
+     typeset()        
+> {
+> eval $1
+> }
+
 feat: --default-fontname=""
 feat: --default-bgcolor=""
 feat: --default-fgcolor=""
