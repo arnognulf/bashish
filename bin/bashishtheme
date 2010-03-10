@@ -101,7 +101,7 @@ theme_selector ()
 	read ITEM <"$HOME"/.bashish/tmp/dialogfe
 	typeset THEME=${ITEM#*/}
 	test "x$THEME" = "x<none>"&&THEME=none
-	bashish ${THEME}
+	bashish "${BTAPP}" "${THEME}"
 	#(
 	#	_bashish_module sys/setopts
 	#	_bashish_setopts
