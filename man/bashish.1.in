@@ -42,7 +42,7 @@ When saving a theme, the current working directory must contain the theme to be 
 .TP
 
 .SH COPYRIGHT 
-bashish is Copyright (c) 1999-2005 Thomas Eriksson.
+bashish is Copyright (c) 1999-2010 Thomas Eriksson.
 
 This program is free software; you can redistribute it and/or modify 
 it under the terms of the GNU General Public License as published 

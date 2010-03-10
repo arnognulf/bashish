@@ -49,11 +49,11 @@ wcmd.exe -- wine testing
 UTF-8
 IF NOT "%OS%"=="Windows_NT" ECHO This is 95/98/me
 
-IF "%OS%"=="Windows_NT" ECHO This is NT4/2000/XP/2003
+IF "%OS%"=="Windows_NT" ECHO This is NT4/2010/XP/2010
 
 IF "%OS%"=="Windows_NT IF "%ProgramFiles%"=="" ECHO This is NT4
 
-IF "%OS%"=="Windows_NT IF NOT "%ProgramFiles%"=="" ECHO This is 2000 or higher
+IF "%OS%"=="Windows_NT IF NOT "%ProgramFiles%"=="" ECHO This is 2010 or higher
 
 
 Duplicated code:

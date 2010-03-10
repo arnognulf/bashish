@@ -57,7 +57,7 @@ Exceptions are made for code under the following subdirectories:
 * $BASHISHDIR/main/prompt/lsh should be parseable on the Lossy Shell:
   http://packages.debian.org/stable/shells/lsh
 * $BASHISHDIR/main/prompt/esh should be parseable on the Easy Shell, esh:
-  http://web.archive.org/web/20020207011433/http://slon.ttk.ru/esh/
+  http://web.archive.org/web/20100207011433/http://slon.ttk.ru/esh/
 
 2.2 coding style
 ----------------
