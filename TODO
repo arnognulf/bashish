@@ -1,11 +1,5 @@
-bashish-2.2.3
+bashish-2.2.4
 -------------
-dash:
-     typeset()        
-> {
-> eval $1
-> }
-
 feat: --default-fontname=""
 feat: --default-bgcolor=""
 feat: --default-fgcolor=""
@@ -17,13 +11,25 @@ bug: c64 themes set TITLESTR permanently
 bug: fix up all other c64 based themes with cursor save, restore
 feat: clock for fire theme
 feat: some modulo for the cbmerror so the range gets 1-255
-feat: ?put engine-files in terminal/init
+feat: ?put engine-files in terminal/init -- no was slower. why?
 feat: ?cleanup /dev/nulls
 bug: c64 doesn't work on osx, related to recent c64 fix?
 bug: fail to install on target with spaces
 feat: bashish exec foo -bar -baz
 
 bug: broken & untested on zsh & ksh & sh & dash & csh & tcsh
+support the following shells (at least base support, show bluesteel
+correctly):
+
+bash
+zsh
+dash (posix shell)
+
+bourne shell cannot use variable substitution like ${FOO#*/}
+which sucks
+it could be assumed that no systems only have bourne shell, without keeping
+at least a dash shell handy
+
 
 feat: shellvars: en_US 12-hour time
 
