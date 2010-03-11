@@ -52,10 +52,14 @@ _bashish_prompt()
 {
 	eval $(_bashish_prompt_shellvars $SHELLNAME)
 	eval $(_bashish_prompt_parsecolors "$@")
-	PROMPT_COMMAND=_bashish_fail
+	PROMPT_COMMAND="_bashish_fail; _BASHISH_PROMPT_RCS=\$(_bashish_prompt_rcs \${_BASHISH_PROMPT_RCS} ) && _bashish_promptupdate"
+	local RCS_PS1=$(_bashish_prompt_rcs)
+	test "x${RCS_PS1}" != x && RCS_PS1=$(echo "|${RCS_PS1}"|tr a-z A-Z)
+	local ROOT=">"
+	test "x${UID}" = x0 && ROOT="#"
 
 
-	PS1="`_bashish_TRANSDIR`> "
+	PS1="`_bashish_TRANSDIR`${RCS_PS1}${ROOT} "
 	if test "x${BASHISH_COLOR0}" != x
 	then
 		PS1="${EMBED}${ESC}[0;3${BASHISH_COLOR0}m${UNEMBED}$PS1${EMBED}${ESC}[0m${UNEMBED}"
