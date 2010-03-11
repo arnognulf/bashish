@@ -17,7 +17,7 @@ local COLOR2="${EMBED}${ESC}[1;3${BASHISH_COLOR1}m${UNEMBED}"
 local COLOR3="${EMBED}${ESC}[1;3${BASHISH_COLOR2}m${UNEMBED}"
 local COLOR4="${EMBED}${ESC}[0m${UNEMBED}"
 
-typeset BASHISH_CWD=`_bashish_prompt_cwd "${ESC}[1;3${BASHISH_COLOR2}m" "${ESC}[0;3${BASHISH_COLOR0}m" 39`
+typeset BASHISH_CWD=`_bashish_prompt_cwd $SHELLNAME "${ESC}[1;3${BASHISH_COLOR2}m" "${ESC}[0;3${BASHISH_COLOR0}m" 39`
 
 typeset BASHISH_DA=`_bashish_prompt_cp437 DA` # ┌
 typeset BASHISH_C0=`_bashish_prompt_cp437 C0` # └

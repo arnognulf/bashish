@@ -37,15 +37,20 @@
 ## chop off element by element and replace with "..." if not enough space
 function _bashish_prompt_cwd
 {
-	typeset CWD="" DIR="" IFS=: PWD="$(pwd)" CWD="" IFS INT_MAX=9223372036854775807 SEPCOLOR=${1} TXTCOLOR=${2} CUTOFF=${3:-$INT_MAX}
+	typeset EEMBED="" EUNEMBED="" CWD="" DIR="" IFS=: PWD="$(pwd)" CWD="" IFS INT_MAX=9223372036854775807 SHELLNAME=${1} SEPCOLOR=${2} TXTCOLOR=${3} CUTOFF=${4:-$INT_MAX}
 
+	case "${SHELLNAME}"
+	in
+		bash) EEMBED="\\\\["; EUNEMBED="\\\\]";;
+		zsh|tcsh) EEMBED="%%{"; EUNEMBED="%%}";;
+	esac
 	if test "x$COLUMNS" = x
 	then
 		IFS=" "
 		for COLUMNS in $(stty size);do :;done
 		unset IFS
 	fi
-	eval "case \"$PWD\" in \"$HOME\"*) PWD=\${PWD:"${#HOME}"};CWD=\${TXTCOLOR}\~;;/)CWD=\${SEPCOLOR}/;esac"
+	eval "case \"$PWD\" in \"$HOME\"*) PWD=\${PWD:"${#HOME}"};CWD=${EEMBED}\${TXTCOLOR}${EUNEMBED}\~;;/)CWD=${EEMBED}\${SEPCOLOR}${EUNEMBED}/;esac"
 	test $(( $COLUMNS - ${#PWD} )) -lt ${CUTOFF} && { 
 		CWD=${TXTCOLOR}...
 		eval "PWD=\"\${PWD:$(( ${#PWD} - ( $COLUMNS - $CUTOFF ) ))}\""
@@ -53,7 +58,7 @@ function _bashish_prompt_cwd
 	IFS=/
 	for DIR in $PWD
 	do
-		CWD="$CWD${TXTCOLOR}$DIR${SEPCOLOR}/"
+		CWD="$CWD${EEMBED}${TXTCOLOR}${EUNEMBED}$DIR${EEMBED}${SEPCOLOR}${EUNEMBED}/"
 	done
 	unset IFS
 	printf "${CWD%/}"
