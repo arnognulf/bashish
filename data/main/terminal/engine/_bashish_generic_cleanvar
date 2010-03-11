@@ -22,6 +22,7 @@ function _bashish_generic_cleanvar
 	## make sure the following variables are arrays before clearing them
 	XFONT[1023]=""
 	FONTNAME[1023]=""
+	COLOR[1023]=""
 	## clean up some variables
 	unset \
 	FONTNAME[*]\
@@ -52,21 +53,6 @@ function _bashish_generic_cleanvar
 	THEME_COMMENT\
 	THEME_MADEWITH\
 	DELAY\
-	ASCII_LOGO\
-	ANSICOLOR_RED\
-	ANSICOLOR_GREEN\
-	ANSICOLOR_YELLOW\
-	ANSICOLOR_BLUE\
-	ANSICOLOR_MAGENTA\
-	ANSICOLOR_CYAN\
-	ANSICOLOR_BRIGHTBLACK\
-	ANSICOLOR_BRIGHTRED\
-	ANSICOLOR_BRIGHTGREEN\
-	ANSICOLOR_BRIGHTYELLOW\
-	ANSICOLOR_BRIGHTBLUE\
-	ANSICOLOR_BRIGHTMAGENTA\
-	ANSICOLOR_BRIGHTCYAN\
-	ANSICOLOR_BRIGHTWHITE\
 	DTICON\
 	EICON\
 	FONTSIZE\
@@ -84,6 +70,7 @@ function _bashish_generic_cleanvar
 	BGSHADE\
 	AFGCOLOR\
 	ABGCOLOR \
-	RXVTFONT
+	RXVTFONT \
+	COLOR[*]
 }
 
