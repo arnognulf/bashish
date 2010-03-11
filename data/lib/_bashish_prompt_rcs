@@ -41,11 +41,11 @@
 ## this is faster
 _bashish_prompt_rcs_git ()
 {
-	typeset g="$1"
-	#typeset g="$(__gitdir)"
+	local g="$1"
+	#local g="$(__gitdir)"
 	if [ -n "$g" ]; then
-		typeset r
-		typeset b
+		local r
+		local b
 		if [ -f "$g/rebase-merge/interactive" ]; then
 			r="|REBASE-i"
 			b="$(cat "$g/rebase-merge/head-name")"
@@ -87,11 +87,11 @@ _bashish_prompt_rcs_git ()
 			}
 		fi
 
-		typeset w
-		typeset i
-		typeset s
-		typeset u
-		typeset c
+		local w
+		local i
+		local s
+		local u
+		local c
 
 		if [ "true" = "$(git rev-parse --is-inside-git-dir 2>/dev/null)" ]; then
 			if [ "true" = "$(git rev-parse --is-bare-repository 2>/dev/null)" ]; then
@@ -140,7 +140,7 @@ _bashish_prompt_rcs_traverse ()
 
 	if test -d "${1}/.git"
 	then
-		typeset GIT_PS1="$( _bashish_prompt_rcs_git ${1}/.git )"
+		local GIT_PS1="$( _bashish_prompt_rcs_git ${1}/.git )"
 		test x"${GIT_PS1}" != x && { printf "${GIT_PS1}"; return 0; }
 	elif test -d "${1}/.hg"
 	then
@@ -150,21 +150,21 @@ _bashish_prompt_rcs_traverse ()
 	then
 		if test -f "${1}/.bzr/branch/last-revision"
 		then
-			typeset BZR_REV=":$(cat ${1}/.bzr/branch/last-revision)"
+			local BZR_REV=":$(cat ${1}/.bzr/branch/last-revision)"
 		else
-			typeset BZR_REV=":$(bzr revno)"
+			local BZR_REV=":$(bzr revno)"
 		fi
 		printf "${1##*/}${BZR_REV%% *}"
 		return 0
 	elif test -d "${1}/_MTN"
 	then
-		typeset IFS LINE="" MONOTONE_BRANCH=""
+		local IFS LINE="" MONOTONE_BRANCH=""
 		IFS="
 "
 		for LINE in $(cat _MTN/options 2>/dev/null)
 		do
 			case "${LINE}" in
-			*"branch \""*) typeset MONOTONE_BRANCH="${LINE#*branch \"}";;
+			*"branch \""*) local MONOTONE_BRANCH="${LINE#*branch \"}";;
 			esac
 		done
 		unset IFS
@@ -172,13 +172,13 @@ _bashish_prompt_rcs_traverse ()
 		return 0
 	elif test -d "${1}/_darcs"
 	then
-		typeset LINE="" DARCS_PATCHES="" IFS="
+		local LINE="" DARCS_PATCHES="" IFS="
 "
 		for LINE in $(darcs show repo 2>/dev/null)
 		do
 			# Num Patches: 8187
 			case "${LINE}" in
-			"   Num Patches: "*) typeset DARCS_PATCHES="${LINE#   Num Patches: }";;
+			"   Num Patches: "*) local DARCS_PATCHES="${LINE#   Num Patches: }";;
 			esac
 		done
 		unset IFS
@@ -191,10 +191,10 @@ _bashish_prompt_rcs_traverse ()
 
 _bashish_prompt_rcs ()
 {
-	typeset OLD_RCS="$1"
+	local OLD_RCS="$1"
 	
 	## git, hg, bzr, and monotone detection
-	typeset TRAVERSED_PS1=$(_bashish_prompt_rcs_traverse "${PWD}")
+	local TRAVERSED_PS1=$(_bashish_prompt_rcs_traverse "${PWD}")
 	if test x"${TRAVERSED_PS1}" != x
 	then
 		printf "${TRAVERSED_PS1}"
@@ -205,19 +205,19 @@ _bashish_prompt_rcs ()
 	## svn detection
 	if test -d .svn
 	then
-		typeset IFS="
+		local IFS="
 "
-		typeset LINE
+		local LINE
 		for LINE in $(svn info 2>/dev/null)
 		do
 			case "${LINE}" in
-			"URL: "*) typeset SVN_URL="${LINE#URL: }";;
-			"Repository Root: "*) typeset SVN_ROOT="${LINE#Repository Root: }";;
-			"Revision: "*) typeset SVN_REV="${LINE#Revision: }"
+			"URL: "*) local SVN_URL="${LINE#URL: }";;
+			"Repository Root: "*) local SVN_ROOT="${LINE#Repository Root: }";;
+			"Revision: "*) local SVN_REV="${LINE#Revision: }"
 			esac
 		done
 		unset IFS
-		eval typeset SVN_PS1="\"\${SVN_URL#${SVN_ROOT}/}\""
+		eval local SVN_PS1="\"\${SVN_URL#${SVN_ROOT}/}\""
 		if test x"${SVN_PS1%%/*}" != x
 		then
 			printf "${SVN_PS1%%/*}:${SVN_REV}"

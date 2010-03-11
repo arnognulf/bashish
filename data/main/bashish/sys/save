@@ -21,13 +21,13 @@
 function _bashish_save
 {
 	## run in a subshell so the themeloading won't pollute the enviroment
-	typeset THEMEFILE FILE SHELLNAME THEMEDIR
+	local THEMEFILE FILE SHELLNAME THEMEDIR
 	## do basic checks
 	( test -f $PWD/theme || exit 23 ) || errorhandler 23
 	## theme parsing fail?
 	( . ./theme||exit 22 ) || errorhandler 22
 
-	typeset HEADERFILE=""
+	local HEADERFILE=""
 	## header check
 	for HEADERFILE in ./prompt.sh ./prompt.ksh ./prompt.zsh ./prompt.bash ./theme
 	do

@@ -31,7 +31,7 @@
 
 function _bashish_prompt_parsecolors
 {
-	typeset i=0 c=""
+	local i=0 c=""
 	for ARG in "$@"
 	do
 		test $i -gt 0 && printf ";"
@@ -45,7 +45,7 @@ function _bashish_prompt_parsecolors
 		cyan) c=6;;
 		white) c=7;;
 		esac
-		eval printf \"typeset BASHISH_COLOR${i}=$c\";let i++
+		eval printf \"local BASHISH_COLOR${i}=$c\";let i++
 	done
 }
 

@@ -8,10 +8,10 @@
 
 function _bashish_list
 {
-	typeset n=0
+	local n=0
 	function _bashish_list
 	{
-		typeset DIR
+		local DIR
 		for DIR in "$1"/*
 		do
 			test "x${DIR}" != "x/*" && \

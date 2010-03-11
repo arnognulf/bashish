@@ -37,7 +37,7 @@
 ## chop off element by element and replace with "..." if not enough space
 function _bashish_prompt_cwd
 {
-	typeset EEMBED="" EUNEMBED="" CWD="" DIR="" IFS=: PWD="$(pwd)" CWD="" IFS INT_MAX=9223372036854775807 SHELLNAME=${1} SEPCOLOR=${2} TXTCOLOR=${3} CUTOFF=${4:-$INT_MAX}
+	local EEMBED="" EUNEMBED="" CWD="" DIR="" IFS=: PWD="$(pwd)" CWD="" IFS INT_MAX=9223372036854775807 SHELLNAME=${1} SEPCOLOR=${2} TXTCOLOR=${3} CUTOFF=${4:-$INT_MAX}
 
 	case "${SHELLNAME}"
 	in

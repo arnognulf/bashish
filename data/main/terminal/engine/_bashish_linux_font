@@ -24,7 +24,7 @@ function _bashish_linux_font
 	then
 
 		## first test for consolechars (as it has a kbd-compat wrapper
-		typeset SETFONT="$(type -p consolechars)" SETCFONT FLAGS
+		local SETFONT="$(type -p consolechars)" SETCFONT FLAGS
 		unset FLAGS
 
 		case "$SETFONT" in

@@ -42,27 +42,27 @@ case "$SHELLNAME" in
 zsh)
 function _bashish_prompt_shellvars
 {
-	printf "typeset BEL=\"\007\" ESC=\"\033\" EMBED=\"%%{\" UNEMBED=\"%%}\" TIME=\"%%*\"\n"
+	printf "local BEL=\"\007\" ESC=\"\033\" EMBED=\"%%{\" UNEMBED=\"%%}\" TIME=\"%%*\"\n"
 }
 ;;
 bash)
 function _bashish_prompt_shellvars
 {
 
-	printf "typeset BEL=\"\007\" ESC=\"\033\" EMBED=\"\\\\[\" UNEMBED=\"\\\\]\" DATE=\"\\\\d\" TIME=\"\\\\t\"\n"
+	printf "local BEL=\"\007\" ESC=\"\033\" EMBED=\"\\\\[\" UNEMBED=\"\\\\]\" DATE=\"\\\\d\" TIME=\"\\\\t\"\n"
 }
 ;;
 ksh)
 function _bashish_prompt_shellvars
 {
-	printf "typeset BEL=\"\007\" ESC=\"\033\" EMBED=\"\" UNEMBED=\"\" TIME=\`date +\"%%R:%%S\"\n"
+	## all shells but ksh have "local", but dash does not have "typeset", hence local is preferred to use
+	printf "alias local=typeset; typeset BEL=\"\007\" ESC=\"\033\" EMBED=\"\" UNEMBED=\"\" TIME=\`date +\"%%R:%%S\"\n"
 }
 ;;
 sh|*)
 function _bashish_prompt_shellvars
 {
-	## emulate typeset, but do not limit scope to functions
-	printf "typeset () { eval \${1%%=*}=\\\\\"\${1#*=}\\\\\";};BEL=\"\007\";ESC=\"\033\";EMBED=\"\";UNEMBED=\";TIME=\`date +\"%%R:%%S\"\`\"\n"
+	printf "local BEL=\"\007\" ESC=\"\033\" EMBED=\"\" UNEMBED=\" TIME=\`date +\"%%R:%%S\"\`\"\n"
 }
 esac		
 

@@ -42,12 +42,12 @@ function _bashish_xterm_font
 	## window to increment in size after a font change.
 	## Need to do this every time since rxvt-unicode has a buggy scrollbar feature
 	printf "\033[?30l"
-	typeset IFS
+	local IFS
 	## if the font and size is the same as before, there is no need to traverse
 	## this chunk of code
 	if test "x${BASHISH_STATE[400]}" != "x$XFONT"
 	then 
-		typeset i=0 POSITION_X_INCREMENT="" POSITION_Y_INCREMENT="" PIXELS LINES PRE_SIZE_X PRE_SIZE_Y IFS="
+		local i=0 POSITION_X_INCREMENT="" POSITION_Y_INCREMENT="" PIXELS LINES PRE_SIZE_X PRE_SIZE_Y IFS="
 "
 		for LINES in $(xwininfo -id $WINDOWID)
 		do

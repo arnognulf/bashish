@@ -477,7 +477,7 @@ function themecap_xterm-old
 #fi
 
 ## load all modules specified in $THEMECAP
-#typeset LOAD
+#local LOAD
 for LOAD in $THEMECAP
 do
 	_bashish_module engine/$LOAD
@@ -501,7 +501,7 @@ _bashish_theme_overrides () { :;}
 ## load the theme defaults to memory
 test -f "$HOME"/.bashish/defaults/theme && . "$HOME"/.bashish/defaults/theme
 
-#typeset BASHISH_THEME
+#local BASHISH_THEME
 
 ## load the prompt theme to memory
 test -f "$HOME"/.bashish/prompt/theme && . "${HOME}"/.bashish/prompt/theme
@@ -518,13 +518,13 @@ unset BASHISH_THEME
 test -f "$HOME"/.bashish/overrides/theme && . "${HOME}"/.bashish/overrides/theme
 
 ## declare variables
-#typeset APPDIR APPNAME IFS
+#local APPDIR APPNAME IFS
 
 ## this is a helper function commonly used to locate a file in
 ## the three btdirs
 function _bashish_whichbtdir
 {   
-	typeset WHICHBTDIR
+	local WHICHBTDIR
 	for WHICHBTDIR in "$HOME/.bashish/override" "$BTDIR" "$HOME/.bashish/fallback"
 	do
 		test -f "$WHICHBTDIR/$1" && { printf "$WHICHBTDIR" ; return 0; }
@@ -537,10 +537,10 @@ function _bashish_brefresh
 {
 	if test "x${BASHISH_ARGV[0]}" != x; then
 		## set BTDIR to APPDIR
-		typeset BTDIR="$HOME"/.bashish/app/${BASHISH_ARGV[0]##*/}
+		local BTDIR="$HOME"/.bashish/app/${BASHISH_ARGV[0]##*/}
 	else
 		## $BTDIR points to the theme dir
-		typeset BTDIR="$HOME"/.bashish/prompt/
+		local BTDIR="$HOME"/.bashish/prompt/
 	fi
 	## load default theme options
 	_bashish_theme_defaults
@@ -559,7 +559,7 @@ function _bashish_brefresh
 	##################################################################
 	
 	## do not make FUNCTION global
-	typeset FUNCTION
+	local FUNCTION
 	
 	## load theme functions
 	for FUNCTION in $THEMECAP; do

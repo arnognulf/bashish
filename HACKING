@@ -117,10 +117,10 @@ Comments generally have tho sharp characters: '##', commented code have one:
 '#'.
 
 ## as of Bashish 2.0.5 the syntax foo() is depriciated, instead write as
-## following with typeset being used to declare local variabels
+## following with local being used to declare local variabels
 function foo
 {
-	typeset var1=foo var2=bar
+	local var1=foo var2=bar
 	cmd
 }
 ## I use the test builtin by an old habit trying bashish to be bourne

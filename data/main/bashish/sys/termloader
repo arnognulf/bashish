@@ -41,7 +41,7 @@ function _bashish_termloader
 	esac
 
 	## clean up bashish zombie processes that are connected to disconnected ttys
-	typeset TTYS
+	local TTYS
 	for TTYS in "$HOME"/.bashish/tmp/*
 	do
 		test -O "/dev/${TTYS##*/}" -o -O "/dev/pts/${TTYS##*/}"||{
@@ -59,7 +59,7 @@ function _bashish_termloader
 	}
 
 	## Cygwin compatibility code
-	typeset PROCEXIST=0
+	local PROCEXIST=0
  	test -f "$HOME/.bashish/tmp/${TTY##*/}/pid" && {
  		read BASHISH_SUBPROC <"$HOME"/.bashish/tmp/"${TTY##*/}"/pid
 

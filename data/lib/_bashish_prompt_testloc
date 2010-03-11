@@ -41,7 +41,7 @@ _bashish_prompt_testloc ()
 	stty -echo
 	printf "\033[6n"
 	## $POS is a variable used by several themes, it cannot be declared local
-	typeset i=0 CURPOS="" LINECUT=${1} TOPCUT="${2}" IFS CHAR
+	local i=0 CURPOS="" LINECUT=${1} TOPCUT="${2}" IFS CHAR
 	test "x$TOPCUT" = x && TOPCUT=0
 
 	until test "$i" = 7

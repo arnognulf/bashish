@@ -7,6 +7,8 @@ as reported by milleoiseaux.
 It also comes with quite a significant start time speedup.
 On my Thinkpad T61, startup has been reduced from 0.800ms to 0.110ms yay!
 
+New rcs parsing includes support for Monotone and Darcs 
+
 The curses based theme changer is back, in the form of 'bashishtheme'.
 It does not, however, support color arguments.
 
@@ -306,7 +308,7 @@ Ksh88 / ksh93 function syntactically correct:
 function foo { bar;}
 instead of
 foo () { bar;}
-and use of typeset instead of local to define local variabels
+and use of local instead of local to define local variabels
 
 Better performance / code cleanup in _bashish_launcher
 _bashish_launcher now traps SIGWINCH so the prompt after a themed

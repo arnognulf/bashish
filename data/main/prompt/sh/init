@@ -306,7 +306,7 @@ Without argument, a default title will be set.
 "
 	return 1
 	;;
-	-n*) shift; typeset TITLESTR;;
+	-n*) shift; local TITLESTR;;
 	esac
 	if test "x$*" = x
 	then
@@ -362,7 +362,7 @@ Without argument, a default prompt and title will be set.
 ## color 
 color()
 {
-	typeset ARG 2>/dev/null
+	local ARG 2>/dev/null
 	case "$@" in
 	-h*) printf "\
 color() is part of Bashish by Thomas Eriksson.

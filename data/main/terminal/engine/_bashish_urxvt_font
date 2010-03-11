@@ -46,12 +46,12 @@ function _bashish_urxvt_font
 	## Need to do this every time since rxvt-unicode has a buggy scrollbar feature
 	printf "\033[?30l"
 
-	typeset IFS
+	local IFS
 	## if the font and size is the same as before, there is no need to traverse
 	## this chunk of code
 	if test "x${BASHISH_STATE[400]}" != "x${XFONT[*]}${FONTNAME[*]}${FONTNAME_ITALIC[*]}${FONTNAME_BOLD[*]}${FONTSIZE[*]}${FONTSIZE_ITALIC[*]}${FONTSIZE_BOLD[*]}"
 	then
-		typeset i=0 POSITION_X_INCREMENT="" POSITION_Y_INCREMENT="" PIXELS LINES PRE_SIZE_X PRE_SIZE_Y IFS="
+		local i=0 POSITION_X_INCREMENT="" POSITION_Y_INCREMENT="" PIXELS LINES PRE_SIZE_X PRE_SIZE_Y IFS="
 "
 		for LINES in $(xwininfo -id $WINDOWID)
 		do
@@ -88,8 +88,8 @@ function _bashish_urxvt_font
 		## FIXME: test xft compiled in?
 		## unset FONTNAME[*] FONTNAME_ITALIC[*] FONTNAME_BOLD[*] FONTSIZE_N N N
 
-		typeset FONT_BULKVAR=""
-		typeset URXVTANTIALIAS=false
+		local FONT_BULKVAR=""
+		local URXVTANTIALIAS=false
 		test "x$URXVTANTIALIAS" = x1 && URXVTANTIALIAS=true
 		URXVTANTIALIAS=true
 
@@ -101,7 +101,7 @@ function _bashish_urxvt_font
 
 		test "x${FONTNAME}${XFONT}" != x && {
 		## regular slant
-		typeset i=0 FONT_BULKVAR="\033]50;"
+		local i=0 FONT_BULKVAR="\033]50;"
 		while test $i -lt 1024
 		do
 			case "$i" in

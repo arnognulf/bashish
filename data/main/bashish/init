@@ -38,7 +38,7 @@ function errorhandler
 		printf "${BASHISHNAME}: $2\n"
 		exit $1
 	else 
-	typeset ERROR=$1
+	local ERROR=$1
 	case "$1" in
 	99) printf "$BASHISHNAME: not implemented";;
 	12) printf "$BASHISHNAME: interactive mode unavaliable since dialog could not be found";;
@@ -129,7 +129,7 @@ _bashish_module sys/list
 #_bashish_module sys/find
 function _bashish_find
 {
-	typeset n=0
+	local n=0
 	while test "x${THEME_LIST[$n]}" != x
 	do
 		if test 	x"${THEME_LIST[$n]##*/}" = "x${1}" \
@@ -170,9 +170,11 @@ printf "\
 This will enable Bashish prompt and terminal themeing
 
 the following files will be modified:
-~/.bashrc
 ~/.profile
+~/.bashrc
 ~/.bash_profile (if already exists)
+~/.zprofile (if already exists)
+~/.zshrc
 
 press ENTER to enable Bashish theming
 or hit CTRL+C to quit

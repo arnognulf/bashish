@@ -12,13 +12,13 @@ eval $(_bashish_prompt_parsecolors "$@")
 test "x$BASHISH_COLOR0" = x && eval $(_bashish_prompt_parsecolors blue red)
 test "x$BASHISH_COLOR1" = x && eval $(_bashish_prompt_parsecolors "$1" red)
 
-typeset BASHISH_DA=`_bashish_prompt_cp437 DA` # ┌
-typeset BASHISH_C0=`_bashish_prompt_cp437 C0` # └
-typeset BASHISH_C4=`_bashish_prompt_cp437 C4` # ─
-typeset BASHISH_F9=`_bashish_prompt_cp437 F9` # ∙
-typeset BASHISH_FA=`_bashish_prompt_cp437 FA` # ·
-test "x$PROMPTSTR" = x && typeset PROMPTSTR="${USER}${ESC}[3${BASHISH_COLOR0}m@${ESC}[3${BASHISH_COLOR1}m${HOSTNAME%%.*}"
-typeset RCS_PS1=$(_bashish_prompt_rcs)
+local BASHISH_DA=`_bashish_prompt_cp437 DA` # ┌
+local BASHISH_C0=`_bashish_prompt_cp437 C0` # └
+local BASHISH_C4=`_bashish_prompt_cp437 C4` # ─
+local BASHISH_F9=`_bashish_prompt_cp437 F9` # ∙
+local BASHISH_FA=`_bashish_prompt_cp437 FA` # ·
+test "x$PROMPTSTR" = x && local PROMPTSTR="${USER}${ESC}[3${BASHISH_COLOR0}m@${ESC}[3${BASHISH_COLOR1}m${HOSTNAME%%.*}"
+local RCS_PS1=$(_bashish_prompt_rcs)
 test "x${RCS_PS1}" != x && RCS_PS1="${EMBED}${ESC}[3${BASHISH_COLOR0}m${UNEMBED}|${EMBED}${ESC}[0;3${BASHISH_COLOR1}m${UNEMBED}${RCS_PS1}"
 
 PS1="${ESC}[3${BASHISH_COLOR1}m${BASHISH_DA}${BASHISH_C4}\

@@ -12,8 +12,8 @@
 _bashish_prompt ()
 {
 eval $(_bashish_prompt_shellvars $SHELLNAME)
-typeset FL="`_bashish_prompt_cp437 DB`"
-typeset HA="`_bashish_prompt_cp437 DC`"
+local FL="`_bashish_prompt_cp437 DB`"
+local HA="`_bashish_prompt_cp437 DC`"
 PROMPT_COMMAND="_bashish_prompt_testloc 3"
 PS1="\[\0337\033[0;"'$(($LINES - 3))'"r\033["'$(($LINES - 2))'";0H\
 [41;30m`_bashish_prompt_fillx \" \"`[42m\

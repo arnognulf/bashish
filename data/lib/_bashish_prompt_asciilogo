@@ -21,8 +21,8 @@ function _bashish_prompt_asciilogo
 {
 	test "x${BASHISH_ASCIILOGO}" != x && return 0
 	
-	typeset XCENTER=1
-	typeset YCENTER=1
+	local XCENTER=1
+	local YCENTER=1
 	if test "x$1" = xxcenter
 	then
 		YCENTER=0
@@ -34,7 +34,7 @@ function _bashish_prompt_asciilogo
 		shift
 	fi
 
-	typeset XDECREMENT=0
+	local XDECREMENT=0
 	if test "x$2" != x
 	then
 		## override length calculation by XDECREMENT 
@@ -50,10 +50,10 @@ function _bashish_prompt_asciilogo
 	## welcomemessage upon startup
 
 	## ascii startup logo
-	typeset IFS="
+	local IFS="
 "
-	typeset LINELENGTH=0
-	typeset FILELINES=0
+	local LINELENGTH=0
+	local FILELINES=0
 	for LINE in $(cat "${HOME}/.bashish/prompt/$1")
 	do
 		test ${#LINE} -gt ${LINELENGTH} && LINELENGTH=${#LINE}
@@ -61,17 +61,17 @@ function _bashish_prompt_asciilogo
 	done
 	unset IFS
 	
-	typeset INDEX=0
-	typeset FILLSPACES=$(((${COLUMNS} - ${LINELENGTH} + ${XDECREMENT}) / 2 ))
+	local INDEX=0
+	local FILLSPACES=$(((${COLUMNS} - ${LINELENGTH} + ${XDECREMENT}) / 2 ))
 
-	typeset FILL=""
+	local FILL=""
 
 	test x${XCENTER} = x1 && while test ${INDEX} -lt ${FILLSPACES}
 	do
 		FILL="${FILL} "
 		let INDEX++
 	done
-	typeset FILLHEIGHTSPACES=$(((${LINES} - ${FILELINES})  / 2))
+	local FILLHEIGHTSPACES=$(((${LINES} - ${FILELINES})  / 2))
 	INDEX=0
 	test x${YCENTER} = x1 && while test ${INDEX} -lt ${FILLHEIGHTSPACES}
 	do
@@ -80,7 +80,7 @@ function _bashish_prompt_asciilogo
 		let INDEX++
 	done
 
-	typeset IFS="
+	local IFS="
 "
 	for LINE in $(cat "${HOME}/.bashish/prompt/$1")
 	do

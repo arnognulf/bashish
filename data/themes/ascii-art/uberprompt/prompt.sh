@@ -7,13 +7,13 @@ _bashish_prompt()
 	eval $(_bashish_prompt_shellvars "$SHELLNAME")
 PROMPT_COMMAND="_BASHISH_PROMPT_RCS=\$(_bashish_prompt_rcs \${_BASHISH_PROMPT_RCS} ) && _bashish_promptupdate"
 
-	typeset RCS_PS1=$(_bashish_prompt_rcs)
+	local RCS_PS1=$(_bashish_prompt_rcs)
 	test "x${RCS_PS1}" != x && RCS_PS1="(${RCS_PS1}) "
-	typeset ROOT=""
+	local ROOT=""
 	test "x${UID}" = x0 && ROOT="# "
 
 
-	typeset UNDERLINE LINECHAR
+	local UNDERLINE LINECHAR
 	TITLE="${HOSTNAME%%.*}"
 	test x"$PROMPTSTR" = x && PROMPTSTR="$HOSTNAME"
 	i=1

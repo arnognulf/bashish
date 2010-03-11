@@ -32,7 +32,7 @@ function _bashish_gnome-terminal_properties
 		return 0
 	esac
 		
-	typeset BASHISH_GCONFARGS
+	local BASHISH_GCONFARGS
 	## icon
 	test "$EICON" -a "${BASHISH_STATE[301]}" != "$EICON" && {
 		BASHISH_GCONFARGS=$BASHISH_GCONFARGS" --set  /apps/gnome-terminal/profiles/Bashish/icon --type string $(_bashish_whichbtdir $EICON)/$EICON"
@@ -81,7 +81,7 @@ function _bashish_gnome-terminal_properties
 	## shade cannot be set together with the other gconf options for some strange reason
 	test "x${BASHISH_STATE[305]}" != "x$BGSHADE" && {
 		BASHISH_STATE[305]="$BGSHADE"
-		typeset BGSHADE_FLOAT
+		local BGSHADE_FLOAT
 		if test "$BGSHADE" -ge 100 ;then
 			BGSHADE_FLOAT=1.0
 		else

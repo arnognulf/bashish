@@ -1,5 +1,7 @@
 bashish-2.2.4
 -------------
+bugfix: dos colors
+bugfix: alias local=local in ksh
 
 bugfix: cwd escape arguments
 
@@ -48,8 +50,8 @@ bluesteel seems ok? except cwd
 
 ksh issues
 ----------
-bug: ksh doesn't support "local" but support typeset keyword
-     dash doesn't support "typeset" but support local. FAIL
+bug: ksh doesn't support "local" but support local keyword
+     dash doesn't support "local" but support local. FAIL
 bug: ksh stack-smashes (and segfaults) when in the home directory ÜBERFAIL
 bug: ksh cd() stops working when reaching / FAIL
 

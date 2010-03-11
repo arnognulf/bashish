@@ -22,7 +22,7 @@ function _bashish_rxvt_image
 	## background image, reset if none is specified
 	if test "${BASHISH_STATE[300]}" != "${IMAGEFILE};${IMAGESCALE}"
 	then
-		test "x$IMAGESCALE" != x && typeset IMAGESCALE=";$IMAGESCALE"
+		test "x$IMAGESCALE" != x && local IMAGESCALE=";$IMAGESCALE"
 		## Eterm must have a nonsense file name in order to remove the image
 		if test "x$IMAGEFILE" != x
 		then

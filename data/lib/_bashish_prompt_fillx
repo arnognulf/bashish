@@ -30,7 +30,7 @@ function _bashish_prompt_fillx {
 	## works cleanly on pdksh and bash and zsh
 	test "$ZSH_NAME"&&emulate -L ksh
 	
-	typeset BASHISH_ARGV="" BASHISH_ARGC="" n=0 STRCROP="0" STR=" " STRREPEAT="" STRREST="" COUNT=0
+	local BASHISH_ARGV="" BASHISH_ARGC="" n=0 STRCROP="0" STR=" " STRREPEAT="" STRREST="" COUNT=0
 
 	test x"$1" != x && STR="${1}"
 	test x"$2" != x && STRCROP="${2}"

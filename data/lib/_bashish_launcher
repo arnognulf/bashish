@@ -77,7 +77,7 @@ unset WINCH
 trap "WINCH=1" WINCH
 function _bashish_waitwinch
 {
-	typeset TRAPTIMEOUT="$SECONDS"
+	local TRAPTIMEOUT="$SECONDS"
 	let TRAPTIMEOUT+=2
 	until test "x$WINCH" != x -o $SECONDS -gt $TRAPTIMEOUT
 	do

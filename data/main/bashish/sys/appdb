@@ -20,7 +20,7 @@
 
 function _bashish_appdb
 {
-	typeset APP
+	local APP
 	
 	for APP in "$HOME"/.bashish/launcher/*
 	do

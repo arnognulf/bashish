@@ -4,7 +4,7 @@ _bashish_prompt()
 eval $(_bashish_prompt_shellvars $SHELLNAME)
 PROMPT_COMMAND="_bashish_prompt_cbmerror $?"
 
-test "x$PROMPTSTR" = x && typeset PROMPTSTR=READY
+test "x$PROMPTSTR" = x && local PROMPTSTR=READY
 TITLE=C=
 FILLX=`_bashish_prompt_fillx " "`
 PS1="\

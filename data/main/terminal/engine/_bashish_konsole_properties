@@ -20,7 +20,7 @@
 ## konsole support code
 function _bashish_konsole_properties
 {
-	typeset i=-1 TMP FIFO KONSOLE KONSOLE_SESSION KONSOLE_VERSION FGBOLD BGTRANSP RED GREEN BLUE KOLOR IFS=,\)\(
+	local i=-1 TMP FIFO KONSOLE KONSOLE_SESSION KONSOLE_VERSION FGBOLD BGTRANSP RED GREEN BLUE KOLOR IFS=,\)\(
 	for KONSOLE_SESSION in $KONSOLE_DCOP_SESSION;do :;done
 	for KONSOLE in $KONSOLE_DCOP; do test "x$i" = x0 && break ;i=0; done
 	unset IFS
@@ -126,7 +126,7 @@ function _bashish_konsole_properties
 			RED=${KOLOR:1:2}
 			GREEN=${KOLOR:3:2}
 			BLUE=${KOLOR:5:2}
-			typeset -i INTRED=0 INTBLUE=0 INTGREEN=0
+			local -i INTRED=0 INTBLUE=0 INTGREEN=0
 			INTRED="16#${RED#0x}"
 			INTBLUE="16#${BLUE#0x}"
 			INTGREEN="16#${GREEN#0x}"

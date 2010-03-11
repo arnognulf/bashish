@@ -23,7 +23,7 @@ function _bashish_eterm_ansi
 	## change the 16 ansi colors
 	## 
 	## Older versions of Eterm only supported the Linux color sequence to change colors
-	typeset i=0 h
+	local i=0 h
 	for h in 0 1 2 3 4 5 6 7 8 9 a b c d e f
 	do
 		if test "$i" -gt 9

@@ -55,7 +55,7 @@ do
 done
 updaterc ()
 {
-	typeset SHELLRC="$1"
+	local SHELLRC="$1"
 	test -f "${SHELLRC}" || cp -f "/etc/${SHELLRC##*/.}" "${SHELLRC}" 2>/dev/null
 	test -f "${SHELLRC}" || cp -f "/etc/profile" "${SHELLRC}" 2>/dev/null
 	case "${SHELLRC}" in

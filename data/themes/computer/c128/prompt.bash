@@ -87,7 +87,7 @@ _bashish_prompt()
 eval $(_bashish_prompt_shellvars $SHELLNAME)
 PROMPT_COMMAND="_bashish_c64_cbmerror"
 TITLE="C= 128"
-test "x$PROMPTSTR" = x && typeset PROMPTSTR=READY.
+test "x$PROMPTSTR" = x && local PROMPTSTR=READY.
 FILLX=`_bashish_prompt_fillx " "`
 PS1="\
 ${EMBED}${ESC}[r\

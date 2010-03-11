@@ -38,7 +38,7 @@
 _bashish_prompt() {
 #IMAGELOGO=multics.png
 
-typeset MEMTOTAL="$(cat /proc/meminfo |grep Mem:|sed -e "s/   / /g" -e "s/  / /g"|cut -d" " -f2)"
+local MEMTOTAL="$(cat /proc/meminfo |grep Mem:|sed -e "s/   / /g" -e "s/  / /g"|cut -d" " -f2)"
 
 PS1='r $(date +%k:%M) $(uptime |cut -d" " -f12|sed "s/,//g") '$(($(cat /proc/meminfo |grep Mem:|sed -e "s/   / /g" -e "s/  / /g"|cut -d" " -f3)))'
 '

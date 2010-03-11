@@ -6,21 +6,21 @@
 _bashish_prompt ()
 {
 eval $(_bashish_prompt_shellvars $SHELLNAME)
-typeset FGBLUE="${ESC}[34m"
-typeset FGYELLOW="${ESC}[33m"
-typeset FGCYAN="${ESC}[36m"
-typeset NORMAL="${ESC}[0m"
-typeset FGRED="${ESC}[31m"
-typeset UP="`_bashish_prompt_cp437 DF`"
-typeset DO="`_bashish_prompt_cp437 DC`"
-typeset FU="`_bashish_prompt_cp437 DB`"
-typeset FILLX=`_bashish_prompt_fillx $UP 31`
+local FGBLUE="${ESC}[34m"
+local FGYELLOW="${ESC}[33m"
+local FGCYAN="${ESC}[36m"
+local NORMAL="${ESC}[0m"
+local FGRED="${ESC}[31m"
+local UP="`_bashish_prompt_cp437 DF`"
+local DO="`_bashish_prompt_cp437 DC`"
+local FU="`_bashish_prompt_cp437 DB`"
+local FILLX=`_bashish_prompt_fillx $UP 31`
 
 if test "x$PROMPTSTR" = x
 then
-typeset PROMPTSTR="Stardate:   `date +%s`"
+local PROMPTSTR="Stardate:   `date +%s`"
 else
-typeset PROMPTSTR="Message:    ${PROMPTSTR}"
+local PROMPTSTR="Message:    ${PROMPTSTR}"
 fi
 
 TITLE=LCARS
