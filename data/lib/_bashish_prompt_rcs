@@ -172,11 +172,13 @@ _bashish_prompt_rcs_traverse ()
 		return 0
 	elif test -d "${1}/_darcs"
 	then
-		typeset LINE="" DARCS_PATCHES=""
+		typeset LINE="" DARCS_PATCHES="" IFS="
+"
 		for LINE in $(darcs show repo 2>/dev/null)
 		do
+			# Num Patches: 8187
 			case "${LINE}" in
-			"Num Patches: "*) typeset DARCS_PATCHES="${LINE#Num Patches: }";;
+			"   Num Patches: "*) typeset DARCS_PATCHES="${LINE#   Num Patches: }";;
 			esac
 		done
 		unset IFS
