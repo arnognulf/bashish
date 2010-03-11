@@ -26,7 +26,7 @@ typeset BASHISH_DA=`_bashish_prompt_cp437 DA` # ┌
 typeset BASHISH_D9=`_bashish_prompt_cp437 D9` # ┘
 typeset BASHISH_BF=`_bashish_prompt_cp437 BF` # ┐
 typeset BASHISH_B3=`_bashish_prompt_cp437 B3` # │
-
+RPS1="${EMBED}${ESC}[${COLUMNS}G${ESC}[3${BASHISH_COLOR0}m${UNEMBED}${BASHISH_B3}${EMBED}${ESC}[0m${ESC}[6G${UNEMBED}"
 typeset BASHISH_CWD=`_bashish_prompt_cwd "${ESC}[3${BASHISH_COLOR0}m" "${ESC}[9${BASHISH_COLOR0}m" 43`
 case "${UID}" in
 0)

@@ -213,6 +213,20 @@ _bashish_promptupdate ()
 	## re-enable CTRL+C
 	test "x$ZSH_NAME$BASH" != x && trap INT
 }
+_bashish_title () { :;}
+TEST_TERM="$TERM" _bashish_isxterm && _bashish_title () 
+{
+	test "x$TITLESTR" = x && TITLESTR="${TITLE}"
+	eval $(_bashish_prompt_shellvars $SHELLNAME)
+	printf "${ESC}]0;${TITLESTR}${BEL}"
+	PS1="${EMBED}${ESC}]0;"'${TITLESTR}'"${BEL}${UNEMBED}"${PS1}
+}
+
+
+## load prompt
+_bashish_promptupdate
+
+
 
 ## winch promptupdate
 _bashish_winch_promptupdate()
@@ -277,15 +291,6 @@ type type 1>/dev/null 2>/dev/null || cd ()
 
 esac
 
-
-_bashish_title () { :;}
-TEST_TERM="$TERM" _bashish_isxterm && _bashish_title () 
-{
-	test "x$TITLESTR" = x && TITLESTR="${TITLE}"
-	eval $(_bashish_prompt_shellvars $SHELLNAME)
-	printf "${ESC}]0;${TITLESTR}${BEL}"
-	PS1="${EMBED}${ESC}]0;"'${TITLESTR}'"${BEL}${UNEMBED}"${PS1}
-}
 
 ## set default title
 title ()
@@ -376,6 +381,3 @@ Without argument, a default prompt color will be set
 	fi
 	_bashish_promptupdate
 }
-## load prompt
-_bashish_promptupdate
-

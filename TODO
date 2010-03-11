@@ -1,5 +1,10 @@
 bashish-2.2.4
 -------------
+feat: woo, seems like zsh works perfectly with the "box" theme, ksh almost
+ok, but seems to segfault quite bad by _bashish_prompt_cwd, look into it.
+
+feat: darcs: dir _darcs repo, npatches? darcs show index
+feat: monotone?
 feat: --default-fontname=""
 feat: --default-bgcolor=""
 feat: --default-fgcolor=""
