@@ -13,7 +13,7 @@ PROMPT_COMMAND="_BASHISH_PROMPT_RCS=\$(_bashish_prompt_rcs \${_BASHISH_PROMPT_RC
 
 typeset FADE="`_bashish_prompt_cp437 DB B2 B1 B0`"
 typeset FADE2="`_bashish_prompt_cp437 B0 B1 B2 DB`"
-typeset BASHISH_CWD=`_bashish_prompt_cwd "\\[${ESC}[3${BASHISH_COLOR1}m\\]" "\\[${ESC}[3${BASHISH_COLOR0}m\\]" 39`
+typeset BASHISH_CWD=`_bashish_prompt_cwd "${ESC}[3${BASHISH_COLOR1}m" "${ESC}[3${BASHISH_COLOR0}m" 39`
 typeset RCS_PS1=$(_bashish_prompt_rcs)
 test "x${RCS_PS1}" != x && RCS_PS1="${EMBED}${ESC}[3${BASHISH_COLOR1};1m${UNEMBED}(${EMBED}${ESC}[3${BASHISH_COLOR0};1m${UNEMBED}${RCS_PS1}${EMBED}${ESC}[3${BASHISH_COLOR1};1m${UNEMBED})${EMBED}${ESC}[0m${UNEMBED} "
 test x${PROMPTSTR} = x && typeset PROMPTSTR=${USER}@${HOSTNAME%%.*}

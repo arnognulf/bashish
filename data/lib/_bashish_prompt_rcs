@@ -39,11 +39,11 @@
 ## this is faster
 _bashish_prompt_rcs_git ()
 {
-	local g="$1"
-	#local g="$(__gitdir)"
+	typeset g="$1"
+	#typeset g="$(__gitdir)"
 	if [ -n "$g" ]; then
-		local r
-		local b
+		typeset r
+		typeset b
 		if [ -f "$g/rebase-merge/interactive" ]; then
 			r="|REBASE-i"
 			b="$(cat "$g/rebase-merge/head-name")"
@@ -85,11 +85,11 @@ _bashish_prompt_rcs_git ()
 			}
 		fi
 
-		local w
-		local i
-		local s
-		local u
-		local c
+		typeset w
+		typeset i
+		typeset s
+		typeset u
+		typeset c
 
 		if [ "true" = "$(git rev-parse --is-inside-git-dir 2>/dev/null)" ]; then
 			if [ "true" = "$(git rev-parse --is-bare-repository 2>/dev/null)" ]; then

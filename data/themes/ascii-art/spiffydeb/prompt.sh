@@ -32,7 +32,7 @@ test "x${RCS_PS1}" != x && RCS_PS1="${EMBED}${ESC}[1;3${BASHISH_COLOR0}m${UNEMBE
 
 typeset i=0
 typeset FILLY=""
-typeset BASHISH_CWD=`_bashish_prompt_cwd "\\[\033[1;3${BASHISH_COLOR0}m\\]" "\\[\033[2m\\]" 39`
+typeset BASHISH_CWD=`_bashish_prompt_cwd "${ESC}[1;3${BASHISH_COLOR0}m" "${ESC}[2m" 39`
 
 test "x$PROMPTSTR" = x && typeset PROMPTSTR="${USER}${ESC}[4${BASHISH_COLOR0};31m@${ESC}[3${BASHISH_COLOR0}m${HOSTNAME%%.*}"
 

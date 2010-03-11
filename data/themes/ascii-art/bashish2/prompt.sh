@@ -47,7 +47,7 @@ typeset BASHISH_C4=`_bashish_prompt_cp437 C4`
 typeset BASHISH_DA=`_bashish_prompt_cp437 DA`
 typeset BASHISH_C0=`_bashish_prompt_cp437 C0`
 typeset LINE=`_bashish_prompt_fillx $BASHISH_C4`
-typeset BASHISH_CWD=`_bashish_prompt_cwd "\\[\033[1;3${BASHISH_COLOR0}m\\]" "\\[\033[2m\\]" 39`
+typeset BASHISH_CWD=`_bashish_prompt_cwd "${ESC}[1;3${BASHISH_COLOR0}m" "${ESC}[2m" 39`
 
 test "x${PROMPTSTR}" = x && typeset PROMPTSTR="$USER"
 
