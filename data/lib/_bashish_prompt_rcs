@@ -26,6 +26,8 @@
 ## git
 ## hg
 ## bzr
+## monotone
+## darcs
 ## svn
 ## cvs
 ##
@@ -148,11 +150,38 @@ _bashish_prompt_rcs_traverse ()
 	then
 		if test -f "${1}/.bzr/branch/last-revision"
 		then
-			typeset BZR_REV=:"$(cat ${1}/.bzr/branch/last-revision)"
+			typeset BZR_REV=":$(cat ${1}/.bzr/branch/last-revision)"
 		else
-			typeset BZR_REV=:"$(bzr revno)"
+			typeset BZR_REV=":$(bzr revno)"
 		fi
 		printf "${1##*/}${BZR_REV%% *}"
+		return 0
+	elif test -d "${1}/_MTN"
+	then
+		typeset IFS LINE="" MONOTONE_BRANCH=""
+		IFS="
+"
+		for LINE in $(cat _MTN/options 2>/dev/null)
+		do
+			case "${LINE}" in
+			*"branch \""*) typeset MONOTONE_BRANCH="${LINE#*branch \"}";;
+			esac
+		done
+		unset IFS
+		printf "${MONOTONE_BRANCH%\"*}"
+		return 0
+	elif test -d "${1}/_darcs"
+	then
+		typeset LINE="" DARCS_PATCHES=""
+		for LINE in $(darcs show repo 2>/dev/null)
+		do
+			case "${LINE}" in
+			"Num Patches: "*) typeset DARCS_PATCHES="${LINE#Num Patches: }";;
+			esac
+		done
+		unset IFS
+		printf "${1##*/}:${DARCS_PATCHES}"
+		return 0
 	else
 		_bashish_prompt_rcs_traverse "${1%/*}"
 	fi
@@ -162,7 +191,7 @@ _bashish_prompt_rcs ()
 {
 	typeset OLD_RCS="$1"
 	
-	## git, hg, and bzr detection
+	## git, hg, bzr, and monotone detection
 	typeset TRAVERSED_PS1=$(_bashish_prompt_rcs_traverse "${PWD}")
 	if test x"${TRAVERSED_PS1}" != x
 	then

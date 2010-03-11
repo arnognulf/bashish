@@ -14,21 +14,6 @@ bug: c64 themes set TITLESTR permanently
 bug: fix up all other c64 based themes with cursor save, restore
 feat: clock for fire theme
 feat: some modulo for the cbmerror so the range gets 1-255
-
-zsh issues
-----------
-bluesteel seems ok? except cwd
-
-ksh issues
-----------
-bug: ksh doesn't support "local" but support typeset keyword
-     dash doesn't support "typeset" but support local. FAIL
-bug: ksh stack-smashes (and segfaults) when in the home directory ÜBERFAIL
-bug: ksh cd() stops working when reaching / FAIL
-
-feat: woo, seems like zsh works perfectly with the "box" theme, ksh almost
-ok, but seems to segfault quite bad by _bashish_prompt_cwd, look into it.
-
 feat: darcs: dir _darcs repo, npatches? darcs show index
 feat: monotone? cssc? rcs while we're at it?
 
@@ -55,6 +40,18 @@ at least a dash shell handy
 feat: shellvars: en_US 12-hour time
 
 nice: showcase video on youtube
+
+
+zsh issues
+----------
+bluesteel seems ok? except cwd
+
+ksh issues
+----------
+bug: ksh doesn't support "local" but support typeset keyword
+     dash doesn't support "typeset" but support local. FAIL
+bug: ksh stack-smashes (and segfaults) when in the home directory ÜBERFAIL
+bug: ksh cd() stops working when reaching / FAIL
 
 old todo
 --------
