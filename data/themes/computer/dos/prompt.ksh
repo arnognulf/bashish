@@ -52,6 +52,9 @@ _bashish_prompt()
 {
 	eval $(_bashish_prompt_shellvars $SHELLNAME)
 	eval $(_bashish_prompt_parsecolors "$@")
+	_bashish_prompt_asciilogo xcenter  8striper
+	_bashish_prompt_asciilogo nocenter doscopyright
+
 	PROMPT_COMMAND="_bashish_fail; _BASHISH_PROMPT_RCS=\$(_bashish_prompt_rcs \${_BASHISH_PROMPT_RCS} ) && _bashish_promptupdate"
 	local RCS_PS1=$(_bashish_prompt_rcs)
 	test "x${RCS_PS1}" != x && RCS_PS1=$(echo "|${RCS_PS1}"|tr a-z A-Z)

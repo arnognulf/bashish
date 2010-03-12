@@ -140,7 +140,7 @@ _bashish_prompt_rcs_traverse ()
 
 	if test -d "${1}/.git"
 	then
-		local GIT_PS1="$( _bashish_prompt_rcs_git ${1}/.git )"
+		local GIT_PS1="$(LANG=C _bashish_prompt_rcs_git ${1}/.git )"
 		test x"${GIT_PS1}" != x && { printf "${GIT_PS1}"; return 0; }
 	elif test -d "${1}/.hg"
 	then
@@ -152,7 +152,7 @@ _bashish_prompt_rcs_traverse ()
 		then
 			local BZR_REV=":$(cat ${1}/.bzr/branch/last-revision)"
 		else
-			local BZR_REV=":$(bzr revno)"
+			local BZR_REV=":$(LANG=C bzr revno)"
 		fi
 		printf "${1##*/}${BZR_REV%% *}"
 		return 0
@@ -161,7 +161,7 @@ _bashish_prompt_rcs_traverse ()
 		local IFS LINE="" MONOTONE_BRANCH=""
 		IFS="
 "
-		for LINE in $(cat _MTN/options 2>/dev/null)
+		for LINE in $(cat ${1}/_MTN/options 2>/dev/null)
 		do
 			case "${LINE}" in
 			*"branch \""*) local MONOTONE_BRANCH="${LINE#*branch \"}";;
@@ -174,7 +174,7 @@ _bashish_prompt_rcs_traverse ()
 	then
 		local LINE="" DARCS_PATCHES="" IFS="
 "
-		for LINE in $(darcs show repo 2>/dev/null)
+		for LINE in $(LANG=C darcs show repo 2>/dev/null)
 		do
 			# Num Patches: 8187
 			case "${LINE}" in
@@ -208,7 +208,7 @@ _bashish_prompt_rcs ()
 		local IFS="
 "
 		local LINE
-		for LINE in $(svn info 2>/dev/null)
+		for LINE in $(LANG=C svn info 2>/dev/null)
 		do
 			case "${LINE}" in
 			"URL: "*) local SVN_URL="${LINE#URL: }";;
@@ -217,7 +217,13 @@ _bashish_prompt_rcs ()
 			esac
 		done
 		unset IFS
-		eval local SVN_PS1="\"\${SVN_URL#${SVN_ROOT}/}\""
+		test "x${SVN_URL}" = x && { echo fail; return 0;}
+		if test "x$SVN_URL" = "x$SVN_ROOT"
+		then
+			local SVN_PS1=${SVN_URL##*/}
+		else		
+			eval local SVN_PS1="\"\${SVN_URL#${SVN_ROOT}/}\""
+		fi
 		if test x"${SVN_PS1%%/*}" != x
 		then
 			printf "${SVN_PS1%%/*}:${SVN_REV}"

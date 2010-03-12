@@ -1,9 +1,9 @@
 bashish-2.2.4
 -------------
-bugfix: dos colors
-bugfix: alias local=local in ksh
+bug: svn parsing is way off, sourceforge, eg besm6 have their repo as
+repourl whattodo?
 
-bugfix: cwd escape arguments
+bugfix: dos colors
 
 feat: --default-fontname=""
 feat: --default-bgcolor=""
@@ -16,8 +16,6 @@ bug: c64 themes set TITLESTR permanently
 bug: fix up all other c64 based themes with cursor save, restore
 feat: clock for fire theme
 feat: some modulo for the cbmerror so the range gets 1-255
-feat: darcs: dir _darcs repo, npatches? darcs show index
-feat: monotone? cssc? rcs while we're at it?
 
 feat: ?put engine-files in terminal/init -- no was slower. why?
 feat: ?cleanup /dev/nulls
