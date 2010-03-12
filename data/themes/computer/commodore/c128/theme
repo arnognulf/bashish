@@ -6,7 +6,7 @@ _bashish_theme_c128 ()
 {
 XFONT=adore64.ttf.gz
 CFONT=c64_8x8.fnt.gz
-FONTNAME=Adore64
+FONTNAME="Pet Me 128"
 FONTSIZE=14
 
 FGCOLOR="#acea88"

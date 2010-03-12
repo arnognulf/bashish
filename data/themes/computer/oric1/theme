@@ -1,13 +1,14 @@
 #!/bin/sh
-BASHISH_THEME=c64
-_bashish_theme_c64 ()
+BASHISH_THEME=oric1
+_bashish_theme_oric1 ()
 {
 
 THEME_AUTHOR="arne <arne@users.sourceforge.net>"
 
-TITLE="C="
-FGCOLOR="#5f53fe"
-BGCOLOR="#211bae"
+TITLE="ORIC-1"
+FGCOLOR="#0000aa"
+BGCOLOR="#ffffff"
+CURSORCOLOR="#aaaaaa"
 BGBRIGHTNESS="#000000"
 AFGCOLOR=white
 ABGCOLOR=blue
@@ -18,10 +19,8 @@ XFONT=adore64.ttf.gz
 XFONT_POINTSIZE=18
 CFONT=c64_8x8.fnt.gz
 
-ASCII_LOGO=boot
 BGTRANSPARENCY=0
-EICON=commodore.png
-FONTNAME=Adore64
+FONTNAME="Print Char 21"
 FONTSIZE=18
 
 ## commodore colors except blue

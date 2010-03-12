@@ -6,7 +6,7 @@ _bashish_theme_vic20 ()
 {
 XFONT=adore64.ttf.gz
 CFONT=c64_8x8.fnt.gz
-FONTNAME=Adore64
+FONTNAME="Pet Me 2X"
 FONTSIZE=14
 
 FGCOLOR="#0000ff"

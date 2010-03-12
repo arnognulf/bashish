@@ -13,8 +13,22 @@ The curses based theme changer is back, in the form of 'bashishtheme'.
 It does not, however, support color arguments.
 
 Some more polish on c64
-dos has gotten quite a few updates with original colors, rcs parsing, root prompt and a few
-classic error messages
+dos has gotten quite a few updates with original colors,
+rcs parsing, root prompt and a few classic error messages,
+also a cute IBM logo I'm hoping not to be sued for
+BTW, IBM does not endorse nor had anything to do with Bashish :)
+
+New.. ehrrm, well ancient themes added:
+
+a bunch of Commodore classics added
+(be sure to get the pretty fonts from 
+http://www.kreativekorp.com/software/fonts/ to get the real feeling)
+pet
+cbmii
+- and c64, c128 and vic20 updated with better fonts
+(latin1 glyphs, and more realistic fonts)
+
+appleiie - An Apple //e theme
 
 2.2.3 - <Insert appropriate name here>
 --------------------------------------

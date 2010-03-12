@@ -12,10 +12,19 @@ Additional packages are recommended but not required:
  - xprop (for X support)
 
 Various fonts (optional for some themes, most importantly the c64 theme):
- - Adore64.ttf from http://www.freakyfonts.de/zip/adore64.zip
- - amiga4ever.ttf from http://www.freakyfonts.de/zip/amiga4ever.zip
- - DOSEGA.ttf from http://mateusz.viste.free.fr/dos/dosega.zip
-
+ - PetMe.ttf    from http://www.kreativekorp.com/software/fonts   
+ - PetMe128.ttf
+ - PetMe1282Y.ttf
+ - PetMe2X.ttf
+ - PetMe2Y.ttf
+ - PetMe64.ttf
+ - PetMe642Y.ttf
+ - Adore64.ttf (c64,vic20,c128) from http://www.freakyfonts.de/zip/adore64.zip
+ - amiga4ever.ttf (amigados) from http://www.freakyfonts.de/zip/amiga4ever.zip
+ - DOSEGA.ttf (dos) from http://mateusz.viste.free.fr/dos/dosega.zip
+ - PrintChar21.ttf (appleiie) from http://www.kreativekorp.com/software/fonts/apple2.shtml
+ - ATARCC__.TTF (atari) from http://www2.bitstream.net/~marksim/atarimac/fonts.html
+ - beeb.ttf (bbc) from http://fontstruct.fontshop.com/fontstructions/show/63444
 If you're using fontconfig (any recent Linux does), unzip the fonts and copy
 them to "$HOME/.fonts/", then run fc-cache as follows:
 

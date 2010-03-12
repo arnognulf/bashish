@@ -1,0 +1,41 @@
+#!/bin/sh
+BASHISH_THEME=pet
+_bashish_theme_pet ()
+{
+
+THEME_AUTHOR="arne <arne@users.sourceforge.net>"
+
+TITLE="C= PET"
+FGCOLOR="#00ffff"
+BGCOLOR="#000000"
+BGBRIGHTNESS="#000000"
+SIZE_X=40
+SIZE_Y=25
+#XFONT=c64_8x8.pcf.gz
+XFONT=adore64.ttf.gz
+XFONT_POINTSIZE=18
+CFONT=c64_8x8.fnt.gz
+
+BGTRANSPARENCY=0
+FONTNAME="Pet Me"
+FONTSIZE=18
+
+## commodore colors except blue
+COLOR[0]="#000000"
+COLOR[1]="#e52d2d"
+COLOR[2]="#2DE55B"
+COLOR[3]="#dfe52d"
+COLOR[4]="#e5b12d"
+COLOR[5]="#9b7c2d"
+COLOR[6]="#2DE55B"
+COLOR[7]="#ffffff"
+COLOR[8]="#000000"
+COLOR[9]="#e52d2d"
+COLOR[10]="#2DE55B"
+COLOR[11]="#dfe52d"
+COLOR[12]="#e5b12d"
+COLOR[13]="#9b7c2d"
+COLOR[14]="#2DE55B"
+COLOR[15]="#ffffff"
+
+}
