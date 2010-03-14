@@ -1,14 +1,15 @@
 bashish-2.2.4
 -------------
+feat: --default-fontname=""
+feat: --default-bgcolor=""
+feat: --default-fgcolor=""
+feat: --default-cursorcolor=""
+
 bug: svn parsing is way off, sourceforge, eg besm6 have their repo as
 repourl whattodo?
 
 bugfix: dos colors
 
-feat: --default-fontname=""
-feat: --default-bgcolor=""
-feat: --default-fgcolor=""
-feat: --default-cursorcolor=""
 feat: fix urbandawn and the mvs themes
 feat: ?put engine-files in terminal/init
 feat: ?cleanup /dev/nulls

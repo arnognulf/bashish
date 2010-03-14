@@ -1,7 +1,7 @@
 #!/bin/sh
 ##################################################################################
 ## Bashish, a console theme engine
-## Copyright (C) 2010 Thomas Eriksson
+## Copyright (C) 2005 Thomas Eriksson
 ##
 ## This program is free software; you can redistribute it and/or
 ## modify it under the terms of the GNU General Public License
@@ -30,7 +30,7 @@ test "x${BASHISH_COLOR2}" = x && eval $(_bashish_prompt_parsecolors $1 $2 white)
 
 local i=0
 local FILLY=""
-local BASHISH_CWD=`_bashish_prompt_cwd $SHELLNAME "${ESC}[3${BASHISH_COLOR1}m" "${ESC}[3${BASHISH_COLOR2}m" 39`
+local BASHISH_CWD=`_bashish_prompt_cwd "${SHELLNAME}" "${ESC}[3${BASHISH_COLOR1}m" "${ESC}[3${BASHISH_COLOR2}m" 39`
 PROMPT_COMMAND="_BASHISH_PROMPT_RCS=\$(_bashish_prompt_rcs \${_BASHISH_PROMPT_RCS} ) && _bashish_promptupdate"
 
 local RCS_PS1=$(_bashish_prompt_rcs)
@@ -70,7 +70,7 @@ ${ESC}[4${BASHISH_COLOR0};3${BASHISH_COLOR1}m(\
 ${ESC}[3${BASHISH_COLOR2}m$PROMPTSTR\
 ${ESC}[3${BASHISH_COLOR1}m)\
 ${ESC}[2C(\
-${ESC}[3${BASHISH_COLOR2}m$BASHISH_CWD${RCS_PS1}\
+${ESC}[3${BASHISH_COLOR2}m${UNEMBED}$BASHISH_CWD${EMBED}${RCS_PS1}\
 ${ESC}[3${BASHISH_COLOR1}m)\
 ${ESC}[33m\
 ${ESC}[$LINES;$(($COLUMNS - 12))H\
