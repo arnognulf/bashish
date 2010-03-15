@@ -45,7 +45,7 @@ case "$SHELLNAME" in
 zsh)
 function _bashish_prompt_shellvars
 {
-	printf "local EMBED=\"%%{\" UNEMBED=\"%%}\" TIME=\"%%*\""
+	printf "local EMBED=\"%%{\" UNEMBED=\"%%}\" TIME=\"%%*\" DATE=%%D"
 	_bashish_prompt_shellvars_common
 }
 ;;
