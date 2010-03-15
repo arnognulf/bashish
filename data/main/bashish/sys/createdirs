@@ -39,7 +39,7 @@ else
 	
 	## load a default theme
 	cp "${BASHISHDIR}"/themes/ascii-art/bluesteel/*  "${HOME}"/.bashish/prompt/
-	set +x
+	#set +x
 fi
 
 for FILE in "${BASHISHDIR}"/defaults/*
@@ -59,12 +59,12 @@ updaterc ()
 	test -f "${SHELLRC}" || cp -f "/etc/${SHELLRC##*/.}" "${SHELLRC}" 2>/dev/null
 	test -f "${SHELLRC}" || cp -f "/etc/profile" "${SHELLRC}" 2>/dev/null
 	case "${SHELLRC}" in
-	*/.profile|*/.bashrc|*/.bash_profile)
-	if ! grep '## line added by bashish' "${SHELLRC}" 1>/dev/null 2>/dev/null
-	then
+	*/.profile|*/.bashrc|*/.bash_profile|*/.zshrc|*/.zprofile)
+	#if ! grep '## line added by bashish' "${SHELLRC}" 1>/dev/null 2>/dev/null
+	#then
 		test -f "${SHELLRC}"&&{ cat "${SHELLRC}"| grep -v '## line added by bashish' >"${SHELLRC}.new";mv "${SHELLRC}.new" "${SHELLRC}";}
 		cat "$BASHISHDIR/main/prompt/sh/autoload" >>"${SHELLRC}"
-	fi
+	#fi
 	;;
 	*) echo "createdirs: SHELLRC not implemented yet"
 	esac
@@ -73,6 +73,10 @@ updaterc ()
 test -f "${HOME}"/.bash_profile && updaterc "${HOME}"/.bash_profile
 updaterc "${HOME}"/.profile
 updaterc "${HOME}"/.bashrc
+updaterc "${HOME}"/.zshrc
+updaterc "${HOME}"/.zprofile
+
+
 
 ## gnome stuff
 IFS="[]"

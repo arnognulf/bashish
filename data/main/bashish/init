@@ -176,6 +176,7 @@ the following files will be modified:
 ~/.zprofile (if already exists)
 ~/.zshrc
 
+
 press ENTER to enable Bashish theming
 or hit CTRL+C to quit
 "
