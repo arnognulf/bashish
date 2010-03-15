@@ -1,3 +1,17 @@
 
 if having a multi-line prompt and the downmost lines background always gets
 painted, then you need to terminate the line above with \033[0m.
+
+---
+
+If you get characters as a box with digits in
+ie something like this (ascii-artified):
+ ___
+|0 0|
+|0 2|
+|___|
+
+you may have put nonprinting escape sequences inside other nonprinting
+escape sequences!
+Note that _bashish_prompt_cwd puts nonprinting escape sequences around
+it's color arguments!
