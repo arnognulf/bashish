@@ -1,5 +1,5 @@
 ## Process this file with autoconf to produce a configure script.
-AC_INIT([Bashish],[2.2.3],[thomas.eriksson@gmail.com],[bashish])
+AC_INIT([Bashish],[2.2.4],[thomas.eriksson@gmail.com],[bashish])
 
 ## Set up various programs needed for install
 AC_PROG_INSTALL
@@ -41,4 +41,4 @@ echo "Bashish configuration:"
 echo ""
 echo "prefix: $PREFIX"
 echo ""
-echo "Now run 'make' and 'make install'"
+echo "Now run 'make install'"

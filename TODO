@@ -1,5 +1,7 @@
 bashish-2.2.4
 -------------
+COLUMNS, LINES not set on OSX
+
 _fork() {
 	${1+"$@"}&
 }

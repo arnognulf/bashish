@@ -227,6 +227,7 @@ printf "${BASHISHNAME}: bashish is now uninstalled
 "
 errorhandler 1
 ;;
+	--bashishdir) echo "$BASHISHDIR";;
 	list|show|-l*|--l*) for THEME_ITEM in ${THEME_LIST[*]##*/}; do echo "$THEME_ITEM";done | sort|uniq; errorhandler 0;;
 	exec|-e*|--e*)
 	echo "exec is not available yet"
