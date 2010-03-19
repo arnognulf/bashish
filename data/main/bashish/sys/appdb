@@ -24,11 +24,17 @@ function _bashish_appdb
 	
 	for APP in "$HOME"/.bashish/launcher/*
 	do
+		case "${APP}" in
+		*"*") return 0
+		esac
 		test -d "${HOME}"/.bashish/app/"${APP##*/}"||rm "${APP}" 2>/dev/null
 	done
 	
 	for APP in "$HOME"/.bashish/app/*
 	do
+		case "${APP}" in
+		*"*") return 0
+		esac
 		test -L "${HOME}/.bashish/launcher/${APP##*/}"||ln -sf "${BASHISHDIR}"/lib/_bashish_launcher "${HOME}"/.bashish/launcher/${APP##*/}
 	done
 }
