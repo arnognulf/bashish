@@ -1,5 +1,4 @@
-#!/usr/bin/env csh 
- #!/bin/csh
+#!/bin/sh
 ##################################################################################
 ## Copyright (c) 2010, Thomas Eriksson
 ## All rights reserved.
@@ -35,20 +34,37 @@
 ##
 ###########################
 
-
-set TIME=`date +"%R:%S"`
-set FADE1=[32m
-
 ## mash up this function to not use bash string manipulation
 ## if DIRELEMENT1 = PWDELEM1
-set LINE="`_bashish_prompt_cp437 C4`"
+_bashish_prompt ()
+{
+eval $(_bashish_prompt_shellvars $SHELLNAME)
+eval $(_bashish_prompt_parsecolors "$@")
+test "x${BASHISH_COLOR0}" = x && eval $(_bashish_prompt_parsecolors blue)
+PROMPT_COMMAND="_BASHISH_PROMPT_RCS=\$(_bashish_prompt_rcs \${_BASHISH_PROMPT_RCS} ) && _bashish_promptupdate"
+local RCS_PS1=$(_bashish_prompt_rcs)
+test "x${RCS_PS1}" != x && RCS_PS1="${ESC}[3${BASHISH_COLOR0};1m|${ESC}[0;3${BASHISH_COLOR0}m${RCS_PS1}"
+local ROOT=">"
+test "x${UID}" = x0 && ROOT="#"
+local FADE1="${ESC}[32m"
+local BASHISH_C4=`_bashish_prompt_cp437 C4`
+local BASHISH_DA=`_bashish_prompt_cp437 DA`
+local BASHISH_C0=`_bashish_prompt_cp437 C0`
+local LINE=`_bashish_prompt_fillx ─ `
 
-foreach COLUMNS ( `stty size` )
-	:
-end
+test "x${PROMPTSTR}" = x && local PROMPTSTR="$USER${ESC}[${BRIGHTFG}${BASHISH_COLOR0}m@${ESC}[3${BASHISH_COLOR0}m${HOSTNAME%%.*}"
+local PROMPTSTR_SANE="${USER}@${HOSTNAME%%.*}"
+## Mac OS X needs it's wrap arond turned off for bashish to print the spiffy prompts
+## correctly
 
+case "$SHELLNAME" in
+bash|zsh)
+PS1="\
+${LINE}${ESC}[${COLUMNS}D╭─(~/Kod/bashprompt-0.4.5b6/themes)${ESC}[${COLUMNS}C${ESC}[${#PROMPTSTR_SANE}D${ESC}[6D(${PROMPTSTR})────╮
+${EMBED}${ESC}[${COLUMNS}C${ESC}[3D←──╯${ESC}[${COLUMNS}D${ESC}[0m${UNEMBED}╰──→ "
+PS1="\
+${LINE}${ESC}[${COLUMNS}D╭(~/Kod/bashprompt-0.4.5b6/themes)${ESC}[${COLUMNS}C${ESC}[${#PROMPTSTR_SANE}D${ESC}[6D(${PROMPTSTR})────→
+${EMBED}${ESC}[0m${UNEMBED}╰→ "
 
-
-set prompt="%{[3${MAINCOLOR}m%}`_bashish_prompt_fillx $LINE`%{[A[37m%}`_bashish_prompt_cp437 DA`$LINE%{[9${MAINCOLOR}m$LINE[3${MAINCOLOR}m$LINE%{[90m$LINE%{[9${MAINCOLOR}m[[3${MAINCOLOR}m""$USER%{[9${MAINCOLOR}m""@[3${MAINCOLOR}m""`hostname`[9${MAINCOLOR}m][90m$LINE$LINE[3${MAINCOLOR}m─[9${MAINCOLOR}m─[37m──[9${MAINCOLOR}m─[9${MAINCOLOR}m[[3${MAINCOLOR}m$TIME[9${MAINCOLOR}m[6D:[2C:[2C][90m──[3${MAINCOLOR}m─[9${MAINCOLOR}m─[37m──[9${MAINCOLOR}m─[9${MAINCOLOR}m[`_bashish_prompt_cwd $SHELLNAME '\033[9${MAINCOLOR}m' '\033[3${MAINCOLOR}m' 58`[9${MAINCOLOR}m][90m$LINE$LINE[3${MAINCOLOR}m$LINE%{[9${MAINCOLOR}m%}$LINE%{[37m%}$LINE$LINE%{[9${MAINCOLOR}m%}$LINE$LINE\
-%{[9${MAINCOLOR}m%}`_bashish_prompt_cp437 C0`%{[3${MAINCOLOR}m%}$LINE%{[90m%}$LINE%{[9${MAINCOLOR}m%}>%{[0m%} "
-alias cd "chdir \!*;source $HOME/.bashish/bt/prompt/prompt.tcsh"
+esac
+}

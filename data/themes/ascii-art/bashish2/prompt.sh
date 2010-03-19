@@ -51,6 +51,6 @@ local BASHISH_CWD=`_bashish_prompt_cwd $SHELLNAME "${ESC}[1;3${BASHISH_COLOR0}m"
 
 test "x${PROMPTSTR}" = x && local PROMPTSTR="$USER"
 
-PS1="[4${BASHISH_COLOR0};9${BASHISH_COLOR1};7m`_bashish_prompt_fillx \" \" $(expr ${#HOSTNAME} + ${#PROMPTSTR} + 7)`${PROMPTSTR}  [4${BASHISH_COLOR1};3${BASHISH_COLOR0};7;1m  ${HOSTNAME}   [0m
-\[[0m\] ${BASHISH_CWD}\[[0m\] "'$(__git_ps1 "[1m|[2m%s[1m|[0m "'")\[[0m\]"
+PS1="[4${BASHISH_COLOR0};9${BASHISH_COLOR1};7m`_bashish_prompt_fillx \" \" $(expr ${#HOSTNAME} + ${#PROMPTSTR} + 7)`${PROMPTSTR}  ${ESC}[4${BASHISH_COLOR1};3${BASHISH_COLOR0};7;1m  ${HOSTNAME%%.*}   ${ESC}[0m
+${EMBED}${ESC}[0m${UNEMBED} ${BASHISH_CWD}${EMBED}${ESC}[0m${UNEMBED} "'$(__git_ps1 "${ESC}[1m|${ESC}[2m%s${ESC}[1m|${ESC}[0m "'")${EMBED}${ESC}[0m${UNEMBED}"
 }

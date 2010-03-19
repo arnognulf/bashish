@@ -1,0 +1,17 @@
+#!/bin/sh
+## @(#) created by arne
+#######################
+BASHISH_THEME=re-adam
+
+_bashish_theme_re-adam ()
+{
+THEME_AUTHOR="arne <arne@users.sourceforge.net>"
+_bashish_theme_defaults_cp437font
+
+TITLE="$USER @ ${HOSTNAME%%.*}"
+
+BGCOLOR="#000000"
+FGCOLOR="#cccccc"
+BGBRIGHTNESS="#000000"
+
+}
