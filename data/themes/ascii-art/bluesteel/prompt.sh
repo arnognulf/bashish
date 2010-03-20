@@ -60,6 +60,7 @@ test "x${PROMPTSTR}" = x && local PROMPTSTR="$USER${ESC}[${BRIGHTFG}${BASHISH_CO
 case "$SHELLNAME" in
 bash|zsh)
 PS1="\
+${ESC}[0G\
 ${ESC}[?7l\
 ${ESC}[${COLUMNS}D\
 ${ESC}[3${BASHISH_COLOR0}m$LINE\
@@ -106,6 +107,7 @@ ${EMBED}${ESC}[?7h${ESC}[0m${UNEMBED} "
 ## the ksh/sh prompt differs a bit from the one above, since it uses a hack to get around the embedding of terminal control sequences
 PS1="
 \
+${ESC}[0G\
 ${ESC}[${BRIGHTFG}${BASHISH_COLOR0}m${BASHISH_C0}\
 ${ESC}[3${BASHISH_COLOR0}m$LINE\
 ${ESC}[${BRIGHTFG}0m$LINE\

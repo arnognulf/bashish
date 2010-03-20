@@ -52,7 +52,10 @@ _bashish_prompt()
 {
 	eval $(_bashish_prompt_shellvars $SHELLNAME)
 	eval $(_bashish_prompt_parsecolors "$@")
-	_bashish_prompt_asciilogo xcenter  8striper
+	case $TERM in
+	linux)  _bashish_prompt_asciilogo xcenter  8striper_ascii;;
+	*)	_bashish_prompt_asciilogo xcenter  8striper;;
+	esac
 	_bashish_prompt_asciilogo nocenter doscopyright
 
 	PROMPT_COMMAND="_bashish_fail; _BASHISH_PROMPT_RCS=\$(_bashish_prompt_rcs \${_BASHISH_PROMPT_RCS} ) && _bashish_promptupdate"
@@ -65,6 +68,6 @@ _bashish_prompt()
 	PS1="`_bashish_TRANSDIR`${RCS_PS1}${ROOT} "
 	if test "x${BASHISH_COLOR0}" != x
 	then
-		PS1="${EMBED}${ESC}[0;3${BASHISH_COLOR0}m${UNEMBED}$PS1${EMBED}${ESC}[0m${UNEMBED}"
+		PS1="${EMBED}${ESC}[0G${ESC}[0;3${BASHISH_COLOR0}m${UNEMBED}$PS1${EMBED}${ESC}[0m${UNEMBED}"
 	fi
 }

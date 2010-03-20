@@ -51,6 +51,6 @@ local BASHISH_CWD=`_bashish_prompt_cwd $SHELLNAME "${ESC}[${BOLD};${BRIGHTFG}${B
 
 test "x${PROMPTSTR}" = x && local PROMPTSTR="$USER"
 
-PS1="[4${BASHISH_COLOR0};9${BASHISH_COLOR1};7m`_bashish_prompt_fillx \" \" $(expr ${#HOSTNAME} + ${#PROMPTSTR} + 7)`${PROMPTSTR}  ${ESC}[4${BASHISH_COLOR1};${BRIGHTFG}${BASHISH_COLOR0};7;${BOLD}m  ${HOSTNAME%%.*}   ${ESC}[0m
+PS1="[4${BASHISH_COLOR0};${BRIGHTFG}${BASHISH_COLOR1};7m`_bashish_prompt_fillx \" \" $(expr ${#HOSTNAME} + ${#PROMPTSTR} + 7)`${PROMPTSTR}  ${ESC}[4${BASHISH_COLOR1};${BRIGHTFG}${BASHISH_COLOR0};7;${BOLD}m  ${HOSTNAME%%.*}   ${ESC}[0m
 ${EMBED}${ESC}[0m${UNEMBED} ${BASHISH_CWD}${EMBED}${ESC}[0m${UNEMBED} ${EMBED}${ESC}[1m|${ESC}[2m${UNEMBED}$(_bashish_prompt_rcs)${EMBED}${ESC}[1m${UNEMBED}|${EMBED}${ESC}[0m${UNEMBED} "
 }

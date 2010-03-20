@@ -32,7 +32,7 @@ _bashish_prompt()
 	PS1="`_bashish_TRANSDIR`${RCS_PS1}${ROOT} "
 	if test "x${BASHISH_COLOR0}" != x
 	then
-		PS1="${EMBED}${ESC}[0;3${BASHISH_COLOR0}m${UNEMBED}$PS1${EMBED}${ESC}[0m${UNEMBED}"
+		PS1="${EMBED}${ESC}[0G${ESC}[0;3${BASHISH_COLOR0}m${UNEMBED}$PS1${EMBED}${ESC}[0m${UNEMBED}"
 	fi
 	
 }
