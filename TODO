@@ -1,11 +1,18 @@
 bashish-2.2.4
 -------------
-TTYNAME=$TTY
-TTYNAME=${TTYNAME##*0}
-TTYNAME=${TTYNAME##*/}
+
+
+TTYNUM=$TTY
+TTYNUM=${TTYNAME##*0} # mac os x, may be a-f too?
+TTYNUM=${TTYNAME##*/}
 
 bold doesn't work on mac
 bright colors doesn't work on linux console
+
+_bashish_prompt_color bold invert red?
+
+${BOLD}
+${BRIGHT}
 
 COLUMNS, LINES not set on OSX
 
