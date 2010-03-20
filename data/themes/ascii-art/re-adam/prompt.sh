@@ -43,7 +43,7 @@ eval $(_bashish_prompt_parsecolors "$@")
 test "x${BASHISH_COLOR0}" = x && eval $(_bashish_prompt_parsecolors blue)
 PROMPT_COMMAND="_BASHISH_PROMPT_RCS=\$(_bashish_prompt_rcs \${_BASHISH_PROMPT_RCS} ) && _bashish_promptupdate"
 local RCS_PS1=$(_bashish_prompt_rcs)
-test "x${RCS_PS1}" != x && RCS_PS1="${ESC}[${BRIGHTFG}${BASHISH_COLOR0};${BOLD}m|${ESC}[0;3${BASHISH_COLOR0}m${RCS_PS1}"
+test "x${RCS_PS1}" != x && RCS_PS1="${ESC}[${NORMAL};${BRIGHTFG}${BASHISH_COLOR0};${BOLD}m|${ESC}[0;3${BASHISH_COLOR0}m${RCS_PS1}"
 local ROOT=">"
 test "x${UID}" = x0 && ROOT="#"
 local FADE1="${ESC}[32m"
@@ -52,7 +52,7 @@ local BASHISH_DA=`_bashish_prompt_cp437 DA`
 local BASHISH_C0=`_bashish_prompt_cp437 C0`
 local LINE=`_bashish_prompt_fillx ─ `
 
-test "x${PROMPTSTR}" = x && local PROMPTSTR="$USER${ESC}[${BRIGHTFG}${BASHISH_COLOR0}m@${ESC}[3${BASHISH_COLOR0}m${HOSTNAME%%.*}"
+test "x${PROMPTSTR}" = x && local PROMPTSTR="$USER${ESC}[${NORMAL};${BRIGHTFG}${BASHISH_COLOR0}m@${ESC}[3${BASHISH_COLOR0}m${HOSTNAME%%.*}"
 local PROMPTSTR_SANE="${USER}@${HOSTNAME%%.*}"
 ## Mac OS X needs it's wrap arond turned off for bashish to print the spiffy prompts
 ## correctly

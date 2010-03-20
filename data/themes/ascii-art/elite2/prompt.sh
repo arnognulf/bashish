@@ -13,11 +13,11 @@ test "x$BASHISH_COLOR1" = x && eval $(_bashish_prompt_parsecolors "$1" cyan blac
 test "x$BASHISH_COLOR2" = x && eval $(_bashish_prompt_parsecolors "$1" "$2" black)
 
 local COLOR1="${EMBED}${ESC}[0;3${BASHISH_COLOR0}m${UNEMBED}"
-local COLOR2="${EMBED}${ESC}[${BOLD};${BRIGHTFG}${BASHISH_COLOR1}m${UNEMBED}"
-local COLOR3="${EMBED}${ESC}[${BOLD};${BRIGHTFG}${BASHISH_COLOR2}m${UNEMBED}"
+local COLOR2="${EMBED}${ESC}[${NORMAL};${BRIGHTFG}${BASHISH_COLOR1};${BOLD}m${UNEMBED}"
+local COLOR3="${EMBED}${ESC}[${NORMAL};${BRIGHTFG}${BASHISH_COLOR2};${BOLD}m${UNEMBED}"
 local COLOR4="${EMBED}${ESC}[0m${UNEMBED}"
 
-local BASHISH_CWD=`_bashish_prompt_cwd $SHELLNAME "${ESC}[${BOLD};${BRIGHTFG}${BASHISH_COLOR2}m" "${ESC}[0;3${BASHISH_COLOR0}m" 39`
+local BASHISH_CWD=`_bashish_prompt_cwd $SHELLNAME "${ESC}[${NORMAL};${BRIGHTFG}${BASHISH_COLOR2};${BOLD}m" "${ESC}[0;3${BASHISH_COLOR0}m" 39`
 
 local BASHISH_DA=`_bashish_prompt_cp437 DA` # ┌
 local BASHISH_C0=`_bashish_prompt_cp437 C0` # └
