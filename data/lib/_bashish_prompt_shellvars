@@ -40,7 +40,7 @@ function _bashish_prompt_shellvars_common
 	linux) printf ' DULL=0 BRIGHTFG=1\\;3';;
 	*) printf " BRIGHTFG=9";;
 	esac
-	## OS X Terminal.app (tiger, OSX 10.4, TERM_PROGRAM_VERSION="133-1") does not handle bold attribute as everybody else
+	## OS X Terminal.app (tiger, OSX 10.4) does not handle bold attribute as everybody else
 	## bold is set to a slightly darker color than normal (wheres on almost all other terminals
 	## it's the opposite)
 	## also, bold in combination with bright color makes the text darker, not brighter

@@ -1,5 +1,14 @@
 bashish-2.2.4
 -------------
+when _bashish_prompt_cp437 prints utf-8 characters, the characters are
+interpreted by bash as several characters on OSX 10.4 (and maybe later).
+Thus line editing is messed up, instead make it output sth like this:
+EMBED utf-char UNEMBED \006
+
+006 is a special character to set the terminal in regular codepage (eg,
+alternate codepage may be unintentionally activated by cat'ing a binary file
+to the console), is not printed and only counted as one char
+
 mlterm:
 lockup
 
@@ -16,22 +25,12 @@ TTYNUM=$TTY
 TTYNUM=${TTYNAME##*0} # mac os x, may be a-f too? /dev/ttysp003
 TTYNUM=${TTYNAME##*/} # linux ttys, /dev/pts/3
 
-bold doesn't work on mac (no other color, may need bright-mode)
-bright colors doesn't work on linux console (nor xiterm)
-
-_bashish_prompt_color bold invert red?
-
-${BOLD}
-${BRIGHT}
-
-COLUMNS, LINES not set on OSX
-
 _fork() {
 	${1+"$@"}&
 }
 ( _fork xmessage woo )
 feat: --default-fontname=""
-feat: --default-bgcolor=""
+feâat: --default-bgcolor=""
 feat: --default-fgcolor=""
 feat: --default-cursorcolor=""
 
@@ -54,7 +53,7 @@ UNDERLINE
 
 
 bug: svn parsing is way off, sourceforge, eg besm6 have their repo as
-repourl whattodo?
+rep‰ourl whattodo?
 
 bugfix: dos colors
 
@@ -77,7 +76,7 @@ support the following shells (at least base support, show bluesteel
 correctly):
 
 bash
-zsh
+zsh 
 dash (posix shell)
 
 bourne shell cannot use variable substitution like ${FOO#*/}

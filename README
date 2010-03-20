@@ -8,6 +8,7 @@ Index
 6  Application themeing
 7  Shell Support
 8  Terminal Support
+8.1 Mac OS X Terminal.app
 9  ASCII-art Prompts
 10 Uninstalling Bashish
 11 Solaris specific notes
@@ -183,6 +184,14 @@ Terminals which Bashish can not theme at all:
 Most hardware terminals such as DEC vt102
 QNX phterm
 
+Mac OS X Terminal.app
+---------------------
+Mac OS X Terminal.app (tested on Tiger), interprets line drawing characters
+as chinese/japanse glyphs, thus, in order for the themes "box" and
+"bluesteel" and other themes using line-drawing characters to look good, 
+you need to uncheck the "Terminal"->"Window settings"->"Display"
+and uncheck "Wide glyphs for Japanese/Chinese/etc."
+You will still be able to display Japanese and Chinese glyphs.
 
 ASCII-art prompts
 -----------------

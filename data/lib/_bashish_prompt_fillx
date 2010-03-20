@@ -34,6 +34,8 @@ function _bashish_prompt_fillx {
 
 	test x"$1" != x && STR="${1}"
 	test x"$2" != x && STRCROP="${2}"
+	STRLEN="${#STR}"
+	test x"$3" != x && STRLEN="$3"
 	case "$STRCROP" in
 	[0-9]*) :
 	;; 
@@ -45,8 +47,8 @@ function _bashish_prompt_fillx {
 	test ${STRCROP} -ge ${COLUMNS}&&exit 0
 	PRINTSTR=""
 	let STRREPEAT=$COLUMNS-${STRCROP}
-	let STRRESTCROP=${STRREPEAT}%${#STR}
-	let STRREPEAT=${STRREPEAT}/${#STR}
+	let STRRESTCROP=${STRREPEAT}%${STRLEN}
+	let STRREPEAT=${STRREPEAT}/${STRLEN}
 	case "$BASH" in
 	"")
 	STRREST=$(printf "$STR"|cut -c1-$STRRESTCROP)
