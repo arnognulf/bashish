@@ -47,10 +47,10 @@ local BASHISH_C4=`_bashish_prompt_cp437 C4`
 local BASHISH_DA=`_bashish_prompt_cp437 DA`
 local BASHISH_C0=`_bashish_prompt_cp437 C0`
 local LINE=`_bashish_prompt_fillx $BASHISH_C4`
-local BASHISH_CWD=`_bashish_prompt_cwd $SHELLNAME "${ESC}[1;3${BASHISH_COLOR0}m" "${ESC}[2m" 39`
+local BASHISH_CWD=`_bashish_prompt_cwd $SHELLNAME "${ESC}[${BOLD};${BRIGHTFG}${BASHISH_COLOR0}m" "${ESC}[2m" 39`
 
 test "x${PROMPTSTR}" = x && local PROMPTSTR="$USER"
 
-PS1="[4${BASHISH_COLOR0};9${BASHISH_COLOR1};7m`_bashish_prompt_fillx \" \" $(expr ${#HOSTNAME} + ${#PROMPTSTR} + 7)`${PROMPTSTR}  ${ESC}[4${BASHISH_COLOR1};3${BASHISH_COLOR0};7;1m  ${HOSTNAME%%.*}   ${ESC}[0m
-${EMBED}${ESC}[0m${UNEMBED} ${BASHISH_CWD}${EMBED}${ESC}[0m${UNEMBED} "'$(__git_ps1 "${ESC}[1m|${ESC}[2m%s${ESC}[1m|${ESC}[0m "'")${EMBED}${ESC}[0m${UNEMBED}"
+PS1="[4${BASHISH_COLOR0};9${BASHISH_COLOR1};7m`_bashish_prompt_fillx \" \" $(expr ${#HOSTNAME} + ${#PROMPTSTR} + 7)`${PROMPTSTR}  ${ESC}[4${BASHISH_COLOR1};${BRIGHTFG}${BASHISH_COLOR0};7;${BOLD}m  ${HOSTNAME%%.*}   ${ESC}[0m
+${EMBED}${ESC}[0m${UNEMBED} ${BASHISH_CWD}${EMBED}${ESC}[0m${UNEMBED} ${EMBED}${ESC}[1m|${ESC}[2m${UNEMBED}$(_bashish_prompt_rcs)${EMBED}${ESC}[1m${UNEMBED}|${EMBED}${ESC}[0m${UNEMBED} "
 }

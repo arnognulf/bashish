@@ -36,7 +36,7 @@ test "x$SHELLNAME" = x && SHELLNAME="$1"
 function _bashish_prompt_shellvars_common
 {
 	case "$TERM" in
-	linux) printf " BOLD=0 BRIGHTFG=1;3";;
+	linux) printf " BOLD=\"\" BRIGHTFG=\"1;3\"";;
 	*) printf " BOLD=1 BRIGHTFG=9";;
 	esac
 	printf " SETCOLOR=m SETSCROLLREG=r SETCURPOS=H BG=3 FG=4 STORECUR=7 RESTORECUR=8 CURBACK=D CURFWD=C CURUP=A CURDOWN=D BEL=\"\007\" ESC=\"\033\"\n"

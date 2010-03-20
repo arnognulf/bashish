@@ -1,13 +1,23 @@
 bashish-2.2.4
 -------------
+mlterm:
+lockup
+
+rxvt (regular):
+/home/arno/Unix/share/bashish/main/terminal/engine/_bashish_xterm_font: line
+/ 120: let: SIZE_X=484/: syntax error: operand expected (error token is "/")
+/home/arno/Unix/share/bashish/main/terminal/engine/_bashish_xterm_font: line
+/ 121: let: SIZE_Y=316/: syntax error: operand expected (error token is "/")
+█▓▒░ arno@brunhilde█▓▒░ Sat Mar 20 02:42:49                                  
+
 
 
 TTYNUM=$TTY
-TTYNUM=${TTYNAME##*0} # mac os x, may be a-f too?
-TTYNUM=${TTYNAME##*/}
+TTYNUM=${TTYNAME##*0} # mac os x, may be a-f too? /dev/ttysp003
+TTYNUM=${TTYNAME##*/} # linux ttys, /dev/pts/3
 
-bold doesn't work on mac
-bright colors doesn't work on linux console
+bold doesn't work on mac (no other color, may need bright-mode)
+bright colors doesn't work on linux console (nor xiterm)
 
 _bashish_prompt_color bold invert red?
 
@@ -34,8 +44,13 @@ FG=3
 BG=4
 BRIGHTFG=9 # non-linux
 BRIGHTFG=1;3 # linux
+
+BRIGHTBG=10  # non-linux
+BRIGHTBG=1;4 # linux
+
 BOLD=1
 UNDERLINE
+
 
 
 bug: svn parsing is way off, sourceforge, eg besm6 have their repo as

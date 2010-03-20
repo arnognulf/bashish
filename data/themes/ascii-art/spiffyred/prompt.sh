@@ -33,7 +33,7 @@ test "x${RCS_PS1}" != x && RCS_PS1=" ${EMBED}${ESC}[2;3${BASHISH_COLOR0}m${UNEMB
 
 local i=0
 local FILLY=""
-local BASHISH_CWD=`_bashish_prompt_cwd $SHELLNAME "${ESC}[1;3${BASHISH_COLOR0}m" "${ESC}[2m" 39`
+local BASHISH_CWD=`_bashish_prompt_cwd $SHELLNAME "${ESC}[${BOLD};${BRIGHTFG}${BASHISH_COLOR0}m" "${ESC}[2m" 39`
 
 test "x$PROMPTSTR" = x && local PROMPTSTR="${USER}${ESC}[4${BASHISH_COLOR0};31m@${ESC}[3${BASHISH_COLOR0}m${HOSTNAME%%.*}"
 
@@ -42,6 +42,6 @@ test "x${UID}" = x0 && ROOT="#"
 
 ## this is messy stuff, cannot comment in code so I comment above
 ## don't whine if the comments are wrong ;)
-PS1="${EMBED}${ESC}[1;3${BASHISH_COLOR0}m${UNEMBED}[${EMBED}${ESC}[2m${UNEMBED}${USER}${EMBED}${ESC}[1;3${BASHISH_COLOR}m${UNEMBED}@${EMBED}${ESC}[2m${UNEMBED}$HOSTNAME ${BASHISH_CWD}${RCS_PS1}${EMBED}${ESC}[1;3${BASHISH_COLOR0}m${UNEMBED}]${ROOT}${EMBED}${ESC}[0m${UNEMBED} "
+PS1="${EMBED}${ESC}[${BOLD};${BRIGHTFG}${BASHISH_COLOR0}m${UNEMBED}[${EMBED}${ESC}[2m${UNEMBED}${USER}${EMBED}${ESC}[${BOLD};${BRIGHTFG}${BASHISH_COLOR}m${UNEMBED}@${EMBED}${ESC}[2m${UNEMBED}$HOSTNAME ${BASHISH_CWD}${RCS_PS1}${EMBED}${ESC}[${BOLD};${BRIGHTFG}${BASHISH_COLOR0}m${UNEMBED}]${ROOT}${EMBED}${ESC}[0m${UNEMBED} "
 }
 _bashish_prompt
