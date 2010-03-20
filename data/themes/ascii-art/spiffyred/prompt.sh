@@ -24,24 +24,41 @@ _bashish_prompt ()
 TITLE="( $USER @ ${HOSTNAME%%.*} )"
 eval $(_bashish_prompt_shellvars $SHELLNAME)
 eval $(_bashish_prompt_parsecolors "$@")
-test "x${BASHISH_COLOR0}" = x && eval $(_bashish_prompt_parsecolors white)
+test "x${BASHISH_COLOR0}" = x && eval $(_bashish_prompt_parsecolors white white)
+test "x${BASHISH_COLOR1}" = x && eval $(_bashish_prompt_parsecolors white white)
 PROMPT_COMMAND="_BASHISH_PROMPT_RCS=\$(_bashish_prompt_rcs \${_BASHISH_PROMPT_RCS} ) && _bashish_promptupdate"
 
+case "$TERM" in
+linux)
+local SPIFFYDULL="${EMBED}${ESC}[${NORMAL};${FG}${BASHISH_COLOR1}m${UNEMBED}"
+local SPIFFYNORMAL="${EMBED}${ESC}[${BOLD};${FG}${BASHISH_COLOR0}m${UNEMBED}"
+local SPIFFYDULL_NOEMBED="${ESC}[${NORMAL};${FG}${BASHISH_COLOR1}m"
+local SPIFFYNORMAL_NOEMBED="${ESC}[${BOLD};${FG}${BASHISH_COLOR0}m"
+
+;;
+*)
+local SPIFFYDULL="${EMBED}${ESC}[${DULL};${FG}${BASHISH_COLOR1}m${UNEMBED}"
+local SPIFFYNORMAL="${EMBED}${ESC}[${NORMAL};${FG}${BASHISH_COLOR0}m${UNEMBED}"
+local SPIFFYDULL_NOEMBED="${ESC}[${DULL};${FG}${BASHISH_COLOR1}m"
+local SPIFFYNORMAL_NOEMBED="${ESC}[${NORMAL};${FG}${BASHISH_COLOR0}m"
+esac
+local SPIFFYNONE="${EMBED}${ESC}[0m${UNEMBED}"
+
+
 local RCS_PS1=$(_bashish_prompt_rcs)
-test "x${RCS_PS1}" != x && RCS_PS1=" ${EMBED}${ESC}[2;3${BASHISH_COLOR0}m${UNEMBED}${RCS_PS1}${EMBED}${ESC}[0m${UNEMBED}"
-
-
+test "x${RCS_PS1}" != x && RCS_PS1=" "${SPIFFYDULL}"${RCS_PS1}"
 local i=0
 local FILLY=""
-local BASHISH_CWD=`_bashish_prompt_cwd $SHELLNAME "${ESC}[${BOLD};${BRIGHTFG}${BASHISH_COLOR0}m" "${ESC}[2m" 39`
+local BASHISH_CWD=`_bashish_prompt_cwd $SHELLNAME "${SPIFFYDULL_NOEMBED}" "${SPIFFYNORMAL_NOEMBED}" 39`
 
-test "x$PROMPTSTR" = x && local PROMPTSTR="${USER}${ESC}[4${BASHISH_COLOR0};31m@${ESC}[3${BASHISH_COLOR0}m${HOSTNAME%%.*}"
+test "x$PROMPTSTR" = x && local PROMPTSTR="${USER}${SPIFFYNORMAL}@${SPIFFYDULL}${HOSTNAME%%.*}"
 
 local ROOT='$'
 test "x${UID}" = x0 && ROOT="#"
 
 ## this is messy stuff, cannot comment in code so I comment above
 ## don't whine if the comments are wrong ;)
-PS1="${EMBED}${ESC}[${BOLD};${BRIGHTFG}${BASHISH_COLOR0}m${UNEMBED}[${EMBED}${ESC}[2m${UNEMBED}${USER}${EMBED}${ESC}[${BOLD};${BRIGHTFG}${BASHISH_COLOR}m${UNEMBED}@${EMBED}${ESC}[2m${UNEMBED}$HOSTNAME ${BASHISH_CWD}${RCS_PS1}${EMBED}${ESC}[${BOLD};${BRIGHTFG}${BASHISH_COLOR0}m${UNEMBED}]${ROOT}${EMBED}${ESC}[0m${UNEMBED} "
+PS1="${SPIFFYNORMAL}[${SPIFFYDULL}${PROMPTSTR} ${BASHISH_CWD}${RCS_PS1}${SPIFFYNORMAL}]${ROOT}${EMBED}${ESC}[0m${UNEMBED} "
 }
 _bashish_prompt
+
