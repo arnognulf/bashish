@@ -13,3 +13,4 @@ config.status
 dist
 DEADJOE
 data/main/prompt/sh/autoload
+deb-stuff/changelog

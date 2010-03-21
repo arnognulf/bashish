@@ -1,5 +1,5 @@
-bashish (2.2.4-1bashish) unstable; urgency=low
+bashish (@PACKAGE_VERSION@-1bashish) unstable; urgency=low
 
-  * Initial release
+  * I'm a robot
 
  -- Thomas Eriksson <arno@users.sourceforge.net>  Fri, 19 Feb 2010 17:15:02 +0100
