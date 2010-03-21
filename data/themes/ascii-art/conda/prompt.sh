@@ -30,7 +30,7 @@ test "x${BASHISH_COLOR2}" = x && eval $(_bashish_prompt_parsecolors $1 $2 white)
 
 local i=0
 local FILLY=""
-local BASHISH_CWD=`_bashish_prompt_cwd "${SHELLNAME}" "${ESC}[3${BASHISH_COLOR1}m" "${ESC}[3${BASHISH_COLOR2}m" 39`
+local BASHISH_CWD=`_bashish_prompt_cwd "${SHELLNAME}" "${ESC}[3${BASHISH_COLOR1}m" "${ESC}[3${BASHISH_COLOR2}m" 39 embedall`
 PROMPT_COMMAND="_BASHISH_PROMPT_RCS=\$(_bashish_prompt_rcs \${_BASHISH_PROMPT_RCS} ) && _bashish_promptupdate"
 
 local RCS_PS1=$(_bashish_prompt_rcs)

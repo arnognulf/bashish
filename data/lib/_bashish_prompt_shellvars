@@ -48,6 +48,15 @@ function _bashish_prompt_shellvars_common
 	## fix this by using an unassigned color attribute (6), seems to do nothing on Terminal.app
 	## for FG to differ from BRIGHTFG we also need to use BOLD attribute to make it more dull
 	## however, then we need to check BRIGHTFG so the BOLD attribute isn't set
+	##
+	## tiger version:
+	## TERM_PROGRAM_VERSION=133-1
+	##
+	## leopard version:
+	## TERM_PROGRAM_VERSION=240.2
+	##
+	## snow leopard version:
+	## TERM_PROGRAM_VERSION=272
 	case "$TERM_PROGRAM" in
 	"Apple_Terminal") printf " DULL=1 BOLD=6 FG="'1\\;3';;
 	*) printf " DULL=2 BOLD=1 FG=3";;

@@ -1,5 +1,7 @@
 bashish-2.2.4
 -------------
+conda broken in title respect, need to hide everything in cwd?
+
 when _bashish_prompt_cp437 prints utf-8 characters, the characters are
 interpreted by bash as several characters on OSX 10.4 (and maybe later).
 Thus line editing is messed up, instead make it output sth like this:
