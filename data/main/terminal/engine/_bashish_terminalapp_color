@@ -1,0 +1,82 @@
+#!/bin/bash
+##################################################################################
+## Bashish, a console theme engine
+## Copyright (C) 2010 Thomas Eriksson
+##
+## This program is free software; you can redistribute it and/or
+## modify it under the terms of the GNU General Public License
+## as published by the Free Software Foundation; either version 2
+## of the License, or (at your option) any later version.
+##
+## This program is distributed in the hope that it will be useful,
+## but WITHOUT ANY WARRANTY; without even the implied warranty of
+## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+## GNU General Public License for more details.
+## 
+## You should have received a copy of the GNU General Public License
+## along with this program; if not, write to the Free Software
+## Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+##################################################################################
+
+_bashish_terminalapp_color ()
+{
+	## set foreground and background color
+	## set foreground and background color
+	test "x${BASHISH_STATE[299]}" = "x$FGCOLOR$BGCOLOR$CURSORCOLOR$FGMOUSECOLOR$BGMOUSECOLOR"&& return
+	BASHISH_STATE[299]="$FGCOLOR$BGCOLOR$CURSORCOLOR$FGMOUSECOLOR$BGMOUSECOLOR"
+
+## boldcolor?
+function _bashish_hex2dec
+{
+	while [ $# != 0 ]
+	do
+		typeset -i HEX=0
+		HEX=16#${1#0x}
+		shift
+	done
+	printf $HEX
+}
+
+## osx ttys are in the form /dev/tty[CHAR][HEX]
+## parse out the 9th character, the hex char, while this obviously gives a collision of every 16th
+## terminal, it's unlikely that they are changed at the same time, oh well..
+local FGREDCOLOR FGGREENCOLOR FGBLUECOLOR BGREDCOLOR BGGREENCOLOR BGBLUECOLOR CURSORREDCOLOR CURSORGREENCOLOR CURSORBLUECOLOR i=0 TERM_ID="" TTYNUM=$(_bashish_hex2dec "${TTY:9:1}")
+
+while test $i -lt ${TTYNUM}
+do
+	TERM_ID="${TERM_ID} "
+	let i++
+done
+
+let FGREDCOLOR=$(_bashish_hex2dec ${FGCOLOR:1:2})*257
+let FGGREENCOLOR=$(_bashish_hex2dec ${FGCOLOR:3:2})*257
+let FGBLUECOLOR=$(_bashish_hex2dec ${FGCOLOR:5:2})*257
+
+let BGREDCOLOR=$(_bashish_hex2dec ${BGCOLOR:1:2})*257
+let BGGREENCOLOR=$(_bashish_hex2dec ${BGCOLOR:3:2})*257
+let BGBLUECOLOR=$(_bashish_hex2dec ${BGCOLOR:5:2})*257
+
+let CURSORREDCOLOR=$(_bashish_hex2dec ${CURSORCOLOR:1:2})*257
+let CURSORGREENCOLOR=$(_bashish_hex2dec ${CURSORCOLOR:3:2})*257
+let CURSORBLUECOLOR=$(_bashish_hex2dec ${CURSORCOLOR:5:2})*257
+
+let BOLDREDCOLOR=$(_bashish_hex2dec ${BOLDCOLOR:1:2})*257
+let BOLDGREENCOLOR=$(_bashish_hex2dec ${BOLDCOLOR:3:2})*257
+let BOLDBLUECOLOR=$(_bashish_hex2dec ${BOLDCOLOR:5:2})*257
+
+printf "\033]0;${TERM_ID}\007"
+/usr/bin/osascript <<EOF
+   tell application "Terminal"
+      activate
+      with timeout of 10 seconds
+         do script
+         tell (first window whose name is "${TERM_ID}")
+            set normal text color to { ${FGREDCOLOR}, ${FGGREENCOLOR}, ${FGBLUECOLOR} }
+            set bold text color to { ${BOLDREDCOLOR}, ${BOLDGREENCOLOR}, ${BOLDBLUECOLOR} }
+            set background color to { ${BGREDCOLOR}, ${BGGREENCOLOR}, ${BGBLUECOLOR} }
+            set cursor color to { ${CURSORREDCOLOR}, ${CURSORGREENCOLOR}, ${CURSORBLUECOLOR} }
+        end tell
+      end timeout
+   end tell
+EOF
+}

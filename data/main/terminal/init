@@ -277,6 +277,23 @@ THEMECAP="\
 	_bashish_generic_winch"
 }
 
+## Terminal.app
+## Apple's Terminal emulator
+## uses applescript and a small hack to put colors on screen
+function themecap_terminalapp
+{
+TERMNAME=xterm-terminalapp
+THEMECAP="\
+	_bashish_vt100_prehide\
+	_bashish_vt100_sane\
+	_bashish_xterm_printtitle\
+	_bashish_terminalapp_color\
+	_bashish_generic_bulkprint\
+	_bashish_generic_cleanvar\
+	_bashish_vt100_posthide\
+	_bashish_generic_winch"
+}
+
 
 ## XTerm -- http://dickey.his.com/xterm/xterm.html
 ## XTerm is the classic terminal emulator for X, it has very accurate 
@@ -460,9 +477,8 @@ function themecap_xterm-old
 	## powershell is an older gtk1 terminal emulator
 	test "x$POWERSHELL" != x && themecap_xterm-generic
 	
-	## Terminal in Mac OS X, xterm-generic until some 
-	## AppleScript Wizard can implement some magic for it
-	test "$TERM_PROGRAM" = "Apple_Terminal" && themecap_xterm-generic
+	## Terminal.app in Mac OS X
+	test "$TERM_PROGRAM" = "Apple_Terminal" && themecap_terminalapp
 	
 	## YaKuake - a roll-down terminal at the top which uses the Konsole kpart
 	test "x${DCOP_YAKUAKE_SESSION}" != x && themecap_konsole
