@@ -62,7 +62,9 @@ updaterc ()
 	*/.profile|*/.bashrc|*/.bash_profile|*/.zshrc|*/.zprofile)
 	#if ! grep '## line added by bashish' "${SHELLRC}" 1>/dev/null 2>/dev/null
 	#then
-		test -f "${SHELLRC}"&&{ cat "${SHELLRC}"| grep -v '## line added by bashish' >"${SHELLRC}.new";mv "${SHELLRC}.new" "${SHELLRC}";}
+		## use mv -f (force here) since bsd (including osx) userland may ask the user for confirmation
+		## to overwrite
+		test -f "${SHELLRC}"&&{ cat "${SHELLRC}"| grep -v '## line added by bashish' >"${SHELLRC}.new";mv -f "${SHELLRC}.new" "${SHELLRC}";}
 		cat "$BASHISHDIR/main/prompt/sh/autoload" >>"${SHELLRC}"
 	#fi
 	;;
