@@ -1,7 +1,5 @@
 bashish-2.2.4
 -------------
-conda broken in title respect, need to hide everything in cwd?
-
 when _bashish_prompt_cp437 prints utf-8 characters, the characters are
 interpreted by bash as several characters on OSX 10.4 (and maybe later).
 Thus line editing is messed up, instead make it output sth like this:
@@ -22,11 +20,6 @@ rxvt (regular):
 █▓▒░ arno@brunhilde█▓▒░ Sat Mar 20 02:42:49                                  
 
 
-
-TTYNUM=$TTY
-TTYNUM=${TTYNAME##*0} # mac os x, may be a-f too? /dev/ttysp003
-TTYNUM=${TTYNAME##*/} # linux ttys, /dev/pts/3
-
 _fork() {
 	${1+"$@"}&
 }
@@ -36,40 +29,21 @@ fe�at: --default-bgcolor=""
 feat: --default-fgcolor=""
 feat: --default-cursorcolor=""
 
-feat: _bashish_prompt_shellvars
-CURBACK=C
-CURFWD=A
-CURDWN=E
-CURUP=Q
-FG=3
-BG=4
-BRIGHTFG=9 # non-linux
-BRIGHTFG=1;3 # linux
-
-BRIGHTBG=10  # non-linux
-BRIGHTBG=1;4 # linux
-
-BOLD=1
-UNDERLINE
-
-
-
 bug: svn parsing is way off, sourceforge, eg besm6 have their repo as
 rep�ourl whattodo?
 
 bugfix: dos colors
 
 feat: fix urbandawn and the mvs themes
-feat: ?put engine-files in terminal/init
 feat: ?cleanup /dev/nulls
-bug: c64 themes set TITLESTR permanently
-bug: fix up all other c64 based themes with cursor save, restore
 feat: clock for fire theme
 feat: some modulo for the cbmerror so the range gets 1-255
 
 feat: ?put engine-files in terminal/init -- no was slower. why?
 feat: ?cleanup /dev/nulls
 bug: c64 doesn't work on osx, related to recent c64 fix?
+bug: c64 themes set TITLESTR permanently
+bug: fix up all other c64 based themes with cursor save, restore
 bug: fail to install on target with spaces
 feat: bashish exec foo -bar -baz
 
@@ -84,22 +58,15 @@ dash (posix shell)
 bourne shell cannot use variable substitution like ${FOO#*/}
 which sucks
 it could be assumed that no systems only have bourne shell, without keeping
-at least a dash shell handy
+at least a posix shell handy
 
 
 feat: shellvars: en_US 12-hour time
 
 nice: showcase video on youtube
 
-
-zsh issues
-----------
-bluesteel seems ok? except cwd
-
 ksh issues
 ----------
-bug: ksh doesn't support "local" but support local keyword
-     dash doesn't support "local" but support local. FAIL
 bug: ksh stack-smashes (and segfaults) when in the home directory ÜBERFAIL
 bug: ksh cd() stops working when reaching / FAIL
 
@@ -130,55 +97,7 @@ IF "%OS%"=="Windows_NT IF "%ProgramFiles%"=="" ECHO This is NT4
 IF "%OS%"=="Windows_NT IF NOT "%ProgramFiles%"=="" ECHO This is 2010 or higher
 
 
-Duplicated code:
-
-sh
-
-bashishtheme:
-
-setopts code
-merge unpack for interactive and non-interactive mode?
-
-bashish 2.0.7
--------------
-
-Low pri:
-
-fix dialog only app only no app, sort
-
-
-scan home dir, if available in global dir, ignore, if not available globally
-add, then add all global themes
-
-install without make
-
 brand theme
-
-
-
-bashish-screen
---------------
-screen
-PROMPT_COMMAND
-precmd
-cd()
-## update bashish with new tty
-bashish
-
-## bashish-screen
-screen "$@"
-
-.screenrc
-screen 0 bash
-
-etc, can be changed during runtime
-
-
-check for tty file
-
-init STY
-
-tmp -> ipc
 
 ........
 
@@ -227,25 +146,6 @@ http://www.ussg.iu.edu/hypermail/linux/kernel/9911.1/0916.html
 
 http://netbsd.gw.com/cgi-bin/man-cgi?wsconsctl+8+NetBSD-current
 
-
-legacy compatibility
---------------------
-ultrix:
-no printf
-FOO[511]=bar
-
-bashish-ssh, bashissh
----------------------
-provide virtual bashish enviroment by redirecting output to specified tty.
-ssh would be a protected theme command and always wrapped?
-if unthemed, bashish provides ssh transparency
-
-ssh -o NumberOfPasswordPrompts=0 user@host -c true
-
-need to set user and tty in enviroment file
-
-ssh host -c bashish theme $SSH_TTY
-
 konsole
 -------
 yakuake
@@ -264,9 +164,6 @@ fix subproc messup, shared subproc?
 libexec for _bashish_subproc ?
 
 use 'cut' in bluesteel when one cannot use bash string manipulation
-
-run bashish in the overloaded function/alias and make "dumber" shells
-restart if needed.
 
 bashish2.1
 ----------
@@ -337,10 +234,6 @@ Plan9 support
 http://cm.bell-labs.com/sources/plan9/sys/src/ape/cmd/README
 make an rc wrapper
 
-
-SGI support (before they go bankrupt?)
---------------------------------------
-implement xwsh support
 
 MacOSX support
 --------------
@@ -428,15 +321,6 @@ preexec ()
 BTAPP=$1
 $2 $3 ... $n
 }
-
-Terminal.app
-------------
-AppleScript for Terminal.app in Mac OS X
-
-remove imagelogo code once executed
-
-sleep ?
-prompt handles startup logo
 
 future...
 
