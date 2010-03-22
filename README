@@ -103,10 +103,10 @@ fallback values if the theme does not set them, the latter is for
 overriding theme values.
 
 
-Only set title
---------------
+Only set title and prompt
+-------------------------
 If you prefer Bashish to stay off colors, fonts and additional settings, and
-only would like Bashish to change title on a per-application basis, start
+only would like Bashish to change title and prompt on a per-application basis, start
 Bashish with the '-t' option (eg. in .bashrc: bashish -t)
 
 
@@ -171,13 +171,13 @@ PowerShell
 screen
 multi-gnome-terminal
 x3270
+MacOSX Terminal.app
 
 Terminals that currently only sets title and color attribute but might get
 better support in the future:
 
 KDE Konsole
 CDE dtterm
-MacOSX Terminal.app (help from AppleScript wizards wanted!)
 
 Terminals which Bashish can not theme at all:
 

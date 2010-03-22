@@ -1,5 +1,11 @@
 bashish-2.2.4
 -------------
+issues with less,
+alias less ="printf '\0337\033[r\0338';less"
+alias man ="printf '\0337\033[r\0338';man"
+
+TITLE is a bit messy, should be local
+
 when _bashish_prompt_cp437 prints utf-8 characters, the characters are
 interpreted by bash as several characters on OSX 10.4 (and maybe later).
 Thus line editing is messed up, instead make it output sth like this:

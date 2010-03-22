@@ -33,8 +33,9 @@ function _bashish_update
 		esac
 		if test -f "${SHPIDFILE}"
 		then
-			read SHPID <"$SHPIDFILE"
-			kill -s WINCH "$SHPID" 2>/dev/null
+			#read SHPID <"$SHPIDFILE"
+			## clean up shpidfiles
+			kill -s WINCH "${SHPIDFILE##*shpid}" 2>/dev/null || rm -f "${SHPIDFILE}" 2>/dev/null
 		fi
 	done
 }
