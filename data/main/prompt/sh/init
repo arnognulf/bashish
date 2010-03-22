@@ -22,6 +22,9 @@
 ##
 ######################################################
 
+## clear vars
+unset TITLE TITLESTR PROMPTSTR
+
 ## Cygwin (and others?) does not set COLUMNS and LINES by default
 ## in CygPuTTY COLUMNS and LINES get set to 0,0
 if test "x$LINES$COLUMNS" = x -o "x$LINES$COLUMNS" = x00
