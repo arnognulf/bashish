@@ -217,13 +217,22 @@ _bashish_prompt_rcs ()
 			esac
 		done
 		unset IFS
-		test "x${SVN_URL}" = x && { echo fail; return 0;}
-		if test "x$SVN_URL" = "x$SVN_ROOT"
-		then
-			local SVN_PS1=${SVN_URL##*/}
-		else		
-			eval local SVN_PS1="\"\${SVN_URL#${SVN_ROOT}/}\""
-		fi
+		test "x${SVN_URL}" = x && { return 1;}
+
+		case "${SVN_URL}" in
+		*/tags/*)
+			SVN_PS1="${SVN_URL##*/tags/}"
+			SVN_PS1="${SVN_PS1%%/*}"
+		;;
+		*/trunk*) SVN_PS1=trunk;;
+		*/branches/*)
+			SVN_PS1="${SVN_URL##*/branches/}"
+			SVN_PS1="${SVN_PS1%%/*}"
+		;;
+		*)
+			## lots of misconfigured svn repos out there... give root dir instead
+			SVN_PS1="${SVN_ROOT##*/}"
+		esac
 		if test x"${SVN_PS1%%/*}" != x
 		then
 			printf "${SVN_PS1%%/*}:${SVN_REV}"
