@@ -64,6 +64,20 @@ function _bashish_prompt_shellvars_common
 	printf " SETCOLOR=m SETSCROLLREG=r SETCURPOS=H NORMAL=0 BG=4 STORECUR=7 RESTORECUR=8 CURBACK=D CURFWD=C CURUP=A CURDOWN=D BEL=\"\007\" ESC=\"\033\"\n"
 }
 case "$SHELLNAME" in
+tcsh)
+function _bashish_prompt_shellvars
+{
+	printf "set EMBED=\"%%{\" UNEMBED=\"%%}\" TIME=\"%%*\" DATE=%%D"
+	_bashish_prompt_shellvars_common
+}
+;;
+csh)
+function _bashish_prompt_shellvars
+{
+	printf "set EMBED=\"\" UNEMBED=\"\" TIME=\"%%*\" DATE=%%D"
+	_bashish_prompt_shellvars_common
+}
+;;
 zsh)
 function _bashish_prompt_shellvars
 {

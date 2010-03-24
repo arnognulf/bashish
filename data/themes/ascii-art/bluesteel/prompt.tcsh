@@ -38,6 +38,7 @@
 
 set TIME=`date +"%R:%S"`
 set FADE1=[32m
+eval `_bashish_prompt_shellvars $SHELLNAME`
 
 ## mash up this function to not use bash string manipulation
 ## if DIRELEMENT1 = PWDELEM1
@@ -51,4 +52,4 @@ end
 
 set prompt="%{[3${MAINCOLOR}m%}`_bashish_prompt_fillx $LINE`%{[A[37m%}`_bashish_prompt_cp437 DA`$LINE%{[${BRIGHTFG}${MAINCOLOR}m$LINE[3${MAINCOLOR}m$LINE%{[90m$LINE%{[${BRIGHTFG}${MAINCOLOR}m[[3${MAINCOLOR}m""$USER%{[${BRIGHTFG}${MAINCOLOR}m""@[3${MAINCOLOR}m""`hostname`[${BRIGHTFG}${MAINCOLOR}m][90m$LINE$LINE[3${MAINCOLOR}m─[${BRIGHTFG}${MAINCOLOR}m─[37m──[${BRIGHTFG}${MAINCOLOR}m─[${BRIGHTFG}${MAINCOLOR}m[[3${MAINCOLOR}m$TIME[${BRIGHTFG}${MAINCOLOR}m[6D:[2C:[2C][90m──[3${MAINCOLOR}m─[${BRIGHTFG}${MAINCOLOR}m─[37m──[${BRIGHTFG}${MAINCOLOR}m─[${BRIGHTFG}${MAINCOLOR}m[`_bashish_prompt_cwd $SHELLNAME '\033[${BRIGHTFG}${MAINCOLOR}m' '\033[3${MAINCOLOR}m' 58`[${BRIGHTFG}${MAINCOLOR}m][90m$LINE$LINE[3${MAINCOLOR}m$LINE%{[${BRIGHTFG}${MAINCOLOR}m%}$LINE%{[37m%}$LINE$LINE%{[${BRIGHTFG}${MAINCOLOR}m%}$LINE$LINE\
 %{[${BRIGHTFG}${MAINCOLOR}m%}`_bashish_prompt_cp437 C0`%{[3${MAINCOLOR}m%}$LINE%{[90m%}$LINE%{[${BRIGHTFG}${MAINCOLOR}m%}>%{[0m%} "
-alias cd "chdir \!*;source $HOME/.bashish/bt/prompt/prompt.tcsh"
+alias cd "chdir \!*;source $HOME/.bashish/prompt/prompt.tcsh"

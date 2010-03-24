@@ -37,12 +37,14 @@ function _bashish_hex2dec
 	printf $HEX
 }
 
-## osx ttys are in the form /dev/tty[CHAR][HEX]
-## parse out the 9th character, the hex char, while this obviously gives a collision of every 16th
-## terminal, it's unlikely that they are changed at the same time, oh well..
-local FGREDCOLOR FGGREENCOLOR FGBLUECOLOR BGREDCOLOR BGGREENCOLOR BGBLUECOLOR CURSORREDCOLOR CURSORGREENCOLOR CURSORBLUECOLOR i=0 TERM_ID="" TTYNUM=$(_bashish_hex2dec "${TTY:9:1}")
+local FGREDCOLOR FGGREENCOLOR FGBLUECOLOR BGREDCOLOR BGGREENCOLOR BGBLUECOLOR CURSORREDCOLOR CURSORGREENCOLOR CURSORBLUECOLOR i=0 TERM_ID="" RANDOMNUM
 
-while test $i -lt ${TTYNUM}
+## get a random digit 0-9
+RANDOMNUM="${RANDOM:1:1}"
+
+TERM_ID="  "
+## set a semi-unique title and use applescript to do something with the window (with the semi unique title)
+while test $i -lt ${RANDOMNUM}
 do
 	TERM_ID="${TERM_ID} "
 	let i++

@@ -12,7 +12,7 @@ eval $(_bashish_prompt_parsecolors "$@")
 test "x${BASHISH_COLOR0}" = x && eval $(_bashish_prompt_parsecolors blue)
 
 case "$TERM" in
-linux) local FADE="`_bashish_prompt_cp437 DB B1 B0`"" ";;
+linux) local FADE="`_bashish_prompt_cp437 DB B1 B0`";;
 *) local FADE="`_bashish_prompt_cp437 DB B2 B1 B0`";;
 esac
 test "x${PROMPTSTR}" = x && local PROMPTSTR=${USER}@${HOSTNAME%%.*}

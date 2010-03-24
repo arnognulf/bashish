@@ -43,8 +43,8 @@ Exceptions are made for code under the following subdirectories:
 * $HOME/.bashish/bt/ each 'prompt.*' should conform in syntax to the shell
   intended to parse it. The 'theme' files should have the ksh-compatible
   syntax as specified above.
-* $BASHISHDIR/main/prompt/sh should be parseable on the heirloom bourne shell
-  http://heirloom.sourceforge.net/sh.html
+* $BASHISHDIR/main/prompt/sh should be parseable on dash, ksh93, zsh and
+  bash
 * $BASHISHDIR/main/prompt/csh should be parseable on the c-shell (csh)
   http://www.openbsd.org/cgi-bin/cvsweb/src/bin/csh/
   http://packages.debian.org/stable/shells/csh
@@ -195,7 +195,7 @@ command 1>&-
 
 Instead write:
 command 2>/dev/null
-command 1>&-
+command 1>/dev/null
 
 In pdksh one can not write &>[FD] thus FD1 and FD2 redirects must be
 separated.
@@ -420,7 +420,6 @@ rc: akanga, es, rc
   see dcop --pipe for example.
 * Write patches.
 * Cleanups, optimizations.
-* AppleScript wizards are welcome to bring some love to Terminal.app :)
 * Report bugs and annoyances.
 * Package for your favourite distribution.
 * Would it be possible to create a wrapper on VMS?
