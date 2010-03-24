@@ -221,12 +221,12 @@ _bashish_prompt_rcs ()
 
 		case "${SVN_URL}" in
 		*/tags/*)
-			SVN_PS1="${SVN_URL##*/tags/}"
+			SVN_PS1="${SVN_URL#*/tags/}"
 			SVN_PS1="${SVN_PS1%%/*}"
 		;;
 		*/trunk*) SVN_PS1=trunk;;
 		*/branches/*)
-			SVN_PS1="${SVN_URL##*/branches/}"
+			SVN_PS1="${SVN_URL#*/branches/}"
 			SVN_PS1="${SVN_PS1%%/*}"
 		;;
 		*)
