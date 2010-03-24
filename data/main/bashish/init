@@ -71,6 +71,7 @@ $BASHISHNAME: you need to install the \"dialog\" utility in order to use the int
 	#helphandler
 	exit $ERROR
 	fi
+	## print help about which options are supported on current terminal
 }
 
 ## help
@@ -195,7 +196,14 @@ fi
 errorhandler 1
 	;;
 	--bashishdir|-b) printf "$BASHISHDIR\n";errorhandler 1;;
-	--enable-terminal)
+	-fg|--fgcolor=*|-dfg|--default-fgcolor=*|\
+	-bg|--bgcolor=*|--default-bgcolor=*|\
+	-tr|--transparency=*|--default-transparency=*|\
+	-sh|--shade=*|--default-shade=*|\
+	-fn|--fontname=*|--default-fontname=*|\
+	-xf|--xfont=*|--default-xfont=*|\
+	-lf|--lfont=*|--default-lfont=*) :;;
+	--enable-terminal|-t)
 ## gnome stuff
 IFS="[]"
 for LIST in $(gconftool-2 --get /apps/gnome-terminal/global/profile_list 2>/dev/null);do :;done
@@ -212,7 +220,7 @@ esac
 unset IFS
 
 	test -f "${HOME}"/.bashish/terminal-theming-disabled && rm "${HOME}"/.bashish/terminal-theming-disabled ; gconftool-2 --type string --set /apps/gnome-terminal/global/default_profile "Bashish" 2>/dev/null; errorhandler 1 "terminal theming enabled";;
-	--disable-terminal) 
+	--disable-terminal|-dt) 
 if type -p gconftool-2 1>/dev/null 2>/dev/null
 then
 gconftool-2 --recursive-unset /apps/gnome-terminal/profiles/Bashish
@@ -222,7 +230,7 @@ NEW_LIST="$(gconftool-2 --get /apps/gnome-terminal/global/profile_list|sed -e 's
 gconftool-2 --type list --list-type=string --set /apps/gnome-terminal/global/profile_list "${NEW_LIST}"
 fi
 	touch "${HOME}"/.bashish/terminal-theming-disabled ; gconftool-2 --type string --set /apps/gnome-terminal/global/default_profile "Default" 2>/dev/null; errorhandler 1 "terminal theming disabled" ;;
-	uninstall|--u*|-u*) _bashish_module sys/uninstall 
+	uninstall|--uninstall) _bashish_module sys/uninstall 
 printf "${BASHISHNAME}: bashish is now uninstalled
 "
 errorhandler 1

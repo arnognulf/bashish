@@ -1,5 +1,10 @@
 bashish-2.2.4
 -------------
+feat: --default-fontname=""
+feâat: --default-bgcolor=""
+feat: --default-fgcolor=""
+feat: --default-cursorcolor=""
+
 pri feat:
 BASHISH_VERSION=[[GIT SHA1 REVISION]]
 if not same as in bin/bashish
@@ -24,10 +29,6 @@ _fork() {
 	${1+"$@"}&
 }
 ( _fork xmessage woo )
-feat: --default-fontname=""
-feâat: --default-bgcolor=""
-feat: --default-fgcolor=""
-feat: --default-cursorcolor=""
 
 mlterm:
 lockup
