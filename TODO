@@ -1,9 +1,12 @@
 bashish-2.2.4
 -------------
+move argv.sh to .argv
+## generated files, lookie lookie but don't touch
+
 more info in WHAXIN
 
 feat: --default-fontname=""
-feâat: --default-bgcolor=""
+feat: --default-bgcolor=""
 feat: --default-fgcolor=""
 feat: --default-cursorcolor=""
 

@@ -36,3 +36,13 @@ ESC
 
 DATE
 TIME
+
+Create a prompt
+---------------
+go to $HOME/.bashish/prompt
+
+Edit the files
+prompt.sh
+theme
+
+

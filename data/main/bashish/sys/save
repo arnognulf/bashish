@@ -76,6 +76,16 @@ function _bashish_save
 	for FILE in ./prompt.sh ./prompt.bash ./prompt.ksh ./prompt.zsh
 	do
 		test -f "${FILE}" || continue
+		grep '${ESC}' "${FILE}" &>/dev/null && \
+		if ! grep 'eval $(_bashish_prompt_shellvars $SHELLNAME)' "${FILE}" &>/dev/null
+		then
+			echo "$BASHISHNAME: warning: found "'${ESC}'" in ${FILE}, but the line:\n"'eval $(_bashish_prompt_shellvars $SHELLNAME)'"\nwhich provides "'${ESC}'" is absent"
+		fi
+		grep '${BASHISH_COLOR' "${FILE}" &>/dev/null && \
+		if ! grep 'eval $(_bashish_prompt_parsecolors "$@")' "${FILE}" &>/dev/null
+		then
+			echo "$BASHISHNAME: warning: found "'${BASHISH_COLOR[n]}'" in ${FILE}, but the line:\n"'eval $(_bashish_prompt_parsecolors "@")'"\nwhich provides "'${BASHISH_COLOR[n]}'" is absent"
+		fi
 		grep '\\033' "$FILE" && echo "$BASHISHNAME: warning: use \${ESC} instead of \\033 since it may not work on some shells"
 		grep '\\007' "$FILE" && echo "$BASHISHNAME: warning: use \${BEL} instead of \\007 since it may not work on some shells"
 		grep '\\e' "$FILE" && echo "$BASHISHNAME: warning: use \${ESC} instead of \\e since it may not work on some shells"

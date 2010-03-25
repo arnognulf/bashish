@@ -210,10 +210,10 @@ errorhandler 1
 		-d*|--default-*|-ud*|--unset-default-*)
 			DEFAULT=1;;
 		esac
-		case "${BASHISH_ARGV[0]}" in
-		-u*|--unset-*)
-			UNSET=1;;
-		esac
+		#case "${BASHISH_ARGV[0]}" in
+		#-u*|--unset-*)
+		#	UNSET=1;;
+		#esac
 		case "${BASHISH_ARGV[0]}" in
 		--*)
 			CMD="${BASHISH_ARGV[0]##*=}"
@@ -223,7 +223,7 @@ errorhandler 1
 			CMD="${BASHISH_ARGV[0]}"
 			ARG="${BASHISH_ARGV[1]}"
 		esac
-		_bashish_module 
+		_bashish_module sys/setvars
 		errorhandler 1 "not implemented yey"
 	;;
 	--enable-terminal|-t)
