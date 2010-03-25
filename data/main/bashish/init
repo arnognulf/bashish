@@ -201,9 +201,30 @@ errorhandler 1
 	-fs|--fontsize=*|--default-fontsize=*|\
 	-tr|--transparency=*|--default-transparency=*|\
 	-sh|--shade=*|--default-shade=*|\
-	-fn|--fontname=*|--default-fontname=*|\
+	-fn|--fontname=*|-dfn|--default-fontname=*|\
 	-xf|--xfont=*|--default-xfont=*|\
-	-lf|--lfont=*|--default-lfont=*) :;;
+	-lf|--lfont=*|--default-lfont=*)
+		DEFAULT=0
+		UNSET=0
+		case "${BASHISH_ARGV[0]}" in
+		-d*|--default-*|-ud*|--unset-default-*)
+			DEFAULT=1;;
+		esac
+		case "${BASHISH_ARGV[0]}" in
+		-u*|--unset-*)
+			UNSET=1;;
+		esac
+		case "${BASHISH_ARGV[0]}" in
+		--*)
+			CMD="${BASHISH_ARGV[0]##*=}"
+			ARG="${BASHISH_ARGV[0]%%=*}"
+		;;
+		-*)
+			CMD="${BASHISH_ARGV[0]}"
+			ARG="${BASHISH_ARGV[1]}"
+		esac
+		errorhandler 1 "not implemented yey"
+	;;
 	--enable-terminal|-t)
 ## gnome stuff
 IFS="[]"
