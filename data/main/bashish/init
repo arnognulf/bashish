@@ -223,6 +223,7 @@ errorhandler 1
 			CMD="${BASHISH_ARGV[0]}"
 			ARG="${BASHISH_ARGV[1]}"
 		esac
+		_bashish_module 
 		errorhandler 1 "not implemented yey"
 	;;
 	--enable-terminal|-t)
