@@ -1,0 +1,38 @@
+Ho ho ho!
+---------
+New unfinished but hopefully up to date Hacking document.
+
+Prompt macros
+-------------
+Prompt macros are used in the prompt to provide better readability and in
+some cases give better compatibility among terminals (especially Mac OS X
+Terminal.app and Linux console), and for prompts to work on zsh, bash and
+ksh at the same time.
+
+The macros are available in
+
+$BASHISHDIR/data/lib/_bashish_prompt_shellvars
+
+EMBED
+UNEMBED
+DULL=0
+BRIGHTFG
+DULL
+BOLD
+FG
+SETCOLOR
+SETSCROLLREG
+SETCURPOS
+NORMAL
+BG
+STORECUR
+RESTORECUR
+CURBACK
+CURFWD
+CURUP
+CURDOWN
+BEL
+ESC
+
+DATE
+TIME

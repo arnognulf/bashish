@@ -198,6 +198,7 @@ errorhandler 1
 	--bashishdir|-b) printf "$BASHISHDIR\n";errorhandler 1;;
 	-fg|--fgcolor=*|-dfg|--default-fgcolor=*|\
 	-bg|--bgcolor=*|--default-bgcolor=*|\
+	-fs|--fontsize=*|--default-fontsize=*|\
 	-tr|--transparency=*|--default-transparency=*|\
 	-sh|--shade=*|--default-shade=*|\
 	-fn|--fontname=*|--default-fontname=*|\

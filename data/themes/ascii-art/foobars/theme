@@ -1,0 +1,12 @@
+#!/bin/sh
+## @(#) created by arne
+#######################
+
+BASHISH_THEME=foobars
+
+_bashish_theme_foobars ()
+{
+THEME_AUTHOR="arne <arne@users.sourceforge.net>"
+_bashish_theme_defaults_cp437font
+
+}
