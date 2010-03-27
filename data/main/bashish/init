@@ -196,6 +196,7 @@ fi
 errorhandler 1
 	;;
 	--bashishdir|-b) printf "$BASHISHDIR\n";errorhandler 1;;
+	-u*|--unset*|\
 	-fg|--fgcolor=*|-dfg|--default-fgcolor=*|\
 	-bg|--bgcolor=*|--default-bgcolor=*|\
 	-fs|--fontsize=*|--default-fontsize=*|\
@@ -210,21 +211,24 @@ errorhandler 1
 		-d*|--default-*|-ud*|--unset-default-*)
 			DEFAULT=1;;
 		esac
-		#case "${BASHISH_ARGV[0]}" in
-		#-u*|--unset-*)
-		#	UNSET=1;;
-		#esac
 		case "${BASHISH_ARGV[0]}" in
 		--*)
-			CMD="${BASHISH_ARGV[0]##*=}"
-			ARG="${BASHISH_ARGV[0]%%=*}"
+			CMD="${BASHISH_ARGV[0]%%=*}"
+			ARG="${BASHISH_ARGV[0]##*=}"
 		;;
 		-*)
 			CMD="${BASHISH_ARGV[0]}"
 			ARG="${BASHISH_ARGV[1]}"
 		esac
+		case "${BASHISH_ARGV[0]}" in
+		-u*|--unset-*)
+			ARG=""
+			UNSET=1;;
+		esac
+
 		_bashish_module sys/setvars
-		errorhandler 1 "not implemented yey"
+		_bashish_module sys/update
+		errorhandler 1 ""
 	;;
 	--enable-terminal|-t)
 ## gnome stuff

@@ -24,35 +24,15 @@
 
 if test -d "${HOME}/.bashish"
 then
-	## make sure all dirs are available, note that prompt will
-	## be created when a theme is loaded
-	for DIR in app overrides defaults themes tmp launcher
-	do
-		test -d "${HOME}"/.bashish/"${DIR}" || mkdir "${HOME}"/.bashish/"$DIR"
-	done
-else
 	mkdir "${HOME}/.bashish"
 	for DIR in app overrides defaults themes tmp launcher prompt
 	do
 		test -d "${HOME}"/.bashish/"${DIR}" || mkdir "${HOME}"/.bashish/"$DIR"
 	done
-	
 	## load a default theme
 	cp "${BASHISHDIR}"/themes/ascii-art/bluesteel/*  "${HOME}"/.bashish/prompt/
-	#set +x
 fi
 
-for FILE in "${BASHISHDIR}"/defaults/*
-do
-	test -f "${HOME}"/.bashish/defaults/"${FILE##*/}" || \
-		cp "${FILE}" "${HOME}"/.bashish/defaults/
-done
-
-for FILE in "$BASHISHDIR"/overrides/*
-do
-	test -f "${HOME}"/.bashish/overrides/"${FILE##*/}" || \
-		cp "${FILE}" "${HOME}"/.bashish/overrides/
-done
 updaterc ()
 {
 	local SHELLRC="$1"

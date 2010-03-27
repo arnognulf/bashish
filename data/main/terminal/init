@@ -507,15 +507,18 @@ done
 
 ## dummy default theme options
 _bashish_theme_defaults () { :;}
+_bashish_theme_userdefaults () { :;}
 
 ## dummy prompt theme
 _bashish_theme_prompt () { :;}
 
 ## dummy prompt overrides
 _bashish_theme_overrides () { :;}
+_bashish_theme_useroverrides () { :;}
 	
 ## load the theme defaults to memory
 test -f "$BASHISHDIR"/defaults/theme && . "$BASHISHDIR"/defaults/theme
+
 ## load user set defaults
 test -f "$HOME"/.bashish/defaults/theme.user && . "$HOME"/.bashish/defaults/theme.user
 
@@ -564,6 +567,7 @@ function _bashish_brefresh
 	fi
 	## load default theme options
 	_bashish_theme_defaults
+	_bashish_theme_userdefaults
 
 	## load prompt theme
 	_bashish_theme_prompt
@@ -575,6 +579,7 @@ function _bashish_brefresh
 
 	## override theme options
 	_bashish_theme_overrides
+	_bashish_theme_useroverrides
 
 	##################################################################
 	
@@ -620,7 +625,7 @@ do
 
 	
 	## load a function pointing to the real theme function
-	eval $(printf "function _bashish_btapp_$APPNAME { _bashish_theme_$BASHISH_THEME;}" )
+	eval "function _bashish_btapp_$APPNAME { _bashish_theme_$BASHISH_THEME;}"
 done
 unset APPDIR APPNAME
 

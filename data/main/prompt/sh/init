@@ -75,7 +75,7 @@ _bashish_loadhelpers
 
 ## write the shell PID so "bashishtheme" can force a theme update by
 ## sending a WINCH, which subsequently makes promptupdate to run
-test "x${HOSTNAME}" = x && HOSTNAME=$(hostname)
+test "x${HOSTNAME%%.*}" = x && HOSTNAME=$(hostname)
 
 test -d "$HOME/.bashish/tmp/${TTY##*/}" || mkdir -p "$HOME/.bashish/tmp/${TTY##*/}"
 
