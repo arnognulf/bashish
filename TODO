@@ -5,28 +5,21 @@ move argv.sh to .argv
 
 more info in WHAXIN
 
-feat: --default-fontname=""
-feat: --default-bgcolor=""
-feat: --default-fgcolor=""
-feat: --default-cursorcolor=""
-
 pri feat:
 BASHISH_VERSION=[[GIT SHA1 REVISION]]
 if not same as in bin/bashish
 force update
 git log|head -n1|cut -d" " -f2
 
-ritical bugfix: fix less
+critical bugfix: fix less
+issues with less - and program which uses less as a pager, humm,
+alias less ="printf '\0337\033[r\0338';less"
+alias man ="printf '\0337\033[r\0338';man"
 
-bug: shade/transparency is b0rked on gnome-terminal
 
 feat: preprocessor,
 c64 theme
 bluesteel - make tcsh automaticly
-
-issues with less - and program which uses less as a pager, humm,
-alias less ="printf '\0337\033[r\0338';less"
-alias man ="printf '\0337\033[r\0338';man"
 
 TITLE is a bit messy, should be local
 

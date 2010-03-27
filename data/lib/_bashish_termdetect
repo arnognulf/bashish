@@ -1,0 +1,176 @@
+#!/bin/bash
+##################################################################################
+## Bashish, a console theme engine
+## Copyright (C) 2010 Thomas Eriksson
+##
+## This program is free software; you can redistribute it and/or
+## modify it under the terms of the GNU General Public License
+## as published by the Free Software Foundation; either version 2
+## of the License, or (at your option) any later version.
+##
+## This program is distributed in the hope that it will be useful,
+## but WITHOUT ANY WARRANTY; without even the implied warranty of
+## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+## GNU General Public License for more details.
+## 
+##
+## along with this program; if not, write to the Free Software
+## Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+##################################################################################
+##
+## _bashish_utfcheck checks if the terminal is in UTF-8 or single-char mode
+##
+## This program is based on is_utf8.c by Gerd Krorr with minor changes by Adam Borowski.
+#
+##################################################################################
+function _bashish_termdetect {
+	local THEMECAP
+## xterm and vt100 is commonly used as TERM variables
+	case "$TERM" in
+		sun-cmd)
+## OpenWindows/NeWS terminal emulators: cmdtool, shelltool
+		THEMECAP=cmdtool
+		;;
+	vt52)
+		THEMECAP=vt52
+		;;
+	vt1*)
+## VT100 does not have colors
+		THEMECAP=vt100
+		;;
+	vt220|vt320|pcvt*|vt*|ansi*|con80x*|con100x*|con132x*|console|sun*|386at|AT386|qnx*)
+		THEMECAP=ansi
+		case "`uname 2>/dev/null`" in
+		UWIN*)
+## AT&T U/WIN
+		THEMECAP=vt100-uwin;;
+	esac
+		;;
+	nixterm)
+## dumb terminals
+		: TERMNAME=dumb
+		;;
+	beterm)
+## BeOS terminal
+		THEMECAP=beterm;;
+	qansi*)
+## BeOS and QNX supports title
+		THEMECAP=xterm-generic
+		;;
+	sun-cmd)
+## OpenWindows/NeWS terminal emulators: cmdtool, shelltool
+		THEMECAP=cmdtool
+		;;
+	dtterm)
+## XTerm-old with bitmap icon
+		THEMECAP=xterm_dtterm
+		;;
+	X-hpterm)
+## HP Term, not a member of the XTerm family
+		THEMECAP=hpterm
+		;;
+	kterm|aixterm)
+## AIXterm and kanjii terminal emulator
+		THEMECAP=xterm-old
+		;;
+	linux|lx*)
+		THEMECAP=linux
+		;;
+	ibm-3278-5-e|ibm-3279-5-e)
+## x3270 supports xterm title
+		THEMECAP=xterm-generic
+		;;
+	*xterm*|rxvt|Eterm|rxvt-unicode)
+## default to title changing only
+		THEMECAP=xterm-generic
+
+## rxvt runs on win32 without font support
+		test "$COLORTERM" = rxvt && THEMECAP=xterm-rxvt-nofont
+
+## gnome-terminal
+		test "x${COLORTERM}" = xgnome-terminal && THEMECAP=gnometerminal
+
+## detect terminal by it's window class name as seen by xprop.
+		test "$WINDOWID"&&case "`xprop -id $WINDOWID 2>/dev/null|grep \"WM_CLASS(STRING)\" 2>/dev/null`" in
+		*Eterm*) THEMECAP=xterm-Eterm
+#test -n "$ETERM_OLD" && TERMNAME=xterm-Eterm_old
+		;;
+	*urxvt*) THEMECAP=xterm-urxvt;;
+	*xvt*|*wterm*|*aterm*) THEMECAP=xterm-rxvt;;
+	*konsole*) THEMECAP=konsole;;
+	*cxterm*) ## is this correct?
+		THEMECAP=xterm-generic;;
+	*mlterm*) THEMECAP=xterm-rxvt-nofont;;
+	*XTerm*) THEMECAP=xterm-xterm
+		test "x$XTERM_VERSION" = x&&THEMECAP=xterm-old
+		;;
+	*)
+		case `xwininfo -id $WINDOWID 2>/dev/null` in
+		*\(has\ no\ name\)*)
+		TERMNAME=xterm-generic
+## gnome-terminal has no window name
+## so we also have to check the $COLORTERM variable
+## note that XTerm doesn't set the COLORTERM 
+## and thus a "(has no name)" window must be identified
+		test "$COLORTERM" = gnome-terminal && \
+		THEMECAP=gnometerminal
+		esac
+		esac
+		esac
+
+## GSH as found at http://personal.atl.bellsouth.net/v/c/vcato/gsh/
+## an XML-aware Tcl/Tk based terminal emulator
+		test "$COLORTERM" = gsh && THEMECAP=xterm-generic
+
+## recent versions of Gnome-terminal sets the COLORTERM
+		test "x$COLORTERM" = xgnometerminal && THEMECAP=xterm-generic
+
+## Mozilla XML term, currently unsupported
+		test "$LTERM_COOKIE" && THEMECAP=xterm-generic
+
+## Textmode Window Manager
+		test "$TWDISPLAY" && THEMECAP=xterm-generic
+
+## is a special case for ssh really needed?
+#test "$SSH_CLIENT$SSH_CONNECTION$SSH_TTY" && {
+#	case "$TERM" in
+#	Eterm)
+#		TERMNAME=xterm-Eterm_nofont
+#	;;
+#	xterm)
+#	if test $COLORTERM = rxvt ;then
+#		TERMNAME=xterm-rxvt_nofont
+#	else
+#		## here we cannot omit unsupported features of
+#		## xterm-generic terminals, since it's impossible 
+#		## to detect correct terminal
+#		TERMNAME=xterm-xterm_nofont
+#	fi
+#	;;
+#	linux)
+#		TERMNAME=linux_nofont
+#	esac
+#}
+
+
+
+## multi-byte terminals as 'mlterm' and 'cxterm'
+## supports rxvt background color but no font changing
+		test -n "$MLTERM" && THEMECAP=xterm-rxvt-nofont
+
+## powershell is an older gtk1 terminal emulator
+		test "x$POWERSHELL" != x && THEMECAP=xterm-generic
+
+## Terminal.app in Mac OS X
+		test "$TERM_PROGRAM" = "Apple_Terminal" && THEMECAP=terminalapp
+
+## YaKuake - a roll-down terminal at the top which uses the Konsole kpart
+		test "x${DCOP_YAKUAKE_SESSION}" != x && THEMECAP=konsole
+
+## GNUStep Terminal
+		test "$TERM_PROGRAM" = "GNUstep_Terminal" && THEMECAP=xterm-generic
+
+	printf "${THEMECAP}"
+}
+_bashish_termdetect
+

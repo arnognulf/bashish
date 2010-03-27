@@ -44,7 +44,7 @@ function _bashish_gnome-terminal_properties
 	## terminal transparency
 	test "${BASHISH_STATE[301]}" != "$BGTRANSPARENCY" && {
 		case "$BGTRANSPARENCY" in
-		1|y*|Y*)
+		1)
 			test "$IMAGEFILE" || BASHISH_GCONFARGS=$BASHISH_GCONFARGS" --set /apps/gnome-terminal/profiles/Bashish/background_type --type string transparent"
 		;;
 		*)

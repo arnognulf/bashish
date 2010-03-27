@@ -91,6 +91,68 @@ Advanced Usage:
 --enable-terminal  enable terminal theming
 --disable-terminal disable terminal themeing (but keep prompt changing enabled)
 
+"
+	local TERMDETECT=$(${BASHISHDIR}/lib/_bashish_termdetect)
+
+	printf "\
+Set terminal settings defaults (--default-* or -d* prefix) and
+Override terminal settings (no prefix):
+
+"
+	## bgcolor, fgcolor
+	case ${TERMDETECT} in
+	xterm-generic|xterm_dtterm):;;
+	gnometerminal|konsole|terminalapp)
+	printf "\
+Color settings:
+-fg COLOR|--fgcolor=COLOR|-dfg COLOR|--default-fgcolor=COLOR
+-bg COLOR|--bgcolor=COLOR|--default-bgcolor=COLOR
+
+"
+	;;
+	esac
+
+	case ${TERMDETECT} in
+	xterm-generic|xterm_dtterm):;;
+	gnometerminal|konsole|xterm-urxvt)
+	printf "\
+Fontconfig name:
+-fn FONTNAME|--fontname=FONTNAME|-dfn FONTNAME|--default-fontname=FONTNAME
+-fs SIZE|--fontsize=SIZE|--default-fontsize=SIZE
+
+"
+	;;
+	esac
+
+	case ${TERMDETECT} in
+	xterm-generic|xterm_dtterm|*nofont):;;
+	xterm-*)
+	printf "
+X font:
+-xf LFONT|--xfont=XFONT|--default-xfont=XFONT|\
+
+"
+	esac
+
+	case ${TERMDETECT} in
+	linux)
+	printf "
+Linux console font:
+-lf LFONT|--lfont=LFONT|--default-lfont=LFONT
+
+"
+	esac
+
+	case ${TERMDETECT} in
+	*urxvt|*Eterm|gnometerminal|konsole)
+	printf "\
+Transparency options:
+-tr [1|0]|--transparency=[1|0]|--default-transparency=[1|0]
+-sh 0-100|--shade=0-100|--default-shade=0-100
+
+"
+esac	
+	printf "\
 Theme handling:
 
 To change to a theme by the name THEMENAME, enter:
@@ -199,10 +261,10 @@ errorhandler 1
 	-u*|--unset*|\
 	-fg|--fgcolor=*|-dfg|--default-fgcolor=*|\
 	-bg|--bgcolor=*|--default-bgcolor=*|\
-	-fs|--fontsize=*|--default-fontsize=*|\
 	-tr|--transparency=*|--default-transparency=*|\
 	-sh|--shade=*|--default-shade=*|\
 	-fn|--fontname=*|-dfn|--default-fontname=*|\
+	-fs|--fontsize=*|--default-fontsize=*|\
 	-xf|--xfont=*|--default-xfont=*|\
 	-lf|--lfont=*|--default-lfont=*)
 		DEFAULT=0
