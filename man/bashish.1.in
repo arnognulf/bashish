@@ -140,15 +140,15 @@ ${DATE} |\\d | | the date in "Weekday Month Date" format (e.g., "Tue May 26")
 ? | \\D{format} |  i | the format is passed to strftime(3) and the result is inserted into the prompt
 ${ESC} | \\e | ? | an ASCII escape character (033)
 ${HOSTNAME%%.*} | \\h | i | the hostname up to the first ‘.’
-${HOSTNAME} | \H | ? | the hostname
-? | \j | | the number of jobs currently managed by the shell
+${HOSTNAME} | \\H | ? | the hostname
+? | \\j | | the number of jobs currently managed by the shell
 ? | \\l | | the basename of the shell’s terminal device name
 ? | \\n | ? | newline 
 ? | \\r | | carriage return
-${0##*/} | \\s | | the  name  of  the  shell, the basename of $0 (the portion following the final slash)
+${0##*/} | \\s | | the  name  of  the  shell
 ${TIME} | \\t | | the current time in 24-hour HH:MM:SS format
-? | \T | | the current time in 12-hour HH:MM:SS format
-? | \@ | | the current time in 12-hour am/pm format
+? | \\T | | the current time in 12-hour HH:MM:SS format
+? | \\@ | | the current time in 12-hour am/pm format
 ? | \\A | | the current time in 24-hour HH:MM format
 ${USER} | \\u | | the username of the current user
 ? | \\v | | the version of bash (e.g., 2.00)

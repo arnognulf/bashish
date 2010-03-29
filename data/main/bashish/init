@@ -274,6 +274,8 @@ errorhandler 1
 	## reset all user set variables
 		test -f "${HOME}/.bashish/defaults/theme.user" && rm -f "${HOME}/.bashish/defaults/theme.user"
 		test -f "${HOME}/.bashish/overrides/theme.user" && rm -f "${HOME}/.bashish/overrides/theme.user"
+		_bashish_module sys/update
+		errorhandler 1 ""
 	;;
 	-d*|--default-*|\
 	-u*|--unset*|\
