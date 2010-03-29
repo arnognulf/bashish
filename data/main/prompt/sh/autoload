@@ -1,4 +1,4 @@
-BASHISHDIR="/home/arno/Unix/share/bashish"                 ## line added by bashish
+BASHISHDIR="/home/samel/sys/share/bashish"                 ## line added by bashish
 TTY=`tty 2>/dev/null` && if test "x$BASHISHDIR" != x;then       ## line added by bashish
 test "$BASHISH_OLDPATH"||BASHISH_OLDPATH="$PATH"                ## line added by bashish
 PATH="$HOME/.bashish/launcher:$BASHISHDIR/lib:$BASHISH_OLDPATH" ## line added by bashish
