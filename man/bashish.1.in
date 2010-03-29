@@ -65,8 +65,10 @@ If you get A FISH HERE WOO
 
 To develop themes and submit them to the theme author, the recommended way to save themes to the Bashish source directory, create a link from your .bashish directory by doing this:
 
-.TP $ rmdir ${HOME}/.bashish/themes
-.TP $ ln -s ${HOME}/hacking/bashish/data/themes ${HOME}/.bashish/themes
+.TP 
+$ rmdir ${HOME}/.bashish/themes
+.TP
+$ ln -s ${HOME}/hacking/bashish/data/themes ${HOME}/.bashish/themes
 
 .SH PROMPT variables
 
@@ -137,7 +139,7 @@ ${USER} | \\u  | %u |
 ${HOSTNAME%%.*} | \\h | %h | the username of the current user
 ${BEL} | \\a | | an ASCII bell character (07)
 ${DATE} |\\d | | the date in "Weekday Month Date" format (e.g., "Tue May 26")
-? | \\D{format} |  i | the format is passed to strftime(3) and the result is inserted into the prompt
+? | \\D{format} |  i | the date as formatted by strftime(3)
 ${ESC} | \\e | ? | an ASCII escape character (033)
 ${HOSTNAME%%.*} | \\h | i | the hostname up to the first ‘.’
 ${HOSTNAME} | \\H | ? | the hostname
@@ -154,7 +156,7 @@ ${USER} | \\u | | the username of the current user
 ? | \\v | | the version of bash (e.g., 2.00)
 ? | \\V | | the release of bash, version + patch level (e.g., 2.00.0)
 ${PWD} | \\w | | the current working directory, with $HOME abbreviated with a tilde
-${PWD##*/}g | \\W | | the basename of the current working directory, with $HOME abbreviated  with  a
+${PWD##*/}g | \\W | | the basename of the current working directory
 ? | \\# | | the command number of this command
 ? | \\$ | | if the effective UID is 0, a #, otherwise a $
 ? | \\nnn | | the character corresponding to the octal number nnn
@@ -163,37 +165,37 @@ ${EMBED} | \\[ | | begin a sequence of non-printing characters
 ${UNEMBED} | \\] | | end a sequence of non-printing characters
 .TE
 
-BG
-BLACK
-BLUE
-BOLD
-BRIGHTBG
+
+.SH Cursor movement
 CURBACK
 CURDOWN
 CURFWD
 CURUP
-CYAN
-DATE
-DULL
-EMBED
-ESC
-FG
-GREEN
-MAGENTA
-NORMAL
-RED
+
 RESTORECUR
 SETCOLOR
 SETCURPOS
 SETSCROLLREG
 STORECUR
-UNEMBED
+
+
+.SH ANSI Colors
+CYAN
+BLACK
+MAGENTA
+BLUE
+RED
+GREEN
 WHITE
 YELLOW
-bashish   bash zsh\n
-.ct
-\tfoo\tbar\tbaz\n
-bar
+
+
+NORMAL
+FG
+BG
+BRIGHTBG
+BOLD
+DULL
 
 .SH TERMINAL variables
 
