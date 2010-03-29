@@ -258,15 +258,21 @@ fi
 errorhandler 1
 	;;
 	--bashishdir|-b) printf "$BASHISHDIR\n";errorhandler 1;;
+	--reset-all|-ra)
+	## reset all user set variables
+		test -f "${HOME}/.bashish/defaults/theme.user" && rm -f "${HOME}/.bashish/defaults/theme.user"
+		test -f "${HOME}/.bashish/overrides/theme.user" && rm -f "${HOME}/.bashish/overrides/theme.user"
+	;;
+	-d*|--default-*|\
 	-u*|--unset*|\
-	-fg|--fgcolor=*|-dfg|--default-fgcolor=*|\
-	-bg|--bgcolor=*|--default-bgcolor=*|\
+	-fg|--fgcolor=*|\
+	-bg|--bgcolor=*|\
 	-tr|--transparency=*|--default-transparency=*|\
-	-sh|--shade=*|--default-shade=*|\
-	-fn|--fontname=*|-dfn|--default-fontname=*|\
-	-fs|--fontsize=*|--default-fontsize=*|\
-	-xf|--xfont=*|--default-xfont=*|\
-	-lf|--lfont=*|--default-lfont=*)
+	-sh|--shade=*|\
+	-fn|--fontname=*|\
+	-fs|--fontsize=*|\
+	-xf|--xfont=*|\
+	-lf|--lfont=*)
 		DEFAULT=0
 		UNSET=0
 		case "${BASHISH_ARGV[0]}" in
