@@ -1,0 +1,15 @@
+#!/bin/sh
+## @(#) created by samel
+#######################
+
+BASHISH_THEME=funkis
+
+_bashish_theme_funkis ()
+{
+THEME_AUTHOR="samel"
+_bashish_theme_defaults_cp437font
+BGCOLOR="#333333"
+FGCOLOR="#cccccc"
+FONTNAME="Monospace"
+FONTSIZE="10"
+}

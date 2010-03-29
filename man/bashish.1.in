@@ -41,6 +41,55 @@ When saving a theme, the current working directory must contain the theme to be 
 \fIbashish\fP(1)
 .TP
 
+.SH PROMPT variables
+
+.TS
+center allbox tab(|);
+l l l
+l l l.
+Bashish | Bash | Zsh | Description
+${USER} | \\u  | %u |
+${HOSTNAME%%.*} | \\h | %h | the username of the current user
+${BEL} | \a | | an ASCII bell character (07)
+${DATE} |\d | the date in "Weekday Month Date" format (e.g., "Tue May 26")
+\D{format} | | the format is passed to strftime(3) and the result is inserted into the prompt
+${ESC} | \e | |an ASCII escape character (033)
+${HOSTNAME%%.*} | \h | | the hostname up to the first ‘.’
+${HOSTNAME} | \H | | the hostname
+ | \j | the number of jobs currently managed by the shell
+ | \l | the basename of the shell’s terminal device name
+ |  | \n | | newline
+ | \r | carriage return
+ | \s | the  name  of  the  shell, the basename of $0 (the portion following the final slash)
+ | \t | the current time in 24-hour HH:MM:SS format
+ | \T | the current time in 12-hour HH:MM:SS format
+ | \@ | the current time in 12-hour am/pm format
+ | \A | the current time in 24-hour HH:MM format
+ | \u | the username of the current user
+ | \v | the version of bash (e.g., 2.00)
+ | \V | the release of bash, version + patch level (e.g., 2.00.0)
+${PWD} | \w | the current working directory, with $HOME abbreviated with a tilde
+${PWD##*/}g | \W | the basename of the current working directory, with $HOME abbreviated  with  a
+╣ |  |   tilde
+ | \! | the history number of this command
+ | \# | the command number of this command
+ | \$ | if the effective UID is 0, a #, otherwise a $
+ | \nnn | the character corresponding to the octal number nnn
+ | \\ | a backslash
+${EMBED} | \[ | begin a sequence of non-printing characters
+${UNEMBED} | \] | end a sequence of non-printing characters
+
+
+.TE
+
+
+bashish   bash zsh\n
+.ct
+\tfoo\tbar\tbaz\n
+bar
+
+.SH TERMINAL variables
+
 .SH COPYRIGHT 
 bashish is Copyright (c) 1999-2010 Thomas Eriksson.
 

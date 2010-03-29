@@ -57,6 +57,7 @@ ${ESC}[0m\
 ${ESC}7\
 ${ESC}[4${BASHISH_COLOR0};30m\
 $FILLY\
+${ESC}[0;0r\
 ${ESC}[0;$(($LINES - 2))r\
 ${ESC}[$(($LINES - 1));0H\
 ${ESC}[K\

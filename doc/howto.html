@@ -1,0 +1,13345 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" dir="ltr" lang="en">
+<head>
+
+
+
+
+  
+  
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+
+
+
+  
+  
+  
+  <meta name="keywords" content="Code page 437,1981,ANSI art,ASCII,ASCII art,Beta (letter),Bill Gates,Code page,Code page 737,Code page 850,Code page 852" />
+
+
+
+
+  
+  
+  
+  <link rel="shortcut icon" href="http://en.wikipedia.org/favicon.ico" />
+
+
+
+
+  
+  
+  
+  <link rel="copyright" href="http://www.gnu.org/copyleft/fdl.html" />
+
+
+
+  
+  
+  
+  <title>Bashish theme HOWTO</title>
+</head>
+
+
+<body class="ns-0 ltr">
+
+
+
+
+<div id="globalWrapper">
+<div style="text-align: center;">
+<br />
+<br />
+<br />
+
+</div>
+
+
+<div id="column-content">
+<div style="text-align: center;">
+</div>
+
+
+<div id="content">
+<div style="text-align: center;">
+<a href="http://bashish.sourceforge.net/"><img style="border: 0px solid ; width: 599px; height: 219px;" alt="#2" src="../bang2_black.png" /></a></div>
+
+
+<h1 style="text-align: center;"><br />
+
+</h1>
+
+<h1 style="text-align: center;">Bashish Theme HOWTO</h1>
+
+
+<div style="text-align: center;">
+
+Thomas Eriksson<br />
+
+
+Version 1.0<br />
+
+
+
+
+</div>
+
+
+<h2>Index</h2>
+
+
+
+
+1. About<br />
+
+
+
+
+2. Prompt theming<br />
+
+
+
+
+<div style="margin-left: 40px;">2.1 Shell specific
+characters</div>
+
+
+
+
+<div style="margin-left: 40px;">2.2 Helper libraries<br />
+
+
+
+
+<div style="margin-left: 40px;">2.2.1_bashish_prompt_cp437<br />
+
+
+
+
+2.2.2 _bashish_prompt_color</div>
+
+
+
+
+</div>
+
+
+
+
+3. Terminal theming<br />
+
+
+
+
+4.&nbsp;Terminal manual<br />
+
+
+
+5. Examples (not written)<br />
+
+
+
+<div style="margin-left: 40px;">5.1 Bluesteel<br />
+
+
+
+5.2 Urbandawn<br />
+
+
+
+5.3 Box</div>
+
+
+
+
+<h2>About</h2>
+
+
+
+
+This theme manual aims to describe the theme creating process for
+Bashish.<br />
+
+
+
+<br />
+
+
+
+
+As this manual incorporates parts from Wikipedia, Eterm technical reference, and the GNU Bash
+manual it is subject to the GNU Free Documentation License (GFDL).<br />
+
+
+
+
+<br />
+
+
+
+
+Additionally this manual incorporates text from the "tcsh manual" and
+the "zsh manual" which are subject to the BSD and ZSH public licenses
+respecitively.<br />
+
+
+
+
+<br />
+
+
+
+
+Comments and improvements are most welcome.<br />
+
+
+
+
+<h3>Prerequisits</h3>
+
+
+
+
+Latest version of Bashish, availiable from
+<a href="http://bashish.sourceforge.net">http://bashish.sourceforge.net</a><br />
+
+
+
+
+<br />
+
+
+
+
+rxvt-unicode, kick-ass terminal emulator for theming:<br />
+
+
+
+
+<a href="http://software.schmorp.de/pkg/rxvt-unicode.html">http://software.schmorp.de/pkg/rxvt-unicode.html</a><br />
+
+
+
+
+<br />
+
+
+
+
+The Eterm technical reference is a nicely formatted document almost
+vital for doing funky stuff with the terminal (even non-Eterm
+terminals): <a href="http://www.eterm.org/docs/view.php?doc=ref">http://www.eterm.org/docs/view.php?doc=ref</a><br />
+
+
+
+
+<h2>Prompt theming</h2>
+
+
+
+
+The prompt is an interesting part of the terminal. It's original
+purpose was to show the user that the system accepted input.<br />
+
+
+
+
+Nowadays it can display all sorts of information, time, temperature,
+path, user, host etc.<br />
+
+
+
+<br />
+
+
+
+<h2>Bash Prompt HOWTO differences</h2>
+
+
+
+
+Giles Orr has written an extensive HOWTO on prompting in bash, see the <a href="http://tldp.org/HOWTO/Bash-Prompt-HOWTO/">Bash Prompt
+HOWTO</a>.<br />
+
+
+
+
+It has quite a few ideas and a general description of prompting,
+however, there are a few things that differ the Bash Prompt HOWTO and the way
+prompts are written in Bashish:<br />
+
+
+
+<ul>
+
+
+
+  <li>Use of "tput" is discouraged since one can assume that&nbsp;themeable terminals are VT100 compatible.</li>
+
+
+
+  <li>Calling external commands should be avoided if possible.</li>
+
+
+
+  <li>prompt functions - if used - should be named "prompt", and called in the prompt.[SHELL] file.</li>
+
+
+
+</ul>
+
+
+
+
+<h2>Shell specific characters</h2>
+
+
+
+Writing portable prompts requires some knowledges of the syntax of different shells.
+<h3>bash</h3>
+
+
+
+
+Bash supports the following special characters in the prompt<br />
+
+
+
+
+<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Bash
+allows these prompt strings
+to be customized by inserting a number of backslash-escaped<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; special
+characters that are decoded as follows:<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span style="font-weight: bold;">\a</span>&nbsp;&nbsp;&nbsp;&nbsp;
+an ASCII bell character (07)<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span style="font-weight: bold;">\d</span>&nbsp;&nbsp;&nbsp;&nbsp;
+the date in "Weekday Month Date" format
+(e.g., "Tue May 26")<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span style="font-weight: bold;">\D{format}</span><br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+the format is passed to strftime(3) and the result is inserted into the
+prompt<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+string; an empty format results in a locale-specific time
+representation.&nbsp; The<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+braces are required<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span style="font-weight: bold;">\e</span>&nbsp;&nbsp;&nbsp;&nbsp;
+an ASCII escape character (033)<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span style="font-weight: bold;">\h</span>&nbsp;&nbsp;&nbsp;&nbsp;
+the hostname up to the first &lsquo;.&rsquo;<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span style="font-weight: bold;">\H</span>&nbsp;&nbsp;&nbsp;&nbsp;
+the hostname<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span style="font-weight: bold;">\j</span>&nbsp;&nbsp;&nbsp;&nbsp;
+the number of jobs currently managed by the
+shell<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span style="font-weight: bold;">\l</span>&nbsp;&nbsp;&nbsp;&nbsp;
+the basename of the shell&rsquo;s terminal
+device name<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span style="font-weight: bold;">\n</span>&nbsp;&nbsp;&nbsp;&nbsp;
+newline<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span style="font-weight: bold;">\r</span>&nbsp;&nbsp;&nbsp;&nbsp;
+carriage return<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span style="font-weight: bold;">\s</span>&nbsp;&nbsp;&nbsp;&nbsp;
+the&nbsp; name&nbsp; of&nbsp; the&nbsp;
+shell, the basename of $0 (the portion following the final<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+slash)<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span style="font-weight: bold;">\t</span>&nbsp;&nbsp;&nbsp;&nbsp;
+the current time in 24-hour HH:MM:SS format<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span style="font-weight: bold;">\T</span>&nbsp;&nbsp;&nbsp;&nbsp;
+the current time in 12-hour HH:MM:SS format<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span style="font-weight: bold;">\@</span>&nbsp;&nbsp;&nbsp;&nbsp;
+the current time in 12-hour am/pm format<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span style="font-weight: bold;">\A</span>&nbsp;&nbsp;&nbsp;&nbsp;
+the current time in 24-hour HH:MM format<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span style="font-weight: bold;">\u</span>&nbsp;&nbsp;&nbsp;&nbsp;
+the username of the current user<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span style="font-weight: bold;">\v</span>&nbsp;&nbsp;&nbsp;&nbsp;
+the version of bash (e.g., 2.00)<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span style="font-weight: bold;">\V</span>&nbsp;&nbsp;&nbsp;&nbsp;
+the release of bash, version + patch level
+(e.g., 2.00.0)<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span style="font-weight: bold;">\w</span>&nbsp;&nbsp;&nbsp;
+the current working directory, with $HOME
+abbreviated with a tilde<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span style="font-weight: bold;">\W</span>&nbsp;&nbsp;&nbsp;
+the basename of the current working
+directory, with $HOME abbreviated&nbsp; with&nbsp; a<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+tilde<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span style="font-weight: bold;">\!</span>&nbsp;&nbsp;&nbsp;&nbsp;
+the history number of this command<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span style="font-weight: bold;">\#</span>&nbsp;&nbsp;&nbsp;&nbsp;
+the command number of this command<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span style="font-weight: bold;">\$</span>&nbsp;&nbsp;&nbsp;&nbsp;
+if the effective UID is 0, a #, otherwise a $<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span style="font-weight: bold;">\nnn</span>&nbsp;&nbsp;
+the character corresponding to the octal number nnn<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span style="font-weight: bold;">\\</span>&nbsp;&nbsp;&nbsp;&nbsp;
+a backslash<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span style="font-weight: bold;">\[</span>&nbsp;&nbsp;&nbsp;&nbsp;
+begin&nbsp; a&nbsp; sequence&nbsp; of
+non-printing characters, which could be used to embed a<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+terminal control sequence into the prompt<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span style="font-weight: bold;">\]</span>&nbsp;&nbsp;&nbsp;&nbsp;
+end a sequence of non-printing characters<br />
+
+
+
+
+<br />
+
+
+
+
+<h3>zsh</h3>
+
+
+
+
+&nbsp;&nbsp; Special characters<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="font-weight: bold;">%%</span>&nbsp;&nbsp;&nbsp;&nbsp;
+A &lsquo;%&rsquo;.<br />
+
+
+
+
+<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="font-weight: bold;">%)</span>&nbsp;&nbsp;&nbsp;&nbsp;
+A &lsquo;)&rsquo;.<br />
+
+
+
+
+<br />
+
+
+
+
+&nbsp;&nbsp; Login information<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="font-weight: bold;">%l</span>&nbsp;&nbsp;&nbsp;&nbsp;
+The
+line (tty) the user is logged in on, without
+&lsquo;/dev/&rsquo;
+prefix.&nbsp; If the name&nbsp; starts<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+with &lsquo;/dev/tty&rsquo;, that prefix is stripped.<br />
+
+
+
+
+<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="font-weight: bold;">%M</span>&nbsp;&nbsp;&nbsp;&nbsp;
+The full machine hostname.<br />
+
+
+
+
+<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="font-weight: bold;">%m</span>&nbsp;&nbsp;&nbsp;&nbsp;
+The&nbsp; hostname up to the first
+&lsquo;.&rsquo;.&nbsp; An integer
+may follow the &lsquo;%&rsquo; to specify how many<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+components of the hostname are desired.&nbsp; With a negative
+integer,
+trailing components<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+of the hostname are shown.<br />
+
+
+
+
+<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="font-weight: bold;">%n</span>&nbsp;&nbsp;&nbsp;&nbsp;
+$USERNAME.<br />
+
+
+
+
+<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="font-weight: bold;">%y</span>&nbsp;&nbsp;&nbsp;&nbsp;
+The
+line (tty) the user is logged in on, without
+&lsquo;/dev/&rsquo;
+prefix.&nbsp; This does not treat<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lsquo;/dev/tty&rsquo; names specially.<br />
+
+
+
+
+<br />
+
+
+
+
+&nbsp;&nbsp; Shell state<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="font-weight: bold;">%#</span>&nbsp;&nbsp;&nbsp;&nbsp;
+A
+&lsquo;#&rsquo; if the shell&nbsp; is&nbsp;
+running&nbsp; with&nbsp;
+privileges,&nbsp; a&nbsp; &lsquo;%&rsquo;&nbsp;
+if&nbsp;
+not.&nbsp;&nbsp; Equivalent&nbsp; to<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lsquo;%(!.#.%%)&rsquo;.&nbsp;&nbsp; The definition of
+&lsquo;privileged&rsquo;, for these purposes, is that either the<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+effective user ID is zero, or, if POSIX.1e capabilities are supported,
+that at&nbsp; least<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+one capability is raised in either the Effective or Inheritable
+capability vectors.<br />
+
+
+
+
+<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+%?&nbsp;&nbsp;&nbsp;&nbsp; The
+return code of the last command executed just before the prompt.<br />
+
+
+
+
+<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+%_&nbsp;&nbsp;&nbsp;&nbsp;
+The&nbsp; status&nbsp; of the parser, i.e. the shell constructs
+(like
+&lsquo;if&rsquo; and &lsquo;for&rsquo;) that have<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+been started on the command line. If given an integer number that
+many&nbsp; strings&nbsp; will<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+be printed; zero or negative or no integer means print as many as there
+are.&nbsp; This is<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+most useful in prompts PS2 for continuation lines and&nbsp;
+PS4&nbsp;
+for&nbsp; debugging&nbsp; with&nbsp; the<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+XTRACE option; in the latter case it will also work non-interactively.<br />
+
+
+
+
+<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; %d<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+%/&nbsp;&nbsp;&nbsp;&nbsp; Present
+working directory ($PWD).&nbsp; If an integer follows the
+&lsquo;%&rsquo;, it specifies a num‐<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ber of trailing components of $PWD to show; zero means the
+whole&nbsp;
+path.&nbsp;&nbsp; A&nbsp; negative<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+integer specifies leading components, i.e. %-1d specifies the first
+component.<br />
+
+
+
+
+<br />
+
+
+
+
+<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+%~&nbsp;&nbsp;&nbsp;&nbsp;
+As&nbsp; %d and %/, but if $PWD has a named directory as its
+prefix,
+that part is replaced<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+by a &lsquo;~&rsquo; followed by the name of the
+directory.&nbsp; If it
+starts with $HOME,&nbsp; that&nbsp; part<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+is replaced by a &lsquo;~&rsquo;.<br />
+
+
+
+
+<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; %h<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+%!&nbsp;&nbsp;&nbsp;&nbsp; Current history event number.<br />
+
+
+
+
+<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+%i&nbsp;&nbsp;&nbsp;&nbsp;
+The&nbsp; line number currently being executed in the script,
+sourced
+file, or shell func‐<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+tion given by %N.&nbsp; This is most useful for debugging as part
+of
+$PS4.<br />
+
+
+
+
+<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+%j&nbsp;&nbsp;&nbsp;&nbsp; The number of jobs.<br />
+
+
+
+
+<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+%L&nbsp;&nbsp;&nbsp;&nbsp; The current value of $SHLVL.<br />
+
+
+
+
+<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+%N&nbsp;&nbsp;&nbsp;&nbsp; The
+name of the script, sourced file, or shell function that zsh is
+currently execut‐<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ing,&nbsp; whichever&nbsp; was&nbsp; started most
+recently.&nbsp; If
+there is none, this is equivalent to<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+the parameter $0.&nbsp; An integer may follow the
+&lsquo;%&rsquo; to
+specify a number of trailing path<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+components&nbsp; to&nbsp; show; zero means the full
+path.&nbsp; A
+negative integer specifies leading<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+components.<br />
+
+
+
+
+<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; %c<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; %.<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+%C&nbsp;&nbsp;&nbsp;&nbsp;
+Trailing component of $PWD.&nbsp; An integer may follow the
+&lsquo;%&rsquo; to get more than one&nbsp; com‐<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ponent.&nbsp; Unless &lsquo;%C&rsquo; is used, tilde
+contraction is
+performed first.&nbsp; These are depre‐<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+cated as %c and %C are equivalent to %1~ and %1/, respectively, while
+explicit&nbsp; posi‐<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+tive integers have the same effect as for the latter two sequences.<br />
+
+
+
+
+<br />
+
+
+
+
+&nbsp;&nbsp; Date and time<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+%D&nbsp;&nbsp;&nbsp;&nbsp; The date in yy-mm-dd format.<br />
+
+
+
+
+<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+%T&nbsp;&nbsp;&nbsp;&nbsp; Current time of day, in
+24-hour format.<br />
+
+
+
+
+<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; %t<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+%@&nbsp;&nbsp;&nbsp;&nbsp; Current time of day, in
+12-hour, am/pm format.<br />
+
+
+
+
+<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+%*&nbsp;&nbsp;&nbsp;&nbsp; Current time of day in
+24-hour format, with seconds.<br />
+
+
+
+
+<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+%w&nbsp;&nbsp;&nbsp;&nbsp; The date in day-dd format.<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+%W&nbsp;&nbsp;&nbsp;&nbsp; The date in mm/dd/yy format.<br />
+
+
+
+
+<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; %D{string}<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+string&nbsp; is&nbsp; formatted using the strftime
+function.&nbsp; See
+strftime(3) for more details.<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Three additional codes are available:&nbsp; %f prints the day of
+the
+month,&nbsp; like&nbsp; %e&nbsp; but<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+without&nbsp; any&nbsp; preceding&nbsp; space&nbsp; if
+the day is a
+single digit, and %K/%L correspond to<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+%k/%l for the hour of the day (24/12 hour clock) in the same way.<br />
+
+
+
+
+<br />
+
+
+
+
+&nbsp;&nbsp; Visual effects<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; %B (%b)<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Start (stop) boldface mode.<br />
+
+
+
+
+<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+%E&nbsp;&nbsp;&nbsp;&nbsp; Clear to end of line.<br />
+
+
+
+
+<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; %U (%u)<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Start (stop) underline mode.<br />
+
+
+
+
+<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; %S (%s)<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Start (stop) standout mode.<br />
+
+
+
+
+<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; %{...%}<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Include a string as a literal escape sequence.&nbsp; The string
+within
+the&nbsp; braces&nbsp; should<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+not change the cursor position.&nbsp; Brace pairs can nest.<br />
+
+
+
+
+&nbsp;&nbsp; Conditional substrings<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+%v&nbsp;&nbsp;&nbsp;&nbsp;
+The&nbsp; value of the first element of the psvar array
+parameter.&nbsp; Following the &lsquo;%&rsquo; with<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+an integer gives that element of the array.&nbsp; Negative integers
+count from the end&nbsp; of<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+the array.<br />
+
+
+
+
+<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+%(x.true-text.false-text)<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Specifies a ternary expression.&nbsp; The character following the x
+is
+arbitrary; the same<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+character is used to separate the text for&nbsp; the&nbsp;
+&lsquo;true&rsquo;&nbsp; result&nbsp; from&nbsp;
+that&nbsp; for&nbsp;
+the<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lsquo;false&rsquo;&nbsp; result.&nbsp; This separator
+may not appear
+in the true-text, except as part of a<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+%-escape sequence.&nbsp; A &lsquo;)&rsquo; may
+appear&nbsp; in&nbsp;
+the&nbsp; false-text&nbsp; as&nbsp;
+&lsquo;%)&rsquo;.&nbsp;&nbsp;
+true-text&nbsp; and<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+false-text&nbsp; may&nbsp; both&nbsp; contain
+arbitrarily-nested escape
+sequences, including further<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ternary expressions.<br />
+
+
+
+
+<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+The left parenthesis may be preceded or followed&nbsp; by&nbsp;
+a&nbsp;
+positive&nbsp; integer&nbsp; n,&nbsp; which<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+defaults to zero.&nbsp; A negative integer will be multiplied by
+-1.&nbsp; The test character x&nbsp;may be any of the following:<br />
+
+
+
+
+<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; True if the shell
+is running with
+privileges.<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; True if the
+effective uid of the
+current process is n.<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; True if the exit
+status of the last
+command was n.<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+_&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; True if at least n
+shell constructs
+were started.<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+C<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; True if the current
+absolute path has
+at least n elements relative to the root<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+directory, hence / is counted as 0 elements.<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+c<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+.<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+~&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; True&nbsp;
+if&nbsp; the&nbsp;
+current&nbsp; path, with prefix replacement, has at least n elements<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+relative to the root directory, hence / is counted as 0 elements.<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; True if the month
+is equal to n
+(January = 0).<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+d&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; True if the day of
+the month is equal
+to n.<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+g&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; True if the
+effective gid of the
+current process is n.<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+j&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; True if the number
+of jobs is at least
+n.<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+L&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; True if the SHLVL
+parameter is at least
+n.<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+l&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; True if at least n
+characters have
+already been printed on the current line.<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; True if the SECONDS
+parameter is at
+least n.<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+T&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; True if the time in
+hours is equal to n.<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+t&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; True if the time in
+minutes is equal to
+n.<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+v&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; True if the array
+psvar has at least n
+elements.<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+w&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; True if the day of
+the week is equal to
+n (Sunday = 0).<br />
+
+
+
+
+<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+%&lt;string&lt;<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+%&gt;string&gt;<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; %[xstring]<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Specifies truncation behaviour for the remainder of the
+prompt&nbsp;
+string.&nbsp;&nbsp; The&nbsp; third,<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+deprecated, form is equivalent to &lsquo;%xstringx&rsquo;, i.e.
+x may
+be &lsquo;&lt;&rsquo; or
+&lsquo;&gt;&rsquo;.&nbsp; The numeric<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+argument, which in the third form may appear immediately after the
+&lsquo;[&rsquo;, specifies the<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+maximum&nbsp; permitted length of the various strings that can be
+displayed in the prompt.<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+The string will be displayed in place of the truncated portion
+of&nbsp;
+any&nbsp; string;&nbsp; note<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+this does not undergo prompt expansion.<br />
+
+
+
+
+<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+The&nbsp; forms&nbsp; with &lsquo;&lt;&rsquo;
+truncate at the left of
+the string, and the forms with &lsquo;&gt;&rsquo; trun‐<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+cate at the&nbsp; right&nbsp; of&nbsp; the&nbsp;
+string.&nbsp;&nbsp;
+For&nbsp; example,&nbsp; if&nbsp; the&nbsp;
+current&nbsp;
+directory&nbsp; is<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lsquo;/home/pike&rsquo;,&nbsp; the&nbsp; prompt
+&lsquo;%8&lt;..&lt;%/&rsquo; will expand to
+&lsquo;..e/pike&rsquo;.&nbsp; In this string, the<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+terminating character (&lsquo;&lt;&rsquo;,
+&lsquo;&gt;&rsquo; or
+&lsquo;]&rsquo;), or in fact any character, may be quoted by a<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;preceding&nbsp;
+&lsquo;\&rsquo;;&nbsp; note&nbsp; when using print -P,
+however, that
+this must be doubled as the<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+string is also subject to standard print processing, in addition
+to&nbsp; any&nbsp; backslashes<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+removed&nbsp; by&nbsp; a&nbsp; double&nbsp;
+quoted&nbsp;
+string:&nbsp;&nbsp; the&nbsp; worst&nbsp;
+case&nbsp; is&nbsp;
+therefore&nbsp; &lsquo;print&nbsp; -P<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+"%&lt;\\\\&lt;&lt;..."&rsquo;.<br />
+
+
+
+
+<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+If the string is longer than the specified truncation length, it will
+appear in full,<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+completely replacing the truncated string.<br />
+
+
+
+
+<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+The&nbsp; part&nbsp; of&nbsp; the prompt string to be
+truncated runs to
+the end of the string, or to<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+the end of the next enclosing group of the &lsquo;%(&rsquo;
+construct,
+or to the next&nbsp; truncation<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+encountered at the same grouping level (i.e. truncations inside a
+&lsquo;%(&rsquo; are separate),<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+which ever comes first.&nbsp; In particular, a truncation with
+argument
+zero (e.g.&nbsp; &lsquo;%&lt;&lt;&rsquo;)<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+marks the end of the range of the string to be truncated while turning
+off truncation<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+from there on. For example, the prompt
+&rsquo;%10&lt;...&lt;%~%&lt;&lt;%# &rsquo; will
+print a truncated rep‐<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+resentation&nbsp; of the current directory, followed by a
+&lsquo;%&rsquo; or &lsquo;#&rsquo;, followed by a space.<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Without the &lsquo;%&lt;&lt;&rsquo;, those two
+characters would be
+included in the string to&nbsp; be&nbsp; trun‐<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+cated.<br />
+
+
+
+
+<br />
+
+
+
+
+<h3>tcsh</h3>
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="font-weight: bold;">prompt</span>&nbsp; The
+string which is printed before reading each command from the&nbsp;
+terminal.&nbsp;&nbsp; prompt<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+may include any of the following formatting sequences (+), which are
+replaced by the<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+given information:<br />
+
+
+
+
+<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+%/&nbsp; The current working directory.<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+%~&nbsp; The current working directory, but with one&rsquo;s
+home
+directory represented by&nbsp; &lsquo;~&rsquo;<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+and other users&rsquo; home directories represented by
+&lsquo;~user&rsquo; as per Filename substi‐<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+tution.&nbsp; &lsquo;~user&rsquo; substitution happens only
+if the
+shell has already used &lsquo;~user&rsquo;<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+in a pathname in the current session.<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+%c[[0]n], %.[[0]n]<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+The&nbsp; trailing&nbsp; component&nbsp; of the current
+working
+directory, or n trailing compo‐<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+nents if a digit n is given.&nbsp; If n begins with
+&lsquo;0&rsquo;,
+the number of skipped compo‐<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+nents&nbsp; precede the trailing component(s) in the format
+&lsquo;/&lt;skipped&gt;trailing&rsquo;.&nbsp; If<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+the ellipsis shell variable is set, skipped components&nbsp;
+are&nbsp;
+represented&nbsp; by&nbsp; an<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ellipsis&nbsp; so&nbsp; the&nbsp; whole&nbsp; becomes
+&lsquo;...trailing&rsquo;.&nbsp; &lsquo;~&rsquo;
+substitution is done
+as in<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lsquo;%~&rsquo; above, but the &lsquo;~&rsquo;
+component is ignored
+when counting trailing&nbsp; components.<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+%C&nbsp; Like %c, but without &lsquo;~&rsquo; substitution.<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+%h, %!, !<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+The current history event number.<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+%M&nbsp; The full hostname.<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+%m&nbsp; The hostname up to the first &lsquo;.&rsquo;.<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+%S (%s)<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Start (stop) standout mode.<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+%B (%b)<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Start (stop) boldfacing mode.<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+%U (%u)<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Start (stop) underline mode.<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+%t, %@<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+The time of day in 12-hour AM/PM format.<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+%T&nbsp; Like &lsquo;%t&rsquo;, but in 24-hour format (but
+see the ampm
+shell variable).<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+%p&nbsp; The &lsquo;precise&rsquo; time of day in 12-hour
+AM/PM format,
+with seconds.<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+%P&nbsp; Like &lsquo;%p&rsquo;, but in 24-hour format (but
+see the ampm
+shell variable).<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+\c&nbsp; c is parsed as in bindkey.<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+^c&nbsp; c is parsed as in bindkey.<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+%%&nbsp; A single &lsquo;%&rsquo;.<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+%n&nbsp; The user name.<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+%j&nbsp; The number of jobs.<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+%d&nbsp; The weekday in &lsquo;Day&rsquo;
+format.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+%D&nbsp; The day in &lsquo;dd&rsquo; format.<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+%w&nbsp; The month in &lsquo;Mon&rsquo; format.<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+%W&nbsp; The month in &lsquo;mm&rsquo; format.<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+%y&nbsp; The year in &lsquo;yy&rsquo; format.<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+%Y&nbsp; The year in &lsquo;yyyy&rsquo; format.<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+%l&nbsp; The shell&rsquo;s tty.<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+%L&nbsp; Clears&nbsp; from the end of the prompt to end of the
+display
+or the end of the line.<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+%$&nbsp; Expands the shell or environment variable name immediately
+after the &lsquo;$&rsquo;.<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+%#&nbsp; &lsquo;&gt;&rsquo; (or the first character of
+the promptchars
+shell variable) for normal users,<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lsquo;#&rsquo; (or the second character of promptchars) for
+the
+superuser.<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+%{string%}<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Includes&nbsp; string as a literal escape sequence.&nbsp; It
+should be
+used only to change<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+terminal attributes and should not move the cursor location.&nbsp;
+This
+cannot be the<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+last sequence in prompt.<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+%?&nbsp; The return code of the command executed just before the
+prompt.<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+%R&nbsp; In&nbsp; prompt2,&nbsp; the&nbsp;
+status&nbsp; of the
+parser.&nbsp; In prompt3, the corrected string.&nbsp; In<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+history, the history string.<br />
+
+
+
+
+<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lsquo;%B&rsquo;, &lsquo;%S&rsquo;,
+&lsquo;%U&rsquo; and
+&lsquo;%{string%}&rsquo; are available in only eight-bit-clean
+shells;&nbsp; see<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+the version shell variable.<br />
+
+
+
+
+<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+The bold, standout and underline sequences are often used to
+distinguish a superuser<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+shell.&nbsp; For example,<br />
+
+
+
+
+<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&gt; set prompt = "%m [%h] %B[%@]%b [%/] you rang? "<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+tut [37] [2:54pm] [/usr/accts/sys] you rang? _<br />
+
+
+
+
+<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+If &lsquo;%t&rsquo;, &lsquo;%@&rsquo;,
+&lsquo;%T&rsquo;,
+&lsquo;%p&rsquo;, or &lsquo;%P&rsquo; is
+used,&nbsp; and&nbsp;
+noding&nbsp; is&nbsp; not&nbsp; set,&nbsp;
+then&nbsp; print<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lsquo;DING!&rsquo; on the change of hour (i.e,
+&lsquo;:00&rsquo;
+minutes) instead of the actual time.<br />
+
+
+
+
+<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Set by default to &lsquo;%# &rsquo; in interactive shells.<br />
+
+
+
+
+<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; prompt2 (+)<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+The string with which to prompt in while and foreach loops and after
+lines ending in<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lsquo;\&rsquo;.&nbsp; The same format sequences may be
+used as in
+prompt (q.v.); note&nbsp; the&nbsp; variable<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+meaning of &lsquo;%R&rsquo;.&nbsp; Set by default to
+&lsquo;%R? &rsquo;
+in interactive shells.<br />
+
+
+
+
+<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; prompt3 (+)<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+The&nbsp; string with which to prompt when confirming automatic
+spelling correction.&nbsp; The<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+same format sequences may be used as in prompt (q.v.); note the
+variable meaning&nbsp; of<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lsquo;%R&rsquo;.&nbsp; Set by default to
+&lsquo;CORRECT&gt;%R
+(y|n|e|a)? &rsquo; in interactive shells.<br />
+
+
+
+
+<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+promptchars (+)<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+If set (to a two-character string), the &lsquo;%#&rsquo;
+formatting
+sequence in the prompt shell<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+variable is replaced with the first character for normal users and the
+second&nbsp; char‐<br />
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+acter for the superuser.<br />
+
+
+
+
+<br />
+
+
+
+
+<br />
+
+
+
+
+<br />
+
+
+
+
+<h3>csh</h3>
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;"prompt" is the string that is printed before each<br />
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; command is read from an interactive<br />
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+terminal input.&nbsp; If a &lsquo;!&rsquo; appears in<br />
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; the string it will be replaced by the<br />
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; current event number unless a preced‐<br />
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ing &lsquo;\&rsquo; is given.&nbsp; Default is &ldquo;%&rdquo;, or<br />
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &ldquo;#&rdquo; for the superuser.<br />
+
+
+
+
+
+<h3>ksh</h3>
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+PS1&nbsp;&nbsp;&nbsp; The&nbsp; value of this variable is expanded for
+parameter expansion, command sub‐<br />
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+stitution, and arithmetic substitution to define the&nbsp;
+primary&nbsp; prompt&nbsp; string<br />
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+which&nbsp; by default is &lsquo;&lsquo;$&rsquo;&rsquo;.&nbsp; The
+character !&nbsp; in the primary prompt string is<br />
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+replaced by the command number (see Command Re-entry below).&nbsp;
+Two&nbsp; successive<br />
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+occurrences of !&nbsp; will produce a single !&nbsp; when the prompt
+string is printed.<br />
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+PS2&nbsp;&nbsp;&nbsp; Secondary prompt string, by default
+&lsquo;&lsquo;&gt; &rsquo;&rsquo;.<br />
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+PS3&nbsp;&nbsp;&nbsp; Selection prompt string used within a select
+loop, by default &lsquo;&lsquo;#? &rsquo;&rsquo;.<br />
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+PS4&nbsp;&nbsp;&nbsp; The value of this variable is expanded for
+parameter evaluation, command sub‐<br />
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+stitution, and arithmetic substitution and precedes each line of an
+execution<br />
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+trace.&nbsp; By default, PS4 is &lsquo;&lsquo;+ &rsquo;&rsquo;.&nbsp;
+In addition when PS4 is unset, the execu‐<br />
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+tion trace prompt is also &lsquo;&lsquo;+ &rsquo;&rsquo;.<br />
+
+
+
+<h3>sh</h3>
+
+
+
+
+<h3>rc</h3>
+
+
+
+
+<h3>Theme function</h3>
+
+
+
+
+In the BashPrompt Howto functions are used extensively, this is a good
+thing since variabels can be declared local.<br />
+
+
+
+
+Where Bashish differs from BashPrompt is that it does not expect to run
+the function contained within the prompt.[shell] file. Thus if writing
+a function, one must remember to execute that function too :)<br />
+
+
+
+
+<br />
+
+
+
+
+An example:<br />
+
+
+
+
+<br />
+
+
+
+
+<pre>function myprompt {<br />	typeset LOCAL_VARIABEL=human</pre>
+
+
+
+
+<pre>	PS1="hello $LOCAL_VARIABEL&gt;"<br />	unset -f myprompt<br />}<br />myprompt<br /></pre>
+
+
+
+
+The prompt will look like this:<br />
+
+
+
+
+<pre>hello human&gt;<br /></pre>
+
+
+
+
+LOCAL_VARIABEL is declared as local by the "typeset" definition.<br />
+
+
+
+
+This function will work on bash, ksh93, pdksh and zsh.<br />
+
+
+
+
+Other shells are out of scope for this simple howto.<br />
+
+
+
+
+<h3>Helper libraries</h3>
+
+
+
+
+Helper libraries are shared code which can be used among all shells.<br />
+
+
+
+
+These are called directly from the shell with a specified set of
+arguments. On "bash", "zsh", "ksh93" and "pdksh", these helpers loads
+as functions for performance reasons.<br />
+
+
+
+
+<br />
+
+
+
+
+Helper libraries:<br />
+
+
+
+
+<ul>
+
+
+
+
+  <li>_bashish_prompt_fillx - fills the terminal
+in&nbsp;horizontal row by repeating a specified string.</li>
+
+
+
+
+  <li>_bashish_prompt_filly - fills the terminal in vertical
+column up to the cursor with a specified string.</li>
+
+
+
+
+  <li>_bashish_prompt_cwd - prints the string, color / escape
+codes can be put between each directory delimiter.</li>
+
+
+
+
+  <li>_bashish_prompt_color - converts a simple human readable
+syntax to ansi color codes.</li>
+
+
+
+
+  <li>_bashish_prompt_testloc - forces the prompt to stay above a
+certain row.</li>
+
+
+
+
+  <li>_bashish_prompt_cp437 - prints characters in the old
+Codepage 437 DOS charset, either as CP437 or as UTF-8.</li>
+
+
+
+
+</ul>
+
+
+
+
+<h3>_bashish_prompt_cp437</h3>
+
+
+
+
+In ASCII art, often the DOS codepage is used to create semi-graphical
+text.<br />
+
+
+
+
+The DOS codepage (named <span style="font-style: italic;">Code
+page
+437</span>,<span style="font-style: italic;"> CP437</span>
+or <span style="font-style: italic;">OEM</span>)
+is today however completely obsolete, and due to technical difficulties
+it might be problematic to use these characters in terminals with more
+recent encodings.<br />
+
+
+
+
+However the 2.0.6 release of Bashish includes a compatibility library -
+<span style="font-family: monospace;">_bashish_prompt_cp437</span>
+- where one give the hexadecimal character (in
+uppercase) of
+codepage 437 and _bashish_prompt_cp437 either prints a CP437 or UTF-8
+encoded character. This method makes nearly all terminals able to
+display ASCII-art written in the DOS CP437 charset.<br />
+
+
+
+
+<br />
+
+
+
+
+Here is a table taken from <a href="http://en.wikipedia.org/wiki/Code_page_437">http://en.wikipedia.org/wiki/Code_page_437</a><br />
+
+
+
+
+<br />
+
+
+
+
+<table style="text-align: center; font-family: monospace; width: 100%;" border="1" cellpadding="2" cellspacing="2">
+
+
+
+
+  <tbody>
+
+
+
+
+    <tr>
+
+
+
+
+      <td width="4%"></td>
+
+
+
+
+      <th width="6%">.0</th>
+
+
+
+
+      <th width="6%">.1</th>
+
+
+
+
+      <th width="6%">.2</th>
+
+
+
+
+      <th width="6%">.3</th>
+
+
+
+
+      <th width="6%">.4</th>
+
+
+
+
+      <th width="6%">.5</th>
+
+
+
+
+      <th width="6%">.6</th>
+
+
+
+
+      <th width="6%">.7</th>
+
+
+
+
+      <th width="6%">.8</th>
+
+
+
+
+      <th width="6%">.9</th>
+
+
+
+
+      <th width="6%">.A</th>
+
+
+
+
+      <th width="6%">.B</th>
+
+
+
+
+      <th width="6%">.C</th>
+
+
+
+
+      <th width="6%">.D</th>
+
+
+
+
+      <th width="6%">.E</th>
+
+
+
+
+      <th width="6%">.F</th>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <th>&nbsp;<br />
+
+
+
+
+0.<br />
+
+
+
+
+&nbsp;</th>
+
+
+
+
+      <td><small>NULL</small><br />
+
+
+
+
+      <small>0</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">☺</span><br />
+
+
+
+
+      <small>263A</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">☻</span><br />
+
+
+
+
+      <small>263B</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&hearts;</span><br />
+
+
+
+
+      <small>2665</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&diams;</span><br />
+
+
+
+
+      <small>2666</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&clubs;</span><br />
+
+
+
+
+      <small>2663</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&spades;</span><br />
+
+
+
+
+      <small>2660</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&bull;</span><br />
+
+
+
+
+      <small>2022</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">◘</span><br />
+
+
+
+
+      <small>25D8</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">○</span><br />
+
+
+
+
+      <small>25CB</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">◙</span><br />
+
+
+
+
+      <small>25D9</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">♂</span><br />
+
+
+
+
+      <small>2642</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">♀</span><br />
+
+
+
+
+      <small>2640</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">♪</span><br />
+
+
+
+
+      <small>266A</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">♫</span><br />
+
+
+
+
+      <small>266B</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">☼</span><br />
+
+
+
+
+      <small>263C</small></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <th>&nbsp;<br />
+
+
+
+
+1.<br />
+
+
+
+
+&nbsp;</th>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">►</span><br />
+
+
+
+
+      <small>25BA</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">◄</span><br />
+
+
+
+
+      <small>25C4</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">↕</span><br />
+
+
+
+
+      <small>2195</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">‼</span><br />
+
+
+
+
+      <small>203C</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&para;</span><br />
+
+
+
+
+      <small>B6</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&sect;</span><br />
+
+
+
+
+      <small>A7</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">▬</span><br />
+
+
+
+
+      <small>25AC</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">↨</span><br />
+
+
+
+
+      <small>21A8</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&uarr;</span><br />
+
+
+
+
+      <small>2191</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&darr;</span><br />
+
+
+
+
+      <small>2193</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&rarr;</span><br />
+
+
+
+
+      <small>2192</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&larr;</span><br />
+
+
+
+
+      <small>2190</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">∟</span><br />
+
+
+
+
+      <small>221F</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&harr;</span><br />
+
+
+
+
+      <small>2194</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">▲</span><br />
+
+
+
+
+      <small>25B2</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">▼</span><br />
+
+
+
+
+      <small>25BC</small></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <th>&nbsp;<br />
+
+
+
+
+2.<br />
+
+
+
+
+&nbsp;</th>
+
+
+
+
+      <td><br />
+
+
+
+
+      <small>20</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">!</span><br />
+
+
+
+
+      <small>21</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">"</span><br />
+
+
+
+
+      <small>22</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">#</span><br />
+
+
+
+
+      <small>23</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">$</span><br />
+
+
+
+
+      <small>24</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">%</span><br />
+
+
+
+
+      <small>25</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&amp;</span><br />
+
+
+
+
+      <small>26</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">'</span><br />
+
+
+
+
+      <small>27</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">(</span><br />
+
+
+
+
+      <small>28</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">)</span><br />
+
+
+
+
+      <small>29</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">*</span><br />
+
+
+
+
+      <small>2A</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">+</span><br />
+
+
+
+
+      <small>2B</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">,</span><br />
+
+
+
+
+      <small>2C</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">-</span><br />
+
+
+
+
+      <small>2D</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">.</span><br />
+
+
+
+
+      <small>2E</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">/</span><br />
+
+
+
+
+      <small>2F</small></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <th>&nbsp;<br />
+
+
+
+
+3.<br />
+
+
+
+
+&nbsp;</th>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">0</span><br />
+
+
+
+
+      <small>30</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">1</span><br />
+
+
+
+
+      <small>31</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">2</span><br />
+
+
+
+
+      <small>32</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">3</span><br />
+
+
+
+
+      <small>33</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">4</span><br />
+
+
+
+
+      <small>34</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">5</span><br />
+
+
+
+
+      <small>35</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">6</span><br />
+
+
+
+
+      <small>36</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">7</span><br />
+
+
+
+
+      <small>37</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">8</span><br />
+
+
+
+
+      <small>38</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">9</span><br />
+
+
+
+
+      <small>39</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">:</span><br />
+
+
+
+
+      <small>3A</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">;</span><br />
+
+
+
+
+      <small>3B</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&lt;</span><br />
+
+
+
+
+      <small>3C</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">=</span><br />
+
+
+
+
+      <small>3D</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&gt;</span><br />
+
+
+
+
+      <small>3E</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">?</span><br />
+
+
+
+
+      <small>3F</small></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <th>&nbsp;<br />
+
+
+
+
+4.<br />
+
+
+
+
+&nbsp;</th>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">@</span><br />
+
+
+
+
+      <small>40</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">A</span><br />
+
+
+
+
+      <small>41</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">B</span><br />
+
+
+
+
+      <small>42</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">C</span><br />
+
+
+
+
+      <small>43</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">D</span><br />
+
+
+
+
+      <small>44</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">E</span><br />
+
+
+
+
+      <small>45</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">F</span><br />
+
+
+
+
+      <small>46</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">G</span><br />
+
+
+
+
+      <small>47</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">H</span><br />
+
+
+
+
+      <small>48</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">I</span><br />
+
+
+
+
+      <small>49</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">J</span><br />
+
+
+
+
+      <small>4A</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">K</span><br />
+
+
+
+
+      <small>4B</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">L</span><br />
+
+
+
+
+      <small>4C</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">M</span><br />
+
+
+
+
+      <small>4D</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">N</span><br />
+
+
+
+
+      <small>4E</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">O</span><br />
+
+
+
+
+      <small>4F</small></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <th>&nbsp;<br />
+
+
+
+
+5.<br />
+
+
+
+
+&nbsp;</th>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">P</span><br />
+
+
+
+
+      <small>50</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">Q</span><br />
+
+
+
+
+      <small>51</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">R</span><br />
+
+
+
+
+      <small>52</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">S</span><br />
+
+
+
+
+      <small>53</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">T</span><br />
+
+
+
+
+      <small>54</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">U</span><br />
+
+
+
+
+      <small>55</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">V</span><br />
+
+
+
+
+      <small>56</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">W</span><br />
+
+
+
+
+      <small>57</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">X</span><br />
+
+
+
+
+      <small>58</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">Y</span><br />
+
+
+
+
+      <small>59</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">Z</span><br />
+
+
+
+
+      <small>5A</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">[</span><br />
+
+
+
+
+      <small>5B</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">\</span><br />
+
+
+
+
+      <small>5C</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">]</span><br />
+
+
+
+
+      <small>5D</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">^</span><br />
+
+
+
+
+      <small>5E</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">_</span><br />
+
+
+
+
+      <small>5F</small></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <th>&nbsp;<br />
+
+
+
+
+6.<br />
+
+
+
+
+&nbsp;</th>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">`</span><br />
+
+
+
+
+      <small>60</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">a</span><br />
+
+
+
+
+      <small>61</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">b</span><br />
+
+
+
+
+      <small>62</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">c</span><br />
+
+
+
+
+      <small>63</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">d</span><br />
+
+
+
+
+      <small>64</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">e</span><br />
+
+
+
+
+      <small>65</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">f</span><br />
+
+
+
+
+      <small>66</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">g</span><br />
+
+
+
+
+      <small>67</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">h</span><br />
+
+
+
+
+      <small>68</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">i</span><br />
+
+
+
+
+      <small>69</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">j</span><br />
+
+
+
+
+      <small>6A</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">k</span><br />
+
+
+
+
+      <small>6B</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">l</span><br />
+
+
+
+
+      <small>6C</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">m</span><br />
+
+
+
+
+      <small>6D</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">n</span><br />
+
+
+
+
+      <small>6E</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">o</span><br />
+
+
+
+
+      <small>6F</small></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <th>&nbsp;<br />
+
+
+
+
+7.<br />
+
+
+
+
+&nbsp;</th>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">p</span><br />
+
+
+
+
+      <small>70</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">q</span><br />
+
+
+
+
+      <small>71</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">r</span><br />
+
+
+
+
+      <small>72</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">s</span><br />
+
+
+
+
+      <small>73</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">t</span><br />
+
+
+
+
+      <small>74</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">u</span><br />
+
+
+
+
+      <small>75</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">v</span><br />
+
+
+
+
+      <small>76</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">w</span><br />
+
+
+
+
+      <small>77</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">x</span><br />
+
+
+
+
+      <small>78</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">y</span><br />
+
+
+
+
+      <small>79</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">z</span><br />
+
+
+
+
+      <small>7A</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">{</span><br />
+
+
+
+
+      <small>7B</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">|</span><br />
+
+
+
+
+      <small>7C</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">}</span><br />
+
+
+
+
+      <small>7D</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">~</span><br />
+
+
+
+
+      <small>7E</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">⌂</span><br />
+
+
+
+
+      <small>2302</small></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <th>&nbsp;<br />
+
+
+
+
+8.<br />
+
+
+
+
+&nbsp;</th>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&Ccedil;</span><br />
+
+
+
+
+      <small>C7</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&uuml;</span><br />
+
+
+
+
+      <small>FC</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&eacute;</span><br />
+
+
+
+
+      <small>E9</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&acirc;</span><br />
+
+
+
+
+      <small>E2</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&auml;</span><br />
+
+
+
+
+      <small>E4</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&agrave;</span><br />
+
+
+
+
+      <small>E0</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&aring;</span><br />
+
+
+
+
+      <small>E5</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&ccedil;</span><br />
+
+
+
+
+      <small>E7</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&ecirc;</span><br />
+
+
+
+
+      <small>EA</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&euml;</span><br />
+
+
+
+
+      <small>EB</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&egrave;</span><br />
+
+
+
+
+      <small>E8</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&iuml;</span><br />
+
+
+
+
+      <small>EF</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&icirc;</span><br />
+
+
+
+
+      <small>EE</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&igrave;</span><br />
+
+
+
+
+      <small>EC</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&Auml;</span><br />
+
+
+
+
+      <small>C4</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&Aring;</span><br />
+
+
+
+
+      <small>C5</small></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <th>&nbsp;<br />
+
+
+
+
+9.<br />
+
+
+
+
+&nbsp;</th>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&Eacute;</span><br />
+
+
+
+
+      <small>C9</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&aelig;</span><br />
+
+
+
+
+      <small>E6</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&AElig;</span><br />
+
+
+
+
+      <small>C6</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&ocirc;</span><br />
+
+
+
+
+      <small>F4</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&ouml;</span><br />
+
+
+
+
+      <small>F6</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&ograve;</span><br />
+
+
+
+
+      <small>F2</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&ucirc;</span><br />
+
+
+
+
+      <small>FB</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&ugrave;</span><br />
+
+
+
+
+      <small>F9</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&yuml;</span><br />
+
+
+
+
+      <small>FF</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&Ouml;</span><br />
+
+
+
+
+      <small>D6</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&Uuml;</span><br />
+
+
+
+
+      <small>DC</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&cent;</span><br />
+
+
+
+
+      <small>A2</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&pound;</span><br />
+
+
+
+
+      <small>A3</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&yen;</span><br />
+
+
+
+
+      <small>A5</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">₧</span><br />
+
+
+
+
+      <small>20A7</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&fnof;</span><br />
+
+
+
+
+      <small>192</small></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <th>&nbsp;<br />
+
+
+
+
+A.<br />
+
+
+
+
+&nbsp;</th>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&aacute;</span><br />
+
+
+
+
+      <small>E1</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&iacute;</span><br />
+
+
+
+
+      <small>ED</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&oacute;</span><br />
+
+
+
+
+      <small>F3</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&uacute;</span><br />
+
+
+
+
+      <small>FA</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&ntilde;</span><br />
+
+
+
+
+      <small>F1</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&Ntilde;</span><br />
+
+
+
+
+      <small>D1</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&ordf;</span><br />
+
+
+
+
+      <small>AA</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&ordm;</span><br />
+
+
+
+
+      <small>BA</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&iquest;</span><br />
+
+
+
+
+      <small>BF</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">⌐</span><br />
+
+
+
+
+      <small>2310</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&not;</span><br />
+
+
+
+
+      <small>AC</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&frac12;</span><br />
+
+
+
+
+      <small>BD</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&frac14;</span><br />
+
+
+
+
+      <small>BC</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&iexcl;</span><br />
+
+
+
+
+      <small>A1</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&laquo;</span><br />
+
+
+
+
+      <small>AB</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&raquo;</span><br />
+
+
+
+
+      <small>BB</small></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <th>&nbsp;<br />
+
+
+
+
+B.<br />
+
+
+
+
+&nbsp;</th>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">░</span><br />
+
+
+
+
+      <small>2591</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">▒</span><br />
+
+
+
+
+      <small>2592</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">▓</span><br />
+
+
+
+
+      <small>2593</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">│</span><br />
+
+
+
+
+      <small>2502</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">┤</span><br />
+
+
+
+
+      <small>2524</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">╡</span><br />
+
+
+
+
+      <small>2561</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">╢</span><br />
+
+
+
+
+      <small>2562</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">╖</span><br />
+
+
+
+
+      <small>2556</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">╕</span><br />
+
+
+
+
+      <small>2555</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">╣</span><br />
+
+
+
+
+      <small>2563</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">║</span><br />
+
+
+
+
+      <small>2551</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">╗</span><br />
+
+
+
+
+      <small>2557</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">╝</span><br />
+
+
+
+
+      <small>255D</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">╜</span><br />
+
+
+
+
+      <small>255C</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">╛</span><br />
+
+
+
+
+      <small>255B</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">┐</span><br />
+
+
+
+
+      <small>2510</small></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <th>&nbsp;<br />
+
+
+
+
+C.<br />
+
+
+
+
+&nbsp;</th>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">└</span><br />
+
+
+
+
+      <small>2514</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">┴</span><br />
+
+
+
+
+      <small>2534</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">┬</span><br />
+
+
+
+
+      <small>252C</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">├</span><br />
+
+
+
+
+      <small>251C</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">─</span><br />
+
+
+
+
+      <small>2500</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">┼</span><br />
+
+
+
+
+      <small>253C</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">╞</span><br />
+
+
+
+
+      <small>255E</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">╟</span><br />
+
+
+
+
+      <small>255F</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">╚</span><br />
+
+
+
+
+      <small>255A</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">╔</span><br />
+
+
+
+
+      <small>2554</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">╩</span><br />
+
+
+
+
+      <small>2569</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">╦</span><br />
+
+
+
+
+      <small>2566</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">╠</span><br />
+
+
+
+
+      <small>2560</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">═</span><br />
+
+
+
+
+      <small>2550</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">╬</span><br />
+
+
+
+
+      <small>256C</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">╧</span><br />
+
+
+
+
+      <small>2567</small></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <th>&nbsp;<br />
+
+
+
+
+D.<br />
+
+
+
+
+&nbsp;</th>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">╨</span><br />
+
+
+
+
+      <small>2568</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">╤</span><br />
+
+
+
+
+      <small>2564</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">╥</span><br />
+
+
+
+
+      <small>2565</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">╙</span><br />
+
+
+
+
+      <small>2559</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">╘</span><br />
+
+
+
+
+      <small>2558</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">╒</span><br />
+
+
+
+
+      <small>2552</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">╓</span><br />
+
+
+
+
+      <small>2553</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">╫</span><br />
+
+
+
+
+      <small>256B</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">╪</span><br />
+
+
+
+
+      <small>256A</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">┘</span><br />
+
+
+
+
+      <small>2518</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">┌</span><br />
+
+
+
+
+      <small>250C</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">█</span><br />
+
+
+
+
+      <small>2588</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">▄</span><br />
+
+
+
+
+      <small>2584</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">▌</span><br />
+
+
+
+
+      <small>258C</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">▐</span><br />
+
+
+
+
+      <small>2590</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">▀</span><br />
+
+
+
+
+      <small>2580</small></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <th>&nbsp;<br />
+
+
+
+
+E.<br />
+
+
+
+
+&nbsp;</th>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&alpha;</span><br />
+
+
+
+
+      <small>3B1</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&szlig;</span><br />
+
+
+
+
+      <small>DF</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&Gamma;</span><br />
+
+
+
+
+      <small>393</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&pi;</span><br />
+
+
+
+
+      <small>3C0</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&Sigma;</span><br />
+
+
+
+
+      <small>3A3</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&sigma;</span><br />
+
+
+
+
+      <small>3C3</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&micro;</span><br />
+
+
+
+
+      <small>B5</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&tau;</span><br />
+
+
+
+
+      <small>3C4</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&Phi;</span><br />
+
+
+
+
+      <small>3A6</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&Theta;</span><br />
+
+
+
+
+      <small>398</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&Omega;</span><br />
+
+
+
+
+      <small>3A9</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&delta;</span><br />
+
+
+
+
+      <small>3B4</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&infin;</span><br />
+
+
+
+
+      <small>221E</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&phi;</span><br />
+
+
+
+
+      <small>3C6</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&epsilon;</span><br />
+
+
+
+
+      <small>3B5</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&cap;</span><br />
+
+
+
+
+      <small>2229</small></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <th>&nbsp;<br />
+
+
+
+
+F.<br />
+
+
+
+
+&nbsp;</th>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&equiv;</span><br />
+
+
+
+
+      <small>2261</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&plusmn;</span><br />
+
+
+
+
+      <small>B1</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&ge;</span><br />
+
+
+
+
+      <small>2265</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&le;</span><br />
+
+
+
+
+      <small>2264</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">⌠</span><br />
+
+
+
+
+      <small>2320</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">⌡</span><br />
+
+
+
+
+      <small>2321</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&divide;</span><br />
+
+
+
+
+      <small>F7</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&asymp;</span><br />
+
+
+
+
+      <small>2248</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&deg;</span><br />
+
+
+
+
+      <small>B0</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">∙</span><br />
+
+
+
+
+      <small>2219</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&middot;</span><br />
+
+
+
+
+      <small>B7</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&radic;</span><br />
+
+
+
+
+      <small>221A</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">ⁿ</span><br />
+
+
+
+
+      <small>207F</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&sup2;</span><br />
+
+
+
+
+      <small>B2</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">■</span><br />
+
+
+
+
+      <small>25A0</small></td>
+
+
+
+
+      <td><span style="font-size: large; font-family: serif;">&nbsp;</span><br />
+
+
+
+
+      <small>A0</small></td>
+
+
+
+
+    </tr>
+
+
+
+
+  
+  
+  
+  </tbody>
+</table>
+
+
+
+
+<br />
+
+
+
+
+<span class="">You get the hex value by combining the
+character in the left column with the character in the top column,
+excluding the dots.<br />
+
+
+
+
+_bashish_prompt_cp437 accepts multiple space delimited arguments, the
+outputted string will not have any spaces in it (except if you give it
+20&nbsp;as argument that is ;))<br class="" />
+
+
+
+
+</span>
+<br class="" />
+
+
+
+
+<span class="">Usage example:</span><br class="" />
+
+
+
+
+<pre>FADE="$( _bashish_prompt_cp437 B0 B1 B2)"</pre>
+
+
+
+
+<span class="">sets the variabel $FADE to </span><span class="" style="font-size: large; font-family: serif;">░</span><span class="" style="font-size: large; font-family: serif;">▒</span><span class="" style="font-size: large; font-family: serif;">▓</span><br />
+
+
+
+
+<span class="" style="font-size: large; font-family: serif;"></span><br />
+
+
+
+
+<span class="" style="font-size: large; font-family: serif;">Another
+example:</span><br />
+
+
+
+
+<span class="" style="font-size: large; font-family: serif;"></span><br />
+
+
+
+
+<pre><span style="font-size: large; font-family: serif;">SUN="$(_bashish_prompt_cp437 0F)"</span></pre>
+
+
+
+
+<span class="" style="font-size: large; font-family: serif;">sets
+the variabel $SUN to </span><span class="" style="font-size: large; font-family: serif;">☼</span><span style="font-size: large; font-family: serif;"></span><br />
+
+
+
+
+<span style="font-size: large; font-family: serif;"></span><span style="font-size: large; font-family: serif;"><br />
+
+
+
+
+</span><span style="font-size: large; font-family: serif;"></span>
+<h3>_bashish_prompt_color</h3>
+
+
+
+
+ANSI colors are available for most modern terminal emulators.<br />
+
+
+
+
+On unsupported terminals _bashish_prompt_color does not output escape
+sequencies which would otherwise be printed.<br />
+
+
+
+
+<br />
+
+
+
+
+The&nbsp;RGB values may be changed, see COLOR in the terminal
+theming section below.<br />
+
+
+
+
+However, by doing so, the theme may render unusuable on terminals which
+do not support changing the RGB values, eg "putty".<br />
+
+
+
+
+If you use the predefined colors, your theme will look roughly the same
+on nearly all terminal emualtors.<br />
+
+
+
+
+<br />
+
+
+
+
+_bashish_prompt_color is a helper library which translate the colors
+specified to ansi codes each terminal can understand.<br />
+
+
+
+
+<br />
+
+
+
+
+<table style="text-align: left;" border="1" cellpadding="2" cellspacing="2">
+
+
+
+
+  <tbody>
+
+
+
+
+    <tr>
+
+
+
+
+      <td>Color</td>
+
+
+
+
+      <td>Num</td>
+
+
+
+
+      <td>Foreground</td>
+
+
+
+
+      <td>Background</td>
+
+
+
+
+      <td>Notes</td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td style="background-color: rgb(0, 0, 0);"></td>
+
+
+
+
+      <td>0</td>
+
+
+
+
+      <td>fgblack</td>
+
+
+
+
+      <td>bgblack</td>
+
+
+
+
+      <td>(1)</td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td style="background-color: rgb(158, 24, 40);"></td>
+
+
+
+
+      <td>1</td>
+
+
+
+
+      <td>fgred</td>
+
+
+
+
+      <td>bgred</td>
+
+
+
+
+      <td></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td style="background-color: rgb(116, 154, 83);"></td>
+
+
+
+
+      <td>2</td>
+
+
+
+
+      <td>fggreen</td>
+
+
+
+
+      <td>bggreen</td>
+
+
+
+
+      <td></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td style="background-color: rgb(198, 191, 99);"></td>
+
+
+
+
+      <td>3</td>
+
+
+
+
+      <td>fgyellow</td>
+
+
+
+
+      <td>bgyellow</td>
+
+
+
+
+      <td></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td style="background-color: rgb(65, 65, 113);"></td>
+
+
+
+
+      <td>4</td>
+
+
+
+
+      <td>fgblue</td>
+
+
+
+
+      <td>bgblue</td>
+
+
+
+
+      <td></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td style="background-color: rgb(114, 77, 101);"></td>
+
+
+
+
+      <td>5</td>
+
+
+
+
+      <td>fgmagenta</td>
+
+
+
+
+      <td>bgmagenta</td>
+
+
+
+
+      <td></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td style="background-color: rgb(65, 129, 121);"></td>
+
+
+
+
+      <td>6</td>
+
+
+
+
+      <td>fgcyan</td>
+
+
+
+
+      <td>bgcyan</td>
+
+
+
+
+      <td></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td style="background-color: rgb(255, 255, 255);"></td>
+
+
+
+
+      <td>7</td>
+
+
+
+
+      <td>fgwhite</td>
+
+
+
+
+      <td>bgwhite</td>
+
+
+
+
+      <td>(1)</td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td style="background-color: rgb(102, 102, 102);"></td>
+
+
+
+
+      <td>8</td>
+
+
+
+
+      <td>fgbrightblack</td>
+
+
+
+
+      <td>bgbrightblack</td>
+
+
+
+
+      <td>(2)(3)</td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td style="background-color: rgb(207, 97, 113);"></td>
+
+
+
+
+      <td>9</td>
+
+
+
+
+      <td>fgbrightred</td>
+
+
+
+
+      <td>bgbrightred</td>
+
+
+
+
+      <td>(2)(3)</td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td style="background-color: rgb(197, 247, 121);"></td>
+
+
+
+
+      <td>10</td>
+
+
+
+
+      <td>fgbrightgreen</td>
+
+
+
+
+      <td>bgbrightgreen</td>
+
+
+
+
+      <td>(2)(3)</td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td style="background-color: rgb(255, 247, 150);"></td>
+
+
+
+
+      <td>11</td>
+
+
+
+
+      <td>fgbrightyellow</td>
+
+
+
+
+      <td>bgbrightyellow</td>
+
+
+
+
+      <td>(2)(3)</td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td style="background-color: rgb(65, 134, 190);"></td>
+
+
+
+
+      <td>12</td>
+
+
+
+
+      <td>fgbrightblue</td>
+
+
+
+
+      <td>bgbrightblue</td>
+
+
+
+
+      <td>(2)(3)</td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td style="background-color: rgb(207, 158, 190);"></td>
+
+
+
+
+      <td>13</td>
+
+
+
+
+      <td>fgbrightmagenta</td>
+
+
+
+
+      <td>bgbrightmagenta</td>
+
+
+
+
+      <td>(2)(3)</td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td style="background-color: rgb(113, 190, 190);"></td>
+
+
+
+
+      <td>14</td>
+
+
+
+
+      <td>fgbrightcyan</td>
+
+
+
+
+      <td>bgbrightcyan</td>
+
+
+
+
+      <td>(2)(3)</td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td style="background-color: rgb(255, 255, 255);"></td>
+
+
+
+
+      <td>15</td>
+
+
+
+
+      <td>fgbrightwhite</td>
+
+
+
+
+      <td>bgbrightwhite</td>
+
+
+
+
+      <td>(2)(3)</td>
+
+
+
+
+    </tr>
+
+
+
+
+  
+  
+  
+  </tbody>
+</table>
+
+
+
+
+<br />
+
+
+
+
+1: Linux console cannot change colors for fgwhite, bgwhite, fgblack,
+bgblack, these are set to original background respectively foreground
+colors.<br />
+
+
+
+
+2: bgbright* is only available on XTerm and rxvt-unicode. On other
+terminals, the foreground enables "bold" attribute to simulate the
+bright colors.<br />
+
+
+
+
+<h3>_bashish_prompt_cwd</h3>
+
+
+
+
+A subtle, yet elegant and usability enhancing feature.<br />
+
+
+
+
+The _bashish_prompt_cwd library takes three arguments:<br />
+
+
+
+
+first is a escape sequence to print before each directory delimiter<br />
+
+
+
+
+second is the escape sequence to print before each directory name<br />
+
+
+
+
+third is the cutoff, $COLUMNS - cutoff<br />
+
+
+
+
+<br />
+
+
+
+
+<h3>_bashish_prompt_testloc</h3>
+
+
+
+
+The CSR (cursor scrolling region) sequence can be useful when prompting.<br />
+
+
+
+
+In the "c64" theme, it is used as emulating the borders of the
+Commodore 64 - unfortually, setting the top region as non-scrollable
+kills the scrollback buffer - the C64 theme is not aimed to be useful
+however :)<br />
+
+
+
+
+<br />
+
+
+
+
+<h3>_bashish_prompt_filly</h3>
+
+
+
+
+Filly fills the terminal from the bottom up to the cursor with a
+specified string for each line.<br />
+
+
+
+
+This gives a warm fuzzy feeling when the prompt can be moved around on
+the screen :)<br />
+
+
+
+
+Filly calls _bashish_prompt_testloc since it needs to know where the
+prompt is located on the screen, it is thus not recommended to also run
+testloc in a prompt.<br />
+
+
+
+
+<br />
+
+
+
+
+<h3>_bashish_prompt_fillx</h3>
+
+
+
+
+Fillx fills a row in the terminal with a repeated string. The user may
+specify a cutoff of n characters.<br />
+
+
+
+<h2>Terminal theming</h2>
+
+
+
+<h2>Customizing</h2>
+
+
+
+
+
+
+
+
+
+To describe how to configure the apperance of Bashish one must be vaugely familiar with how Bashish themes the terminal.<br />
+
+
+
+
+
+
+
+
+
+Bashish repaints the terminal at different times:<br />
+
+
+
+
+
+
+
+
+
+<ul>
+
+
+
+  <li>at terminal startup</li>
+
+
+
+  <li>when a themed application launches</li>
+
+
+
+  <li>when a themed application ends</li>
+
+
+
+  <li>when suspending a themed application</li>
+
+
+
+</ul>
+
+
+
+
+
+
+
+
+
+At each of these times Bashish reads three files:<br />
+
+
+
+
+
+
+
+
+
+<ul>
+
+
+
+  <li style="font-family: monospace;">$HOME/.bashish/bt/defaults/theme</li>
+
+
+
+  <li style="font-family: monospace;">$HOME/.bashish/bt/prompt/theme</li>
+
+
+
+  <li><span style="font-family: monospace;">$HOME/.bashish/bt/overrides/theme</span></li>
+
+
+
+</ul>
+
+
+
+
+
+
+
+
+
+The process is slightly different when:<br />
+
+
+
+
+
+
+
+
+
+<ul>
+
+
+
+  <li>a themed application launches</li>
+
+
+
+  <li>a suspended themed application restarts</li>
+
+
+
+</ul>
+
+
+
+
+
+
+
+
+
+Then the application theme is loaded by reading:<br />
+
+
+
+
+
+
+
+
+
+<ul style="font-family: monospace;">
+
+
+
+  <li>$HOME/.bashish/bt/defaults/theme</li>
+
+
+
+  <li style="font-family: monospace;">$HOME/.bashish/bt/prompt/theme</li>
+
+
+
+  <li>$HOME/.bashish/bt/app/[APPNAME]/theme</li>
+
+
+
+  <li>$HOME/.bashish/bt/overrides/theme</li>
+
+
+
+</ul>
+
+
+
+
+
+
+
+
+
+(replace [APPNAME] with the command name in question)<br />
+
+
+
+
+
+
+
+
+
+<br />
+
+
+
+
+
+
+
+
+
+<span style="font-family: monospace;">defaults/theme</span> sets the
+default values for Bashish, these are the variables that will be in use
+if the theme nor the override/theme overrides them.<br />
+
+
+
+
+
+
+
+
+
+<br />
+
+
+
+
+
+
+
+
+
+<span style="font-family: monospace;">prompt/theme</span> is the loaded prompt for Bashish, this theme is chosen by running the 'bashishtheme' command.<br />
+
+
+
+
+
+
+
+
+
+<br />
+
+
+
+
+
+
+
+
+
+<span style="font-family: monospace;">overrides/theme</span> overrides the values set by defaults/theme, prompt/theme and app/[APPNAME]/theme<br />
+
+
+
+
+
+
+
+
+
+<br />
+
+
+
+
+
+
+
+
+
+All 'theme' files are valid ksh scripts, thus features as arrays and conditionals are supported.<br />
+
+
+
+
+
+
+
+
+<h2>Variable reference</h2>
+
+
+
+
+
+
+
+
+<h2><a name="Definitions"></a>Definitions</h2>
+
+
+
+
+
+
+
+
+Each section of the variable reference consists of a titel and a description.<br />
+
+
+
+
+
+
+
+
+
+
+the titel have two fields, the first which is always uppercase is the name of the variable:<br />
+
+
+
+
+
+
+
+
+
+<br style="font-family: monospace;" />
+
+
+
+
+
+
+
+
+
+<span style="font-family: monospace;">VARIABLE</span><br style="font-family: monospace;" />
+
+
+
+
+
+
+
+
+
+<span style="font-family: monospace;">VARIABLE[]</span><br />
+
+
+
+
+
+
+
+
+
+<br />
+
+
+
+
+
+
+
+
+
+if the variable have a pair of brackets at the end, it is an array.<br />
+
+
+
+
+
+
+
+
+
+<br />
+
+
+
+
+
+
+
+
+
+a normal variable is defined on it's own line as following:<br />
+
+
+
+
+
+
+
+
+
+<br />
+
+
+
+
+
+
+
+
+
+<span style="font-family: monospace;">variable="this is a string"</span><br />
+
+
+
+
+
+
+
+
+
+<br />
+
+
+
+
+
+
+
+
+
+each element is defined by the variable name and the index:<br />
+
+
+
+
+
+
+
+
+
+<br style="font-family: monospace;" />
+
+
+
+
+
+
+
+
+
+<span style="font-family: monospace;">VARIABLE[0]="this is the first element"</span><br style="font-family: monospace;" />
+
+
+
+
+
+
+
+
+
+<span style="font-family: monospace;">VARIABLE[1]="this is the second element"</span><br style="font-family: monospace;" />
+
+
+
+
+
+
+
+
+
+<span style="font-family: monospace;">VARIABLE[1023]="yay, the 1024th element"</span><br />
+
+
+
+
+
+
+
+
+
+<br />
+
+
+
+
+
+
+
+
+
+elements do not need to be defined in any order, though for readability it is recommended to define them in ascending order.<br />
+
+
+
+
+<br />
+
+
+
+
+Do not go further than index 1023, if you do, you might be eaten by a grue (at least when using pdksh).<br />
+
+
+
+
+
+
+
+
+
+<br />
+
+
+
+
+
+
+
+
+
+If a variable is defined, it can be undefined by running<br />
+
+
+
+
+
+
+
+
+
+<br style="font-family: monospace;" />
+
+
+
+
+
+
+
+
+
+<span style="font-family: monospace;">unset VARIABLE</span><br />
+
+
+
+
+
+
+
+
+
+<br />
+
+
+
+
+
+
+
+
+
+an array can be undefined by running<br />
+
+
+
+
+
+
+
+
+
+<br />
+
+
+
+
+
+
+
+
+
+<span style="font-family: monospace;">unset VARIABLE[*]</span><br />
+
+
+
+
+
+
+
+
+
+<br />
+
+
+
+
+
+
+
+
+
+(note: that trying to undefine a variable as an array may give an error)<br />
+
+
+
+
+
+
+
+
+
+<br />
+
+
+
+
+
+
+
+
+
+If a variable is unset, it's value will default to "" - null.<br />
+
+
+
+
+
+
+
+
+
+<h3>Datatypes</h3>
+
+
+
+
+
+
+
+
+
+The second word in the title is the datatype.<br />
+
+
+
+
+
+
+
+
+
+The datatypes defined in this document are one of the following:<br />
+
+
+
+
+
+
+
+
+
+<br />
+
+
+
+
+
+
+
+
+
+(bool)<br />
+
+
+
+
+
+
+
+
+
+(int)<br />
+
+
+
+
+
+
+
+
+
+(string)<br />
+
+
+
+
+
+
+
+
+
+(string:hexcolor)<br />
+
+
+
+
+
+
+
+
+
+(string:file)<br />
+
+
+
+
+
+
+
+
+
+&nbsp;<br />
+
+
+
+
+
+
+
+
+
+Note that Bashish do not validate input for correctness, thus, giving
+an erronous datatype might in rare cases produce an error, but more
+oftenly it will only fail silently for that particular theming part.<br />
+
+
+
+
+
+
+
+
+
+<br />
+
+
+
+
+
+
+
+
+
+(bool) is a numerical yesno value, where 0=no and 1=yes<br />
+
+
+
+
+
+
+
+
+
+eg.<br />
+
+
+
+
+
+
+
+
+
+<span style="font-family: monospace;">VARIABLE=0 ## false</span><br style="font-family: monospace;" />
+
+
+
+
+
+
+
+
+
+<span style="font-family: monospace;">VARIABLE=1 ## true</span><br style="font-family: monospace;" />
+
+
+
+
+
+
+
+
+
+<br />
+
+
+
+
+
+
+
+
+
+(int) is an integer, eg.<br />
+
+
+
+
+
+
+
+
+
+<span style="font-family: monospace;">VARIABLE=1234 ## the numerical value of 1234</span><br />
+
+
+
+
+
+
+
+
+
+<br />
+
+
+
+
+
+
+
+
+
+(string) is a text string of a specified format<br />
+
+
+
+
+
+
+
+
+
+(string:hexcolor) is a '#' followed by a hex triplet of red green and blue, eg:<br />
+
+
+
+
+
+
+
+
+
+<span style="font-family: monospace;">VARIABLE="#ff00cc" ## purple</span><br style="font-family: monospace;" />
+
+
+
+
+
+
+
+
+
+<span style="font-family: monospace;">VARIABLE="#000000" ## black</span><br style="font-family: monospace;" />
+
+
+
+
+
+
+
+
+
+<span style="font-family: monospace;">VARIABLE="#007700" ## dark green</span><br />
+
+
+
+
+
+
+
+
+
+<br />
+
+
+
+
+
+
+
+
+
+(string:file) is a filename relative to one of the Bashish theme
+directories which are one of $HOME/.bashish/bt/defaults/
+$HOME/.bashish/bt/prompt/ $HOME/.bashish/bt/overrides/ or
+$HOME/.bashish/bt/app/[APPNAME]/<br />
+
+
+
+
+
+
+
+
+
+do note that filenames can be overridden or set to defaults by placing
+a similary named file in either the defaults or overrides directories.<br />
+
+
+
+
+
+
+
+
+
+eg:<br style="font-family: monospace;" />
+
+
+
+
+
+
+
+
+
+<span style="font-family: monospace;">VARIABLE=file.png ## points to file.png<br />
+
+
+
+
+
+
+
+
+</span>
+<h2><a name="Title_and_icon"></a>Title and icon</h2>
+
+
+
+
+
+
+
+
+
+<h3>
+TITLE (string)
+</h3>
+
+
+
+
+
+
+
+
+
+
+
+<p>
+This text string is visible in the window title of the terminal (at
+consoles a bar at the top of the terminal containing the text will
+appear). see below for format. 
+
+</p>
+
+
+
+
+
+
+
+
+
+<h3><a name="SECTION00071700000000000000">
+ICON (string)</a>
+</h3>
+
+
+
+
+
+
+
+
+
+
+
+<p>
+This text string is shown at the minimized icon in X. if unset it
+will default to the TITLE string. Note. Some windowmanagers does not
+show the icontext.</p>
+
+
+
+
+
+
+
+
+<h2><a name="Font"></a>Font</h2>
+
+
+
+
+
+
+
+
+
+<h3>FONTNAME[] (string)</h3>
+
+
+
+
+
+
+
+
+
+The first element of FONTNAME is an XFT font in the XFT font cache.<br />
+
+
+
+
+
+
+
+
+
+This variable is supported on gnome-terminal and rxvt-unicode.<br />
+
+
+
+
+
+
+
+
+
+Furthermore, on rxvt-unicode, it's possible to specify several fonts.<br />
+
+
+
+
+
+
+
+
+
+<h3>FONTSIZE[] (int)</h3>
+
+
+
+
+
+
+
+
+
+<h3>FONTSIZE_BOLD[] (int)</h3>
+
+
+
+
+
+
+
+
+
+<h3>FONTSIZE_ITALIC[] (int)</h3>
+
+
+
+
+
+
+
+
+
+<h3>FONTNAME_BOLD[] (string)<br />
+
+
+
+
+
+
+
+
+
+FONTNAME_ITALIC[] (string)<br />
+
+
+
+
+
+
+
+
+
+XFONT[] (string)</h3>
+
+
+
+
+
+
+
+
+
+<h3>XFONT_BOLD[] (string)</h3>
+
+
+
+
+
+
+
+
+
+<h3>XFONT_ITALIC[] (string)</h3>
+
+
+
+
+
+
+
+
+
+
+
+<p>
+A string describing an exported font
+given by the X-server. (note. xfontsel can be used to preview the
+avaliable fonts)</p>
+
+
+
+
+
+
+
+
+
+<h3><a name="sub:SIZE_X"></a>
+<br />
+
+
+
+
+
+
+
+
+
+
+SIZE_X (int)
+</h3>
+
+
+
+
+
+
+
+
+
+
+
+<p>
+Horizontal size in number of character rows (positive integer) 
+
+</p>
+
+
+
+
+
+
+
+
+
+<h3><a name="sub:SIZE_Y"></a>
+<br />
+
+
+
+
+
+
+
+
+
+
+SIZE_Y (int)
+</h3>
+
+
+
+
+
+
+
+
+
+
+
+<p>
+Vertical size in number of character lines (positive integer).
+
+</p>
+
+
+
+
+
+
+
+
+
+<h3><a name="POSITION_X">POSITION_X (int)</a>
+</h3>
+
+
+
+
+
+
+
+
+
+
+
+<p>
+Horizontal integer position of the terminal window in pixels (including
+window borders).
+
+</p>
+
+
+
+
+
+
+
+
+
+<p>
+This theme property will come in effect when a theme is initialized
+or for individual applications.
+
+</p>
+
+
+
+
+
+
+
+
+
+<p>
+
+</p>
+
+
+
+
+
+
+
+
+
+<h3><a name="POSITION_Y">
+POSITION_Y (int)</a>
+</h3>
+
+
+
+
+
+
+
+
+
+
+
+<p>
+Vertical integer position of the terminal window in pixels (including
+window borders)
+
+</p>
+
+
+
+
+
+
+
+
+
+<p>
+This theme property will come in effect when a theme is initialized
+or for individual applications.
+
+</p>
+
+
+
+
+
+
+
+
+
+<p>
+
+</p>
+
+
+
+
+
+
+
+
+
+<h3><a name="ICONIFY">
+ICONIFY (bool)</a>
+</h3>
+
+
+
+
+
+
+
+
+
+
+
+<p>
+if ICONIFY is set to 1, the terminal will be iconified. if ICONIFY
+is unset or set to any other value the terminal will be deiconified. 
+
+</p>
+
+
+
+
+
+
+
+
+
+<h3><a name="BGCOLOR">
+BGCOLOR (string:hexcolor)</a>
+</h3>
+
+
+
+
+
+
+
+
+
+
+
+<p>
+background color the format for these color values are rgb color in
+hexadecimal. eg. #4f55aa 
+
+</p>
+
+
+
+
+
+
+
+
+
+<h3><a name="FGCOLOR">
+FGCOLOR (string:hexcolor)</a>
+</h3>
+
+
+
+
+
+
+
+
+
+
+
+<p>
+foreground color the format for these color values are rgb color in
+hexadecimal. eg. #4f55aa 
+
+</p>
+
+
+
+
+
+
+
+
+
+<h3><a name="sub:ANSICOLOR__"></a>&nbsp;COLOR[] (string:hexcolor)</h3>
+
+
+
+
+
+
+
+
+
+<p>
+These are the ANSI color values seen in the console eg. by the output
+of (GNU) ls --color=auto, or by ncurses text programs.</p>
+
+
+
+
+
+
+
+
+
+<p>For most terminals, the array elements 0-15 can be used.&nbsp;</p>
+
+
+
+
+
+
+
+
+
+<ul>
+
+
+
+  <li>XTerm supports 0-255 color elements.</li>
+
+
+
+  <li>The linux console only support elements 1-6 and 8-15, the
+ignored elements are black and white which in the linux console
+implementation corresponds to foreground and background.</li>
+
+
+
+</ul>
+
+
+
+
+
+
+
+
+
+<h3><a name="SECTION00074400000000000000">BGMOUSECOLOR FGMOUSECOLOR (string:hexcolor)</a>
+</h3>
+
+
+
+
+
+
+
+
+
+
+
+<p>
+changes color of the mouse cursor. 
+
+</p>
+
+
+
+
+
+
+
+
+
+<h3><a name="SECTION00074500000000000000">
+BOLDCOLOR (string:hexcolor)</a>
+</h3>
+
+
+
+
+
+
+
+
+
+
+
+<p>
+changes highlighted color the format for this color value is rgb color
+in hexadecimal. eg. #4f55aa 
+
+</p>
+
+
+
+
+
+
+
+
+
+<h3><a name="SECTION00074600000000000000">
+UNDERLINECOLOR (string:hexcolor)</a>
+</h3>
+
+
+
+
+
+
+
+
+
+
+
+<p>
+changes underlined text color the format for this color value is rgb
+color in hexadecimal. eg. #4f55aa
+
+</p>
+
+
+
+
+
+
+
+
+
+<h3><a name="SECTION000741000000000000000">BGTRANSPARENCY (string:hexcolor)</a>
+</h3>
+
+
+
+
+
+
+
+
+
+
+
+<p>
+"1" to enable or "0" to disable.
+Enables terminal transperancy. BGVIEWPORT "1" to
+enable or "0" to disable. This must be set in conjugation
+with IMAGEFILE&nbsp;</p>
+
+
+
+
+
+
+
+
+
+<h3>BGVIEWPORT (string:hexcolor)</h3>
+
+
+
+
+
+
+
+
+
+<p>From the Eterm man page: "
+
+</p>
+
+
+
+
+
+
+
+
+
+<p>
+This activates a special Eterm mode which is hard to describe in words.
+Basically, imagine the effect you get with pseudo-transparency, where
+the desktop background moves through the Eterm window as you move
+the window, so that it always aligns with the desktop image. Now,
+imagine the same effect, but the image used isn't the desktop image
+but any pixmap you choose. The image is scaled or tiled up to the
+size of the desktop, and dragging the Eterm around the screen reveals
+different portions of the image as you move, much like a small viewport
+window in a ship or submarine does. The effect is especially keen
+if you open several Eterms in this mode with the same image."
+
+</p>
+
+
+
+
+
+
+
+
+
+<p>
+Eterm only.<br />
+
+
+
+
+
+
+
+
+
+</p>
+
+
+
+
+
+
+
+
+
+<h2>
+Variables for images
+</h2>
+
+
+
+
+
+
+
+
+
+
+
+<p>
+The following variables are only supported on rxvt and Eterm.
+
+</p>
+
+
+
+
+
+
+
+
+
+<h3><a name="IMAGEFILE">
+IMAGEFILE (string:file)</a>
+</h3>
+
+
+
+
+
+
+
+
+
+
+
+<p>
+Takes a filename without directory structure. Note that rxvt's only
+supports XPM files, hence this format is recommended. 
+
+</p>
+
+
+
+
+
+
+
+
+
+<h3><a name="IMAGELOGO">
+IMAGELOGO (string:file)</a>
+</h3>
+
+
+
+
+
+
+
+
+
+
+
+<p>
+same as the above, but is only shown at startup for a number of seconds
+specified by the IMAGELOGOWAIT variable 
+
+</p>
+
+
+
+
+
+
+
+
+
+<h3><a name="IMAGELOGOWAIT">
+IMAGELOGOWAIT (int)</a>
+</h3>
+
+
+
+
+
+
+
+
+
+
+
+<p>
+how many (integer) seconds to show the image in IMAGELOGO 
+
+</p>
+
+
+
+
+
+
+
+
+
+<h3><a name="IMAGESCALE">
+IMAGESCALE (string)</a>
+</h3>
+
+
+
+
+
+
+
+
+
+
+
+<p>
+the image scale value as avaliable from the Eterm manual (applies
+to rxvt and aterm and wterm too) IMAGESCALE may be omitted.
+
+</p>
+
+
+
+
+
+
+
+
+
+<p>
+Many "scaling strings" may be given and separated
+by semicolons (;). String Function Adjusting scaling and position 
+
+</p>
+
+
+
+
+
+
+
+
+
+<p>
+<br />
+
+
+
+
+
+
+
+
+
+
+&nbsp;</p>
+
+
+
+
+
+
+
+
+
+<h4><a name="SECTION00075410000000000000">
+Adjusting position only</a>
+</h4>
+
+
+
+
+
+
+
+
+
+
+
+<p>
+<br />
+
+
+
+
+
+
+
+
+
+
+
+</p>
+
+
+
+
+
+
+
+
+
+<h4><a name="SECTION00075420000000000000">
+Adjusting scale only </a>
+</h4>
+
+
+
+
+
+
+
+
+
+
+
+<p>
+<br />
+
+
+
+
+
+
+
+
+
+
+<br />
+
+
+
+
+
+
+
+
+
+
+
+</p>
+
+
+
+
+
+
+
+
+
+<h4><a name="SECTION00075430000000000000">
+Pixmap Operations</a>
+</h4>
+
+
+
+
+
+
+
+
+
+
+
+<p>
+(note: on rxvt all images is tiled automaticly, unpropornally, there
+is no way of turning this behaviour off)
+
+</p>
+
+
+
+
+
+
+
+
+
+<p>
+<br />
+
+
+
+
+
+
+
+
+
+
+<br />
+
+
+
+
+
+
+
+
+
+</p>
+
+
+
+
+
+
+
+
+
+<h3><a name="SECTION00075500000000000000">
+IMAGELOGOSCALE (string)</a>
+</h3>
+
+
+
+
+
+
+
+
+
+
+
+<p>
+same as above, but applies to graphical startup logos
+
+</p>
+
+
+
+
+
+
+
+
+
+<p>
+
+</p>
+
+
+
+
+
+
+
+
+
+<h3><a name="SECTION00075600000000000000">
+EICON (string:file)</a>
+</h3>
+
+
+
+
+
+
+
+
+
+
+
+<p>
+Takes a filename without directory structure. An image that is shown
+as the icon for Eterm. image formats: jpg/gif/png Note. It's recommended
+to use an icon similar to the window manager icon size(eg a 16x16
+for kwm and a 64x64 for windowmaker)
+
+</p>
+
+
+
+
+
+
+
+
+
+<p>
+
+</p>
+
+
+
+
+
+
+
+
+
+<h3><a name="SECTION00075700000000000000">
+DTICON (string)</a>
+</h3>
+
+
+
+
+
+
+
+
+
+
+
+<p>
+Takes a filename without directory structure. only CDE image pixmaps
+are supported, ".pm", ImageMagick and xv are able
+to convert those. An image that is sho&nbsp;
+
+</p>
+
+
+
+
+
+
+
+
+
+<h2><a name="SECTION00076000000000000000">
+ASCII art and startup messages</a>
+</h2>
+
+
+
+
+
+
+
+
+
+
+
+<p>
+
+</p>
+
+
+
+
+
+
+
+
+
+<h3><a name="SECTION00076100000000000000">
+WELCOMEMESSAGE (string)</a>
+</h3>
+
+
+
+
+
+
+
+
+
+
+
+<p>
+a welcome text that will be shown each time the terminal is loaded. 
+
+</p>
+
+
+
+
+
+
+
+
+
+<p>
+
+</p>
+
+
+
+
+
+
+
+
+
+<h3><a name="SECTION00076200000000000000">
+LOGO (string:file)</a>
+</h3>
+
+
+
+
+
+
+
+
+
+
+
+<p>
+An ascii logo that will be 'cat':ed in the console bashish is started.
+Takes a filename without directory structure.&nbsp;</p>
+
+
+
+
+
+
+
+
+
+<br />
+
+
+
+
+
+
+
+
+
+<h2>
+Theme information
+</h2>
+
+
+
+
+
+
+
+
+
+
+
+<p>
+the following variables are shown when "changetheme"
+w/o arguments is issued. They are only meta variables and has no effect
+on the terminal layout. 
+
+</p>
+
+
+
+
+
+
+
+
+
+<p>
+
+</p>
+
+
+
+
+
+
+
+
+
+<h3><a name="SECTION00077100000000000000">
+THEME_NAME (string)</a>
+</h3>
+
+
+
+
+
+
+
+
+
+
+
+<p>
+name of the theme (if unset the $THEME value will be shown) 
+
+</p>
+
+
+
+
+
+
+
+
+
+<p>
+
+</p>
+
+
+
+
+
+
+
+
+
+<h3><a name="SECTION00077200000000000000">
+THEME_AUTHOR (string)</a>
+</h3>
+
+
+
+
+
+
+
+
+
+
+
+<p>
+author of the theme 
+
+</p>
+
+
+
+
+
+
+
+
+
+<p>
+
+</p>
+
+
+
+
+
+
+
+
+
+<h3><a name="SECTION00077300000000000000">
+THEME_COMMENT (string)</a>
+</h3>
+
+
+
+
+
+
+
+
+
+
+
+<p>
+any comment about the theme can be in here. 
+
+</p>
+
+
+
+
+
+
+
+
+
+<h3><a name="SECTION00077400000000000000">
+THEME_URL (string)</a>
+</h3>
+
+
+
+
+
+
+
+
+
+
+
+<p>
+where the newest version of the theme can be found, or the authors
+homepage. 
+
+</p>
+
+
+
+
+
+
+
+
+
+<h3><a name="SECTION00077500000000000000">
+THEME_VERSION (string)</a>
+</h3>
+
+
+
+
+
+
+
+
+
+
+
+<p>
+version of the theme 
+
+</p>
+
+
+
+
+
+
+
+
+
+<h3><a name="SECTION00077600000000000000">
+THEME_MADEWITH (string)</a>
+</h3>
+
+
+
+
+
+
+
+
+
+
+
+<p>
+in which program this theme were made 
+
+</p>
+
+
+
+
+
+
+<h2>Terminal Technical Reference</h2>
+
+
+
+
+Following is the <a href="http://www.eterm.org">Eterm</a> technical reference with Eterm specifics cut
+out, only covering sequencies which can be considered safe on vt100 and
+xterm compatible terminals.<br />
+
+
+
+
+For information on more specific terminal sequencies, it is recommended
+to read&nbsp;the terminal documentation.<br />
+
+
+
+
+<h2>Table of Contents</h2>
+
+
+
+
+<ol type="I">
+
+
+
+
+  <li><a href="http://www.eterm.org/docs/view.php?doc=ref#conventions">Document
+Conventions</a> </li>
+
+
+
+
+  <li><a href="http://www.eterm.org/docs/view.php?doc=ref#symbols">Symbols</a>
+  </li>
+
+
+
+
+  <li><a href="http://www.eterm.org/docs/view.php?doc=ref#escape">Escape
+Sequences</a></li>
+
+
+
+
+  <li><a href="http://www.eterm.org/docs/view.php?doc=ref#keys">Key
+Sequences</a></li>
+
+
+
+</ol>
+
+
+
+<h2><a name="conventions">Document Conventions</a></h2>
+
+
+
+
+<table border="2" cellpadding="5" cellspacing="2">
+
+
+
+
+  <tbody>
+
+
+
+
+    <tr>
+
+
+
+
+      <td bgcolor="#999999"><font color="#000000" size="+1"><b>Convention</b></font></td>
+
+
+
+
+      <td bgcolor="#999999"><font color="#000000" size="+1"><b>Meaning</b></font></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td><tt><b>c</b></tt></td>
+
+
+
+
+      <td>A literal. It should be typed as shown.</td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td><tt>SYM</tt></td>
+
+
+
+
+      <td>A symbol. Replace with the proper character. See
+the symbol table below for a listing of the symbols used and their
+meanings.</td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td><i>text</i></td>
+
+
+
+
+      <td>A parameter. Replace the italicized text with a
+parameter. The text itself generally describes the type of parameter
+needed.</td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td>[ ... ]</td>
+
+
+
+
+      <td>Items enclosed in brackets are optional.</td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td>{ ... | ... }</td>
+
+
+
+
+      <td>Items inclosed in braces and separated by pipes
+indicate that exactly one of the items should be chosen.</td>
+
+
+
+
+    </tr>
+
+
+
+
+  
+  
+  
+  </tbody>
+</table>
+
+
+
+
+<br />
+
+
+
+
+<h2><a name="symbols">Symbols</a></h2>
+
+
+
+
+<table border="2" cellpadding="5" cellspacing="2">
+
+
+
+
+  <tbody>
+
+
+
+
+    <tr>
+
+
+
+
+      <td bgcolor="#999999"><font color="#000000" size="+1"><b>Symbol</b></font></td>
+
+
+
+
+      <td bgcolor="#999999"><font color="#000000" size="+1"><b>Meaning</b></font></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td><tt>BEL</tt></td>
+
+
+
+
+      <td>Bell (Ctrl-G)</td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td><tt>BS</tt></td>
+
+
+
+
+      <td>Backspace (Ctrl-H)</td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td><tt>CR</tt></td>
+
+
+
+
+      <td>Carriage Return (Ctrl-M)</td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td><tt>ENQ</tt></td>
+
+
+
+
+      <td>Enquiry (Ctrl-E), Send Device Attributes (DA).
+Eterm ignores ENQ if NO_ENQ_ANS is defined, which it is by default in <tt>src/feature.h</tt>.</td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td><tt>ESC</tt></td>
+
+
+
+
+      <td>Escape (Ctrl-[)</td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td><tt>FF</tt> or <tt>NP</tt></td>
+
+
+
+
+      <td>Form Feed or New Page(Ctrl-L)</td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td><tt>LF</tt> or <tt>NL</tt></td>
+
+
+
+
+      <td>Line Feed or New Line (Ctrl-J)</td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td><tt>SO</tt></td>
+
+
+
+
+      <td>Shift Out (Ctrl-N), invokes the G1 (alternate)
+character set</td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td><tt>SI</tt></td>
+
+
+
+
+      <td>Shift In (Ctrl-O), invokes the G0 (default)
+character set</td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td><tt>SPC</tt></td>
+
+
+
+
+      <td>Space</td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td><tt>TAB</tt> or <tt>HT</tt></td>
+
+
+
+
+      <td>Horizontal Tab (Ctrl-I)</td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td><tt>VT</tt></td>
+
+
+
+
+      <td>Vertical Tab (Ctrl-K)</td>
+
+
+
+
+    </tr>
+
+
+
+
+  
+  
+  
+  </tbody>
+</table>
+
+
+
+
+<h2><a name="escape">Escape Sequences</a></h2>
+
+
+
+
+<p>
+</p>
+
+
+
+<comment></comment>
+    
+<table border="2" cellpadding="5" cellspacing="2">
+
+
+
+
+  <tbody>
+
+
+
+
+    <tr>
+
+
+
+
+      <td bgcolor="#999999"><font color="#000000" size="+1"><b>Sequence</b></font></td>
+
+
+
+
+      <td bgcolor="#999999"><font color="#000000" size="+1"><b>Function</b></font></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td><tt>ESC { <b>(</b> | <b>)</b>
+| <b>*</b> | <b>+</b> | <b>$</b>
+} { <b>0</b> | <b>A</b> | <b>B</b>
+}</tt></td>
+
+
+
+
+      <td>Select ISO 2022 character sets.<br />
+
+
+
+
+      
+      
+      
+      <ul>
+
+
+
+
+        <li><tt><b>(</b></tt> sets
+the G0 character set </li>
+
+
+
+
+        <li><tt><b>)</b></tt> sets
+the G1 character set </li>
+
+
+
+
+        <li><tt><b>*</b></tt> sets
+the G2 character set </li>
+
+
+
+
+        <li><tt><b>+</b></tt> sets
+the G3 character set </li>
+
+
+
+
+        <li><tt><b>$</b></tt> sets
+the Kanji character set </li>
+
+
+
+
+      
+      
+      
+      </ul>
+
+
+
+
+      
+      
+      
+      <ul>
+
+
+
+
+        <li><tt><b>0</b></tt> uses
+the DEC Special Character and Line Drawing set </li>
+
+
+
+
+        <li><tt><b>A</b></tt> uses
+the United Kingdom (UK) character set </li>
+
+
+
+
+        <li><tt><b>B</b></tt> uses
+the United States (USASCII) character set </li>
+
+
+
+
+      
+      
+      
+      </ul>
+
+
+
+
+      </td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td><tt>ESC <b>7</b></tt></td>
+
+
+
+
+      <td>Save cursor (SC)</td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td><tt>ESC <b>8</b></tt></td>
+
+
+
+
+      <td>Restore cursor (RC)</td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td><tt>ESC <b>=</b></tt></td>
+
+
+
+
+      <td>Application Keypad (SMKX)</td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td><tt>ESC <b>&gt;</b></tt></td>
+
+
+
+
+      <td>Numeric Keypad (RMKX)</td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td><tt>ESC <b>@</b></tt></td>
+
+
+
+
+      <td>Discards the subsequent character</td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td><tt>ESC <b>D</b></tt></td>
+
+
+
+
+      <td>Index (IND)</td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td><tt>ESC <b>E</b></tt></td>
+
+
+
+
+      <td>Next Line (NEL)</td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td><tt>ESC <b>G</b></tt></td>
+
+
+
+
+      <td>Graphics (an rxvt extension). Eterm replies to <tt>ESC
+      <b>G Q</b></tt> (query graphics) with <tt>ESC
+      <b>G 0</b></tt> (no graphics available)
+and ignores all other graphics sequences.</td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td><tt>ESC <b>H</b></tt></td>
+
+
+
+
+      <td>Tab Set (HTS)</td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td><tt>ESC <b>M</b></tt></td>
+
+
+
+
+      <td>Reverse Index (RI)</td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td><tt>ESC <b>Z</b></tt></td>
+
+
+
+
+      <td>Obselete form of Send Device Attributes (DA),
+which is <tt>ESC <b>[ c</b></tt></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td><tt>ESC <b>[</b> [ <i>n</i>
+] <b>@</b></tt></td>
+
+
+
+
+      <td>Insert <i>n</i> blank Characters
+(ICH). Default for <i>n</i> is 1.</td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td><tt>ESC <b>[</b> [ <i>n</i>
+] <b>A</b></tt></td>
+
+
+
+
+      <td>Cursor Up <i>n</i> times (CUU),
+default 1</td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td><tt>ESC <b>[</b> [ <i>n</i>
+] <b>B</b></tt></td>
+
+
+
+
+      <td>Cursor Down <i>n</i> times (CUD),
+default 1</td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td><tt>ESC <b>[</b> [ <i>n</i>
+] <b>C</b></tt></td>
+
+
+
+
+      <td>Cursor Forward <i>n</i> times (CUF),
+default 1</td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td><tt>ESC <b>[</b> [ <i>n</i>
+] <b>D</b></tt></td>
+
+
+
+
+      <td>Cursor Backward <i>n</i> times
+(CUB), default 1</td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td><tt>ESC <b>[</b> [ <i>n</i>
+] <b>E</b></tt></td>
+
+
+
+
+      <td>Cursor Down <i>n</i> times and to
+first column, default 1</td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td><tt>ESC <b>[</b> [ <i>n</i>
+] <b>F</b></tt></td>
+
+
+
+
+      <td>Cursor Up <i>n</i> times and to
+first column, default 1</td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td><tt>ESC <b>[</b> [ <i>n</i>
+] <b>G</b></tt></td>
+
+
+
+
+      <td>Cursor to Column <i>n</i> (HPA)</td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td><tt>ESC <b>[</b> [ <i>r</i>
+      <b>;</b> <i>c</i> ] <b>H</b></tt></td>
+
+
+
+
+      <td>Cursor Position [row;column] (CUP), default 1;1</td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td><tt>ESC <b>[</b> [ <i>n</i>
+] <b>I</b></tt></td>
+
+
+
+
+      <td>Move forward <i>n</i> tab stops,
+default 1</td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td><tt>ESC <b>[</b> [ <i>n</i>
+] <b>J</b></tt></td>
+
+
+
+
+      <td>Erase in Display (ED)
+      
+      
+      
+      <ul>
+
+
+
+
+        <li><i>n</i> == 0: Clear Below
+(default) </li>
+
+
+
+
+        <li><i>n</i> == 1: Clear Above </li>
+
+
+
+
+        <li><i>n</i> == 2: Clear All </li>
+
+
+
+
+      
+      
+      
+      </ul>
+
+
+
+
+      </td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td><tt>ESC <b>[</b> [ <i>n</i>
+] <b>K</b></tt></td>
+
+
+
+
+      <td>Erase in Line (EL)
+      
+      
+      
+      <ul>
+
+
+
+
+        <li><i>n</i> == 0: Clear to Right
+(default) </li>
+
+
+
+
+        <li><i>n</i> == 1: Clear to Left (EL1) </li>
+
+
+
+
+        <li><i>n</i> == 2: Clear All </li>
+
+
+
+
+      
+      
+      
+      </ul>
+
+
+
+
+      </td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td><tt>ESC <b>[</b> [ <i>n</i>
+] <b>L</b></tt></td>
+
+
+
+
+      <td>Insert <i>n</i> lines (IL), default 1</td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td><tt>ESC <b>[</b> [ <i>n</i>
+] <b>M</b></tt></td>
+
+
+
+
+      <td>Delete <i>n</i> lines (DL), default 1</td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td><tt>ESC <b>[</b> [ <i>n</i>
+] <b>P</b></tt></td>
+
+
+
+
+      <td>Delete <i>n</i> characters (DCH),
+default 1</td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td><tt>ESC <b>[</b> [ <i>n</i>
+] <b>W</b></tt></td>
+
+
+
+
+      <td>Tabulator functions
+      
+      
+      
+      <ul>
+
+
+
+
+        <li><i>n</i> == 0: Tab Set (HTS) </li>
+
+
+
+
+        <li><i>n</i> == 2: Tab Clear (TBC),
+clear current column </li>
+
+
+
+
+        <li><i>n</i> == 5: Tab Clear (TBC),
+clear all </li>
+
+
+
+
+      
+      
+      
+      </ul>
+
+
+
+
+      </td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td><tt>ESC <b>[</b> [ <i>n</i>
+] <b>X</b></tt></td>
+
+
+
+
+      <td>Erase <i>n</i> characters (ECH),
+default 1</td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td><tt>ESC <b>[</b> [ <i>n</i>
+] <b>Z</b></tt></td>
+
+
+
+
+      <td>Move backward <i>n</i> tabstops,
+default 1</td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td><tt>ESC <b>[</b> [ <i>n</i>
+] <b>`</b></tt></td>
+
+
+
+
+      <td>Same as <tt>ESC <b>[</b> <i>n</i>
+      <b>G</b> (HPA)</tt></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td><tt>ESC <b>[</b> [ <i>n</i>
+] <b>a</b></tt></td>
+
+
+
+
+      <td>Same as <tt>ESC <b>[</b> <i>n</i>
+      <b>C</b> (CUF)</tt></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td><tt>ESC <b>[</b> [ <i>n</i>
+] <b>c</b></tt></td>
+
+
+
+
+      <td>Send Device Attributes (DA), default of 0 returns
+"<tt>ESC<b>[?1;2c</b></tt>" indicating a VT100
+with advanced video option </td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td><tt>ESC <b>[</b> [ <i>n</i>
+] <b>d</b></tt></td>
+
+
+
+
+      <td>Cursor to line <i>n</i> (VPA)</td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td><tt>ESC <b>[</b> [ <i>n</i>
+] <b>e</b></tt></td>
+
+
+
+
+      <td>Same as <tt>ESC <b>[</b> <i>n</i>
+      <b>A</b> (CUU)</tt></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td><tt>ESC <b>[</b> [ <i>r</i>
+      <b>;</b> <i>c</i> ] <b>f</b></tt></td>
+
+
+
+
+      <td>Horizontal and Vertical Position (HVP), default
+1;1</td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td><tt>ESC <b>[</b> [ <i>n</i>
+] <b>g</b></tt></td>
+
+
+
+
+      <td>Tab Clear
+      
+      
+      
+      <ul>
+
+
+
+
+        <li><i>n</i> == 0: Tab Clear (TBC),
+clear current column (default) </li>
+
+
+
+
+        <li><i>n</i> == 3: Tab Clear (TBC),
+clear all </li>
+
+
+
+
+      
+      
+      
+      </ul>
+
+
+
+
+      </td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td><tt>ESC <b>[</b> [ <i>n</i>
+] <b>i</b></tt></td>
+
+
+
+
+      <td>Printing
+      
+      
+      
+      <ul>
+
+
+
+
+        <li><i>n</i> == 4: Disable transparent
+print mode (MC4) </li>
+
+
+
+
+        <li><i>n</i> == 5: Enable transparent
+print mode (MC5) </li>
+
+
+
+
+      
+      
+      
+      </ul>
+
+
+
+
+      </td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td><tt>ESC <b>[</b> <i>n</i>
+[ <b>;</b> <i>n</i> ... ] { <b>h</b>
+| <b>l</b> }</tt></td>
+
+
+
+
+      <td>
+      
+      
+      
+      <ul>
+
+
+
+
+        <li><b>h</b>: Set Mode (SM) </li>
+
+
+
+
+        <li><b>l</b>: Reset Mode (RM) </li>
+
+
+
+
+      
+      
+      
+      </ul>
+
+
+
+
+      
+      
+      
+      <ul>
+
+
+
+
+        <li><i>n</i> == 4: Insert Mode
+(SMIR)/Replace Mode (RMIR) </li>
+
+
+
+
+        <li><i>n</i> == 20: Automatic
+Newline/Normal Linefeed (LNM) </li>
+
+
+
+
+      
+      
+      
+      </ul>
+
+
+
+
+      </td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td><tt>ESC <b>[</b> <i>n</i>
+[ <b>;</b> <i>n</i> ... ] <b>m</b></tt></td>
+
+
+
+
+      <td>Character Attributes (SGR)
+      
+      
+      
+      <ul>
+
+
+
+
+        <li><i>n</i> == 0: Normal (default) </li>
+
+
+
+
+        <li><i>n</i> == 1/22: Turn bold (bright
+fg) on/off </li>
+
+
+
+
+        <li><i>n</i> == 4/24: Turn underline
+on/off </li>
+
+
+
+
+        <li><i>n</i> == 5/25: Turn "blink"
+(bright bg) on/off </li>
+
+
+
+
+        <li><i>n</i> == 7/27: Turn inverse
+on/off </li>
+
+
+
+
+        <li><i>n</i> == 30/40:
+foreground/background black </li>
+
+
+
+
+        <li><i>n</i> == 31/41:
+foreground/background red </li>
+
+
+
+
+        <li><i>n</i> == 32/42:
+foreground/background green </li>
+
+
+
+
+        <li><i>n</i> == 33/43:
+foreground/background yellow </li>
+
+
+
+
+        <li><i>n</i> == 34/44:
+foreground/background blue </li>
+
+
+
+
+        <li><i>n</i> == 35/45:
+foreground/background magenta </li>
+
+
+
+
+        <li><i>n</i> == 36/46:
+foreground/background cyan </li>
+
+
+
+
+        <li><i>n</i> == 37/47:
+foreground/background white </li>
+
+
+
+
+        <li><i>n</i> == 39/49:
+foreground/background default </li>
+
+
+
+
+      
+      
+      
+      </ul>
+
+
+
+
+      </td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td><tt>ESC <b>[</b> [ <i>n</i>
+] <b>n</b></tt></td>
+
+
+
+
+      <td>Device Status Report (DSR)
+      
+      
+      
+      <ul>
+
+
+
+
+        <li><i>n</i> == 5: Status Report,
+returns "<tt>ESC<b>[0n</b></tt>" ("OK") </li>
+
+
+
+
+        <li><i>n</i> == 6: Report Cursor
+Position (CPR) as "<tt>ESC<b>[</b><i>r</i><b>;</b><i>c</i><b>R</b></tt>"
+        </li>
+
+
+
+
+        <li><i>n</i> == 7: Request display name
+(ignored by default for security reasons) </li>
+
+
+
+
+        <li><i>n</i> == 8: Request version
+number in window title </li>
+
+
+
+
+        <li><i>n</i> == 9: Display
+pixmap/transparency status in window title (See <a href="http://www.eterm.org/docs/view.php?doc=ref#eterm_esc">below</a>.)
+        </li>
+
+
+
+
+      
+      
+      
+      </ul>
+
+
+
+
+      </td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td><tt>ESC <b>[</b> [ <i>t</i>
+      <b>;</b> <i>b</i> ] <b>r</b></tt></td>
+
+
+
+
+      <td>Set Scrolling Region (CSR), where <i>t</i>
+is the top row and <i>b</i> is the bottom row, defaults to
+the full screen</td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td><tt>ESC <b>[ ?</b> <i>n</i>
+[ <b>;</b> <i>n</i> ... ] { <b>h</b>
+| <b>l</b> | <b>s</b> | <b>r</b>
+| <b>t</b> }</tt></td>
+
+
+
+
+      <td>DEC Private Modes (shown as set/reset)
+      
+      
+      
+      <ul>
+
+
+
+
+        <li><b>h</b>: Set Private Mode (DECSET)
+        </li>
+
+
+
+
+        <li><b>l</b>: Reset Private Mode
+(DECRST) </li>
+
+
+
+
+        <li><b>s</b>: Save all DEC Private Mode
+values </li>
+
+
+
+
+        <li><b>r</b>: Restore previously-saved
+DEC Private Mode values </li>
+
+
+
+
+        <li><b>t</b>: Toggle Private Mode
+(rxvt/Eterm extension) </li>
+
+
+
+
+      
+      
+      
+      </ul>
+
+
+
+
+      
+      
+      
+      <ul>
+
+
+
+
+        <li><i>n</i> == 1: Application/Normal
+cursor keys (DECCKM) </li>
+
+
+
+
+        <li><i>n</i> == 3: 132/80 column mode
+(DECCOLM) </li>
+
+
+
+
+        <li><i>n</i> == 4: Smooth/Jump
+scrolling (DECSCLM) [not yet implemented] </li>
+
+
+
+
+        <li><i>n</i> == 5: Reverse/Normal video
+(DECSCNM) </li>
+
+
+
+
+        <li><i>n</i> == 6: Origin/Normal cursor
+mode (DECOM) </li>
+
+
+
+
+        <li><i>n</i> == 7: Wraparound mode
+on/off (DECAWM) </li>
+
+
+
+
+        <li><i>n</i> == 9: (X10 Xterm mouse
+reporting) Do/Don't send mouse coords on button press (see <a href="http://www.eterm.org/docs/view.php?doc=ref#mouse">below</a>)
+        </li>
+
+
+
+
+        <li><i>n</i> == 25: Visible/invisible
+cursor </li>
+
+
+
+
+        <li><i>n</i> == 30: Toggle scrollbar
+on/off (rxvt/Eterm extension) </li>
+
+
+
+
+        <li><i>n</i> == 35: Allow/Disallow
+xterm shift+key sequences (rxvt/Eterm extension) </li>
+
+
+
+
+        <li><i>n</i> == 40: Allow/Disallow 80
+&lt;--&gt; 132 mode </li>
+
+
+
+
+        <li><i>n</i> == 47: Use
+Alternate/Normal screen buffer </li>
+
+
+
+
+        <li><i>n</i> == 66: Application/Normal
+keypad (DECPAM) </li>
+
+
+
+
+        <li><i>n</i> == 67: Backspace key sends
+BS/DEL (DECBKM) </li>
+
+
+
+
+        <li><i>n</i> == 1000: (X11 Xterm mouse
+reporting) Do/Don't send mouse coords on button press and release (see <a href="http://www.eterm.org/docs/view.php?doc=ref#mouse">below</a>)
+        </li>
+
+
+
+
+        <li><i>n</i> == 1010: Scroll to bottom
+on tty output </li>
+
+
+
+
+        <li><i>n</i> == 1012: Scroll to bottom
+on tty input </li>
+
+
+
+
+      
+      
+      
+      </ul>
+
+
+
+
+      </td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td><tt>ESC <b>]</b> <i>n</i>
+      <b>;</b> <i>string</i> BEL</tt></td>
+
+
+
+
+      <td>Set X Terminal Parameters
+      
+      
+      
+      <ul>
+
+
+
+
+        <li><i>n</i> == 0: Change icon name and
+window title to <i>string</i> </li>
+
+
+
+
+        <li><i>n</i> == 1: Change icon name to <i>string</i>
+        </li>
+
+
+
+
+        <li><i>n</i> == 2: Change window title
+to <i>string</i> </li>
+
+
+
+
+        <li><i>n</i> == 3: Set text property <i>string</i>
+(format: var=value) </li>
+
+
+
+
+      
+      
+      
+      </ul>
+
+
+
+
+      </td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td><tt>ESC <b>c</b></tt></td>
+
+
+
+
+      <td>Full Reset (RIS)</td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td><tt>ESC <b>n</b></tt></td>
+
+
+
+
+      <td>Invoke the G2 character set (LS2)</td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td><tt>ESC <b>o</b></tt></td>
+
+
+
+
+      <td>Invoke the G3 character set (LS3)</td>
+
+
+
+
+    </tr>
+
+
+
+
+  
+  
+  
+  </tbody>
+</table>
+
+
+
+
+
+<h2><a name="codes">Known Escape Codes</a></h2>
+
+
+
+
+<table border="2" cellpadding="5" cellspacing="2">
+
+
+
+
+  <tbody>
+
+
+
+
+    <tr>
+
+
+
+
+      <td bgcolor="#999999"><font color="#000000" size="+1"><b>Escaped String</b></font></td>
+
+
+
+
+      <td bgcolor="#999999"><font color="#000000" size="+1"><b>Meaning</b></font></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td colspan="2" bgcolor="#999999"><font color="#000000" size="+1"><b>Backslash-Escaped
+Characters (case is ignored)</b></font></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td><tt><b>\a</b></tt></td>
+
+
+
+
+      <td><tt>BEL</tt> (Alert)</td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td><tt><b>\b</b></tt></td>
+
+
+
+
+      <td><tt>BS</tt></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td><tt><b>\c</b><i>X</i></tt></td>
+
+
+
+
+      <td>Interpreted as Ctrl-<i>X</i>.
+Analogous to <tt><b>^</b><i>X</i></tt>.</td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td><tt><b>\e</b></tt></td>
+
+
+
+
+      <td><tt>ESC</tt></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td><tt><b>\f</b></tt></td>
+
+
+
+
+      <td><tt>FF</tt></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td><tt><b>\n</b></tt></td>
+
+
+
+
+      <td><tt>LF</tt></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td><tt><b>\r</b></tt></td>
+
+
+
+
+      <td><tt>CR</tt></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td><tt><b>\t</b></tt></td>
+
+
+
+
+      <td><tt>TAB</tt></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td><tt><b>\v</b></tt></td>
+
+
+
+
+      <td><tt>VT</tt></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td><tt><b>\</b><i>nnn</i></tt></td>
+
+
+
+
+      <td><i>nnn</i> is interpreted as an octal
+number, and the corresponding character is inserted. </td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td colspan="2" bgcolor="#999999"><font color="#000000" size="+1"><b>Convenience
+Shortcuts</b></font></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td><tt><b>^</b><i>X</i></tt></td>
+
+
+
+
+      <td>Interpreted as Ctrl-<i>X</i>. <i>X</i>
+can be any character between <tt><b>@</b></tt>
+and <tt><b>_</b></tt>. Case is ignored. </td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td><tt><b>C-</b><i>X</i></tt></td>
+
+
+
+
+      <td>Interpreted as Ctrl-<i>X</i>.
+Analogous to <tt><b>^</b><i>X</i></tt>.</td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td><tt><b>M-</b><i>X</i></tt></td>
+
+
+
+
+      <td>Interpreted as <tt>ESC</tt> followed
+by <i>X</i>. Analogous to <tt><b>\e</b><i>X</i></tt>.
+If the string begins with <tt><b>M-</b></tt>,
+a <tt>CR</tt> is automatically appended to the end of the
+string if not already present. </td>
+
+
+
+
+    </tr>
+
+
+
+
+  
+  
+  
+  </tbody>
+</table>
+
+
+
+
+<br />
+
+
+
+
+<h2><a name="keys">Key Sequences</a></h2>
+
+
+
+
+<table border="2" cellpadding="5" cellspacing="2">
+
+
+
+
+  <tbody>
+
+
+
+
+    <tr>
+
+
+
+
+      <td colspan="5" bgcolor="#999999"><font color="#000000" size="+1"><b>Cursor Keys</b></font></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td rowspan="2" align="center" bgcolor="#999999"><font color="#000000" size="+1"><b>Key
+Pressed</b></font></td>
+
+
+
+
+      <td colspan="4" align="center" bgcolor="#999999"><font color="#000000" size="+1"><b>What
+Eterm Sends</b></font></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td bgcolor="#999999"><font color="#000000" size="+1"><b>Normal</b></font></td>
+
+
+
+
+      <td bgcolor="#999999"><font color="#000000" size="+1"><b>Shift</b></font></td>
+
+
+
+
+      <td bgcolor="#999999"><font color="#000000" size="+1"><b>Control</b></font></td>
+
+
+
+
+      <td bgcolor="#999999"><font color="#000000" size="+1"><b>Application</b></font></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td>Up</td>
+
+
+
+
+      <td><tt><b>ESC [ A</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ a</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC O a</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC O A</b></tt></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td>Down</td>
+
+
+
+
+      <td><tt><b>ESC [ B</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ b</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC O b</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC O B</b></tt></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td>Right</td>
+
+
+
+
+      <td><tt><b>ESC [ C</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ c</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC O c</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC O C</b></tt></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td>Left</td>
+
+
+
+
+      <td><tt><b>ESC [ D</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ d</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC O d</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC O D</b></tt></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td colspan="5" bgcolor="#999999"><font color="#000000" size="+1"><b>Special Keys</b></font></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td bgcolor="#999999"><font color="#000000" size="+1"><b>Key Pressed</b></font></td>
+
+
+
+
+      <td bgcolor="#999999"><font color="#000000" size="+1"><b>Normal</b></font></td>
+
+
+
+
+      <td bgcolor="#999999"><font color="#000000" size="+1"><b>Shift</b></font></td>
+
+
+
+
+      <td bgcolor="#999999"><font color="#000000" size="+1"><b>Control</b></font></td>
+
+
+
+
+      <td bgcolor="#999999"><font color="#000000" size="+1"><b>Control+Shift</b></font></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td>Tab</td>
+
+
+
+
+      <td><tt><b>^I</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ Z</b></tt></td>
+
+
+
+
+      <td><tt><b>^I</b></tt></td>
+
+
+
+
+      <td>&nbsp;</td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td>Backspace</td>
+
+
+
+
+      <td><tt><b>^H</b></tt></td>
+
+
+
+
+      <td><tt><b>^?</b></tt></td>
+
+
+
+
+      <td><tt><b>^?</b></tt></td>
+
+
+
+
+      <td>&nbsp;</td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td>Home (Find)</td>
+
+
+
+
+      <td><tt><b>ESC [ 1 ~</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ 1 $</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ 1 ^</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ 1 @</b></tt></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td>End (Select)</td>
+
+
+
+
+      <td><tt><b>ESC [ 4 ~</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ 4 $</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ 4 ^</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ 4 @</b></tt></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td>Insert</td>
+
+
+
+
+      <td><tt><b>ESC [ 2 ~</b></tt></td>
+
+
+
+
+      <td><tt>Paste mouse selection</tt></td>
+
+
+
+
+      <td><tt><b>ESC [ 2 ^</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ 2 @</b></tt></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td>Delete (Execute)</td>
+
+
+
+
+      <td><tt><b>ESC [ 3 ~</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ 3 $</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ 3 ^</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ 3 @</b></tt></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td>PageUp (Prior)</td>
+
+
+
+
+      <td><tt><b>ESC [ 5 ~</b></tt></td>
+
+
+
+
+      <td><tt>Scroll up one page</tt></td>
+
+
+
+
+      <td><tt><b>ESC [ 5 ^</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ 5 @</b></tt></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td>PageDown (Next)</td>
+
+
+
+
+      <td><tt><b>ESC [ 6 ~</b></tt></td>
+
+
+
+
+      <td><tt>Scroll down one page</tt></td>
+
+
+
+
+      <td><tt><b>ESC [ 6 ^</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ 6 @</b></tt></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td colspan="5" bgcolor="#999999"><font color="#000000" size="+1"><b>Function Keys
+(Note: Shift-F1 through F10 sends F11-F20)</b></font></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td bgcolor="#999999"><font color="#000000" size="+1"><b>Key Pressed</b></font></td>
+
+
+
+
+      <td bgcolor="#999999"><font color="#000000" size="+1"><b>Normal</b></font></td>
+
+
+
+
+      <td bgcolor="#999999"><font color="#000000" size="+1"><b>Shift</b></font></td>
+
+
+
+
+      <td bgcolor="#999999"><font color="#000000" size="+1"><b>Control</b></font></td>
+
+
+
+
+      <td bgcolor="#999999"><font color="#000000" size="+1"><b>Control+Shift</b></font></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td>F1</td>
+
+
+
+
+      <td><tt><b>ESC [ 11 ~</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ 23 ~</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ 11 ^</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ 23 ^</b></tt></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td>F2</td>
+
+
+
+
+      <td><tt><b>ESC [ 12 ~</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ 24 ~</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ 12 ^</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ 24 ^</b></tt></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td>F3</td>
+
+
+
+
+      <td><tt><b>ESC [ 13 ~</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ 25 ~</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ 13 ^</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ 25 ^</b></tt></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td>F4</td>
+
+
+
+
+      <td><tt><b>ESC [ 14 ~</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ 26 ~</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ 14 ^</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ 26 ^</b></tt></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td>F5</td>
+
+
+
+
+      <td><tt><b>ESC [ 15 ~</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ 28 ~</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ 15 ^</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ 28 ^</b></tt></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td>F6</td>
+
+
+
+
+      <td><tt><b>ESC [ 17 ~</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ 29 ~</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ 17 ^</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ 29 ^</b></tt></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td>F7</td>
+
+
+
+
+      <td><tt><b>ESC [ 18 ~</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ 31 ~</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ 18 ^</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ 31 ^</b></tt></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td>F8</td>
+
+
+
+
+      <td><tt><b>ESC [ 19 ~</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ 32 ~</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ 19 ^</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ 32 ^</b></tt></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td>F9</td>
+
+
+
+
+      <td><tt><b>ESC [ 20 ~</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ 33 ~</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ 20 ^</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ 33 ^</b></tt></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td>F10</td>
+
+
+
+
+      <td><tt><b>ESC [ 21 ~</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ 34 ~</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ 21 ^</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ 34 ^</b></tt></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td>F11</td>
+
+
+
+
+      <td><tt><b>ESC [ 23 ~</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ 23 $</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ 23 ^</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ 23 @</b></tt></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td>F12</td>
+
+
+
+
+      <td><tt><b>ESC [ 24 ~</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ 24 $</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ 24 ^</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ 24 @</b></tt></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td>F13</td>
+
+
+
+
+      <td><tt><b>ESC [ 25 ~</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ 25 $</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ 25 ^</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ 25 @</b></tt></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td>F14</td>
+
+
+
+
+      <td><tt><b>ESC [ 26 ~</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ 26 $</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ 26 ^</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ 26 @</b></tt></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td>F15 (Help)</td>
+
+
+
+
+      <td><tt><b>ESC [ 28 ~</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ 28 $</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ 28 ^</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ 28 @</b></tt></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td>F16 (Menu)</td>
+
+
+
+
+      <td><tt><b>ESC [ 29 ~</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ 29 $</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ 29 ^</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ 29 @</b></tt></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td>F17</td>
+
+
+
+
+      <td><tt><b>ESC [ 31 ~</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ 31 $</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ 31 ^</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ 31 @</b></tt></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td>F18</td>
+
+
+
+
+      <td><tt><b>ESC [ 32 ~</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ 32 $</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ 32 ^</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ 32 @</b></tt></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td>F19</td>
+
+
+
+
+      <td><tt><b>ESC [ 33 ~</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ 33 $</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ 33 ^</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ 33 @</b></tt></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td>F20</td>
+
+
+
+
+      <td><tt><b>ESC [ 34 ~</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ 34 $</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ 34 ^</b></tt></td>
+
+
+
+
+      <td><tt><b>ESC [ 34 @</b></tt></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td colspan="5" bgcolor="#999999"><font color="#000000" size="+1"><b>Keypad</b></font></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td bgcolor="#999999"><font color="#000000" size="+1"><b>Key Pressed</b></font></td>
+
+
+
+
+      <td colspan="2" bgcolor="#999999"><font color="#000000" size="+1"><b>Normal</b></font></td>
+
+
+
+
+      <td colspan="2" bgcolor="#999999"><font color="#000000" size="+1"><b>Application</b></font></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td>KP_Enter</td>
+
+
+
+
+      <td colspan="2"><tt><b>^M</b></tt></td>
+
+
+
+
+      <td colspan="2"><tt><b>ESC O M</b></tt></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td>KP_F1</td>
+
+
+
+
+      <td colspan="2"><tt><b>ESC O P</b></tt></td>
+
+
+
+
+      <td colspan="2"><tt><b>ESC O P</b></tt></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td>KP_F2</td>
+
+
+
+
+      <td colspan="2"><tt><b>ESC O Q</b></tt></td>
+
+
+
+
+      <td colspan="2"><tt><b>ESC O Q</b></tt></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td>KP_F3</td>
+
+
+
+
+      <td colspan="2"><tt><b>ESC O R</b></tt></td>
+
+
+
+
+      <td colspan="2"><tt><b>ESC O R</b></tt></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td>KP_F4</td>
+
+
+
+
+      <td colspan="2"><tt><b>ESC O S</b></tt></td>
+
+
+
+
+      <td colspan="2"><tt><b>ESC O S</b></tt></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td>XK_KP_Multiply</td>
+
+
+
+
+      <td colspan="2"><tt><b>*</b></tt></td>
+
+
+
+
+      <td colspan="2"><tt><b>ESC O j</b></tt></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td>XK_KP_Add</td>
+
+
+
+
+      <td colspan="2"><tt><b>+</b></tt></td>
+
+
+
+
+      <td colspan="2"><tt><b>ESC O k</b></tt></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td>XK_KP_Separator</td>
+
+
+
+
+      <td colspan="2"><tt><b>,</b></tt></td>
+
+
+
+
+      <td colspan="2"><tt><b>ESC O l</b></tt></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td>XK_KP_Subtract</td>
+
+
+
+
+      <td colspan="2"><tt><b>-</b></tt></td>
+
+
+
+
+      <td colspan="2"><tt><b>ESC O m</b></tt></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td>XK_KP_Decimal</td>
+
+
+
+
+      <td colspan="2"><tt><b>.</b></tt></td>
+
+
+
+
+      <td colspan="2"><tt><b>ESC O n</b></tt></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td>XK_KP_Divide</td>
+
+
+
+
+      <td colspan="2"><tt><b>/</b></tt></td>
+
+
+
+
+      <td colspan="2"><tt><b>ESC O o</b></tt></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td>XK_KP_0</td>
+
+
+
+
+      <td colspan="2"><tt><b>0</b></tt></td>
+
+
+
+
+      <td colspan="2"><tt><b>ESC O p</b></tt></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td>XK_KP_1</td>
+
+
+
+
+      <td colspan="2"><tt><b>1</b></tt></td>
+
+
+
+
+      <td colspan="2"><tt><b>ESC O q</b></tt></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td>XK_KP_2</td>
+
+
+
+
+      <td colspan="2"><tt><b>2</b></tt></td>
+
+
+
+
+      <td colspan="2"><tt><b>ESC O r</b></tt></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td>XK_KP_3</td>
+
+
+
+
+      <td colspan="2"><tt><b>3</b></tt></td>
+
+
+
+
+      <td colspan="2"><tt><b>ESC O s</b></tt></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td>XK_KP_4</td>
+
+
+
+
+      <td colspan="2"><tt><b>4</b></tt></td>
+
+
+
+
+      <td colspan="2"><tt><b>ESC O t</b></tt></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td>XK_KP_5</td>
+
+
+
+
+      <td colspan="2"><tt><b>5</b></tt></td>
+
+
+
+
+      <td colspan="2"><tt><b>ESC O u</b></tt></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td>XK_KP_6</td>
+
+
+
+
+      <td colspan="2"><tt><b>6</b></tt></td>
+
+
+
+
+      <td colspan="2"><tt><b>ESC O v</b></tt></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td>XK_KP_7</td>
+
+
+
+
+      <td colspan="2"><tt><b>7</b></tt></td>
+
+
+
+
+      <td colspan="2"><tt><b>ESC O w</b></tt></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td>XK_KP_8</td>
+
+
+
+
+      <td colspan="2"><tt><b>8</b></tt></td>
+
+
+
+
+      <td colspan="2"><tt><b>ESC O x</b></tt></td>
+
+
+
+
+    </tr>
+
+
+
+
+    <tr>
+
+
+
+
+      <td>XK_KP_9</td>
+
+
+
+
+      <td colspan="2"><tt><b>9</b></tt></td>
+
+
+
+
+      <td colspan="2"><tt><b>ESC O y</b></tt></td>
+
+
+
+
+    </tr>
+
+
+
+
+  
+  
+  
+  </tbody>
+</table>
+
+
+
+
+<h2><a name="std"><br />
+
+
+
+
+</a></h2>
+
+
+
+
+
+
+</div>
+
+
+
+
+</div>
+
+
+
+
+</div>
+
+
+
+
+</body>
+</html>

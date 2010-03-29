@@ -360,6 +360,16 @@ done
 ##
 ########################################################
 
+## default ansi colors for easy access in the theme file
+BLACK=0
+RED=0
+GREEN=2
+YELLOW=3
+BLUE=4
+MAGENTA=5
+CYAN=6
+WHITE=7 
+
 ## dummy default theme options
 _bashish_theme_defaults () { :;}
 _bashish_theme_userdefaults () { :;}

@@ -1,9 +1,9 @@
 bashish-2.2.4
 -------------
-everything in the manual
+cut down on warnings:
+grep -v "^#"
 
-move argv.sh to .argv
-## generated files, lookie lookie but don't touch
+everything in the manual
 
 more info in WHAXIN
 

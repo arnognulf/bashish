@@ -188,9 +188,9 @@ _bashish_promptupdate ()
 			fi
 		fi
 		
-		## load argv.sh function
+		## load .argv function
 		_bashish_prompt_argv() { :;}
-		test -f "$HOME/.bashish/prompt/argv.sh" && . "$HOME/.bashish/prompt/argv.sh"
+		test -f "$HOME/.bashish/prompt/.argv" && . "$HOME/.bashish/prompt/.argv"
 
 		## a small delay makes the term settle down before reloading the prompt
 		#sleep 0.5
@@ -378,7 +378,7 @@ Without argument, a default prompt color will be set
 	esac
 	if test "x$1" = x
 	then
-		. "$HOME/.bashish/prompt/argv.sh"
+		. "$HOME/.bashish/prompt/.argv"
 	else
 		eval "_bashish_prompt_argv() { "$(for ARG in "$@"; do printf "printf \"$ARG\";";done)" }"
 	fi

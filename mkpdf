@@ -1,0 +1,3 @@
+#!/bin/bash
+man -t "man/bashish.1.in" | ps2pdf - >man/bashish.1.pdf
+evince man/bashish.1.pdf

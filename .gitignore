@@ -14,3 +14,4 @@ dist
 DEADJOE
 data/main/prompt/sh/autoload
 deb-stuff/changelog
+man/*.pdf
