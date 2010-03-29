@@ -142,7 +142,7 @@ ${ESC} | \\e | ? | an ASCII escape character (033)
 ${HOSTNAME%%.*} | \\h | i | the hostname up to the first ‘.’
 ${HOSTNAME} | \\H | ? | the hostname
 ? | \\j | | the number of jobs currently managed by the shell
-? | \\l | | the basename of the shell’s terminal device name
+${TTY##*/} | \\l | | the basename of the shell’s terminal device name
 ? | \\n | ? | newline 
 ? | \\r | | carriage return
 ${0##*/} | \\s | | the  name  of  the  shell
@@ -153,10 +153,9 @@ ${TIME} | \\t | | the current time in 24-hour HH:MM:SS format
 ${USER} | \\u | | the username of the current user
 ? | \\v | | the version of bash (e.g., 2.00)
 ? | \\V | | the release of bash, version + patch level (e.g., 2.00.0)
-${PWD} | \w | | the current working directory, with $HOME abbreviated with a tilde
-${PWD##*/}g | \W | | the basename of the current working directory, with $HOME abbreviated  with  a
-? |  | | the history number of this command
-? | \# | | the command number of this command
+${PWD} | \\w | | the current working directory, with $HOME abbreviated with a tilde
+${PWD##*/}g | \\W | | the basename of the current working directory, with $HOME abbreviated  with  a
+? | \\# | | the command number of this command
 ? | \\$ | | if the effective UID is 0, a #, otherwise a $
 ? | \\nnn | | the character corresponding to the octal number nnn
 ? | \\ | | a backslash

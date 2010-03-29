@@ -25,7 +25,7 @@
 
 checkcolor()
 {
-	test "x${UNSET}" != x && return 0
+	test "x${UNSET}" = x1 && return 0
 	local COLOR="$1"
 	case "${COLOR}" in
 	"#"[0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]) return 0;;
@@ -35,7 +35,7 @@ checkcolor()
 
 checkfnname()
 {
-	test "x${UNSET}" != x && return 0
+	test "x${UNSET}" = x1 && return 0
 
 	local FONT FONTNAME="$1" IFS="
 "
@@ -56,8 +56,6 @@ checkfnname()
 
 parseopts ()
 {
-	test "x${UNSET}" != x && return 0
-
 	case "${CMD}" in
 	*fg|*fgcolor)	checkcolor "${ARG}" ; FGCOLOR="${ARG}";;
 	*bg|*bgcolor)	checkcolor "${ARG}" ; 	BGCOLOR="${ARG}";;
