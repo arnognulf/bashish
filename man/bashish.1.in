@@ -40,49 +40,157 @@ When saving a theme, the current working directory must contain the theme to be 
 .TP
 \fIbashish\fP(1)
 .TP
+.SH Creating themes
+First of all, stay current to the latest Bashish release by cloning from Github, in this example we assume that your coding directory is ${HOME}/hacking:
+
+$ git clone git://github.com/arnognulf/bashish.git ${HOME}/hacking/bashish 
+
+Change ${HOME}/hacking to something more appropriate.
+
+Install Bashish locally (assuming you install stuff locally under ${HOME}/Unix as in good Ole' NeXTSTEP):
+
+.ct
+$ cd ${HOME}/hacking/bashish
+.ct
+$ ./autogen.sh --prefix=${HOME}/Unix
+.ct
+$ make install
+
+Run bashish one time to install nescessary config files in your home dir:
+
+.ct
+$ bashish
+
+If you get A FISH HERE WOO 
+
+To develop themes and submit them to the theme author, the recommended way to save themes to the Bashish source directory, create a link from your .bashish directory by doing this:
+
+.TP $ rmdir ${HOME}/.bashish/themes
+.TP $ ln -s ${HOME}/hacking/bashish/data/themes ${HOME}/.bashish/themes
 
 .SH PROMPT variables
 
 .TS
 center allbox tab(|);
-l l l
-l l l.
+l l l l
+l l l l
+l l l l
+l l l l
+l l l l
+l l l l
+l l l l
+l l l l
+l l l l
+l l l l
+l l l l
+l l l l
+l l l l
+l l l l
+l l l l
+l l l l
+l l l l
+l l l l
+l l l l
+l l l l
+l l l l
+l l l l
+l l l l
+l l l l
+l l l l
+l l l l
+l l l l
+l l l l
+l l l l
+l l l l
+l l l l
+l l l l
+l l l l
+l l l l
+l l l l
+l l l l
+l l l l
+l l l l
+l l l l
+l l l l
+l l l l
+l l l l
+l l l l
+l l l l
+l l l l
+l l l l
+l l l l
+l l l l
+l l l l
+l l l l
+l l l l
+l l l l
+l l l l
+l l l l
+l l l l
+l l l l
+l l l l
+l l l l
+l l l l
+l l l l.
 Bashish | Bash | Zsh | Description
 ${USER} | \\u  | %u |
 ${HOSTNAME%%.*} | \\h | %h | the username of the current user
 ${BEL} | \a | | an ASCII bell character (07)
-${DATE} |\d | the date in "Weekday Month Date" format (e.g., "Tue May 26")
-\D{format} | | the format is passed to strftime(3) and the result is inserted into the prompt
-${ESC} | \e | |an ASCII escape character (033)
-${HOSTNAME%%.*} | \h | | the hostname up to the first ‘.’
-${HOSTNAME} | \H | | the hostname
- | \j | the number of jobs currently managed by the shell
- | \l | the basename of the shell’s terminal device name
- |  | \n | | newline
- | \r | carriage return
- | \s | the  name  of  the  shell, the basename of $0 (the portion following the final slash)
- | \t | the current time in 24-hour HH:MM:SS format
- | \T | the current time in 12-hour HH:MM:SS format
- | \@ | the current time in 12-hour am/pm format
- | \A | the current time in 24-hour HH:MM format
- | \u | the username of the current user
- | \v | the version of bash (e.g., 2.00)
- | \V | the release of bash, version + patch level (e.g., 2.00.0)
-${PWD} | \w | the current working directory, with $HOME abbreviated with a tilde
-${PWD##*/}g | \W | the basename of the current working directory, with $HOME abbreviated  with  a
-╣ |  |   tilde
- | \! | the history number of this command
- | \# | the command number of this command
- | \$ | if the effective UID is 0, a #, otherwise a $
- | \nnn | the character corresponding to the octal number nnn
- | \\ | a backslash
+${DATE} |\d | | the date in "Weekday Month Date" format (e.g., "Tue May 26")
+D{format} |  i | | the format is passed to strftime(3) and the result is inserted into the prompt
+${ESC} | \e | ? | an ASCII escape character (033)
+${HOSTNAME%%.*} | \\h | i | the hostname up to the first ‘.’
+${HOSTNAME} | \H | ? | the hostname
+? | \j | | the number of jobs currently managed by the shell
+? | \\l | | the basename of the shell’s terminal device name
+? |  | \\n | ? | newline
+? | \r | | carriage return
+${0##*/} | \s | | the  name  of  the  shell, the basename of $0 (the portion following the final slash)
+${TIME} | \t | | the current time in 24-hour HH:MM:SS format
+? | \T | | the current time in 12-hour HH:MM:SS format
+? | \@ | | the current time in 12-hour am/pm format
+? | \A | | the current time in 24-hour HH:MM format
+${USER} | \u | | the username of the current user
+? | \v | | the version of bash (e.g., 2.00)
+? | \V | | the release of bash, version + patch level (e.g., 2.00.0)
+${PWD} | \w | | the current working directory, with $HOME abbreviated with a tilde
+${PWD##*/}g | \W | | the basename of the current working directory, with $HOME abbreviated  with  a
+? |  | | the history number of this command
+? | \# | the command number of this command
+? | \$ | if the effective UID is 0, a #, otherwise a $
+? | \nnn | the character corresponding to the octal number nnn
+? | \\ | a backslash
 ${EMBED} | \[ | begin a sequence of non-printing characters
 ${UNEMBED} | \] | end a sequence of non-printing characters
-
-
 .TE
 
-
+BG
+BLACK
+BLUE
+BOLD
+BRIGHTBG
+CURBACK
+CURDOWN
+CURFWD
+CURUP
+CYAN
+DATE
+DULL
+EMBED
+ESC
+FG
+GREEN
+MAGENTA
+NORMAL
+RED
+RESTORECUR
+SETCOLOR
+SETCURPOS
+SETSCROLLREG
+STORECUR
+UNEMBED
+WHITE
+YELLOW
 bashish   bash zsh\n
 .ct
 \tfoo\tbar\tbaz\n
