@@ -95,8 +95,13 @@ Advanced Usage:
 	local TERMDETECT=$(${BASHISHDIR}/lib/_bashish_termdetect)
 
 	printf "\
+
+"
+
+	printf "\
 Set terminal settings defaults (--default-* or -d* prefix) and
-Override terminal settings (no prefix):
+Override terminal settings (no prefix).
+Settings can be unset, by prefixing the variables with with -u* or --unset-*:
 
 "
 	## bgcolor, fgcolor
@@ -152,6 +157,13 @@ Transparency options:
 
 "
 esac	
+
+printf "\
+Reset all options:
+-ra|--reset-all
+
+"
+
 	printf "\
 Theme handling:
 
