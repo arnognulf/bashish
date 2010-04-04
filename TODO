@@ -34,11 +34,6 @@ bluesteel - make tcsh automaticly
 
 TITLE is a bit messy, should be local
 
-_fork() {
-	${1+"$@"}&
-}
-( _fork xmessage woo )
-
 mlterm:
 lockup
 

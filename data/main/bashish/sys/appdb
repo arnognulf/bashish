@@ -34,8 +34,6 @@ function _bashish_appdb
 	
 	for APP in "$HOME"/.bashish/app/*
 	do
-		echo FOO:"${APP} ${APP##*/}"
-
 		case "${APP}" in
 		*"*") :;;
 		*) test -L "${HOME}/.bashish/launcher/${APP##*/}"||ln -sf "${BASHISHDIR}"/lib/_bashish_launcher "${HOME}/.bashish/launcher/${APP##*/}";;

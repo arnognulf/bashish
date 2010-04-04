@@ -221,6 +221,8 @@ _bashish_promptupdate ()
 		## a small delay makes the term settle down before reloading the prompt
 		#sleep 0.5
 		
+		## create sync file
+		: >"$HOME/.bashish/tmp/${TTY##*/}/sync"
 
 	}
 	

@@ -66,8 +66,6 @@ export BASHISH_DISABLED=1
 #}
 test -d "$HOME/.bashish/prompt" && case "$1" in
 	init|-i*|--init)
-: >"$HOME/.bashish/tmp/${TTY##*/}/sync"
-
 		## if terminal loading is not enabled, don't start the terminal themer
 		test -f "${HOME}"/.bashish/terminal-theming-disabled && exit 1
 
