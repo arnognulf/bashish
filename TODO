@@ -18,11 +18,6 @@ if not same as in bin/bashish
 force update
 git log|head -n1|cut -d" " -f2
 
-critical bugfix: fix less
-issues with less - and program which uses less as a pager, humm,
-alias less ="printf '\0337\033[r\0338';less"
-alias man ="printf '\0337\033[r\0338';man"
-
 
 feat: preprocessor,
 c64 theme
