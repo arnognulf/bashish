@@ -111,6 +111,25 @@ _bashish_restore()
 	esac
 }
 
+## set old_size the first time (otherwise the prompt would reload
+OLD_SIZE="$COLUMNS$LINES"
+
+## check for size updates
+## force the shell to check for window size changes
+## if the window has changed, reload
+## otherwise do nothing
+##
+## this fixes some issues with gnome-terminal where some resizing
+## of the window would not send a winch signal
+_bashish_updatecheck ()
+{
+	local BASHISH_ISUPDATED=0
+	kill -s WINCH $$ 2>/dev/null
+	test "x$OLD_SIZE" != "x$COLUMNS$LINES" && _bashish_promptupdate
+	OLD_SIZE="$COLUMNS$LINES"
+	
+}
+
 ## load the fallback prompt to memory
 _bashish_promptupdate ()
 {
@@ -241,6 +260,10 @@ _bashish_promptupdate ()
 	## load _bashish_title() if available
 	_bashish_title
 	
+	## check for window size updates
+	test "x$BASH$ZSH_NAME" != x && PROMPT_COMMAND="_bashish_updatecheck;$PROMPT_COMMAND"
+	test "x$ZSH_NAME" != x && eval "precmd() { $PROMPT_COMMAND;}"
+
 	## re-enable CTRL+C
 	test "x$ZSH_NAME$BASH" != x && trap INT
 }
@@ -274,13 +297,13 @@ _bashish_winch_promptupdate()
 }
 
 ## re-paint on winch signals
-if test "x$BASH" != x
-then
-	trap "PROMPT_COMMAND=\"unset PROMPT_COMMAND;_bashish_promptupdate\"" WINCH
-elif test "x$ZSH_NAME" != x
-then
-	trap "eval \"precmd () { unset -f precmd; _bashish_promptupdate;}\"" WINCH
-fi
+#if test "x$BASH" != x
+#then
+#	trap "PROMPT_COMMAND=\"unset PROMPT_COMMAND;_bashish_promptupdate\"" WINCH
+#elif test "x$ZSH_NAME" != x
+#then
+#	trap "eval \"precmd () { unset -f precmd; _bashish_promptupdate;}\"" WINCH
+#fi
 
 ## re-paint whenever changing directory
 case "$SHELLNAME" in
