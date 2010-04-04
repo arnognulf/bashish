@@ -77,11 +77,6 @@ bash
 zsh 
 dash (posix shell)
 
-bourne shell cannot use variable substitution like ${FOO#*/}
-which sucks
-it could be assumed that no systems only have bourne shell, without keeping
-at least a posix shell handy
-
 
 feat: shellvars: en_US 12-hour time
 

@@ -1,7 +1,13 @@
 #!/bin/bash
 if test "x$BASHISH_DEBUG" = x1 
 then
-	echo "BASHISH_DEBUG is set"
+echo "BASHISH_DEBUG is set"
+	PS4="+"
+	set -x
+fi
+## if you want it badly, bashish debug can go to eleven!
+if test "x$BASHISH_DEBUG" = x11
+then
 	PS4="\
 1\
 \0337\
@@ -22,8 +28,7 @@ then
 \033[34m>\
 \033[94m>\
 \033[0m>"
-	PS4="+"
-	set -x
+set -x
 fi
 BASHISHDIR="@PREFIX@/share/bashish"
 BASHISH_SHELL="/bin/bash"
@@ -92,8 +97,7 @@ test -d "$HOME/.bashish/prompt" && case "$1" in
 			. "$BASHISHDIR"/lib/_bashish_utfcheck && BASHISH_CP=utf8
 		}
 	
-		IPCDIR="$HOME/.bashish/tmp/${TTY##*/}"
-		export TTY BASHISHDIR BASHISH_UTF IPCDIR
+		export TTY BASHISHDIR BASHISH_UTF
 		## dash is a bit faster at startup, at the cost of syntax
 		FORK_SHELL=sh
 		_bashish_fork()

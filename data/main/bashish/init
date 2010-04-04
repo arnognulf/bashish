@@ -184,7 +184,7 @@ $BASHISHNAME list
 
 function _bashish_module
 {
-	. "$BASHISHDIR"/main/bashish/$1
+	. "$BASHISHDIR"/main/bashish/"$@"
 }
 
 ## returncodes
@@ -371,8 +371,6 @@ $BASHISHNAME: press \033[1mreturn\033[0m to load the saved theme
 
 	_bashish_module sys/appdb
 
-	echo NO UPDATE
-	exit 0
 	_bashish_module sys/update
 	_bashish_module sys/termcleanup
 	errorhandler 0
