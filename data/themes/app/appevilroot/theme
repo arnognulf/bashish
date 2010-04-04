@@ -9,7 +9,7 @@
 BASHISH_THEME=evilroot
 _bashish_theme_appevilroot ()
 {
-EICON=dialog-warning3.png
+ICONFILE=dialog-warning3.png
 BGCOLOR="#000000"
 FGCOLOR="#cc3310"
 CURSORCOLOR="#ff3312"

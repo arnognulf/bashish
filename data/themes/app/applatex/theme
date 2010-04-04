@@ -4,5 +4,5 @@ _bashish_theme_applatex ()
 {
 TITLE="LaTeX"
 IMAGEFILE=""
-EICON=tex.png
+ICONFILE=tex.png
 }

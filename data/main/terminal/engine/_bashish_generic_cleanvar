@@ -45,7 +45,6 @@ function _bashish_generic_cleanvar
 	SIZE_Y\
 	POSITION_X\
 	POSITION_Y\
-	ICONIMAGEFILE\
 	BASHISH_STARTUP\
 	THEME_URL\
 	THEME_AUTHOR\
@@ -54,7 +53,7 @@ function _bashish_generic_cleanvar
 	THEME_MADEWITH\
 	DELAY\
 	DTICON\
-	EICON\
+	ICONFILE\
 	FONTSIZE\
 	BGVIEWPORT\
 	BGTRANSPARENCY\

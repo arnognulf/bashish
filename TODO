@@ -42,7 +42,7 @@ rxvt (regular):
 / 120: let: SIZE_X=484/: syntax error: operand expected (error token is "/")
 /home/arno/Unix/share/bashish/main/terminal/engine/_bashish_xterm_font: line
 / 121: let: SIZE_Y=316/: syntax error: operand expected (error token is "/")
-█▓▒░ arno@brunhilde█▓▒░ Sat Mar 20 02:42:49                                  
+░▒▓█ arno@brunhilde█▓▒░ Sat Mar 20 02:42:49                                  
 
 use SIGKILL instead of SIGWINCH so that linux bug can be overridden? (since
 sigwinch is not always sent

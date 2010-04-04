@@ -11,5 +11,5 @@ BGCOLOR="#030F03"
 FONTNAME="artwiz anorexia.se"
 FONTSIZE=9
 IMAGEFILE=""
-EICON=emblem-sound.png
+ICONFILE=emblem-sound.png
 }

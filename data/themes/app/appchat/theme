@@ -5,8 +5,8 @@ _bashish_theme_appchat ()
 {
 XFONT=ScrB11.pcf.gz
 case ${BASHISH_ARGV[0]} in
-irssi) EICON=smile.png;TITLE=Irrsi;;
-micq) EICON=icq.png;TITLE=mICQ;;
+irssi) ICONFILE=smile.png;TITLE=Irrsi;;
+micq) ICONFILE=icq.png;TITLE=mICQ;;
 esac
 BGCOLOR="#ffffff"
 FGCOLOR="#000000"

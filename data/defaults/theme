@@ -116,7 +116,7 @@ URXVTANTIALIAS=1
 CFONT=default8x16.psf.gz
 
 ## the nufty herring icon
-EICON=gnome-terminal.png
+ICONFILE=gnome-terminal.png
 
 ## terminal colors
 _bashish_theme_defaults_ansi_tango

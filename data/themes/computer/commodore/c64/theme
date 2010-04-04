@@ -20,7 +20,7 @@ CFONT=c64_8x8.fnt.gz
 
 ASCII_LOGO=boot
 BGTRANSPARENCY=0
-EICON=commodore.png
+ICONFILE=commodore.png
 FONTNAME="Pet Me 64"
 FONTSIZE=18
 

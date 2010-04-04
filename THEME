@@ -221,7 +221,7 @@ TRANSPARENCY bool:0/1
 SHADE int:0-100
 BGIMAGE string:[file]
 IMAGESCALE string
-EICON string:[file]
+ICONFILE string:[file]
 4.2.4 
 4.2.4 FONTNAME string
 FONTNAME is set to the Fontconfig name, the same as seen in the font

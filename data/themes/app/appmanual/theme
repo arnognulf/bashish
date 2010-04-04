@@ -14,10 +14,10 @@ CURSORCOLOR=000000
 
 case "$TERMNAME" in
 gnome-terminal)
-	EICON=book.png
+	ICONFILE=book.png
 ;;
 *)
-	EICON=man.png
+	ICONFILE=man.png
 esac
 
 BGTRANSPARENCY=0

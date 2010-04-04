@@ -34,9 +34,9 @@ function _bashish_gnome-terminal_properties
 		
 	local BASHISH_GCONFARGS
 	## icon
-	test "$EICON" -a "${BASHISH_STATE[301]}" != "$EICON" && {
-		BASHISH_GCONFARGS=$BASHISH_GCONFARGS" --set  /apps/gnome-terminal/profiles/Bashish/icon --type string $(_bashish_whichbtdir $EICON)/$EICON"
-		BASHISH_STATE[301]="$EICON"
+	test "$ICONFILE" -a "${BASHISH_STATE[301]}" != "$ICONFILE" && {
+		BASHISH_GCONFARGS=$BASHISH_GCONFARGS" --set  /apps/gnome-terminal/profiles/Bashish/icon --type string $(_bashish_whichbtdir $ICONFILE)/$ICONFILE"
+		BASHISH_STATE[301]="$ICONFILE"
 	}
 	
 	test "$IMAGEFILE" || BASHISH_GCONFARGS=$BASHISH_GCONFARGS" --set /apps/gnome-terminal/profiles/Bashish/background_type --type string solid"

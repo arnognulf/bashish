@@ -38,6 +38,6 @@ _bashish_theme_appcompress ()
 		TITLE="Decompressing ${BASHISH_ARGV[2]}"
 	;;
 	esac
-	EICON=archive.png
+	ICONFILE=archive.png
 	ICON=$TITLE
 }

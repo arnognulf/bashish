@@ -18,17 +18,17 @@ _bashish_theme_appeditornofont ()
 	ICON=$TITLE
 	
 	case "$APP" in
-	less|more) TITLE=Pager; EICON=document.png;;
-	nano) EICON=nano.png;;
-	emacs) EICON=gnu-head.png;;
-	vim|vi) EICON=vim.png ;;
+	less|more) TITLE=Pager; ICONFILE=document.png;;
+	nano) ICONFILE=nano.png;;
+	emacs) ICONFILE=gnu-head.png;;
+	vim|vi) ICONFILE=vim.png ;;
 	*)
 		case "$TERMNAME" in
 		gnome-terminal)
-			EICON=gedit.png
+			ICONFILE=gedit.png
 		;;	
 		*)
-			EICON=editor.png
+			ICONFILE=editor.png
 		esac
 	esac
 	test "x${BASHISH_ARGV[1]}" != x&&TITLE="${TITLE}: ${BASHISH_ARGV[1]}"

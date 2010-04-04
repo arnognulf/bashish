@@ -12,9 +12,9 @@ IMAGEFILE=""
 BGTRANSPARENCY=0
 case "$TERMNAME" in
 gnome-terminal)
-EICON=volume.png
+ICONFILE=volume.png
 ;;
 *)
-EICON=mixer-48.png
+ICONFILE=mixer-48.png
 esac
 }

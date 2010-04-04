@@ -26,5 +26,5 @@ FONTNAME="Amiga Forever"
 FONTSIZE=12
 BGTRANSPARENCY=0
 
-EICON=shell.png
+ICONFILE=shell.png
 }

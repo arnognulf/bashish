@@ -1,6 +1,8 @@
-2.2.5 - blah
+2.3.5 - blah
 ------------
 Apple foreground and background setting, yay!
+
+API breakage, EICON is now ICONFILE
 
 bluesteel, box and others fixed to work with osx and linux console
 
