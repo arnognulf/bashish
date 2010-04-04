@@ -143,7 +143,33 @@ _bashish_promptupdate ()
 
 		## reset scrolling region
 		printf "\033[H\033[2J\033[0;0r"
-		bashish --init
+		if test "x$BASH" = x
+		then
+			bashish --init
+		else
+			local BASHISH_INIT=1
+			_bashish_fork()
+			{
+				${1+"$@"}&
+			}
+			test "x${TTY}" = x/dev/console && BASHISH_INIT=0
+		
+			## the bashish terminal part makes no sense in Cygwin 9x/ME
+			test "x$TERM" = xcygwin && case "$(uname)"
+			in
+			CYGWIN_98*) BASHISH_INIT=0
+			esac
+
+			test -f "${HOME}"/.bashish/terminal-theming-disabled || BASHISH_INIT=0
+			case "${TTY}" in
+			/*) 
+				test -O "${TTY}"  || BASHISH_INIT=0
+			;;
+			*) BASHISH_INIT=0
+			esac
+ 
+			test "x$BASHISH_INIT" = x1 && ( _bashish_fork bash "${BASHISHDIR}/main/terminal/init" )
+		fi
 		hash -r
 	
 		## load the fallback prompt to memory
