@@ -17,25 +17,29 @@
 ## along with this program; if not, write to the Free Software
 ## Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 ##################################################################################
-
 function _bashish_appdb
 {
 	local APP
-	
+	## awkward special cases, if theses files exist (they did for me)
+	## appdb will silently fail
+	test -f "$HOME/.bashish/app/*" && rm -f "$HOME/.bashish/app/*"
+	test -e "$HOME/.bashish/launcher/*" && rm -f "$HOME/.bashish/launcher/*"	
 	for APP in "$HOME"/.bashish/launcher/*
 	do
 		case "${APP}" in
-		*"*") return 0
+		*"*") :;;
+		*) test -d "${HOME}"/.bashish/app/"${APP##*/}"||rm "${APP}" 2>/dev/null;;
 		esac
-		test -d "${HOME}"/.bashish/app/"${APP##*/}"||rm "${APP}" 2>/dev/null
 	done
 	
 	for APP in "$HOME"/.bashish/app/*
 	do
+		echo FOO:"${APP} ${APP##*/}"
+
 		case "${APP}" in
-		*"*") return 0
+		*"*") :;;
+		*) test -L "${HOME}/.bashish/launcher/${APP##*/}"||ln -sf "${BASHISHDIR}"/lib/_bashish_launcher "${HOME}/.bashish/launcher/${APP##*/}";;
 		esac
-		test -L "${HOME}/.bashish/launcher/${APP##*/}"||ln -sf "${BASHISHDIR}"/lib/_bashish_launcher "${HOME}"/.bashish/launcher/${APP##*/}
 	done
 }
 _bashish_appdb

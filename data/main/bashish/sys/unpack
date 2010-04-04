@@ -17,7 +17,6 @@
 ## along with this program; if not, write to the Free Software
 ## Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 ##################################################################################
-
 function _bashish_unpack
 {
 	## set theme name
@@ -61,3 +60,4 @@ function _bashish_unpack
 		fi
 	esac
 }
+_bashish_unpack "$1"

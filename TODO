@@ -1,5 +1,14 @@
 bashish-2.2.4
 -------------
+WINCH problems on gnome-terminal
+## crazy hack to fix b0rked winch in gnome-terminal et al
+PROMPT_COMMAND="trap WINCH ;kill -s WINCH $$; trap -- 'PROMPT_COMMAND=\"unset PROMPT_COMMAND;_bashish_promptupdate\"' SIGWINCH"
+
+less v418 on ubuntu not b0rked, why is 429?
+
+bashish profile (clone from Default profile?)
+menu bar esp.
+
 cut down on warnings:
 grep -v "^#"
 

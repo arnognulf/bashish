@@ -61,6 +61,8 @@ export BASHISH_DISABLED=1
 #}
 test -d "$HOME/.bashish/prompt" && case "$1" in
 	init|-i*|--init)
+: >"$HOME/.bashish/tmp/${TTY##*/}/sync"
+
 		## if terminal loading is not enabled, don't start the terminal themer
 		test -f "${HOME}"/.bashish/terminal-theming-disabled && exit 1
 
@@ -91,7 +93,7 @@ test -d "$HOME/.bashish/prompt" && case "$1" in
 		}
 	
 		IPCDIR="$HOME/.bashish/tmp/${TTY##*/}"
-		export TTY BASHISHDIR BASHISH_UTF
+		export TTY BASHISHDIR BASHISH_UTF IPCDIR
 		## dash is a bit faster at startup, at the cost of syntax
 		FORK_SHELL=sh
 		_bashish_fork()

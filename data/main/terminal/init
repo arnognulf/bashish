@@ -464,9 +464,7 @@ unset BTAPP BASHISH_ARGV[*] BASHISH_ARGC EVAL
 unset BTAPP BASHISH_ARGV ARGV EVAL
 _bashish_brefresh
 
-: >"$HOME/.bashish/tmp/${TTY##*/}/sync"
-
-printf "$$" 1> "$HOME"/.bashish/tmp/${TTY##*/}/pid
+printf "$$" 1> "$HOME"/.bashish/tmp/${TTY##*/}/pid || exit 1
 
 ## load each btapp alias/function
 for APPDIR in "$HOME"/.bashish/app/* 
@@ -523,7 +521,7 @@ then
 	kill $BASHISH_SUBPROC 2>/dev/null
 else
 	mkdir -p "${IPCDIR}/"
-	test -p "$IPCDIR/subproc" || mkfifo "$IPCDIR/subproc"
+	test -p "$IPCDIR/subproc" || mkfifo "$IPCDIR/subproc" || exit 1
 fi
 
 ## main loop
