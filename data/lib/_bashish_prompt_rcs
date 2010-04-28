@@ -19,7 +19,11 @@
 ##################################################################################
 ##
 ## _bashish_prompt_rcs displays a branch name for various revision control systems
-## 
+##
+## The data displayed about a rcs system in current working directory may differ wildly, for instance in git, several states about what is happening is displayed. In Subversion the tag/branch/trunk or (if none applies due to a misconfigured repo) the basename of the repo.
+## In order to keep the information compact, the repository *type* has been omitted, additionally if multiple rcs operate in the same directory, only one is shown.
+## For eg. repo there isn't an obvious way to display all information without printing very much info, and thus only the first found topic branch is displayed (and the directory it's found in), additionally if further directories with branches are found, ".." will be appended.
+##
 ## if a directory is under control of multiple rcs systems, the first one will be
 ## displayed in this order:
 ##
