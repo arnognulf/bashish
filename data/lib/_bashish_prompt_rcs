@@ -28,6 +28,7 @@
 ## bzr
 ## monotone
 ## darcs
+## repo
 ## svn
 ## cvs
 ##
@@ -199,6 +200,43 @@ _bashish_prompt_rcs ()
 	then
 		printf "${TRAVERSED_PS1}"
 		test "x${OLD_RCS}" = "x${TRAVERSED_PS1}" && return 1
+		return 0
+	fi
+
+	## repo detection
+	if test -d .repo 
+	then
+		local REPO_BRANCHES=""
+		for GITREPO_CONF in .repo/projects/*.git/config
+		do
+			local REPO_NAME=${GITREPO_CONF##.repo/projects/}
+			local REPO_NAME=${REPO_NAME%%.git/config}
+			local IFS="
+"
+
+
+		for LINE in $(cat ${GITREPO_CONF})
+			do
+				case "$LINE" in
+				"[branch "*) 
+				if test x"$REPO_BRANCHES" = x
+				then
+			
+					REPO_BRANCH=$( ( cd "${REPO_NAME}" && git symbolic-ref HEAD;))
+					REPO_BRANCHES="${REPO_NAME}:${REPO_BRANCH##*/}"
+					break
+				else
+					REPO_BRANCHES="${REPO_BRANCHES} .."
+					printf "${REPO_BRANCHES}"
+					test "x${OLD_RCS}" != "x${REPO_BRANCHES}" && return 1
+					return 0
+				fi
+				esac
+			done
+			unset IFS
+		done
+		printf "${REPO_BRANCHES}"
+		test "x${OLD_RCS}" != "x${REPO_BRANCHES}" && return 1
 		return 0
 	fi
 

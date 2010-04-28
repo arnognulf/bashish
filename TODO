@@ -152,9 +152,6 @@ KONSOLE_DCOP='DCOPRef(yakuake-8598,konsole)'
 KONSOLE_DCOP_SESSION='DCOPRef(yakuake-8598,session-1)'
 konsole
 
-GreenT. not gnome-terminal compatible
-http://forgeftp.novell.com//greent/homepage/screenshots.html
-
 oascript? tell this window of application Terminal
 iTerm support?
 
