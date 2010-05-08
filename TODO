@@ -1,5 +1,11 @@
 bashish-2.2.4
 -------------
+disable utf8 detection, problematic on macs, and eats characters that would otherwise be passed to the shell
+also cuts some msecs to boot :D
+
+disable xterm title setting detection in most cases
+
+
 less v418 on ubuntu not b0rked, why is 429?
 
 bashish profile (clone from Default profile?)
@@ -62,7 +68,7 @@ support the following shells (at least base support, show bluesteel
 correctly):
 
 bash
-zsh 
+zsh
 dash (posix shell)
 
 

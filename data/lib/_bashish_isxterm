@@ -28,6 +28,22 @@
 ## the screen, and thus the terminal would not report the cursor being moved
 test x$BASH != x && _bashish_prompt_isxterm ()
 {
+	## test for the more common ones, and fallback to (problematic) detection
+	## when we don't know
+	
+	case "$TERM" in
+	xterm*|rxvt*|Eterm*|screen) return 0;;
+	esac
+	
+	case "$TERM_PROGRAM" in
+	"Apple_Terminal") return 0;;
+	esac
+
+	## we must use detection for 
+	## TERM=linux
+	## TERM=vt100
+	## since other terminals may set these to be compatible with various apps
+
 	## cygwin-terminal is xterm compatible, but does not support terminal responses
 	test "x${TEST_TERM}" = xcygwin && return 0
 
