@@ -33,6 +33,25 @@ function _bashish_utfcheck {
         ## cygwin-terminal is utf-8 compatible, but does not support terminal responses
         test "x${TEST_TERM}" = xcygwin && return 0
 
+	## other systems which connects via ssh may not have the same encoding as us
+	## eg. putty on win32 defaults to latin-1, while most modern unices has migrated
+	## to utf-8
+	## if we're not SSHing in, assume correct encoding if LANG is set to UTF-8
+	if test "x$SSH_CLIENTSSH_CONNECTION$SSH_TTY" = x 
+	then
+		## only LANG includes the string "UTF-8" on Ubuntu
+		case "$LANG" in
+		*UTF-8)
+			return 0;;
+		esac
+		
+		## apperantly, also LC_CTYPE should say UTF-8, it does not in Ubuntu however.
+		case "$LC_CTYPE" in
+		*UTF-8)
+			return 0;;
+		esac
+	fi
+
 	## check if the terminal is of type VT100 compatible
 	case "$TERM" in
 	vt220|Eterm|vt320|linux|rxvt|rxvt-unicode|iris-ansi|ansi*|xterm*|hpterm|screen|konsole|gnome-terminal|interix|pcvt*|con80x*|con100x*|con132x*|console|386at|AT386|qnx*)
