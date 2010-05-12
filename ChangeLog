@@ -2,7 +2,15 @@
 ------------
 Apple foreground and background setting, yay!
 
+Less terminal checks on common terminals, this gives a huge startup boost and fixes some issues with Mac OS X.
+
+Google repo parsing in rcs
+
+Fix for size detection when the terminal does not sends WINCH (or it gets lost on the way)
+
 API breakage, EICON is now ICONFILE
+
+Syntax change, all code files are now correctly named with the #!/bin/bash header, which should make syntax checking in vim work better.
 
 bluesteel, box and others fixed to work with osx and linux console
 

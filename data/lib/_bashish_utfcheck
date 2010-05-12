@@ -37,17 +37,17 @@ function _bashish_utfcheck {
 	## eg. putty on win32 defaults to latin-1, while most modern unices has migrated
 	## to utf-8
 	## if we're not SSHing in, assume correct encoding if LANG is set to UTF-8
-	if test "x$SSH_CLIENTSSH_CONNECTION$SSH_TTY" = x 
+	if test "x$SSH_CLIENT$SSH_CONNECTION$SSH_TTY" = x 
 	then
 		## only LANG includes the string "UTF-8" on Ubuntu
 		case "$LANG" in
-		*UTF-8)
+		*UTF-8|*utf8)
 			return 0;;
 		esac
 		
 		## apperantly, also LC_CTYPE should say UTF-8, it does not in Ubuntu however.
 		case "$LC_CTYPE" in
-		*UTF-8)
+		*UTF-8|*utf8)
 			return 0;;
 		esac
 	fi
