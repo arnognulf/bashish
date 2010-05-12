@@ -153,7 +153,7 @@ function _bashish_termdetect {
 #}
 
 
-
+		test "x$STY" != x && THEMECAP=xterm-generic
 ## multi-byte terminals as 'mlterm' and 'cxterm'
 ## supports rxvt background color but no font changing
 		test -n "$MLTERM" && THEMECAP=xterm-rxvt-nofont
