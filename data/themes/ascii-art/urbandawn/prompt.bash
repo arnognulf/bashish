@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 ## colors and idea from this deviation by grevenlx, 
 ## http://www.deviantart.com/deviation/15483654/
 ##

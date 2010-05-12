@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 BASHISH_THEME=editornofont
 
 _bashish_theme_appeditornofont ()

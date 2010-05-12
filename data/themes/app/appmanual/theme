@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 BASHISH_THEME=manual
 _bashish_theme_appmanual ()
 {

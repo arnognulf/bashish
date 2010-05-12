@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # Created by icetrey <trey@imagin.net>
 # Added by Spidey 08/06
 # updated to bashish by arno

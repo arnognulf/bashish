@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #!theme
 _bashish_prompt ()
 {

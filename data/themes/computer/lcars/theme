@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 ## freebsd, netbsd, and openbsd
 BASHISH_THEME=lcars
 _bashish_theme_lcars ()

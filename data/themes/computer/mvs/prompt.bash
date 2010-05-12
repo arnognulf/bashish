@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 PROMPT_COMMAND="testloc"
 testloc ()
 {

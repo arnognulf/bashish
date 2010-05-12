@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 BASHISH_THEME=uberprompt
 _bashish_theme_uberprompt ()
 {

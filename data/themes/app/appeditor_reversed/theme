@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 BASHISH_THEME=editor_reversed
 
 _bashish_theme_appeditor_reversed ()

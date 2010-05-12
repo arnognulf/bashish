@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 ## @(#) created by arne
 #######################
 ## theme: amiga

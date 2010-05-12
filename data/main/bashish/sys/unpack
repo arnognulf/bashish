@@ -49,7 +49,7 @@ function _bashish_unpack
 
 		if test x"${BTAPP}" = x
 		then
-			printf "#"'!'"/bin/sh\n_bashish_prompt_argv()\n{\n:\n" >"${DESTDIR}/.argv"
+			printf "#"'!'"/bin/bash\n_bashish_prompt_argv()\n{\n:\n" >"${DESTDIR}/.argv"
 			INDEX=1
 			while test ${INDEX} -lt ${BASHISH_ARGC}
 			do

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 BASHISH_THEME=appleiie
 _bashish_theme_appleiie ()
 {

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # Blue
 # Created by BadlandZ in v.0.4b
 # Adapted by jf

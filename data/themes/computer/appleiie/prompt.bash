@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 _bashish_prompt_appleiie_firstrun()
 {

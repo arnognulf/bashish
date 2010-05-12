@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 BASHISH_THEME=oric1
 _bashish_theme_oric1 ()
 {

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 BASHISH_THEME=mvsmono
 _bashish_theme_mvsmono ()
 {

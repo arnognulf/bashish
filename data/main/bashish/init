@@ -45,7 +45,7 @@ function errorhandler
 		20) printf "$BASHISHNAME: file was saved to $BTFILE";;
 		21) printf "$BASHISHNAME: error saving, aborting on users request";;
 		22) printf "$BASHISHNAME: error saving, could not parse theme-file";;
-		220) printf "$BASHISHNAME: error saving, header in prompt.[zsh|ksh|bash|sh] or theme does not start with #"'!'"/bin/sh";;
+		220) printf "$BASHISHNAME: error saving, header in prompt.[zsh|ksh|bash|sh] or theme does not start with #"'!'"/bin/bash";;
 		221) printf "$BASHISHNAME: error saving, could not parse prompt.sh-file";;
 		222) printf "$BASHISHNAME: error saving, could not parse prompt.ksh-file";;
 		223) printf "$BASHISHNAME: error saving, could not parse prompt.bash-file";;

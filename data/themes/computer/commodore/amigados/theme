@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 ## bash (c) Thomas Eriksson this were originally based off the
 ## AmigaSHELL project, though it has had a nearly complete rewrite to be
 ## accurate to Wb 1.1 =)

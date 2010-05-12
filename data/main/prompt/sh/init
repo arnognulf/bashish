@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 ##################################################################################
 ## Bashish, a console theme engine
 ## Copyright (C) 2010 Thomas Eriksson

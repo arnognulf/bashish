@@ -32,7 +32,10 @@ function _bashish_save
 	for HEADERFILE in ./prompt.sh ./prompt.ksh ./prompt.zsh ./prompt.bash ./theme
 	do
 		test -f "${HEADERFILE}" && case $(head -n1 "$HEADERFILE") in
+		"#!/bin/bash"):;;
+		"#!/bin/zsh"):;;
 		"#!/bin/sh"):;;
+		"#!/bin/ksh"):;;
 		*) errorhandler 220 ;;
 		esac
 	done

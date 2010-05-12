@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 BASHISH_THEME=latex
 _bashish_theme_applatex () 
 {
