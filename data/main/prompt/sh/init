@@ -181,7 +181,7 @@ _bashish_promptupdate ()
 			CYGWIN_98*) BASHISH_INIT=0
 			esac
 
-			test -f "${HOME}"/.bashish/terminal-theming-disabled || BASHISH_INIT=0
+			test -f "${HOME}"/.bashish/terminal-theming-disabled && BASHISH_INIT=0
 			case "${TTY}" in
 			/*) 
 				test -O "${TTY}"  || BASHISH_INIT=0
@@ -189,7 +189,7 @@ _bashish_promptupdate ()
 			*) BASHISH_INIT=0
 			esac
  
-			test "x$BASHISH_INIT" = x1 && ( _bashish_fork bash "${BASHISHDIR}/main/terminal/init" )
+			test "x$BASHISH_INIT" = x1 && ( BASHISHDIR="$BASHISHDIR" _bashish_fork bash "${BASHISHDIR}/main/terminal/init" )
 		fi
 		hash -r
 	
@@ -246,7 +246,6 @@ _bashish_promptupdate ()
 		: >"$HOME/.bashish/tmp/${TTY##*/}/sync"
 
 	}
-	
 	## restore prompt
 	_bashish_restore
 
