@@ -1,5 +1,8 @@
 bashish-2.2.4
 -------------
+On theme restarts, a delay may have to be inserted since gnome-terminal takes quite a long time
+to switch fonts.
+
 Do a DECish theme
 digital VAX 11/780
 sgi bug theme:

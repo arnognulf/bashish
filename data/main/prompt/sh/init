@@ -58,6 +58,7 @@ test "$SHELLNAME" || {
 
 _bashish_loadhelpers ()
 {
+	local LIB
 	## most helpers are not ported to non-bash shells yet
 	test "x$BASH" = x && return 0
 	unset -f _bashish_loadhelpers
