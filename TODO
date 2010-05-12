@@ -1,10 +1,26 @@
 bashish-2.2.4
 -------------
-disable utf8 detection, problematic on macs, and eats characters that would otherwise be passed to the shell
-also cuts some msecs to boot :D
+Do a DECish theme
+digital VAX 11/780
+sgi bug theme:
+╱╲ │╴╳
+  ,
+ ╱│ │╲
+╱ │ │ ╲
+╲ │ │ ╱
+ ╲
 
-disable xterm title setting detection in most cases
+d i g i t a l
 
+Sun Logo:
+⊂ ⋃ ⋂   
+⊃   ⊂ 
+⋃ ⋂ ⊃
+
+	⋂	22C2	 	N-ARY INTERSECTION
+⋃	8899	⋃
+
+Terminal detection seems borked?
 
 less v418 on ubuntu not b0rked, why is 429?
 
