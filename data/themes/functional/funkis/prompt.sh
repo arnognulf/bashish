@@ -41,10 +41,10 @@ ${ESC}[${FG}${BASHISH_COLOR1};${BG}${BASHISH_COLOR0}${SETCOLOR}${USER}@${HOSTNAM
 ${ESC}[K\
 ${ESC}${RESTORECUR}\
 ${ESC}[${FG}${BASHISH_COLOR0};40${SETCOLOR}\
-${UNEMBED}\$ \
+${UNEMBED}\$\
 ${EMBED}\
 ${ESC}[${NORMAL}${SETCOLOR}\
-${UNEMBED}"
+${UNEMBED} "
 
 # All escape charachters we don't want counted (we don't want any except for $), we put between
 # ${EMBED} and ${UNEMBED}. Otherwise, eg. a color set escape character will be counted as a character
