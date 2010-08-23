@@ -26,8 +26,9 @@
 ## * directory cutoff for a specified length
 ##
 ## USAGE:
-## _bashish_prompt_cwd [SEPCOLOR] [TXTCOLOR] [CUTOFF]
+## _bashish_prompt_cwd $SHELLNAME [SEPCOLOR] [TXTCOLOR] [CUTOFF]
 ##
+## SHELLNAME first argument need to specify the shellname
 ## SEPCOLOR is the escape sequence for setting the directory separator color
 ## TXTCOLOR is the escape sequence for setting the directory text color
 ## CUTOFF   is the amount of characters to print before cutting the directory
