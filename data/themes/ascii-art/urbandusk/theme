@@ -1,0 +1,20 @@
+#!/bin/bash
+## @(#) created by arne
+#######################
+## colors and idea from this deviation by grevenlx, 
+## http://www.deviantart.com/deviation/15483654/
+##
+## I just added some crack pot VT100 commands ;) /Thomas
+##
+BASHISH_THEME=urbandusk
+
+_bashish_theme_urbandusk ()
+{
+THEME_AUTHOR="arne <arne@users.sourceforge.net>"
+
+TITLE="Urban Dusk"
+
+_bashish_theme_defaults_cp437font
+
+
+}
