@@ -63,7 +63,7 @@ function _bashish_prompt_cwd
 	fi
 	eval "case \"$PWD\" in \"$HOME\"*) PWD=\${PWD:"${#HOME}"};CWD=${EEMBED}\${TXTCOLOR}${EUNEMBED}\~;;/)CWD=${EEMBED}\${SEPCOLOR}${EUNEMBED}/;esac"
 	test $(( $COLUMNS - ${#PWD} )) -lt ${CUTOFF} && { 
-		CWD=${TXTCOLOR}...
+		CWD=${EEMBED}${TXTCOLOR}${EUNEMBED}...
 		eval "PWD=\"\${PWD:$(( ${#PWD} - ( $COLUMNS - $CUTOFF ) ))}\""
 	}
 	IFS=/
