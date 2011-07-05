@@ -2,6 +2,7 @@ V2 Credits
 ----------
 Bashish2 was mainly developed by Thomas 'arnognulf' Eriksson <arne AT users.sourceforge.net>
 
+Pedro Pais Lopes <pedropaislopes@gmail.com> for finding a bug in _bashish_prompt_cwd
 milleoiseaux for bug reports
 Adam Borowski for auditing and ideas about UTF-8
 J.A. Neitzel for testing, suggestions and patches about NetBSD and
