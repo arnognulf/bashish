@@ -81,7 +81,7 @@ test "x${HOSTNAME%%.*}" = x && HOSTNAME=$(hostname)
 test -d "$HOME/.bashish/tmp/${TTY##*/}" || mkdir -p "$HOME/.bashish/tmp/${TTY##*/}"
 
 printf "$$" >"$HOME"/.bashish/tmp/"${TTY##*/}"/shpid$$
-test -f "$HOME/.bashish/tmp/${TTY##*/}/sync" && rm "$HOME/.bashish/tmp/${TTY##*/}/sync"
+test -f "$HOME/.bashish/tmp/${TTY##*/}/sync" && rm -f "$HOME/.bashish/tmp/${TTY##*/}/sync"
 
 ## restore terminal on best effort
 _bashish_restore()
