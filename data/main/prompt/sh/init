@@ -189,8 +189,10 @@ _bashish_promptupdate ()
 			;;
 			*) BASHISH_INIT=0
 			esac
- 
-			test "x$BASHISH_INIT" = x1 && ( BASHISHDIR="$BASHISHDIR" _bashish_fork bash "${BASHISHDIR}/main/terminal/init" )
+                        if test "x$OSTYPE" != xcygwin
+                        then
+			    test "x$BASHISH_INIT" = x1 && ( BASHISHDIR="$BASHISHDIR" _bashish_fork bash "${BASHISHDIR}/main/terminal/init" )
+                        fi
 		fi
 		hash -r
 	
