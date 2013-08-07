@@ -19,6 +19,10 @@ PROMPT_COMMAND="_BASHISH_PROMPT_RCS=\$(_bashish_prompt_rcs \${_BASHISH_PROMPT_RC
 	i=1
 	LINECHAR=" "
 	VT100LINECHAR="${ESC}[4m"
+    case "${TERM}" in
+        linux)
+            LINECHAR="_"
+    esac
 	## special case for the Bitstream Century SchoolBook Mono,
 	## where underline simply looks better than vt100 underline
 	## in terminals which do not support vt100 underlines this may

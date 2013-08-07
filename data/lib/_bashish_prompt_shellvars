@@ -37,7 +37,7 @@ function _bashish_prompt_shellvars_common
 {
 	## dull otherwise changes color in linux console
 	case "$TERM" in
-	linux) printf ' DULL=0 BRIGHTBG=1\\;4 =BRIGHTFG=1\\;3';;
+	linux) printf " DULL=0 BRIGHTBG=1\\;4 BRIGHTFG=1\\;3";;
 	*) printf " BRIGHTBG=10 BRIGHTFG=9";;
 	esac
 	## OS X Terminal.app (tiger, OSX 10.4) does not handle bold attribute as everybody else
