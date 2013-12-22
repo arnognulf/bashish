@@ -249,8 +249,8 @@ fi
 	--bashishdir|-b) printf "$BASHISHDIR\n";errorhandler 1;;
 		--reset-all|-ra)
 ## reset all user set variables
-		test -f "${HOME}/.bashish/defaults/theme.user" && rm -f "${HOME}/.bashish/defaults/theme.user"
-		test -f "${HOME}/.bashish/overrides/theme.user" && rm -f "${HOME}/.bashish/overrides/theme.user"
+		test -f "${HOME}/.bashish/defaults/theme.user" && \rm -f "${HOME}/.bashish/defaults/theme.user"
+		test -f "${HOME}/.bashish/overrides/theme.user" && \rm -f "${HOME}/.bashish/overrides/theme.user"
 		_bashish_module sys/update
 		errorhandler 1 ""
 		;;
@@ -305,7 +305,7 @@ for LIST in $(gconftool-2 --get /apps/gnome-terminal/global/profile_list 2>/dev/
 	esac
 	unset IFS
 
-	test -f "${HOME}"/.bashish/terminal-theming-disabled && rm "${HOME}"/.bashish/terminal-theming-disabled ; gconftool-2 --type string --set /apps/gnome-terminal/global/default_profile "Bashish" 2>/dev/null; errorhandler 1 "terminal theming enabled";;
+	test -f "${HOME}"/.bashish/terminal-theming-disabled && \rm "${HOME}"/.bashish/terminal-theming-disabled ; gconftool-2 --type string --set /apps/gnome-terminal/global/default_profile "Bashish" 2>/dev/null; errorhandler 1 "terminal theming enabled";;
 	--disable-terminal|-dt) 
 		if type -p gconftool-2 1>/dev/null 2>/dev/null
 		then

@@ -35,7 +35,7 @@ function _bashish_update
 		then
 			#read SHPID <"$SHPIDFILE"
 			## clean up shpidfiles
-			kill -s WINCH "${SHPIDFILE##*shpid}" 2>/dev/null || rm -f "${SHPIDFILE}" 2>/dev/null
+			kill -s WINCH "${SHPIDFILE##*shpid}" 2>/dev/null || \rm -f "${SHPIDFILE}" 2>/dev/null
 		fi
 	done
 }

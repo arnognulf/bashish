@@ -523,7 +523,7 @@ then
 	kill $BASHISH_SUBPROC 2>/dev/null
 else
 	mkdir -p "${IPCDIR}/"
-    rm -f "${IPCDIR}/subproc"
+    \rm -f "${IPCDIR}/subproc"
 	test -p "${IPCDIR}/subproc" || mkfifo "${IPCDIR}/subproc" || exit 1
 fi
 

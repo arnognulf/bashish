@@ -30,7 +30,7 @@ function _bashish_unpack
 	test "x${BTAPP}" != x && DESTDIR="$HOME/.bashish/app/${BTAPP##*/}"
 	if test -d "${DESTDIR}"
 	then
-		rm "${DESTDIR}"/* 2>/dev/null
+		\rm "${DESTDIR}"/* 2>/dev/null
 	else
 		mkdir -p "${DESTDIR}"
 	fi
@@ -40,7 +40,7 @@ function _bashish_unpack
 	## check for special theme strings
 	case "${THEME}" in
 	none)
-		test "x$BTAPP" = x && rm "${HOME}/.bashish/launcher/${BTAPP}" ## remove launcher
+		test "x$BTAPP" = x && \rm "${HOME}/.bashish/launcher/${BTAPP}" ## remove launcher
 		rm -rf "${DESTDIR}" ## remove themedir
 	;;
 	*)

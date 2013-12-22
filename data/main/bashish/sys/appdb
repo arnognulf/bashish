@@ -22,8 +22,8 @@ function _bashish_appdb
 	local APP
 	## awkward special cases, if theses files exist (they did for me)
 	## appdb will silently fail
-	test -f "$HOME/.bashish/app/*" && rm -f "$HOME/.bashish/app/*"
-	test -e "$HOME/.bashish/launcher/*" && rm -f "$HOME/.bashish/launcher/*"	
+	test -f "$HOME/.bashish/app/*" && \rm -f "$HOME/.bashish/app/*"
+	test -e "$HOME/.bashish/launcher/*" && \rm -f "$HOME/.bashish/launcher/*"	
 	for APP in "$HOME"/.bashish/launcher/*
 	do
 		case "${APP}" in

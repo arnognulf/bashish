@@ -81,7 +81,7 @@ function _bashish_termloader
 		kill $BASHISH_SUBPROC 2>/dev/null
 	else
 		mkdir -p "${IPCDIR}/"
-        rm -f "$IPCDIR/subproc" 2>/dev/null
+        \rm -f "$IPCDIR/subproc" 2>/dev/null
 		test -p "$IPCDIR/subproc" || mkfifo "$IPCDIR/subproc"
 
 	fi
